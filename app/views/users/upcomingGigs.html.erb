@@ -1,0 +1,52 @@
+<% @calendarEntry.each do |upcomingGig| %>
+
+  <% if upcomingGig["reason"]["attendance"] == "im_going"  %>
+  
+    <% artistid = upcomingGig["event"]["performance"][0]["artist"]["id"] %>
+    <tr><td class="artistImageTd"><a href="<%= upcomingGig["event"]["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistid %>/large_avatar" class="artistImages"></a></td>
+  
+    <td>
+      
+    <% d = (upcomingGig["event"]["start"]["date"]).to_date %>
+    <div class="hiddenGigID"><%= ds = upcomingGig["event"]["id"] %></div>
+    <div class="uberdate myDates"><li class="datewrapLi"><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div>
+
+      <div class="gigInfo"><li class="gigName"><a href="<%= upcomingGig["event"]["uri"] %>" target="_blank"><%= upcomingGig["event"]["displayName"] %></a>
+        <br>
+        <%= upcomingGig["event"]["venue"]["metroArea"]["displayName"] %></li>
+<% unless @user.friends.count == 0 %>
+         <% @user.friends.each do |friend| %>
+         <% unless User.find_by_uid(friend).nil? %>
+    <% unless  Gig.where(user_id: User.find_by_uid(friend).id).nil? || Gig.where(user_id: User.find_by_uid(friend).id).count == 0 %>
+    <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
+    <% gigs.each do |gig| %>
+    <% if gig.songkick_id == ds %>
+    <img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
+
+
+      </div></div>
+    
+    
+    
+    
+  <% end %>
+  </td></tr>
+  <% end %>
+
+  <tr ><td><%= will_paginate @calendarEntry, renderer: BootstrapPagination::Rails %></td></tr>
+
+
+  <script type="text/javascript">
+
+  $('.shareGig').click(function(){
+        $('#messageURL').val('G#' +$(this).parents('.uberdate').siblings('.hiddenGigID').html());
+  });
+
+  </script>

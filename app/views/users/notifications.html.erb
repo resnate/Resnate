@@ -1,0 +1,33 @@
+<% if current_user.mailbox.conversations.count == 0 %>
+        No notifications (share some music with your friends!).
+<% else %>
+	<% current_user.mailbox.conversations.each do |conversation| %>
+         
+      
+    <% receipts = conversation.receipts_for current_user %>
+      <% receipts.each do |receipt|%>
+        <% unless receipt.message.subject[1] != "|" %>
+      		<% conversation.mark_as_read(current_user) %>
+          <% unless receipt.message.body.include?(current_user.name) %>
+      		<% message = receipt.message %>
+          <div class="notificationMsg">
+      		<%= message.body %>
+          <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+          </div>
+        <br>
+          <% end %>
+      	
+        <% end %>
+      
+      <% end %>
+    <% end %>
+
+<script type="text/javascript">
+
+$('#pointDiv').val($('#pointCount').html());
+
+$('#pointCount').addClass('invisCount');
+
+</script>
+
+<% end %>

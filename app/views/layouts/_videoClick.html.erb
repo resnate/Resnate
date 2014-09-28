@@ -1,0 +1,50 @@
+$('#infoID').val(videoID);
+        $('#navID').html('<img src="https://img.youtube.com/vi/'+videoID+'/hqdefault.jpg" id="navIDPic" >');
+        $('#navButtons').html('<li class="navLis"><span class="glyphicon glyphicon-fast-backward" ></span></li><li class="navLis"><span class="glyphicon glyphicon-pause" ></span></li><li class="navLis" style="display:none"><span class="glyphicon glyphicon-play" ></span></li><li class="navLis"><span class="glyphicon glyphicon-fast-forward" ></span></li>');
+        var songName = $(this).siblings('p').text().trim();
+        
+    
+        $('#infoIDName').val(songName);
+        $('#subHistory').click();
+              player.loadVideoById(videoID ); 
+              var shareURL = "youtu.be/" + videoID;
+              var tweetVideo = $(this).siblings('p').text().slice(0,96).replace(/\"|\#|\&/g, '');
+              $('#infoTitle').html($(this).siblings('p').text().trim());
+              $('#navTitle').html($(this).siblings('p').text().slice(0,42));
+    $('#currentShare').html('<li class="csIcons"><span class="glyphicon glyphicon-plus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div></li><li class="csIcons"><span class="glyphicon glyphicon-thumbs-up"></span></li><li class="csIcons" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li><li id="fbShare" class="csIcons"><a class="twitter popup" href="http://facebook.com/sharer/sharer.php?app_id=397688387002984&u='+shareURL+'"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a></li><li class="csIcons" id="tweeter"><a class="twitter popup" href="http://twitter.com/share?url=resnate.com&text=Listening%20to%20'+tweetVideo+' '+shareURL+' @resnate"><%= image_tag "twitter.png", id: "twit" %></a></li>');
+    
+    $.get("/<%= current_user.id %>/"+$('#infoID').val()+"/songs/show", function(result){
+        $('#likeOrNot').html(result);
+        if($('#likeOrNot').html() == '') {
+          
+        } else {
+          $('#InfoShare .glyphicon-thumbs-up').addClass('liked');
+        }
+      });
+
+      $.getJSON("../<%= current_user.id %>/userPlaylists.json",function(data){
+      $(data).each(function(i,result){
+        $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
+    });
+    });
+
+    $('.glyphicon-plus').click(function(event){
+    event.stopPropagation();
+    $(this).siblings('.btn-group').find('.dropdown-menu').toggle();
+  });
+
+  $(document).click( function(){
+        $('.dropdown-menu').hide();
+    });
+
+     $('.popup').click(function (event) {
+    event.preventDefault();
+    window.open($(this).attr("href"), "popupWindow", "width=600,height=400,scrollbars=yes");
+    return false;
+});
+
+     $('#InfoShare').on('click', '#csImg', function(){
+        $('#messageURL').val('~`' + $(this).parents('#currentShare').siblings('#infoIDstuff').children('form').children('.field_with_errors').find('#infoID').val()+','+$(this).parents('#currentShare').siblings('#infoTitle').html());
+  });
+
+  friendsLikeSong();

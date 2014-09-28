@@ -1,0 +1,623 @@
+<% if current_user.followees(User).count == 0 %>
+
+<h3> Follow friends to see their activity! </h3>
+
+<% unless @user.friends.nil? || @user.friends.count == 0 %>
+
+
+<% @user.friends.each do |friend| %>
+  <% unless User.find_by_uid(friend).nil? %>
+    <div class="followDiv">
+    <img src="http://graph.facebook.com/<%= friend %>/picture?width=200&height=200" class="followImgs"><span class="hiddenID"><%= User.find_by_uid(friend).id %></span><span class="followNames"><%= User.find_by_uid(friend).name %></span>
+  <% end %>
+</div>
+<% end %>
+
+<% end %>
+
+
+<% else %>
+
+<% @activities.limit(20).each do |activity| %>
+
+<% unless activity.key == "like.destroy" || activity.key == "playlist.destroy" || activity.key == "follow.destroy" || activity.key == "gig.destroy" %>
+<% unless activity.key == "follow.create" && Follow.find_by_id(activity.trackable_id).nil? || activity.key == "like.create" && Like.find_by_id(activity.trackable_id).nil? || activity.key == "playlist.create" && Playlist.find_by_id(activity.trackable_id).nil? || activity.key == "playlist.update" && Playlist.find_by_id(activity.trackable_id).nil? || activity.key == "gig.create" && Gig.find_by_id(activity.trackable_id).nil? %>
+ <% if current_user.follows?(activity.owner) || activity.owner == current_user %>
+  <div class="activity">
+    
+   
+    
+    <%= image_tag "http://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+    <% if activity.trackable_type == "Gig" %>
+
+        <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= activity.trackable.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
+
+        <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Gig" %>
+  <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
+
+        <span class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= activity.trackable.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></span>
+
+        <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Gig" %>
+  <span class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></span>
+
+        
+    
+
+    <% elsif activity.trackable_type == "Song" %>
+    <img src='https://img.youtube.com/vi/<%= activity.trackable.content %>/mqdefault.jpg' class="feedYT" >
+    <p class="hiddenYTName"><%= activity.trackable.name %></p>
+
+     <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Song" %>
+
+    <img src='https://img.youtube.com/vi/<%= Song.find(Like.find(activity.trackable_id).likeable_id).content %>/mqdefault.jpg' class="feedYT" >
+    <p class="hiddenYTName"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></p>
+
+    <% elsif activity.trackable_type == "Playlist" %>
+    <% unless Playlist.find_by_id(activity.trackable_id).nil? %>
+    <div class="activityYT activityPlaylist" >
+    <div class="playlistContent">
+      <%= activity.trackable_id %>
+    </div>
+    <div class="playlistUserId">
+      <%= Playlist.find(activity.trackable_id).user_id %>
+    </div>
+
+
+  <% img1 = "a" %>
+
+<% JSON.parse(Playlist.find(activity.trackable_id).content)[0].each do |k, v| %>
+<% img1 = v %>
+<% end %>
+
+<img src="https://img.youtube.com/vi/<%= img1 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+
+<% end %>
+
+  
+
+  
+</div>
+
+    <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Follow" %>
+      <% if Follow.find(activity.trackable_id).followable_type == "User" %>
+        <% unless User.find_by_id(Follow.find(activity.trackable_id).followable_id).nil? %>
+
+        <div class="activityYT" >
+            <%= image_tag "http://graph.facebook.com/#{User.find(Follow.find(activity.trackable_id).followable_id).uid}/picture?width=200&height=200", class: "feedFollowPic" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+          </div>
+        <% end %>
+
+      <% elsif Follow.find(activity.trackable_id).followable_type == "Playlist" %>
+        <% unless Playlist.find_by_id(Follow.find(activity.trackable_id).followable_id).nil? %>
+          <div class="activityYT activityPlaylist" >
+          <div class="playlistContent">
+          <%= Follow.find(activity.trackable_id).followable_id %>
+            </div>
+          <div class="playlistUserId">
+            <%= Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+          </div>
+
+
+          <% img2 = "a" %>
+
+          <% JSON.parse(Playlist.find(Follow.find(activity.trackable_id).followable_id).content)[0].each do |k, v| %>
+          <% img2 = v %>
+          <% end %>
+
+          <img src="https://img.youtube.com/vi/<%= img2 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+
+          </div>
+        <% end %>
+
+      <% end %>
+
+    
+
+    <% end %>
+
+    <div class="activityInfo">
+
+    <div class="profileName"><%= activity.owner.name if activity.owner %></div><div class="hiddenID" style="display:none"><%= activity.owner.id %></div>
+
+
+
+    <div class="verb">
+    <% if activity.trackable_type == "Song" %>
+      listened to 
+    <% elsif activity.trackable_type == "Playlist" %>
+      <% if activity.key == "playlist.create" %>
+
+      created the playlist
+
+      <% elsif activity.key == "playlist.update" %>
+      updated the playlist
+      
+      <% end %>
+
+    <% elsif activity.key == "like.create" %>
+
+      liked
+
+    <% elsif activity.key == "follow.create" %>
+    
+      <% if Follow.find(activity.trackable_id).followable_type == "Playlist" %>
+    followed the playlist
+      <% elsif Follow.find(activity.trackable_id).followable_type == "User" %>
+    is following
+      <% end %>
+    
+    <% elsif activity.key == "gig.create" %>
+    is going to
+     <br>
+    <% end %>
+    </div>
+      <br>
+    <div class="activityDetails">
+      
+      <% if activity.trackable_type == "Socialization::ActiveRecordStores::Like" %>
+        <% if Like.find(activity.trackable_id).likeable_type == "Song" %>
+        <div class="activityName"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></div>
+        <div class="hiddenYTID" style="display:none"><%= Song.find(Like.find(activity.trackable_id).likeable_id).content %></div>
+        <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+
+        <br>
+        <% elsif Like.find(activity.trackable_id).likeable_type == "Gig" %>
+        <div class="uberdate myDates feedDates"><li class="datewrapLi"><div class="date-wrap"><span class="month feedMonth"></span><span class="day feedDay"></span></li>
+
+
+          <li class="gigName"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
+        <br>
+        <span class="feedGigLocation"></span></li>
+
+        <% unless @user.friends.count == 0 %>
+         <% @user.friends.each do |friend| %>
+         <% unless User.find_by_uid(friend).nil? %>
+    <% unless  Gig.where(user_id: User.find_by_uid(friend).id).nil? || Gig.where(user_id: User.find_by_uid(friend).id).count == 0 %>
+    <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
+    <% gigs.each do |gig| %>
+    <% if gig.songkick_id == Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>
+    <span class="followerSpan"><img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div></span>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
+
+      </div><div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+        
+        <% end %>
+      
+      <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Follow" %>
+      
+        <% if Follow.find(activity.trackable_id).followable_type == "Playlist" %>
+        <div class="activityName feedPlaylistName"><%= Playlist.find(Follow.find(activity.trackable_id).followable_id).name %></div><span style="display:inline"> by </span><span class="playlistCreatorSpan"><div class="playlistCreatorFeed"><%= User.find(Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id).name %></div><div class="hiddenID" style="display:none"><%= Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %></div></span>
+        <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+        <br>
+
+
+       
+
+
+        <% elsif Follow.find(activity.trackable_id).followable_type == "User" %>
+        <div class="activityName"><div class="profileFollowName"><%= User.find(Follow.find(activity.trackable_id).followable_id).name %></div><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div></div>
+        <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+        <br>
+        
+         
+          
+
+        <% end %>
+      
+      <% elsif activity.trackable_type == "Playlist" || activity.trackable_type == "Song" %>
+          <% if activity.trackable_type == "Playlist" %>
+          <div class="activityName feedPlaylistName"><%= activity.trackable.name %></div>
+          <% else %>
+          <div class="activityName"><%= activity.trackable.name %></div>
+          <% end %>
+
+          <div class="hiddenYTID" style="display:none"><%= activity.trackable.content %></div>
+          <% if activity.key == "playlist.create" || activity.key == "song.create"  %>
+          <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+          <% elsif activity.key == "playlist.update" || activity.key == "song.update"  %>
+          <div class="updatedAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.updated_at.to_s)) %> ago</div>
+          <% end %>
+          <br>
+        
+      <% elsif activity.trackable_type == "Gig" %>
+        <div class="uberdate myDates feedDates"><li class="datewrapLi"><div class="date-wrap"><span class="month feedMonth"></span><span class="day feedDay"></span></li>
+
+
+          <li class="gigName"><a href="http://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
+        <br>
+        <span class="feedGigLocation"></span></li>
+
+        <% unless @user.friends.count == 0 %>
+         <% @user.friends.each do |friend| %>
+         <% unless User.find_by_uid(friend).nil? %>
+    <% unless  Gig.where(user_id: User.find_by_uid(friend).id).nil? || Gig.where(user_id: User.find_by_uid(friend).id).count == 0 %>
+    <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
+    <% gigs.each do |gig| %>
+    <% if gig.songkick_id == activity.trackable.songkick_id %>
+    <span class="followerSpan"><img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div></span>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
+
+
+      </div><div class="hiddenGigID"><%= activity.trackable.songkick_id %></div>
+
+      
+
+      
+      <% end %>
+      </div>
+      
+<% if activity.trackable_type == "Socialization::ActiveRecordStores::Follow" %>
+
+  <% if Follow.find(activity.trackable_id).followable_type == "Playlist" %>
+    <% unless Playlist.find_by_id(Follow.find(activity.trackable_id).followable_id).nil? %>
+      <% if current_user.follows?(Playlist.find(Follow.find(activity.trackable_id).followable_id)) %>
+          <div class="feedButtons">
+          <span class="feedShares fUl"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedUnfollow fUl", style: "display: inline" %></span>
+
+          <span class="feedShares fFl" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedFollow fFl" %></span>
+          <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+          </div>
+      <% elsif current_user.follows?(Playlist.find(Follow.find(activity.trackable_id).followable_id)) == false && current_user.id != Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+          <div class="feedButtons">
+            <span class="feedShares fFl"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedFollow fFl", style: "display: inline" %></span>
+
+            <span class="feedShares fUl" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedUnfollow fUl" %></span>
+            <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+          </div>
+      <% elsif current_user.id == Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+    <div class="feedButtons">
+        <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+    </div>
+      <% end %>
+       
+    <div class="activityYT activityPlaylist" >
+    <div class="playlistContent">
+      <%= Follow.find(activity.trackable_id).followable_id %>
+    </div>
+    <div class="playlistUserId">
+      <%= Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+    </div>
+
+
+<% img2 = "a" %>
+
+<% JSON.parse(Playlist.find(Follow.find(activity.trackable_id).followable_id).content)[0].each do |k, v| %>
+<% img2 = v %>
+<% end %>
+
+<img src="https://img.youtube.com/vi/<%= img2 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+
+
+
+    <% end %>
+    
+  <% elsif Follow.find(activity.trackable_id).followable_type == "User" %>
+    <% unless User.find_by_id(Follow.find(activity.trackable_id).followable_id).nil? %>
+    <% if current_user == User.find(Follow.find(activity.trackable_id).followable_id) %>
+    <div class="feedButtons"></div>
+     <% elsif current_user.follows?(User.find(Follow.find(activity.trackable_id).followable_id)) %>
+          <div class="feedButtons">
+          <span class="feedShares fUlUser"><%= button_to "Unfollow", unfollow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedUnfollow fUlUser", style: "display: inline" %></span>
+
+          <span class="feedShares fFlUser" style="display: none"><%= button_to "Follow", follow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedFollow fFlUser" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div></span>
+
+          </div>
+          <% else %>
+          <div class="feedButtons">
+            <span class="feedShares fFlUser"><%= button_to "Follow", follow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedFollow fFlUser", style: "display: inline" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div></span>
+
+            <span class="feedShares fUlUser" style="display: none"><%= button_to "Unfollow", unfollow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :get, class: "feedUnfollow fUlUser" %></span>
+          </div>
+          <% end %>
+          
+    <% end %>
+  <% end %>
+
+<% end %>
+
+<% if activity.trackable_type == "Playlist" %>
+
+  <% if current_user.follows?(Playlist.find(activity.trackable_id)) %>
+          <div class="feedButtons">
+          <span class="feedShares fUl"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :get, class: "feedUnfollow fUl", style: "display: inline" %></span>
+
+          <span class="feedShares fFl" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :get, class: "feedFollow fFl" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div></span>
+          <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div>
+          </div>
+  <% elsif current_user.follows?(Playlist.find(activity.trackable_id)) == false && current_user.id != Playlist.find(activity.trackable_id).user_id %>
+          <div class="feedButtons">
+            <span class="feedShares fFl"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :get, class: "feedFollow fFl", style: "display: inline" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div></span>
+
+            <span class="feedShares fUl" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :get, class: "feedUnfollow fUl" %></span>
+            <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div>
+          </div>
+    <% elsif current_user.id == Playlist.find(activity.trackable_id).user_id %>
+    <div class="feedButtons">
+        <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+        <div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div>
+    </div>
+  <% end %>
+
+<% end %>
+
+
+ <% if activity.trackable_type == "Song" || activity.trackable_type ==  "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Song" %>     
+<div class="feedButtons">
+ <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs"></span>
+ <% if activity.trackable_type == "Song" %>
+ 
+ <% songs = Song.where(content: activity.trackable.content) %>
+ <% songs.each do |song| %>
+<% song.liked_by?(@user) %>
+<% if song.liked_by?(@user) == true %>
+<div class="likeTrue">true</div>
+<% end %>
+
+
+<% end %>
+<div class="jamID"><%= Song.find(activity.trackable_id).content %></div>
+<div class="jamTitle"><%= Song.find(activity.trackable_id).name %></div>
+<% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Song" %>
+
+<% likedSongs = Song.where(content: Song.find(Like.find(activity.trackable_id).likeable_id).content) %>
+ <% likedSongs.each do |likedSong| %>
+<% likedSong.liked_by?(@user) %>
+<% if likedSong.liked_by?(@user) == true %>
+<div class="likeTrue">true</div>
+<% end %>
+<% end %>
+
+
+<div class="jamID"><%= Song.find(Like.find(activity.trackable_id).likeable_id).content %></div>
+<div class="jamTitle"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></div>
+<% end %>
+
+
+<%= image_tag "ResnateShareIcon.png", class: "feedCsImg feedShares", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+</div>
+<% end %>
+    
+    
+   
+
+    
+    
+    
+    <% end %>
+    </div>
+
+<div class="likesNcomments">
+  <% if activity.trackable_type == "Song" %>
+    <% songs = Song.where(content: activity.trackable.content) %>
+    <% likeTotal = 0 %>
+    <% likerNames = [] %>
+    <% songs.each do |song| %>
+      <% likeTotal += song.likers(User).count %>
+      <% song.likers(User). each do |liker| %>
+        <% if liker == current_user %>
+        <% likerNames.unshift("You") %>
+        <% else %>
+        <% likerNames.push(liker.name) %>
+        <% end %>
+      <% end %>
+    <% end %>
+      <% if likeTotal == 1 %>
+        <% if likerNames[0] == "You" %>
+        <%= likerNames[0] %> like this.
+        <% else %>
+        <%= likerNames[0] %> likes this.
+        <% end%>
+      <% elsif likeTotal == 2 %>
+      <%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      <% elsif likeTotal == 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      <% elsif likeTotal > 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      <% end %>
+    <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Song" %>
+
+    <% songs = Song.where(content: Song.find(Like.find(activity.trackable_id).likeable_id).content) %>
+    <% likeTotal = 0 %>
+    <% likerNames = [] %>
+    <% songs.each do |song| %>
+      <% likeTotal += song.likers(User).count %>
+      <% song.likers(User). each do |liker| %>
+        <% if liker == current_user %>
+        <% likerNames.unshift("You") %>
+        <% else %>
+        <% likerNames.push(liker.name) %>
+        <% end %>
+      <% end %>
+    <% end %>
+      <% if likeTotal == 1 %>
+        <% if likerNames[0] == "You" %>
+        <%= likerNames[0] %> like this.
+        <% else %>
+        <%= likerNames[0] %> likes this.
+        <% end%>
+      <% elsif likeTotal == 2 %>
+      <%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      <% elsif likeTotal == 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      <% elsif likeTotal > 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      <% end %>
+  <% end %>
+</div>
+
+  </div>
+<% end %>
+<% end %>
+<% end %>
+<% end %>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+  $('.shareGig').click(function(){
+        $('#messageURL').val('G#'+$(this).parents('div.uberdate.myDates.feedDates').siblings('.hiddenGigID').html());
+  });
+
+   var urls = [];
+
+  for(j=0; j<$('.feedGigs').length; j++){
+    urls.push($('.feedGigs').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.feedGigs').length; j++){
+    $.ajax({
+      url: urls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.feedGigs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.feedMonth').eq(i).html(moment(data.resultsPage.results.event.start.date).format("MMM"));
+
+                            $('.feedDay').eq(i).html(moment(data.resultsPage.results.event.start.date).format("DD"));
+
+                            $('.feedGigName').eq(i).html(data.resultsPage.results.event.displayName);
+
+                            $('.feedGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
+
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
+
+
+  $('.activityPlaylist').click(function(){
+  $.get($(this).find('.playlistContent').html()+"/show", function(result){
+    $('#Playlist').html(result);
+  
+});
+  home();
+});
+
+  $('.activity').on('click', '.feedYT', function(){
+      var videoID = $(this).attr('src').slice(27,38);
+      <%= render "layouts/videoClick" %>
+      
+     
+    });
+  
+  $('.profileName, .profileFollowName, .feedPic, .feedFollowPic, .playlistCreatorFeed').click(function(){
+    var userSearch = "/" + $(this).siblings('.hiddenID').html();
+  $.get(userSearch, function(result){
+  $('#box3').html(result);});
+    $('#container').animate({
+        left: '100%',
+        top: '-100%'
+    });
+  });
+
+  $('.feedCsImg').click(function(){
+     $('#messageURL').val('~`' + $(this).parent().siblings('.activityDetails').find('.hiddenYTID').html()+','+$(this).parent().siblings('.activityDetails').find('.activityName').html());
+  });
+
+  $('.feedCsImgFollow').click(function(){
+     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).parent().parent().find('.activityName').html());
+  });
+
+
+$('.activity').each(function(){
+  if($(this).find('.likeTrue').html() == 'true'){
+    $(this).find('.feedThumbs').addClass('liked');
+  }
+});
+
+
+
+$('.activity').on('click', '.glyphicon-thumbs-up', function(){
+  if($(this).hasClass('liked')){
+    $(this).removeClass('liked');
+ $.get("/<%= current_user.id %>/"+$(this).parent().siblings('.activityDetails').find('.hiddenYTID').html()+"/unlike", function(result){
+        
+      });
+ } else {
+  $(this).addClass('liked');
+  $.get("/<%= current_user.id %>/"+$(this).parent().siblings('.activityDetails').find('.hiddenYTID').html()+"/like", function(result){
+        
+      });
+
+  $.get("/"+$(this).parent().siblings('.profileName').siblings('.hiddenID').html().trim()+"/point1", function(result){
+        
+      });
+
+    $('#shareCurrentID').val($(this).parent().siblings('.profileName').siblings('.hiddenID').html().trim());
+  $('#messageURL').val('S|');
+  $('textarea').val('<%= current_user.name %> liked '+$(this).parent().siblings('.activityDetails').find('.activityName').html().trim() + '!');
+  $('#shareSubmit').click();
+  $('#messageURL').val('');
+  $('textarea').val('Check this out!');
+ }
+});
+
+$('.feedFollow.fFl').click(function(){
+  $(this).parents('.feedShares').css("display", "none");
+  $(this).parents('.feedShares').siblings('.feedShares.fUl').css("display", "inline-block");
+  $('#shareCurrentID').val($(this).parents('.feedButtons').siblings('.activityDetails').find('.playlistCreatorSpan').find('.hiddenID').html().trim());
+  $('#messageURL').val('P|');
+  $('textarea').val('<%= current_user.name %> is following '+$(this).parents('.feedButtons').siblings('.activityDetails').find('.feedPlaylistName').html() + '!');
+  $('#shareSubmit').click();
+  $('#messageURL').val('');
+  $('textarea').val('Check this out!');
+});
+
+$('.feedUnfollow.fUl').click(function(){
+  $(this).parents('.feedShares').css("display", "none");
+  $(this).parents('.feedShares').siblings('.feedShares.fFl').css("display", "inline-block");
+});
+
+$('.feedUnfollow.fUlUser').click(function(){
+  $(this).parents('.feedShares.fUlUser').css("display", "none");
+  $(this).parents('.feedShares.fUlUser').siblings('.feedShares.fFlUser').css("display", "inline-block");
+});
+
+$('.feedFollow.fFlUser').click(function(){
+  $(this).parents('.feedShares.fFlUser').css("display", "none");
+  $(this).parents('.feedShares.fFlUser').siblings('.feedShares.fUlUser').css("display", "inline-block");
+});
+
+$('.followNames, .followImgs').click(function(){
+    var userSearch = "/" + $(this).siblings('.hiddenID').html();
+    $('.close').click();
+  $.get(userSearch, function(result){
+  $('#box3').html(result);});
+    $('#box1').animate({
+        left: '0%',
+        top: '-100%'
+    });
+  });
+
+
+
+
+});
+</script>

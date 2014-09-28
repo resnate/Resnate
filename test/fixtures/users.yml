@@ -1,0 +1,47 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  provider: MyString
+  uid: MyString
+  name: MyString
+  email: MyString
+  image: MyString
+  oauth_token: MyString
+  oauth_expires_at: 2014-09-20 03:05:01
+  location: MyString
+  info: MyText
+  musicLikes: MyText
+  songkickID: MyString
+  jamID: MyString
+  first_name: MyString
+  jamName: MyString
+  ip_address: MyString
+  latitude: 1.5
+  longitude: 1.5
+  address: MyString
+  city: MyString
+  country: MyString
+  friends: MyText
+
+two:
+  provider: MyString
+  uid: MyString
+  name: MyString
+  email: MyString
+  image: MyString
+  oauth_token: MyString
+  oauth_expires_at: 2014-09-20 03:05:01
+  location: MyString
+  info: MyText
+  musicLikes: MyText
+  songkickID: MyString
+  jamID: MyString
+  first_name: MyString
+  jamName: MyString
+  ip_address: MyString
+  latitude: 1.5
+  longitude: 1.5
+  address: MyString
+  city: MyString
+  country: MyString
+  friends: MyText

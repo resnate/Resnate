@@ -1,0 +1,573 @@
+<% require 'songkick' %>
+<% require 'json' %>
+<% require 'geocoder' %>
+<% client = Songkick.new("Pxms4Lvfx5rcDIuR", :json) %>
+<% unless @user.jamID == nil %>
+<% jamURL = @user.jamID %>
+<% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
+<% unless jamURL == nil || jamURL.match(matchYoutubeUrl) == nil? %>
+<% jamID = jamURL.match(matchYoutubeUrl)[1] %>
+<% end %>
+<% end %>
+<div id="userID" style="display:none">
+<%= userID = @user.id %>
+</div>
+
+<div id="upperHalf">
+<div class="fbLikes userInfo" >
+  <h4 style="float:left" id="getUserLikes" data-toggle="modal" data-target="#getUserLikesModal" onclick="getLikes">Artists <%=@user.first_name%> Likes</h4>
+  <br>
+  <ul>
+    <% unless @user.musicLikes.nil? %>
+  <% @user.musicLikes.take(4).each do |ml| %>
+  <li class="ml">
+    <h5 class="mlSpan"><%= ml %></h5>
+  <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
+</li>
+  <% end %>
+  <% end %>
+  </ul>
+</div>
+
+<% if jamID == nil %>
+<div id="userJam"><%= image_tag "nocoversong.png", id: "noJamImg" %>
+<% else %>
+<div id="userJam"><img width="361px"height="271px" src="https://img.youtube.com/vi/<%= jamID %>/hqdefault.jpg" id="userJamImg"><p class="historyPs" id="userJamText"><%= @user.jamName %></p>
+<% end %>
+
+<div class="userInfo" id="userNameNstatus"><h5><%= @user.name %></h5><div id="picNfollow"><%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "userProfilePicBig" %>
+
+  <% if current_user.follows?(@user) %>
+  <div id="picFooter">
+  <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :get , class: "unfollow", style: "display: block" %>
+  <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :get , class: "follow", style: "display: none" %>
+</div>
+
+  <% else %>
+    <% if current_user == @user %>
+
+    <% else %>
+  
+    <div id="picFooter">
+    <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :get , class: "follow", style: "display: block" %>
+    <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :get , class: "unfollow", style: "display: none" %>
+    <span class="hiddenID"><%= @user.id %></span>
+  <span id="hiddenUser" class="hiddenID"><%= current_user.name%></span>
+  </div>
+  <% end %>
+  <% end %>
+
+</div>
+
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+$(function(){
+$('#userJam').hover( 
+    function(){
+    $("#userJamText").css("display", "block");
+  }, function(){
+    $("#userJamText").css("display", "none");
+  });
+
+    $('#userJamImg').click( function() {
+      var videoID = $('#userJam img').attr('src').slice(27,38);
+      
+      <%= render "layouts/videoClick" %>
+    });
+
+
+
+
+$('.follow, .unfollow').hover(
+  function(){
+    $(".follow, .unfollow").css("color", "white");
+  }, function(){
+    $(".follow, .unfollow").css("color", "#D8D8D8 ");
+  });
+
+
+
+
+$('.follow').click(function(){
+  $(".follow").css("display", "none");
+  $(".unfollow").css("display", "block");
+});
+
+$('.unfollow').click(function(){
+  $(".unfollow").css("display", "none");
+  $(".follow").css("display", "block");
+});
+
+});
+
+</script>
+<% songkickID = @user.songkickID %>
+
+
+<div id="followsAndBadges">
+  <div id="userFollows" data-toggle="modal" data-target="#UserFolloweesModal"><h4>Following</h4>
+   <h5> <%= @user.followees(User).count %></h5>
+  </div>
+  <div id="userFollowers" data-toggle="modal" data-target="#UserFollowersModal"><h4>Followers</h4>
+    <h5>
+    <%= @user.followers(User).count %></h5>
+  </div>
+
+<% if @user.level_name == "Filthy Casual" %>   
+<div class="levelName filthy">
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "Hipster" %>   
+<div class="levelName hipster">
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "ÜberHipster" %>   
+<div class="levelName uberHipster">
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "Groupie" %>   
+<div class="levelName groupie">
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "SuperGroupie" %>   
+<div class="levelName superGroupie">
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "Rock Star" %>   
+<div class="levelName rockStar">
+
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "Rap God" %>   
+<div class="levelName rapGod">
+  <%= @user.level_name %>
+</div>
+
+  <%= @user.level_name %>
+</div>
+<% elsif @user.level_name == "Rap God" %>   
+<div class="levelName rapGod">
+  <%= @user.level_name %>
+</div>
+
+<% elsif @user.level_name == "BIGGER THAN JESUS" %>   
+<div class="levelName">
+  <font color="red">BI</font><font color="orange">GG</font><font color="yellow">ER </font></font><font color="green">TH</font><font color="blue">AN </font><font color="indigo">JE</font><font color="violet">SUS</font>
+</div>
+<% end %>
+
+ <h6> <%= @user.points %> points</h6>
+
+  <div id="userBadges"><h4>Badges</h4>
+    <% @user.badges.each do |badge| %>
+    <%= image_tag (badge.custom_fields[:image]), :float => "left", class: 'badgeImg' %>
+    <% end %>
+
+  </div>
+</div>
+<% listenerID = @user.id %>
+<div id="userHistory"><h4 class="userHistoryInfo">Listening History</h4>
+  <% if @user.songs.count >= 4 %>
+  <table>
+    <tr><td><div class="userHistoryImgTDs" id="userHist1"><img width="361px"height="271px" src="https://img.youtube.com/vi/<%= @user.songs[0].content %>/hqdefault.jpg" class="historyImg"><p class="historyPs"><%= @user.songs[0].name %></p></div></td><td><div class="userHistoryImgTDs" id="userHist2"><img width="361px"height="271px" src="https://img.youtube.com/vi/<%= @user.songs[1].content %>/hqdefault.jpg" class="historyImg"><p class="historyPs"><%= @user.songs[1].name %></p></div></td></tr>
+
+    <tr><td><div class="userHistoryImgTDs" id="userHist3"><img width="361px"height="271px" src="https://img.youtube.com/vi/<%= @user.songs[2].content %>/hqdefault.jpg" class="historyImg"><p class="historyPs"><%= @user.songs[2].name %></p></div></td><td><div class="userHistoryImgTDs" id="userHist4"><img width="361px"height="271px" src="https://img.youtube.com/vi/<%= @user.songs[3].content %>/hqdefault.jpg" class="historyImg"><p class="historyPs"><%= @user.songs[3].name %></p></div></td></tr>
+  </table>
+  <% else %>
+  <%= @user.first_name %> has not listened to any songs.
+  <% end %>
+
+  
+</div>
+</div>
+<br>
+<br><br><br>
+<div id="lowerHalf">
+<% if songkickID.nil? %>
+ 
+
+<div id="noSongkick">
+  <%= @user.first_name %> has no gig history or upcoming gigs.
+	</div>
+
+<% else %>
+<% calendarEntry = JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["results"]["calendarEntry"] %>
+<% if calendarEntry.nil? %>
+<div id="noGigs">No gigs! <br> Username is invalid, or you just need to get a few gigs under your belt at <a href="www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).</div>
+<% else %>
+
+<div id="pastGigs" class="gigBlocks">
+  <table class="gigTables userInfo">
+    <tr><td colspan="2"><span data-toggle="modal" data-target="#pastGigsModal" id="userSeeAllpast"><h4>Past Gigs</h4></span></td></tr>
+  <% userCalendar = JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["results"]["event"] %>
+  <% for i in (0..1) %>
+  
+    <% artistImage = userCalendar[i]["performance"][0]["artist"]["id"] %>
+    <tr class="pastGigsRows"><td><a href="<%= userCalendar[i]["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistImage %>/large_avatar" class="artistImages"></a></td>
+    <td>
+    <% d = (userCalendar[i]["start"]["date"]).to_date %>
+    <div class="uberdate myDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
+    <a href="<%= userCalendar[i]["uri"] %>" target="_blank"><%= userCalendar[i]["displayName"] %></a><br>
+    <%= cityName = userCalendar[i]["venue"]["metroArea"]["displayName"] %>
+    <% userCalendar[i]["performance"][0]["artist"]["displayName"] %>
+    <% pastGigDate = Date.parse(userCalendar[i]["start"]["date"]).strftime("%d-%m-%Y") %>
+    <% artistName = (userCalendar[i]["performance"][0]["artist"]["displayName"]) %>
+    
+    
+    </td></tr>
+    
+  <% end %>
+  
+  </table>
+  </div>
+	<% end %>
+  <div id="goingTo" class="gigBlocks">
+<table class="gigTables userInfo">
+<tr><td colspan="2"><span data-toggle="modal" data-target="#upcomingGigsModal" id="userSeeAll"><h4>Upcoming Gigs</h4></span></td></tr>
+
+
+<% for i in (0..1) %>
+
+  <% if calendarEntry[i]["reason"]["attendance"] == "im_going"  %>
+  
+    <% artistid = calendarEntry[i]["event"]["performance"][0]["artist"]["id"] %>
+    <tr><td><a href="<%= calendarEntry[i]["event"]["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistid %>/large_avatar" class="artistImages"></a></td>
+  
+    <td>
+      
+    <% d = (calendarEntry[i]["event"]["start"]["date"]).to_date %>
+    <div class="uberdate myDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div>
+
+      <li><a href="<%= calendarEntry[i]["event"]["uri"] %>" target="_blank"><%= calendarEntry[i]["event"]["displayName"] %></a>
+        <br>
+        <%= calendarEntry[i]["event"]["venue"]["metroArea"]["displayName"] %></li></div>
+    
+    
+    
+    
+  <% end %>
+  </td></tr>
+  <% end %>
+  </table>
+
+</div>
+<% end %>
+
+<div id="playlists" class="gigBlocks">
+  <table class="gigTables userInfo">
+<tr><td colspan="2"><span data-toggle="modal" data-target="#userPlaylistsModal" id="userSeePlaylists"><h4>Playlists</h4></span></td></tr>
+
+
+<% if Like.where(liker_id: @user.id).count === 0 %>
+<tr><td><div id="noLikes"><%= @user.first_name %> has not liked any songs.</div></td></tr><br>
+<% else %>
+<tr class="userLikedInfo"><td>
+<div class="userLikedContent">
+
+
+
+</div>
+<img src="https://img.youtube.com/vi/<%= Song.find(Like.find_by_liker_id(@user.id).likeable_id).content %>/mqdefault.jpg" class="playlistImg" >
+
+</td>
+<td class="playlistName">Liked</td>
+
+
+
+</tr>
+<% end %>
+<% if @user.playlists.count === 0 %>
+
+<tr class="userPlaylistInfo"><td>
+  <br>
+<div id="noPlaylists"><%= @user.first_name %> has not created any playlists.</div>
+</td></tr>
+<% else %>
+<tr class="userPlaylistInfo"><td><div class="playlistContent">
+
+<% img1 = "a" %>
+<%= @user.playlists.first.id %></div>
+<% JSON.parse(@user.playlists[0].content)[0].each do |k, v| %>
+<% img1 = v %>
+<% end %>
+
+<img src="https://img.youtube.com/vi/<%= img1 %>/mqdefault.jpg" class="playlistImg" >
+
+</td>
+<td class="playlistName"><%= @user.playlists[0].name %></td>
+</tr>
+<% if @user.playlists.count >= 2 %>
+<tr class="userPlaylistInfo"><td><div class="playlistContent">
+
+<% img2 = "a" %>
+<%= @user.playlists.second.id %></div>
+<% JSON.parse(@user.playlists[1].content)[0].each do |k, v| %>
+<% img2 = v %>
+<% end %>
+
+
+<img src="https://img.youtube.com/vi/<%= img2 %>/mqdefault.jpg" class="playlistImg" >
+</td>
+<td class="playlistName"><%= @user.playlists[1].name %></td>
+</tr>
+<% end %>
+<% end %>
+</table>
+</div>
+</div>
+<div class="modal fade" id="UserFolloweesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Following</h4>
+      </div>
+      <div class="modal-body" id="UserFolloweesBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="UserFollowersModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Followers</h4>
+      </div>
+      <div class="modal-body" id="UserFollowersBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pastGigsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Past Gigs</h4>
+      </div>
+      <div class="modal-body" id="pastGigsBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="upcomingGigsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Upcoming Gigs</h4>
+      </div>
+      <div class="modal-body" id="upcomingGigsBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="userPlaylistsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>'s Playlists</h4>
+      </div>
+      <div class="modal-body" id="userPlaylistsBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Send a message to <%= @user.first_name %></h4>
+      </div>
+      <div class="modal-body" id="sendBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="getUserLikesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Artists <%=@user.first_name%> Likes</h4>
+      </div>
+      <div class="modal-body" id="getUserLikesBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+  
+  var urls = [];
+
+  for(j=0; j<$('.ml').length; j++){
+    urls.push($('.mlImg').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.ml').length; j++){
+    $.ajax({
+      url: urls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
+
+  
+});
+
+$('#getUserLikes').click(function(){
+
+   $('#getUserLikesBody').html("<p>Loading...</p>");
+  
+  $.get("<%= @user.id %>/artistLikes", function(result){
+  $('#getUserLikesBody').html(result);});
+});
+
+$('.modal').on('hidden.bs.modal', function () {
+  $('#getUserLikesBody').html('');
+});
+
+
+$('body, #getUserLikesBody').on('click', '.ml', function(){
+  $('#getUserLikesBody').html('');
+  $('.modal').modal('hide');
+  $('#search_query').val($(this).find('.mlSpan').html());
+  $('#newSearch').click();
+  $('body, #getUserLikesBody').unbind('click')
+});
+
+$('.userHistoryImgTDs').hover( 
+    function(){
+    $(this).find("p").css("display", "block");
+  }, function(){
+    $(this).find("p").css("display", "none");
+  });
+
+$('.userHistoryImgTDs').on( 'click', 'img', function() {
+      var videoID = $(this).attr('src').slice(27,38);
+      <%= render "layouts/videoClick" %>
+    });
+
+$('#userFollows, #userFollowers').hover( 
+    function(){
+    $(this).css("color", "red");
+  }, function(){
+    $(this).css("color", "white");
+  });
+
+$('.follow').click(function(){
+  $('#shareCurrentID').val($(this).parents('.button_to').siblings('.hiddenID').html());
+  $('#messageURL').val('U|');
+  $('textarea').val($('#hiddenUser').html() + ' is now following you!');
+  $('#shareSubmit').click();
+  $('#messageURL').val('');
+  $('textarea').val('Check this out!');
+});
+
+$('#userSeeAllpast').click(function(){
+  $('#pastGigsBody').html("<p>Loading...</p>");
+  
+  $.get("<%= @user.id %>/pastGigs", function(result){
+  $('#pastGigsBody').html(result);});
+});
+
+$('#userSeeAll').click(function(){
+  $('#upcomingGigsBody').html("<p>Loading...</p>");
+  
+  $.get("<%= @user.id %>/upcomingGigs", function(result){
+  $('#upcomingGigsBody').html(result);});
+});
+
+$('#userFollows').click(function(){
+  $('#UserFolloweesBody').html("<p>Loading...</p>");
+  
+  $.get("<%= @user.id %>/followees", function(result){
+  $('#UserFolloweesBody').html(result);});
+});
+
+$('#userFollowers').click(function(){
+  $('#UserFollowersBody').html("<p>Loading...</p>");
+  
+  $.get("<%= @user.id %>/followers", function(result){
+  $('#UserFollowersBody').html(result);});
+});
+
+$('#userSeePlaylists').click(function(){
+  $('#userPlaylistsBody').html("<p>Loading...</p>");
+  
+  $.get("<%= @user.id %>/userPlaylists", function(result){
+  $('#userPlaylistsBody').html(result);});
+});
+
+$('.userPlaylistInfo').click(function(){
+  $.get("<%= @user.id %>/"+$(this).find('.playlistContent').html()+"/show", function(result){
+    $('#Playlist').html(result);
+  home();
+});
+});
+
+$('.userLikedInfo').click(function(){
+  $.get("<%= @user.id %>/likes", function(result){
+    $('#Playlist').html(result);
+  home();
+});
+});
+
+<% if @user.songs.count >= 4 %>
+
+$('.userHistoryInfo').click(function(){
+  $.get("<%= @user.id %>/history", function(result){
+    $('#Playlist').html(result);
+  home();
+});
+});
+
+<% end %>
+
+</script>

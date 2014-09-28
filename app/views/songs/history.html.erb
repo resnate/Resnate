@@ -1,0 +1,5 @@
+<% @songs.each do |song| %>
+
+<li style="" class="ui-draggable"><p><%= song.name %><span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", data: {toggle: "modal",target: "#shareModal"} %></span></p><img src="https://img.youtube.com/vi/<%= song.content %>/mqdefault.jpg" class="playlistYT" alt="thumbnail" width="150px"></li>
+
+<% end %>

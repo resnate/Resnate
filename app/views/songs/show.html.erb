@@ -1,0 +1,6 @@
+<% @songs.each do |song| %>
+<% song.liked_by?(@user) %>
+<% if song.liked_by?(@user) == true %>
+<%= true %>
+<% end %>
+<% end %>

@@ -1,0 +1,36 @@
+<table>
+
+<% for i in 0..(@user.musicLikes.length-1) %>
+	<% artist = client.search_artists(@user.musicLikes[i]) %>
+	<% artistid = JSON.parse(artist.to_json)["resultsPage"]["results"]["artist"][0]["id"] %>
+
+	<td><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistid %>/large_avatar" class="artistImages"></td>
+
+	<td><li id="musicLikesLi"><strong><%= @user.musicLikes[i] %></strong></li>
+	<% searchEvents = client.search_events(:artist_name => @user.musicLikes[i]) %>
+	<% results = JSON.parse(searchEvents.to_json)["resultsPage"] %>
+	<% events = results['results'] %>
+		<% if results["totalEntries"] == 0 %>
+			<br>
+			<li><%= "No gigs announced" %></li><br />
+		<% else %>
+				<% searchEvents = client.search_events(:artist_name => @user.musicLikes[i], :location => "clientip") %>
+				<% searchEventsLength = searchEvents["resultsPage"]["totalEntries"] %>
+				<% for l in (0..searchEventsLength-1) %>
+				<strong>GIG IN YOUR AREA!</strong><br>
+					<%= gigsInUserArea = searchEvents["resultsPage"]["results"]["event"][l]['displayName'] %><br>
+				<% end %>
+				<br>
+				<% for k in (0..2) %>
+				<% gigLocation = events["event"][k]["location"]["city"] %>
+				<% gigLocationCoords = JSON.parse((Geocoder.search(gigLocation)).to_json)[0]["data"]["address_components"][0]["long_name"] %>
+				<li><%= events["event"][k]['displayName'] %></li>
+				<% end %>
+
+
+			</td>
+				<br />
+		<% end %>
+<% end %>
+</li>
+</table>

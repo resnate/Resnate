@@ -1,0 +1,849 @@
+<div id="container">
+
+  <div id="Welcome">
+    <div id="Welcome1">
+      <h3>Music. Gigs. Merch.</h3>
+      <h1 id="bigResnate">Resnate.</h1>
+      <h4>Share Music. Get Cred.</h4>
+      <h4>Playlists with just a drag and a drop.</h4>
+      <h4>Go from Filthy Casual, to Rock Star, to Bigger Than Jesus.</h4>
+      
+    </div>
+  
+    <div id="Welcome2">
+      <%= link_to image_tag("ResnateCropped.png"), "/auth/facebook" %>
+      <br><br><br>
+      <span><%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %></span>
+    </div>
+    <h4 id="homeFooter"> A music social discovery site using YouTube + Songkick + Amazon + Setlist.fm APIs. </h4>
+  </div>
+
+  <div id="box1" class="box">
+  
+
+<% unless current_user.nil? %>
+<% unless current_user.songkickID.nil? %>
+  <div id="hiddenSongkickID"><%= current_user.songkickID %></div>
+    <div id="hiddenGigsIDs">
+        <% uGarray = [] %>
+        <% current_user.gigs.each do |uG| %>
+        <% uGarray.push(uG.songkick_id) %>
+        <% end %>
+        <%= uGarray %>
+    </div>
+  <%= form_for(current_user.gigs.create, remote:true) do |f| %>
+      <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+      <%= f.text_field :songkick_id, id: "songkickGigID" %>
+
+      <%= f.submit "Gig IDs", id: "gigIDsSubmit", remote:true %>
+    <% end %>
+<% end %>
+
+<div id="hub">
+<div id="searchNsee">
+
+      <div id="videoResultsDiv"></div>
+
+      <div id="playlistInfoNContent">
+      <div id="playlistInfo">
+    <input id="playlistInput" placeholder="New Playlist Name">
+            <%= form_for(current_user.playlists.create, remote:true) do |f| %>
+            <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+      <%= f.text_field :content, id: "playlistContent"  %>
+      <%= f.text_field :name, id: "playlistName" %>
+      
+      <%= f.submit "Save Playlist", id: "savePlaylist", remote:true %>
+
+
+      
+     <% end %>
+     <div id="playlistWrapper"><div id="playlistMsg"></div></div>
+     <input id="update_playlists" placeholder="Update a Playlist" type="text" autocomplete="off" >
+            <input type="hidden" name="updatePlaylistId" id="updatePlaylistId" value="" />
+      <button id="getUpdatePlaylist" type="hidden"></button>
+     <div id="result3"></div>
+     
+     <div id="updateWrapper"><div id="updateConfirmation"></div></div>
+     <button id="clearPlaylist" onclick="deleteAll()">Clear Playlist</button>
+        </div>
+
+      <div id="Playlist">
+        
+          <div id="drag">Drag Videos Here</div>
+        </div>
+        </div>
+  </div>
+<% @user = current_user %>
+<% if !current_user.nil? %>
+  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Share with:</h4>
+      </div>
+      <div class="modal-body">
+
+        <input id="shareCurrentInput" ><%= image_tag "ResnateShareIcon.png", id: "shareCurrentImg" %>
+        <%= form_tag({controller: "messages", action: "create"}, method: :post, remote:true) do %>
+        
+        <input type="textbox" name="user" id="shareCurrentID">
+        <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+        <%= text_field_tag :subject, nil, id: "messageURL" %>
+        <br><br>
+        <%= text_area_tag :body,  "Check this out!", rows: 4, maxlength: 256, placeholder: "Add a message!" %>
+        <%= submit_tag 'Send message', id: "shareSubmit" %>
+        <% end %>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+      <div id="YTtest">
+        <iframe id="player" width="100%"height="100%"frameborder="0" title="YouTube video player"type="text/html"src="https://www.youtube.com/embed/tza3RLAfGzo?enablejsapi=1&rel=0&showinfo=0" webkitallowfullscreen mozallowfullscreen allowfullscreen name="player"></iframe>
+       
+        
+       
+        <div id="InfoShare">
+          <div id="likeOrNot"></div>
+          <div id="stopID">
+          </div>
+          <div id="infoTitle">
+            
+          </div>
+          <div id="infoIDstuff">
+            <% if !current_user.nil? %>
+            <%= form_for(@user.songs.create, remote:true) do |f| %>
+            <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+      <%= f.text_field :content, id: "infoID" %>
+      <%= f.text_field :name, id: "infoIDName" %>
+
+      <%= f.submit "History ID", id: "subHistory", remote:true %>
+    <% end %>
+    <% end %>
+          </div>
+            <div id="likeForm">
+           
+    </div>
+      <div id="friendsLikeArtist">
+          <div id="friendsHeader"><h6>Friends who like <br><span id="queryFriends"></span></h6></div>
+          <div id="friendsLikeDiv">
+          </div>
+        </div>
+          <div id="currentShare">
+          
+          </div>
+        </div>
+        
+        
+            <iframe name="AmazonResults" id="iframeAmazon">
+            </iframe>
+        <h6 id="moreMerch">More Merch at Amazon</h6>
+      </div>
+
+      <div id="merchNgigs">
+        
+            <h4>Gigs</h4><h6 id="moreGigs">More Gigs at Songkick</h6>
+            <div id="Gigs">
+              <div id="gig0" class="uberdate"></div>
+              <div id="gig1" class="uberdate"></div>
+              <div id="gig2" class="uberdate"></div>
+            </div>
+            
+      </div></div>
+
+<% if !current_user.nil? %>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add to:</h4>
+      </div>
+      <div class="modal-body">
+
+        
+            
+            <input id="search_playlists" placeholder="Search Playlists" type="text" autocomplete="off" >
+            <input type="hidden" name="newSong" id="newSong" value="" />
+      
+      <input type="hidden" name="playlistId" id="playlistId" value="" />
+      <button id="getPlaylist" type="hidden"></button>
+
+    
+      <div id="result2"></div>  
+        
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="modal fade" id="inboxModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Your Messages</h4>
+      </div>
+      <div class="modal-body" id="inboxBody">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pointsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Your Notifications</h4>
+      </div>
+      <div class="modal-body" id="pointsBody">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="pastGigsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Past Gigs</h4>
+      </div>
+      <div class="modal-body" id="pastGigsBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="upcomingGigsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Upcoming Gigs</h4>
+      </div>
+      <div class="modal-body" id="upcomingGigsBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="playlistsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>'s Playlists</h4>
+      </div>
+      <div class="modal-body" id="playlistsBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="playlistFollowersModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Playlist Followers</h4>
+      </div>
+      <div class="modal-body" id="playlistFollowersBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="getLikesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Artists <%=@user.first_name%> Likes</h4>
+      </div>
+      <div class="modal-body" id="getLikesBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+<% end %>
+      <script type="text/javascript">
+
+      
+
+      function deleteAll(){
+        $('#Playlist').html('');
+      }
+
+      
+
+      <% if !current_user.nil? %>
+
+      function getConvos(){
+  $.get("<%= current_user.id %>/conversations", function(result){
+  $('#inboxBody').html(result);});
+}
+
+function getPoints(){
+  $.get("<%= current_user.id %>/notifications", function(result){
+  $('#pointsBody').html(result);});
+}
+
+      function feed(){
+  $.get("/<%= @user.id %>/index", function(result){
+  $('#feedBox').html(result);});
+  $("#feedBox").scrollTop(0);
+    $('#container').animate({
+        left: '0%',
+        top: '56px'
+    });
+}
+
+
+function friendsLikeArtist(){
+  $('#friendsLikeArtist').css('display', 'inline-block');
+  $('#queryFriends').html($('#search_query').val().replace(/\./g, '').replace(/\b./g, function(m){ return m.toUpperCase(); }));
+  $.get("/<%= @user.id %>/"+$('#search_query').val().replace(/\./g, '')+"/friendsWhoLike", function(result){
+    $('#friendsLikeDiv').html(result);  
+  });
+  
+}
+
+      $(function(){
+
+        <% unless current_user.songkickID.nil? %>
+  
+  var url="https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/calendar.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?";
+  $.getJSON(url,function(json){ 
+      $.each(json.resultsPage.results.calendarEntry,function(i,result){
+        if($('#hiddenGigsIDs').html().indexOf(result.event.id) == -1){
+          $('#songkickGigID').val(result.event.id);
+          $('#gigIDsSubmit').click();
+
+        }
+          
+          
+            });
+          });
+  <% end %>
+
+        $('body').on('click', '.followDiv', function(){
+    var userSearch = "/" + $(this).find('.hiddenID').html();
+    $('.close').click();
+  $.get(userSearch, function(result){
+  $('#box3').html(result);});
+    $('#container').animate({
+        left: '100%',
+        top: '-100%'
+    });
+  });
+  
+  $.get("/<%= @user.id %>/index", function(result){
+  $('#feedBox').html(result);});
+
+   $('body').on('click', '.userImg', function(){
+    var userSearch = "/" + $(this).siblings('.followerID').html();
+  $.get(userSearch, function(result){
+  $('#box3').html(result);});
+    $('#container').animate({
+        left: '100%',
+        top: '-100%'
+    });
+  });
+
+  $('#shareCurrentInput, #shareCurrentID').val('');
+ $("#update_playlists").select2({
+    width: "150px",
+    ajax: { 
+        url: "../<%=current_user.id%>/userPlaylists.json",
+        dataType: 'json',
+        data: function (term, page) {
+            return {
+                search: term
+            };
+        },
+        results: function (data, page) { 
+            return {results: data};
+        }
+    },
+    formatResult: playlistFormatResult,
+    formatSelection: playlistFormatSelection,  
+    
+    escapeMarkup: function (m) { return m; } 
+});
+
+  function playlistFormatResult(playlist) {
+        var markup = "<table class='playlist-result'><tr>";
+        markup += "<td class='multipleName'><div>" + playlist.name + "</div></td></tr></table>";
+        return markup;
+    }
+
+    function playlistFormatSelection(playlist) {
+      /*$('#shareCurrentID').val(function(i,val) { 
+        return val + (!val ? '' : ', ') + playlist.id;
+      });*/
+        
+        return playlist.name +'<div style="display:none" class="shareCurrentPlaylistID">'+playlist.id+'</div>';
+    }
+
+
+  $("#shareCurrentInput").select2({
+    placeholder: "Name(s)",
+    width: "350px",
+    quietMillis: 100,
+    multiple: true,
+    minimumInputLength: 2,
+    maximumSelectionSize: 3,
+    formatSelectionTooBig: "You can only message 3 users at once",
+    ajax: { 
+        url: "search.json",
+        dataType: 'json',
+        data: function (term, page) {
+            return {
+                search: term
+            };
+        },
+        results: function (data, page) { 
+            return {results: data};
+        }
+    },
+    formatResult: userFormatResult,
+    formatSelection: userFormatSelection,  
+    
+    escapeMarkup: function (m) { return m; } 
+});
+
+
+function userFormatResult(user) {
+        var markup = "<table class='user-result'><tr>";
+        if (user.uid !== undefined ) {
+            markup += "<td class='user-image'><img src='http://graph.facebook.com/" + user.uid + "/picture?width=50&height=50'class='multiplePic'/></td>";
+        }
+        markup += "<td class='multipleName'><div>" + user.name + "</div></td></tr></table>";
+        return markup;
+    }
+
+    function userFormatSelection(user) {
+      /*$('#shareCurrentID').val(function(i,val) { 
+        return val + (!val ? '' : ', ') + user.id;
+      });*/
+        
+        return user.name +'<div style="display:none" class="shareCurrentID">'+user.id+'</div>';
+    }
+
+$('#shareCurrentImg').click(function(){
+  var inputIDs = [];
+  $('.shareCurrentID').each(function(){
+    inputIDs.push($(this).html());
+  });
+  $('#shareCurrentID').val(inputIDs);
+  if ($('textarea').val() == '') {
+    $('textarea').val('Check this out!');
+  }
+
+  $('#shareSubmit').click();
+  $('#shareModal').modal('hide');
+});
+
+$("#playlistInput").keydown(function(event){
+  if(event.keyCode==13){
+       test();
+    }
+});
+  
+  
+});
+
+      function test(){
+        if ($("#playlistInput").val() == '') {
+            $('#playlistMsg').fadeIn(1000);
+      $('#playlistMsg').html("Enter a Playlist name!");
+    $('#playlistMsg').fadeOut(1000);
+        } else {
+
+           var playlistContent = [];
+    $('#Playlist li').each(function(){
+        name = $(this).find('p').text();
+        value = $(this).find('.playlistYT').attr('src').slice(27,38);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      
+    }); 
+
+    
+        $('#playlistContent').val(JSON.stringify(playlistContent));
+    if ($('#playlistContent').val() != '[]') {
+      $('#updateConfirmation').fadeIn(1000);
+    $('#updateConfirmation').html($('#playlistName').val() + " saved!");  
+    $('#updateConfirmation').fadeOut(1000);
+    $('#savePlaylist').click();
+    } else {
+      $('#playlistMsg').fadeIn(1000);
+      $('#playlistMsg').html("Drag some videos first!");
+    $('#playlistMsg').fadeOut(1000);
+    }
+
+        }
+   
+      }
+
+
+      var playlists = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 10,
+  prefetch: {
+    ttl: 1,
+    url: '../<%= current_user.id %>/userPlaylists.json',
+
+  }
+});
+ 
+$('.modal').on('hidden.bs.modal', function () {
+  $('#getLikesBody').html('');
+});
+
+
+$("#search_playlists").on("typeahead:selected typeahead:autocompleted", function(e,datum) { 
+$('#playlistId').val(datum.id);
+$('#getPlaylist').trigger('click');
+
+});
+
+$("#update_playlists").on("change", function() { 
+$('#updatePlaylistId').val($('#update_playlists').select2('val'));
+$('#getUpdatePlaylist').trigger('click');
+$('#update_playlists').select2("val", "");
+});
+
+$('#currentShare').on('mouseenter', '.dropdown-menu li a', function(){
+    $(this).css({'color' : 'white', 'background-color': 'red'});
+});
+
+$('#currentShare').on('mouseleave', '.dropdown-menu li a', function(){
+
+    $(this).css({'color' : 'black', 'background-color': 'white'});
+});  
+
+$('#currentShare').on('click', '.dropdown-menu li a', function(e){
+  e.preventDefault();
+  var playlistId = $(this).attr("href");
+  $.get("/<%= @user.id %>/"+playlistId+"/show", function(result){
+    var songContent = '<li style=" class="ui-draggable"><p>'+$('#infoIDName').val()+'<span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", data: {toggle: "modal",target: "#shareModal"} %></span></p><img src="https://img.youtube.com/vi/'+$('#infoID').val()+'/mqdefault.jpg" class="playlistYT" alt="thumbnail" width="150px"></li>';
+
+  $.get("/"+playlistId+"/form", function(result2){
+
+    $('#result2').html(result2);
+    $('#updateContent').val(result + songContent);
+    $('#updatePlaylist').click();
+    $('#result2').html('');
+    $('#addModal').modal('hide');
+    $.get("<%= current_user.id %>/userPlaylists", function(result){
+  $('#playlistsBody').html(result);});
+});});
+
+$('.dropdown-menu').toggle();
+});
+
+$('#getUpdatePlaylist').click(function(){
+  if(!$('#drag').length ){
+    $.get("/"+$('#updatePlaylistId').val()+"/form", function(result3){
+
+    $('#result3').html(result3);
+
+    var playlistContent = [];
+     
+    $('#Playlist li').each(function(){
+
+        name = $(this).find('p').text();
+        value = $(this).find('.playlistYT').attr('src').slice(27,38);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      
+    }); 
+
+    
+        $('#updateContent').val(JSON.stringify(playlistContent));
+
+    
+    $('#updatePlaylist').click();
+    $('#result3').html('');
+    $('#updateConfirmation').fadeIn(2000);
+      $('#updateConfirmation').html("Playlist Updated!");
+    $('#updateConfirmation').fadeOut(2000);
+});
+  }
+
+  });
+
+$('#Playlist').on('click', '.playlistYT', function(){
+
+
+        videoID = $(this).attr("src").slice(27,38);
+        <%= render 'layouts/videoClick' %>
+      
+});
+
+function showMyVideos(data)
+        {
+            var feed = data.feed;
+            var entries = feed.entry || [];
+            var html = ['<ul>'];
+            for (var i = 0; i < entries.length; i++)
+            {
+                var entry = entries[i];
+                var title = entry.title.$t;
+                var lnk = entry.link[0].href;
+                var videoID = lnk.slice(32,-22);
+                var ytThumbnail = '<img src="https://img.youtube.com/vi/' + videoID + '/mqdefault.jpg" class="playlistYT" width="150px" alt="thumbnail"/>';
+
+                html.push('<li><p>', title, '<span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", "data-toggle" => "modal", "data-target" => "#shareModal"%></span></p>', ytThumbnail, '</li><p class="thumbID">'+videoID+'</p>');
+                
+            }
+            html.push('</ul>');
+
+            document.getElementById('videoResultsDiv').innerHTML = html.join('');
+
+            
+            $(function() {
+
+              var transferred = false;
+    $( "#videoResultsDiv li" ).draggable({
+   
+      connectToSortable: '#Playlist',
+      helper: 'clone',
+        start: function(event, ui)
+        {
+            $(this).hide();
+        },
+        stop: function(event, ui)
+        {
+            if(!transferred){
+                $(this).show();
+                $('#drag').remove();
+              }
+            else
+            {
+                $(this).remove();
+                transferred = false;
+            }
+        }
+    });
+
+    $("#videoResultsDiv").scrollTop(0);
+
+
+    $("#videoResultsDiv li").on('click', 'img', function(){
+        
+        videoID = $(this).attr("src").slice(27,38);
+        
+        <%= render "layouts/videoClick" %>
+
+            });
+
+    });}
+
+$('#InfoShare').on('click', '.glyphicon-thumbs-up', function(){
+  
+    if($(this).hasClass('liked')) {
+      $(this).removeClass('liked');
+      $.get("/<%= current_user.id %>/"+$('#infoID').val()+"/unlike", function(result){
+        
+      });
+    } else {
+      $(this).addClass('liked');
+       $.get("/<%= current_user.id %>/"+$('#infoID').val()+"/like", function(result){
+        
+      });
+    }
+});
+
+$('#navID, #navTitle').click(function(){
+  home();
+});
+
+$('#navButtons').on('click', '.glyphicon-pause', function(){
+      player.pauseVideo();
+      $(this).parent().css('display', 'none');
+      $('.glyphicon-play').parent().css('display', 'inline-block');
+    });
+
+$('#navButtons').on('click', '.glyphicon-play', function(){
+      player.playVideo();
+      $(this).parent().css('display', 'none');
+      $('.glyphicon-pause').parent().css('display', 'inline-block');
+    });
+
+$('#navButtons').on('click', '.glyphicon-fast-forward', function(){
+    var thisVideo2 = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/mqdefault.jpg"]');
+    var nextVideo2 = $(thisVideo2).parent().next().find('.playlistYT');
+    nextVideo2.click();
+  });
+
+    $('#navButtons').on('click', '.glyphicon-fast-backward', function(){
+    var thisVideo2 = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/mqdefault.jpg"]');
+    var nextVideo2 = $(thisVideo2).parent().prev().find('.playlistYT');
+    nextVideo2.click();
+  });
+
+    function merchNgigsSearch(){
+            var userSearch = $('#search_query').val();
+       
+            
+            var key="Pxms4Lvfx5rcDIuR";
+            var url="https://api.songkick.com/api/3.0/search/artists.json?query=" + userSearch + "&apikey="
+            + key + "&jsoncallback=?"; 
+            
+            $.getJSON(url,function(json){ 
+            $.each(json.resultsPage.results.artist,function(i,result){
+            if(i==0){
+            localGigs = "https://api.songkick.com/api/3.0/events.json?apikey=" + key + "&artist_name=" + userSearch + "&location=clientip&jsoncallback=?";
+            artist_url="https://api.songkick.com/api/3.0/artists/" + result.id + "/calendar.json?apikey="
+            + key +"&jsoncallback=?";
+            $("#Gigs").html("<div id='gig0' class='uberdate'></div><div id='gig1' class='uberdate'></div><div id='gig2' class='uberdate'></div>");
+                    $.getJSON(localGigs,function(data){
+
+                        var events = data['resultsPage']['results']['event'];
+
+                        if(!events){
+                            $.getJSON(artist_url,function(data){
+
+                        var events = data['resultsPage']['results']['event'];
+                            if(!events){
+                                $("#Gigs").html("No Gigs Announced");
+                                $("#moreGigs").html('<h6><a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a></h6>');
+
+                            };
+
+                                var urls = [];
+
+                              for(k=0; k<=2; k++ ){
+                                if(events[k] != null){
+                                urls.push('/'+<%= current_user.id %>+'/'+events[k]['id']+'/gigs/friendsGoing');
+                              }
+                              }
+                              console.log(urls);
+
+
+                              for(k=0; k<=2; k++ ){
+                                $("#gig"+k+"").append('<li><div class="date-wrap"><a href="'
+                                +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
+                                +'</span><span class= "day">'
+                                + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
+                                +'<div class="gigInfo">' +events[k]['location']['city']+ '<br />' + '<a href="'
+                                +events[k]['uri']+'" target="_blank">'
+                                +events[k]['displayName']+'</a></li>');
+
+                                $.ajax({
+                                  url: urls[k],
+                                  indexValue: k,
+                                  async: false,
+      
+                                  success: function(html) {
+        
+                                  image_link(html , this.indexValue);
+
+                                  function image_link(data, i) {
+                                      $("#gig"+i+"").append(data + ' <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>');
+                                  }
+                                }
+                              });
+                                
+                                $("#moreGigs").html('<h6><a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a></h6>');
+
+                            
+                              }
+                        
+                            
+
+                            
+                            })}
+
+                            else {
+                              var urls = [];
+
+                              for(k=0; k<=2; k++ ){
+                                if(events[k] != null){
+                                urls.push('/'+<%= current_user.id %>+'/'+events[k]['id']+'/gigs/friendsGoing');
+                              }
+                              }
+                              console.log(urls);
+
+
+                              for(k=0; k<=2; k++ ){
+                                $("#gig"+k+"").append('<li><div class="date-wrap"><a href="'
+                                +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
+                                +'</span><span class= "day">'
+                                + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
+                                +'<div class="gigInfo">' +events[k]['location']['city']+ '<br />' + '<a href="'
+                                +events[k]['uri']+'" target="_blank">'
+                                +events[k]['displayName']+'</a></li><br>');
+
+                                $.ajax({
+                                  url: urls[k],
+                                  indexValue: k,
+                                  async: false,
+                                  success: function(html) {
+                                    image_link(html , this.indexValue);
+                                    function image_link(data, i) {
+                                      $("#gig"+i+"").append(data + ' <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>');
+                                    }
+                                  }});
+                                
+                                $("#moreGigs").html('<h6><a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a></h6>');
+
+                            
+                              }
+                            }
+
+             });}});});}
+
+<% end %>
+
+      </script>
+
+
+
+
+</div>
+
+<div id="feedBox" class="box">
+
+</div>
+
+<div id="box2" class="box">
+
+</div>
+
+
+
+<div id="box3" class="box">
+</div>
+
+</div>

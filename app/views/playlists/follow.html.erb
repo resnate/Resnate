@@ -1,0 +1,10 @@
+<% if current_user != User.find(@playlist.user_id) %>
+<% usr = User.find(@playlist.user_id) %>
+<% lv1 = usr.level %>
+<% usr.add_points(5) %>
+<% lv2 = usr.level %>
+	<% if lv1 != lv2 %>
+		<% User.find(1).send_message(usr, "New level: " + usr.level_name, "B|") %>
+		<% usr.add_badge(usr.level) %>
+	<% end %>
+<% end %>

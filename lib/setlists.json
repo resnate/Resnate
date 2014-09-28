@@ -1,0 +1,109 @@
+{
+ "setlists":{
+  "@itemsPerPage":"20",
+  "@page":"1",
+  "@total":"1",
+  "setlist":{
+   "@eventDate":"11-11-2013",
+   "@id":"6bc49662",
+   "@lastFmEventId":"3722489",
+   "@lastUpdated":"2013-11-12T18:29:34.000+0000",
+   "@tour":"Reflektor Warm-Up",
+   "@versionId":"33efe861",
+   "artist":{
+    "@disambiguation":"",
+    "@mbid":"52074ba6-e495-4ef3-9bb4-0703888a9f68",
+    "@name":"Arcade Fire",
+    "@sortName":"Arcade Fire",
+    "@tmid":"946978",
+    "url":"http:\/\/www.setlist.fm\/setlists\/arcade-fire-6bd6ae92.html"
+   },
+   "venue":{
+    "@id":"2bd6d0d2",
+    "@name":"Roundhouse",
+    "city":{
+     "@id":"2643743",
+     "@name":"London",
+     "@state":"England",
+     "@stateCode":"ENG",
+     "coords":{
+      "@lat":"51.5084152563931",
+      "@long":"-0.125532746315002"
+     },
+     "country":{
+      "@code":"GB",
+      "@name":"United Kingdom"
+     }
+    },
+    "url":"http:\/\/www.setlist.fm\/venue\/roundhouse-london-england-2bd6d0d2.html"
+   },
+   "sets":{
+    "set":[
+     {
+      "song":[
+       {
+        "@name":"Reflektor"
+       },
+       {
+        "@name":"Neighborhood #3 (Power Out)"
+       },
+       {
+        "@name":"Flashbulb Eyes"
+       },
+       {
+        "@name":"Joan of Arc"
+       },
+       {
+        "@name":"You Already Know"
+       },
+       {
+        "@name":"We Exist"
+       },
+       {
+        "@name":"It's Never Over (Oh Orpheus)"
+       },
+       {
+        "@name":"Afterlife",
+        "info":"'My Body Is a Cage' acapella intro"
+       },
+       {
+        "@name":"Sprawl II (Mountains Beyond Mountains)"
+       },
+       {
+        "@name":"Normal Person",
+        "info":"with 'Wake Up' rhythm-and-blues intro"
+       },
+       {
+        "@name":"Uncontrollable Urge",
+        "cover":{
+         "@disambiguation":"new wave\/rock band",
+         "@mbid":"d2db1078-c170-4e22-b261-14f3ad60a690",
+         "@name":"DEVO",
+         "@sortName":"DEVO",
+         "@tmid":"869383",
+         "url":"http:\/\/www.setlist.fm\/setlists\/devo-53d68b21.html"
+        }
+       },
+       {
+        "@name":"Here Comes the Night Time"
+       }
+      ]
+     },
+     {
+      "@encore":"1",
+      "song":[
+       {
+        "@name":"Crown of Love",
+        "info":"Dedicated to the late Alexander Joseph Gordon. Song requested by Leah Gordon, his daughter."
+       },
+       {
+        "@name":"Haïti"
+       }
+      ]
+     }
+    ]
+   },
+   "url":"http:\/\/www.setlist.fm\/setlist\/arcade-fire\/2013\/roundhouse-london-england-6bc49662.html"
+  }
+ }
+}

@@ -1,0 +1,90 @@
+
+<% @userCalendar.each do |pastGig| %>
+  
+    <% artistImage = pastGig["performance"][0]["artist"]["id"] %>
+    <tr class="pastGigsRows"><td><a href="<%= pastGig["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistImage %>/large_avatar" class="artistImages"></a></td>
+    <td>
+    <% d = (pastGig["start"]["date"]).to_date %>
+    <div class="uberdate myDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
+    <a href="<%= pastGig["uri"] %>" target="_blank"><%= pastGig["displayName"] %></a><br>
+    <%= cityName = pastGig["venue"]["metroArea"]["displayName"] %>
+    <% pastGig["performance"][0]["artist"]["displayName"] %>
+    <% pastGigDate = Date.parse(pastGig["start"]["date"]).strftime("%d-%m-%Y") %>
+    
+    
+    <% artistName = (pastGig["performance"][0]["artist"]["displayName"]) %>
+    
+    <% setlistURL = "http://api.setlist.fm/rest/0.1/search/setlists.json?artistName=" + artistName + "&cityName=" + cityName + "&date=" + pastGigDate +"&apikey=ece37fb8-74e5-40e1-b04a-a0c4f23b732d" %>
+
+    <% url = URI.parse(setlistURL.gsub(" ", "+")) %>
+    <% request = Net::HTTP.get_response(url) %>
+    <% if request.body.include?("not found") || request.body.include?('"sets":""') %>
+      <br> No setlist found
+      
+    <% else %>
+      <br>
+      </li>
+      <% isArray = JSON.parse(request.body)["setlists"]["setlist"].kind_of?(Array) %>
+      <% if isArray == false %>
+      <% result = JSON.parse(request.body)["setlists"]["setlist"]["sets"]["set"] %>
+      <li class="setlistHeader">Setlist
+      <% setsLength = result.length-1 %>
+      <% for i in 0..setsLength %>
+        <% if setsLength == 0 %>
+          <% allSets = result["song"] %>
+        <% else %>
+          <% allSets = result[i]["song"] %>
+        <% end %>
+        <% setLength = allSets.length-1 %>
+        
+        <% for j in 0..setLength %>
+          <% if allSets[j].nil? %>
+            <ol class="setlist"><li><%= allSets["@name"] %></li></ol>
+            <% break %>
+          <% else %>
+            <ol class="setlist"><li><%= allSets[j]["@name"] %></li></ol>
+          <% end %>
+        <% end %>
+
+      <% end %>
+      </li>
+      <% else %>
+        <% JSON.parse(request.body)["setlists"]["setlist"].each do |show| %>
+          <li class="setlistHeader">Setlist
+          <% setsLength = show["sets"]["set"].length-1 %>
+          <% for i in 0..setsLength %>
+        <% if setsLength == 0 %>
+          <% allSets = show["sets"]["set"]["song"] %>
+        <% else %>
+          <% allSets = show["sets"]["set"][i]["song"] %>
+        <% end %>
+        <% setLength = allSets.length-1 %>
+        
+        <% for j in 0..setLength %>
+          <% if allSets[j].nil? %>
+            <ol class="setlist"><li><%= allSets["@name"] %></li></ol>
+            <% break %>
+          <% else %>
+            <ol class="setlist"><li><%= allSets[j]["@name"] %></li></ol>
+          <% end %>
+        <% end %>
+
+      <% end %>
+        </li><br>
+        <% end %>
+      <% end %>
+    <% end %>
+    </td></tr>
+    
+  <% end %>
+
+<br>
+  <tr class="pastGigsRows"><td><%= will_paginate @userCalendar, renderer: BootstrapPagination::Rails %></td></tr>
+
+<script type="text/javascript">
+
+$('.setlistHeader').on('click', function(){
+          $(this).find('.setlist').toggle();
+        });
+
+</script>

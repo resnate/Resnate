@@ -1,0 +1,17 @@
+<% JSON.parse(@playlist.content).each do |p| %>
+	<% p.each do |k, v| %>
+		<li class="ui-draggable ui-draggable-handle">
+			<p>
+				<%= k %>
+				<span class="glyphicon glyphicon-remove"></span>
+				<span id="rsShare">
+
+
+					<img id="playlistShare" src="/assets/ResnateShareIcon.png" data-toggle="modal" data-target="#shareModal" alt="Resnateshareicon">
+
+				</span>
+			</p>
+			<img class="playlistYT" src="https://img.youtube.com/vi/<%= v %>/mqdefault.jpg"></img>
+		</li>
+	<% end %>
+<% end %>

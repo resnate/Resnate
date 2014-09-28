@@ -1,0 +1,9 @@
+<% if current_user != @user %>
+<% lv1 = @user.level %>
+<% @user.add_points(1) %>
+<% lv2 = @user.level %>
+	<% if lv1 != lv2 %>
+		<% User.find(1).send_message(@user, "New level: " + @user.level_name, "B|") %>
+		<% @user.add_badge(@user.level) %>
+	<% end %>
+<% end %>

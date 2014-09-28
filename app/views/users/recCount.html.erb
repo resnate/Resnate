@@ -1,0 +1,12 @@
+<% recCount = 0 %>
+          <% current_user.mailbox.conversations.each do |conversation| %>
+          <% receipts = conversation.receipts_for current_user %>
+            <% receipts.each do |receipt|%>
+            <% unless receipt.message.subject[1] == "|" %>
+                <% if receipt.is_unread?%>
+                <% recCount += 1 %>
+                <% end %>
+            <% end %>
+            <% end %>
+          <% end %>
+<%= recCount %>

@@ -1,0 +1,34 @@
+ <%= stylesheet_link_tag "resnate_pages", media: "all",
+                                           "data-turbolinks-track" => true %>
+<div id="azDiv">
+ <% if current_user.country == "United Kingdom" %>
+ <% req = Vacuum.new('GB') %>
+ <% elsif current_user.country == "France" %>
+ <% req = Vacuum.new('FR') %>
+ <% else %>
+ <% req = Vacuum.new('US') %>
+ <% end %>
+ <% @search_query = params[:search_query] %>
+              <% req.associate_tag = 'resnate-21' %>
+              <% req.configure(   aws_access_key_id:     'AKIAIK5DPVPX6A2SKBSQ',aws_secret_access_key: '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', associate_tag:         'resnate-21') %>
+              <% params = {'SearchIndex' => 'Apparel', 'Keywords'    => @search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage'    => 1} %>
+              <% res = req.item_search(params) %>
+              <% hash = res.to_h %>
+             <% current = hash["ItemSearchResponse"]["Items"]["Item"] %>
+             <% noOfItems = Integer(hash["ItemSearchResponse"]["Items"]["TotalResults"]) %>
+             <% if noOfItems == 1 %>
+             <%= link_to image_tag(current["LargeImage"]["URL"]), current["DetailPageURL"], target: "_blank", class: 'azImg' %>
+             <% elsif noOfItems < 4 %>
+             <% (0..(noOfItems-1)).each do |i| %>
+              <%= link_to image_tag(current[i]["LargeImage"]["URL"]), current[i]["DetailPageURL"], target: "_blank", class: 'azImg' %>
+              <% end %>
+              <% else %>
+              <% (0..3).each do |i| %>
+              <% if current[i]["MediumImage"].nil? %>
+              <% next %>
+              <% else %>
+              <%= link_to image_tag(current[i]["LargeImage"]["URL"]), current[i]["DetailPageURL"], target: "_blank", class: 'azImg' %>
+              <% end %>
+              <% end %>
+              <% end %>
+</div>

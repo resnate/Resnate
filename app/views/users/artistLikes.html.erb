@@ -1,0 +1,73 @@
+<% require 'songkick' %>
+<% require 'json' %>
+<% client = Songkick.new("Pxms4Lvfx5rcDIuR", :json) %>
+
+<% if current_user != @user %>
+<h4>Mutual Interests</h4>
+<div class="fbLikesWide userInfo">
+
+  <ul>
+  <% @user.musicLikes.each do |ml| %>
+  <% if current_user.musicLikes.include?(ml) %>
+  <li class="ml">
+    <h5 class="mlSpan"><%= ml %></h5>
+      <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
+
+  </li>
+  <% end %>
+  <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="fbLikesWide userInfo">
+<h4>All Artists</h4>
+  <ul>
+  <% @user.musicLikes.each do |ml| %>
+  <li class="ml">
+    <h5 class="mlSpan"><%= ml %></h5>
+      <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
+
+  </li>
+  <% end %>
+  </ul>
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+  
+  var urls = [];
+
+  for(j=0; j<$('.ml').length; j++){
+    urls.push($('.mlImg').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.ml').length; j++){
+    $.ajax({
+      url: urls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
+
+  
+});
+
+</script>
