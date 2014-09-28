@@ -47,7 +47,7 @@
               <li class="messageIcons"><span class="glyphicon glyphicon-plus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div></li>
               <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up messageThumbs"></span></li>
 
-              <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= img = imgAndTitle[0] %>
+              <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= img = imgAndTitle[0] %></div>
              
               
             <% songs = Song.where(content: img) %>
@@ -70,7 +70,7 @@
         
         
         <div class="inboxYT inboxSong">
-        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
+        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
         <p class="jamTitle"><%= title = imgAndTitle[1] %></p>
         </div>
 
