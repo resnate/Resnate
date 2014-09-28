@@ -28,7 +28,7 @@ $(function(){
     mouseleave: function () {
         $( this ).animate( { "top": "+=3px" }, 250);
     }
-}, '.glyphicon, .feedShares, .shareGig, .csIcons');
+}, '.glyphicon, .feedShares, .shareGig, .csIcons, #sign_out');
 
 
   $.get("/<%= current_user.id %>/recCount", function(result){
