@@ -1,0 +1,6 @@
+<%= form_for(@pastGig, remote:true) do |f| %>
+            <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+            <%= f.text_field :oneliner, class: "onelinerUpdateForm", placeholder: "One-liner about gig (max. 42 characters)" %>
+            <%= f.text_area :review, class: "reviewUpdateForm", placeholder: "Geek out to your heart's content!" %>
+            <%= f.submit "Submit", class: "reviewSubmitForm", remote:true %>
+            <% end %>

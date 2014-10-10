@@ -70,7 +70,7 @@
         
         
         <div class="inboxYT inboxSong">
-        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
         <p class="jamTitle"><%= title = imgAndTitle[1] %></p>
         </div>
 
@@ -130,7 +130,7 @@
       <% img1 = v %>
       <% end %>
 
-      <img src="https://img.youtube.com/vi/<%= img1 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+      <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
 
     
         <% elsif message.subject[0] == 'G' %>
@@ -268,10 +268,10 @@
 
   $('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim());
   $('#messageURL').val('S|');
-  $('textarea').val('<%= current_user.name %> liked '+$(this).parent().siblings('.songTitle').html() + '!');
+  $('.shareTextarea').val('<%= current_user.name %> liked '+$(this).parent().siblings('.songTitle').html() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
-  $('textarea').val('Check this out!');
+  $('.shareTextarea').val('Check this out!');
  }
 });
 
@@ -295,10 +295,10 @@
 
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
   $('#messageURL').val('G|');
-  $('textarea').val('<%= current_user.name %> liked '+$(this).siblings('.messageGigSubject').find('div.uberdate.threeDate.myDates').find('.gigName').find('a').text() + '!');
+  $('.shareTextarea').val('<%= current_user.name %> liked '+$(this).siblings('.messageGigSubject').find('div.uberdate.threeDate.myDates').find('.gigName').find('a').text() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
-  $('textarea').val('Check this out!');
+  $('.shareTextarea').val('Check this out!');
  }
 
  });
@@ -320,7 +320,7 @@
   var playlistSongName = $(this).parents('.messageIcons').siblings('#makeJamLi').find('.jamTitle').html();
   var playlistSongID = $(this).parents('.messageIcons').siblings('#makeJamLi').find('.jamID').html().trim();
   $.get("/<%= @user.id %>/"+playlistId+"/show", function(result){
-    var songContent = '<li style=" class="ui-draggable"><p>'+playlistSongName+'<span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", data: {toggle: "modal",target: "#shareModal"} %></span></p><img src="https://img.youtube.com/vi/'+playlistSongID+'/mqdefault.jpg" class="playlistYT" alt="thumbnail" width="150px"></li>';
+    var songContent = '<li style=" class="ui-draggable"><p>'+playlistSongName+'<span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", data: {toggle: "modal",target: "#shareModal"} %></span></p><img src="https://img.youtube.com/vi/'+playlistSongID+'/hqdefault.jpg" class="playlistYT" alt="thumbnail" width="150px"></li>';
 
   $.get("/"+playlistId+"/form", function(result2){
 
@@ -354,10 +354,10 @@ $('.msgFollow').click(function(){
   $(this).parents('.msgButtons').find(".msgUnfollow").css("display", "inline-block");
     $('#shareCurrentID').val($(this).parents('.msgButtons').siblings('.hiddenID').html().trim());
   $('#messageURL').val('P|');
-  $('textarea').val('<%= current_user.name %> is following '+$(this).parents('.msgButtons').siblings('.playlistTitle').html() + '!');
+  $('.shareTextarea').val('<%= current_user.name %> is following '+$(this).parents('.msgButtons').siblings('.playlistTitle').html() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
-  $('textarea').val('Check this out!');
+  $('.shareTextarea').val('Check this out!');
 });
 
 $('.msgUnfollow').click(function(){

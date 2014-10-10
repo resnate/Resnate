@@ -271,7 +271,7 @@ $('.unfollow').click(function(){
 
 
 </div>
-<img src="https://img.youtube.com/vi/<%= Song.find(Like.find_by_liker_id(@user.id).likeable_id).content %>/mqdefault.jpg" class="playlistImg" >
+<img src="https://img.youtube.com/vi/<%= Song.find(Like.find_by_liker_id(@user.id).likeable_id).content %>/hqdefault.jpg" class="playlistImg" >
 
 </td>
 <td class="playlistName">Liked</td>
@@ -295,26 +295,12 @@ $('.unfollow').click(function(){
 <% img1 = v %>
 <% end %>
 
-<img src="https://img.youtube.com/vi/<%= img1 %>/mqdefault.jpg" class="playlistImg" >
+<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg" >
 
 </td>
 <td class="playlistName"><%= @user.playlists[0].name %></td>
 </tr>
-<% if @user.playlists.count >= 2 %>
-<tr class="userPlaylistInfo"><td><div class="playlistContent">
 
-<% img2 = "a" %>
-<%= @user.playlists.second.id %></div>
-<% JSON.parse(@user.playlists[1].content)[0].each do |k, v| %>
-<% img2 = v %>
-<% end %>
-
-
-<img src="https://img.youtube.com/vi/<%= img2 %>/mqdefault.jpg" class="playlistImg" >
-</td>
-<td class="playlistName"><%= @user.playlists[1].name %></td>
-</tr>
-<% end %>
 <% end %>
 </table>
 </div>
@@ -494,20 +480,13 @@ $('.userHistoryImgTDs').on( 'click', 'img', function() {
       <%= render "layouts/videoClick" %>
     });
 
-$('#userFollows, #userFollowers').hover( 
-    function(){
-    $(this).css("color", "red");
-  }, function(){
-    $(this).css("color", "white");
-  });
-
 $('.follow').click(function(){
   $('#shareCurrentID').val($(this).parents('.button_to').siblings('.hiddenID').html());
   $('#messageURL').val('U|');
-  $('textarea').val($('#hiddenUser').html() + ' is now following you!');
+  $('.shareTextarea').val($('#hiddenUser').html() + ' is now following you!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
-  $('textarea').val('Check this out!');
+  $('.shareTextarea').val('Check this out!');
 });
 
 $('#userSeeAllpast').click(function(){

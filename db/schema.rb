@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920160651) do
+ActiveRecord::Schema.define(version: 20141001235613) do
 
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
@@ -168,6 +168,17 @@ ActiveRecord::Schema.define(version: 20140920160651) do
     t.integer "sash_id"
     t.string  "category", default: "default"
   end
+
+  create_table "past_gigs", force: true do |t|
+    t.integer  "songkick_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "review"
+    t.string   "oneliner"
+  end
+
+  add_index "past_gigs", ["user_id"], name: "index_past_gigs_on_user_id"
 
   create_table "playlists", force: true do |t|
     t.text     "content"

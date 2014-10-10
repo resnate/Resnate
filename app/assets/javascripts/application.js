@@ -23,9 +23,11 @@
 //= require bootstrap
 //= require handlebars
 //= require underscore
-//= require json2
-//= require judge
+
+
 //= require select2
 //= require turbolinks
 //= require gritter
+//= require best_in_place
+
 //= require_tree .

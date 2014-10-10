@@ -1,0 +1,6 @@
+<% pgArray = [] %>
+<% @pastGigs.split(',').each do |pg| %>
+<% hash = { user_id: params[:user], songkick_id: pg, oneliner: 'One liner about the show.', review: 'Geek out to your heart\'s content (as long as it\'s less than 5000 characters)' } %>
+<% pgArray.push(hash) %>
+<% end %>
+<%= PastGig.create_many(pgArray) %>

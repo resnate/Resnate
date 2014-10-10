@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  extend BulkMethodsMixin
   has_merit
   require 'json'
   
@@ -8,14 +9,15 @@ class User < ActiveRecord::Base
   acts_as_liker
   acts_as_messageable
   def self.search(query)
-    where("name LIKE ?", "%#{query}%") 
+    where("name ILIKE ?", "%#{query}%") 
   end
 
   has_many :songs, dependent: :destroy
   has_many :like_songs, dependent: :destroy
   has_many :playlists, dependent: :destroy
   has_many :gigs, dependent: :destroy
-
+  has_many :past_gigs, dependent: :destroy
+  accepts_nested_attributes_for :past_gigs
   
 
 serialize :musicLikes, JSON

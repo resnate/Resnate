@@ -12,7 +12,7 @@
 html, body{
   z-index:-1;
    height: 100%;
-   
+   background-color: #E7E7E7;
        -webkit-animation-delay: 0.1s;
     -webkit-animation-name: fontfix;
     -webkit-animation-duration: 0.1s;
@@ -31,10 +31,15 @@ a {
 
 textarea {
   resize: none;
+}
+
+.shareTextarea {
   width: 408px;
   padding: 5px;
-  color: black;
+  
 }
+
+
 
 #hub {
   height: 100%;
@@ -82,7 +87,6 @@ textarea {
   text-align: center;
   overflow: auto;
   display: inline-block;
-
 }
 
 body {
@@ -91,19 +95,20 @@ body {
 
 #box1 {
   left: -50%;
+  overflow-y: hidden;
 }
 
 
 #box2 {
   top: 50%;
   left: 0%;
-  margin-top: 56px;
+  margin-top: 66px;
   overflow: auto;
 }
 
 #box3 {
   top: 50%;
-  margin-top: 56px;
+  margin-top: 66px;
   left: -50%;
   overflow: auto;
 }
@@ -122,8 +127,7 @@ body {
   
 
   #homeFooter {
-    position: absolute;
-    bottom: 0px;
+    margin-top: 40px;
   }
 }
 
@@ -157,7 +161,7 @@ body {
     margin-left: 0.5%;
     display: none;
     width: 400px;
-    height: 100%;
+    height: 95%;
     overflow: hidden;
     text-align: left;
     }
@@ -168,7 +172,8 @@ body {
   }
 
   #Playlist {
-    height: 70%;
+    height: calc(95% - 180px);
+    
   }
 
 #videoResultsDiv, #Playlist {
@@ -190,22 +195,22 @@ body {
   padding: 5px 2px 3px 3px;
   margin-bottom: 30px;
   position: relative;
+  p {
+  line-height: 1.2em;
+  height: 2.4em;
+  overflow: hidden;
+}
 }
 
 .playlistYT {
   width: 150px;
-  height: 84px;
 }
 
 #videoResultsDiv li {
 margin-bottom: 30px;
 }
 
-p {
-  line-height: 1.2em;
-  height: 2.4em;
-  overflow: hidden;
-}
+
 
 
 
@@ -579,7 +584,7 @@ li {
   text-align: center;
 }
 
-#newSearch, #editJam, #saveJam, #saveIndexJam, #makeJam, .messageJam, #noJam, .makeFeedJam, #clearPlaylist {
+#newSearch, #editJam, #saveJam, #saveIndexJam, #makeJam, .messageJam, #noJam, .makeFeedJam, #clearPlaylist, .reviewSubmit {
   border-style: none;
   background: #FF0035;
   cursor: pointer;
@@ -616,8 +621,8 @@ img {border:none;}
   background-size: 140px;
   background-position: 50% 50%;
   float:left;
-  width: 140px;
-  height: 140px;
+  
+  height: 115px;
 }
 
 #upperHalf, #lowerHalf {
@@ -633,7 +638,7 @@ img {border:none;}
   height: 325px;
   overflow: hidden;
   margin-top: -50px;
-  max-width: 362px;
+  max-width: 375px;
   text-align: left;
 }
 
@@ -734,9 +739,13 @@ tr {
 .glyphicon-home, .glyphicon-bell, .glyphicon-envelope, .glyphicon-pause, .glyphicon-play, .glyphicon-fast-forward, .glyphicon-fast-backward {
   margin-top: 12px;
   font-size: 22px;
-  cursor: pointer;
+  
   color: white;
 
+}
+
+.glyphicon {
+  cursor: pointer;
 }
 
 .glyphicon-plus {
@@ -811,10 +820,14 @@ tr {
   top: 0px;
 }
 
-.myDates {
-
+.myDates, .userDates {
+  padding-bottom: 0px;
   padding-left: 5px;
 }
+
+ .userDates {
+  height: 50px;
+ }
 
 .feedDates {
   padding-left: 0px;
@@ -921,7 +934,7 @@ tr {
   bottom: 0px;
   left: 0px;
   width: 100%;
-  background: rgba(54, 25, 25, .6);
+  background: rgba(0, 0, 0, .6);
   color: white;
   .follow, .unfollow {
     color: #D8D8D8;
@@ -1006,7 +1019,8 @@ tr {
 #userButton, .hiddenID, #getPlaylist, #getUpdatePlaylist, #result2, #result3, .followerID, .hiddenURL, .messageJamID,
 #indexJamURL, #indexJamName, .hiddenPlaylistID, .hiddenYTName, .sharePlaylistID, .jamID, .jamTitle, #shareSubmit, #messageURL,
 #infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrentID, #stopID, .btn-default, .invisCount,
-#hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #new_gig, .lol {
+#hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #hiddenPastGigsIDs, #pastSongkickGigID, .reviewGigID, #pastGigIDsSubmit, #new_gig, .lol,
+.hiddenReviewID {
   display: none;
 }
 
@@ -1024,13 +1038,81 @@ tr {
   td {
     float: left;
   }
+}
+
+#pastGigsBody, #upcomingGigsBody {
+  font-size: 1.25em;
 } 
 
+.artistImageTd {
+  width: 115px;
+}
 
-.setlistHeader {
+.gigDetailsTd {
+  width: calc(100% - 115px);
+}
+
+.gigUberTable {
+  width: 100%;
+}
+
+.setlistList {
   clear: both;
   padding-left: 1px;
   cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.setlistHeader, .reviewHeader {
+  font-weight: bold;
+  padding-left: 0px;
+}
+
+.reviewOneliner, .feedOneliner {
+  font-style: italic;
+}
+
+.feedOneliner {
+  margin-bottom: 0.7em;
+}
+
+#reviewBody {
+  text-align: left;
+}
+
+.setlistDiv, .review {
+  display: inline-block;
+  
+  vertical-align: top;
+  margin-left: 5px;
+}
+
+.setlistDiv {
+  width: 20%;
+}
+
+.review {
+  width: 40%;
+  margin-bottom: 40px;
+}
+
+.reviewSubmit {
+  margin: 5px 0px 5px 0px;
+  float: right;
+}
+
+.reviewUpdate, .onelinerUpdate {
+  width: 100%;
+  margin-top: 5px;
+}
+
+.reviewUpdate {
+  height: 200px;
+}
+
+.reviewOneliner, .reviewFull {
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .setlist {
@@ -1090,11 +1172,11 @@ tr {
 }
 
 .hipster {
-  color: lightgreen;
+  color: navy;
 }
 
 .uberHipster {
-  color: greenyellow;
+  color: blueviolet;
 }
 
 .groupie {
@@ -1209,7 +1291,7 @@ tr {
 
 .likesNcomments {
   vertical-align: top;
-  margin-left: 10px;
+  margin-left: 30px;
   min-width: 300px;
 
 }
@@ -1219,15 +1301,15 @@ tr {
 }
 
 .profileName, .verb {
-  padding-top: 10px;
-  vertical-align: top;
+  /*padding-top: 10px;
+  vertical-align: top;*/
 }
 
 .gigImgSpan {
 
   display: inline-block;
   vertical-align: top;
-  margin-right: 117px;
+  margin-right: 50px;
 
 }
 
@@ -1284,7 +1366,8 @@ tr {
 }
 
 .activity {
-  height: 220px;
+  margin-top: 20px;
+  height: 210px;
   vertical-align: top;
   text-align: center;
   div {
@@ -1333,6 +1416,42 @@ tr {
 
 .feedShares .feedFollow, .feedShares .feedUnfollow, .msgFollow, .msgUnfollow {
   height: 40px;
+}
+
+.feedReview {
+  cursor: pointer;
+  margin-top: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  position: relative;
+      height: 5em;
+  &:hover {
+    color: red;
+  }
+  &:after {
+
+      content: "";
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 70%;
+      height: 1.2em;
+      background: linear-gradient(to right, rgba(233, 233, 233, 0), rgba(233, 233, 233, 1) 90%);
+
+
+  }
+}
+
+.feedGigLink {
+  font-weight: bold;
+  &:hover {
+    color: red;
+    text-decoration: none;
+  }
 }
 
 .msgFollow, .msgUnfollow {
@@ -1422,13 +1541,12 @@ tr {
 
 #updateWrapper, #playlistWrapper {
   height: 40px;
-  margin-top: 20px;
+  
 }
 
 #playlistInfo {
   color: black;
-  min-height: 215px;
-  height: 30%;
+  height: 180px;
   
 }
 
@@ -1448,7 +1566,7 @@ tr {
 }
 
 .playlistImg {
-  height: 93.3px;
+  height: 115px;
   cursor: pointer;
 }
 
@@ -1473,7 +1591,7 @@ tr {
 }
 
 .feedFollowPic {
-  margin-right: 117px;
+  margin-right: 50px;
 }
 
 #playlists {

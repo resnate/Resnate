@@ -1,0 +1,6 @@
+<% unless @pastGig.oneliner.nil? %>
+	<div class="feedOneliner">
+		<%= @pastGig.oneliner %>
+	</div>
+<%end %>
+<%= simple_format(@pastGig.review) %>

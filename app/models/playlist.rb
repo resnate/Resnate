@@ -7,7 +7,7 @@ class Playlist < ActiveRecord::Base
 	validates :name, presence: true, presence: true, length: { maximum: 140 }
 	validates :user_id, presence: true
 	def self.search(query)
-  		where("name LIKE ?", "%#{query}%") 
+  		where("name ILIKE ?", "%#{query}%") 
 	end
 	include PublicActivity::Model
 tracked owner: ->(controller, model) { controller && controller.current_user }

@@ -1,11 +1,13 @@
-
+<table class="gigUberTable">
+  <div id="reviewForm"></div>
 <% @userCalendar.each do |pastGig| %>
   
     <% artistImage = pastGig["performance"][0]["artist"]["id"] %>
-    <tr class="pastGigsRows"><td><a href="<%= pastGig["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistImage %>/large_avatar" class="artistImages"></a></td>
-    <td>
+    <tr class="pastGigsRows"><td class="artistImageTd"><a href="<%= pastGig["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistImage %>/large_avatar" class="artistImages"></a></td>
+    <td class="gigDetailsTd">
+      
     <% d = (pastGig["start"]["date"]).to_date %>
-    <div class="uberdate myDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
+    <div class="uberdate userDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
     <a href="<%= pastGig["uri"] %>" target="_blank"><%= pastGig["displayName"] %></a><br>
     <%= cityName = pastGig["venue"]["metroArea"]["displayName"] %>
     <% pastGig["performance"][0]["artist"]["displayName"] %>
@@ -23,11 +25,13 @@
       
     <% else %>
       <br>
-      </li>
+      </li></div><br>
       <% isArray = JSON.parse(request.body)["setlists"]["setlist"].kind_of?(Array) %>
       <% if isArray == false %>
       <% result = JSON.parse(request.body)["setlists"]["setlist"]["sets"]["set"] %>
-      <li class="setlistHeader">Setlist
+      <div class="setlistDiv">
+      <li class="setlistList">
+        <ol class="setlistHeader">Setlist</ol>
       <% setsLength = result.length-1 %>
       <% for i in 0..setsLength %>
         <% if setsLength == 0 %>
@@ -47,9 +51,11 @@
         <% end %>
 
       <% end %>
-      </li>
+      </li></div>
       <% else %>
+      <div class="setlistDiv">
         <% JSON.parse(request.body)["setlists"]["setlist"].each do |show| %>
+        
           <li class="setlistHeader">Setlist
           <% setsLength = show["sets"]["set"].length-1 %>
           <% for i in 0..setsLength %>
@@ -71,20 +77,106 @@
 
       <% end %>
         </li><br>
-        <% end %>
+        <% end %></div>
+      <% end %>
+      <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.oneliner == 'One liner about the show.' && PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 5000 characters)' && current_user != @user %>
+      <div class="review">
+        <div class="reviewHeader">Review</div>
+
+        
+          <div class="reviewGigID"><%= pastGig["id"] %></div>
+          
+          <div class="reviewOneliner">
+            <%= best_in_place_if current_user == @user, PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first, :oneliner, :type => :input %>
+          </div>
+          <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 5000 characters)' && current_user != @user %>
+          <div class="reviewFull">
+            <%= best_in_place_if current_user == @user, PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first, :review, :type => :textarea, :display_with => :simple_format %>
+          </div>
+            <% if current_user != @user %>
+                <% if current_user.likes?(PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first) %>
+                  <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
+                <% else %>
+                  <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+                <% end %>
+
+                
+              
+            <% end %>
+
+            <% likeTotal = 0 %>
+    <% likerNames = [] %>
+    <% pastGig = PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first %>
+    <% likeTotal += pastGig.likers(User).count %>
+    <% pastGig.likers(User). each do |liker| %>
+      <% if liker == current_user %>
+        <% likerNames.unshift("You") %>
+      <% else %>
+        <% likerNames.push(liker.name) %>
+      <% end %>
+    <% end %>
+    <% if likeTotal == 1 %>
+        <% if likerNames[0] == "You" %>
+        <%= likerNames[0] %> like this.
+        <% else %>
+        <%= likerNames[0] %> likes this.
+        <% end%>
+      <% elsif likeTotal == 2 %>
+      <%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      <% elsif likeTotal == 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      <% elsif likeTotal > 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      <% end %>
+          <% end %>
+          
+          
+        
+      </div>
+
+
       <% end %>
     <% end %>
     </td></tr>
     
   <% end %>
 
-<br>
-  <tr class="pastGigsRows"><td><%= will_paginate @userCalendar, renderer: BootstrapPagination::Rails %></td></tr>
 
+  <tr class="pastGigsRows"><td><%= will_paginate @userCalendar, renderer: BootstrapPagination::Rails %></td></tr>
+</table>
 <script type="text/javascript">
 
+$(function(){
+  $('.best_in_place').bind('ajax:success', function(){ this.innerHTML = this.innerHTML.replace(/\n/g, '<p>') });
+});
+
+
 $('.setlistHeader').on('click', function(){
-          $(this).find('.setlist').toggle();
+          $(this).siblings('.setlist').toggle();
+        });
+
+$('.reviewThumb').on('click', function(){
+
+
+if($(this).hasClass('liked')) {
+      $(this).removeClass('liked');
+} 
+
+  else {
+    $(this).addClass('liked');
+    var reviewLink = '/' + $(this).siblings('.reviewGigID').html() + '/<%= @user.id %>/reviewLike';
+    $.get(reviewLink, function(){
+
+    });
+
+    $('#shareCurrentID').val('<%= @user.id %>');
+    $('#messageURL').val('R|');
+    $('.shareTextarea').val('<%= current_user.name %> liked your review of ' + $(this).parents('.gigDetailsTd').find('a').text());
+    $('#shareSubmit').click();
+    $('#messageURL').val('');
+    $('.shareTextarea').val('Check this out!');
+  }
+          
         });
 
 </script>

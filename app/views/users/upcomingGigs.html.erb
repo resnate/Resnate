@@ -1,3 +1,4 @@
+<table class="gigUberTable">
 <% @calendarEntry.each do |upcomingGig| %>
 
   <% if upcomingGig["reason"]["attendance"] == "im_going"  %>
@@ -41,7 +42,7 @@
   <% end %>
 
   <tr ><td><%= will_paginate @calendarEntry, renderer: BootstrapPagination::Rails %></td></tr>
-
+</table>
 
   <script type="text/javascript">
 

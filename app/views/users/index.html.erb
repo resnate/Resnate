@@ -35,21 +35,19 @@
         <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Gig" %>
   <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
 
-        <span class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= activity.trackable.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></span>
-
-        <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Gig" %>
-  <span class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></span>
+   <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "PastGig" %>
+   <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
 
         
     
 
     <% elsif activity.trackable_type == "Song" %>
-    <img src='https://img.youtube.com/vi/<%= activity.trackable.content %>/mqdefault.jpg' class="feedYT" >
+    <img src='https://img.youtube.com/vi/<%= activity.trackable.content %>/hqdefault.jpg' class="feedYT" >
     <p class="hiddenYTName"><%= activity.trackable.name %></p>
 
      <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Song" %>
 
-    <img src='https://img.youtube.com/vi/<%= Song.find(Like.find(activity.trackable_id).likeable_id).content %>/mqdefault.jpg' class="feedYT" >
+    <img src='https://img.youtube.com/vi/<%= Song.find(Like.find(activity.trackable_id).likeable_id).content %>/hqdefault.jpg' class="feedYT" >
     <p class="hiddenYTName"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></p>
 
     <% elsif activity.trackable_type == "Playlist" %>
@@ -69,7 +67,7 @@
 <% img1 = v %>
 <% end %>
 
-<img src="https://img.youtube.com/vi/<%= img1 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
 
 <% end %>
 
@@ -104,7 +102,7 @@
           <% img2 = v %>
           <% end %>
 
-          <img src="https://img.youtube.com/vi/<%= img2 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+          <img src="https://img.youtube.com/vi/<%= img2 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
 
           </div>
         <% end %>
@@ -186,8 +184,25 @@
     <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
 
       </div><div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
-        
+
+       <% elsif Like.find(activity.trackable_id).likeable_type == "PastGig" %>
+       <div class="profileName"><%= User.find(PastGig.find(Like.find(activity.trackable_id).likeable_id).user_id).name %></div><div class="hiddenID" style="display:none"><%= PastGig.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>'s review of <a href="http://www.songkick.com/concerts/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
+       <div class="hiddenReviewID"><%= Like.find(activity.trackable_id).likeable_id %></div>
+       <div class="feedReview" data-toggle="modal" data-target="#reviewModal">
+        <% unless PastGig.find(Like.find(activity.trackable_id).likeable_id).oneliner.nil? %>
+        <div class="feedOneliner"><%= PastGig.find(Like.find(activity.trackable_id).likeable_id).oneliner %></div>
         <% end %>
+        <%= simple_format(PastGig.find(Like.find(activity.trackable_id).likeable_id).review) %>
+      </div>
+        
+      
+
+
+      <% end %>
+
+     
+
+
       
       <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Follow" %>
       
@@ -297,7 +312,7 @@
 <% img2 = v %>
 <% end %>
 
-<img src="https://img.youtube.com/vi/<%= img2 %>/mqdefault.jpg" class="playlistImg feedPlaylist" >
+<img src="https://img.youtube.com/vi/<%= img2 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
 
 
 
@@ -454,6 +469,32 @@
       <% elsif likeTotal > 3 %>
       <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
       <% end %>
+  <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "PastGig" %>
+  <% likeTotal = 0 %>
+    <% likerNames = [] %>
+    <% pastGig = PastGig.find(Like.find(activity.trackable_id).likeable_id) %>
+    <% likeTotal += pastGig.likers(User).count %>
+    <% pastGig.likers(User). each do |liker| %>
+      <% if liker == current_user %>
+        <% likerNames.unshift("You") %>
+      <% else %>
+        <% likerNames.push(liker.name) %>
+      <% end %>
+    <% end %>
+    <% if likeTotal == 1 %>
+        <% if likerNames[0] == "You" %>
+        <%= likerNames[0] %> like this.
+        <% else %>
+        <%= likerNames[0] %> likes this.
+        <% end%>
+      <% elsif likeTotal == 2 %>
+      <%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      <% elsif likeTotal == 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      <% elsif likeTotal > 3 %>
+      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      <% end %>
+
   <% end %>
 </div>
 
@@ -464,9 +505,34 @@
 <% end %>
 
 
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="reviewModalLabel">Review</h4>
+      </div>
+      <div class="modal-body" id="reviewBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script type="text/javascript">
 
 $(function(){
+
+  $('.feedReview').click(function(){
+  $('#reviewBody').html("<p>Loading...</p>");
+  
+  $.get($(this).siblings('.hiddenReviewID').html()+"/reviewShow", function(result){
+  $('#reviewBody').html(result);});
+    
+  
+});
 
   $('.shareGig').click(function(){
         $('#messageURL').val('G#'+$(this).parents('div.uberdate.myDates.feedDates').siblings('.hiddenGigID').html());
@@ -572,10 +638,10 @@ $('.activity').on('click', '.glyphicon-thumbs-up', function(){
 
     $('#shareCurrentID').val($(this).parent().siblings('.profileName').siblings('.hiddenID').html().trim());
   $('#messageURL').val('S|');
-  $('textarea').val('<%= current_user.name %> liked '+$(this).parent().siblings('.activityDetails').find('.activityName').html().trim() + '!');
+  $('.shareTextarea').val('<%= current_user.name %> liked '+$(this).parent().siblings('.activityDetails').find('.activityName').html().trim() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
-  $('textarea').val('Check this out!');
+  $('.shareTextarea').val('Check this out!');
  }
 });
 
@@ -584,10 +650,10 @@ $('.feedFollow.fFl').click(function(){
   $(this).parents('.feedShares').siblings('.feedShares.fUl').css("display", "inline-block");
   $('#shareCurrentID').val($(this).parents('.feedButtons').siblings('.activityDetails').find('.playlistCreatorSpan').find('.hiddenID').html().trim());
   $('#messageURL').val('P|');
-  $('textarea').val('<%= current_user.name %> is following '+$(this).parents('.feedButtons').siblings('.activityDetails').find('.feedPlaylistName').html() + '!');
+  $('.shareTextarea').val('<%= current_user.name %> is following '+$(this).parents('.feedButtons').siblings('.activityDetails').find('.feedPlaylistName').html() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
-  $('textarea').val('Check this out!');
+  $('.shareTextarea').val('Check this out!');
 });
 
 $('.feedUnfollow.fUl').click(function(){

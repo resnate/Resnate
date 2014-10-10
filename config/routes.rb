@@ -38,9 +38,14 @@ Resnate::Application.routes.draw do
   get '/:user/:songkick_id/gigs/like' => 'gigs#like'
   get '/:user/:songkick_id/gigs/unlike' => 'gigs#unlike'
   get '/:user/:songkick_id/gigs/friendsGoing' => 'gigs#friendsGoing'
+  get "/:songkick_id/:user/reviewForm" => "past_gigs#reviewForm"
+  get "/:songkick_id/:user/reviewLike" => "past_gigs#reviewLike"
+  get "/:id/reviewShow" => "past_gigs#reviewShow"
+  get "/:user/:multiGigs/multipleCreate" => "past_gigs#multipleCreate"
   resources :users, :path => ''
   resources :songs, only: [:create, :destroy]
   resources :gigs, only: [:create, :destroy]
+  resources :past_gigs, only: [:create, :update, :destroy]
   resources :playlists, only: [:create, :update, :destroy, :show]
   resources :messages do
     member do
