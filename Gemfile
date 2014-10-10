@@ -37,7 +37,7 @@ gem 'browser'
 gem 'underscore-rails'
 gem 'best_in_place', github: 'aaronchi/best_in_place'
 gem 'bulk_data_methods'
-gem 'taps-taps'
+
 
 group :development, :test do
   gem 'pg'
