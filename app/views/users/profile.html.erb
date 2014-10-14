@@ -262,9 +262,12 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
     <div class="uberdate myDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
     <a href="<%= userCalendar[i]["uri"] %>" target="_blank"><%= userCalendar[i]["displayName"] %></a><br>
     <%= cityName = userCalendar[i]["venue"]["metroArea"]["displayName"] %>
-    <% userCalendar[i]["performance"][0]["artist"]["displayName"] %>
-    <% pastGigDate = Date.parse(userCalendar[i]["start"]["date"]).strftime("%d-%m-%Y") %>
     
+    
+    <% pgOne = PastGig.where(songkick_id: userCalendar[i]["id"], user_id: @user.id).first.oneliner %>
+    <% unless pgOne.nil? || pgOne == "One liner about the show." %>
+    <div class="onelinerPreview">"<%= pgOne %>"</div>
+    <% end %>
     </td></tr>
     
     <% end %> 

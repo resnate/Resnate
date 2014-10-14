@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141001235613) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "activities", force: true do |t|
     t.integer  "trackable_id"
     t.string   "trackable_type"
@@ -26,9 +29,9 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "updated_at"
   end
 
-  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
-  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
-  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+  add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
+  add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
+  add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
 
   create_table "badges_sashes", force: true do |t|
     t.integer  "badge_id"
@@ -37,9 +40,9 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "created_at"
   end
 
-  add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id"
-  add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id"
-  add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id"
+  add_index "badges_sashes", ["badge_id", "sash_id"], name: "index_badges_sashes_on_badge_id_and_sash_id", using: :btree
+  add_index "badges_sashes", ["badge_id"], name: "index_badges_sashes_on_badge_id", using: :btree
+  add_index "badges_sashes", ["sash_id"], name: "index_badges_sashes_on_sash_id", using: :btree
 
   create_table "follows", force: true do |t|
     t.string   "follower_type"
@@ -49,8 +52,8 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "created_at"
   end
 
-  add_index "follows", ["followable_id", "followable_type"], name: "fk_followables"
-  add_index "follows", ["follower_id", "follower_type"], name: "fk_follows"
+  add_index "follows", ["followable_id", "followable_type"], name: "fk_followables", using: :btree
+  add_index "follows", ["follower_id", "follower_type"], name: "fk_follows", using: :btree
 
   create_table "gigs", force: true do |t|
     t.integer  "songkick_id"
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "updated_at"
   end
 
-  add_index "gigs", ["user_id"], name: "index_gigs_on_user_id"
+  add_index "gigs", ["user_id"], name: "index_gigs_on_user_id", using: :btree
 
   create_table "likes", force: true do |t|
     t.string   "liker_type"
@@ -69,8 +72,8 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "created_at"
   end
 
-  add_index "likes", ["likeable_id", "likeable_type"], name: "fk_likeables"
-  add_index "likes", ["liker_id", "liker_type"], name: "fk_likes"
+  add_index "likes", ["likeable_id", "likeable_type"], name: "fk_likeables", using: :btree
+  add_index "likes", ["liker_id", "liker_type"], name: "fk_likes", using: :btree
 
   create_table "mailboxer_conversation_opt_outs", force: true do |t|
     t.integer "unsubscriber_id"
@@ -78,8 +81,8 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.integer "conversation_id"
   end
 
-  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id"
-  add_index "mailboxer_conversation_opt_outs", ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type"
+  add_index "mailboxer_conversation_opt_outs", ["conversation_id"], name: "index_mailboxer_conversation_opt_outs_on_conversation_id", using: :btree
+  add_index "mailboxer_conversation_opt_outs", ["unsubscriber_id", "unsubscriber_type"], name: "index_mailboxer_conversation_opt_outs_on_unsubscriber_id_type", using: :btree
 
   create_table "mailboxer_conversations", force: true do |t|
     t.string   "subject",    default: ""
@@ -105,10 +108,10 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "expires"
   end
 
-  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id"
-  add_index "mailboxer_notifications", ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type"
-  add_index "mailboxer_notifications", ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type"
-  add_index "mailboxer_notifications", ["type"], name: "index_mailboxer_notifications_on_type"
+  add_index "mailboxer_notifications", ["conversation_id"], name: "index_mailboxer_notifications_on_conversation_id", using: :btree
+  add_index "mailboxer_notifications", ["notified_object_id", "notified_object_type"], name: "index_mailboxer_notifications_on_notified_object_id_and_type", using: :btree
+  add_index "mailboxer_notifications", ["sender_id", "sender_type"], name: "index_mailboxer_notifications_on_sender_id_and_sender_type", using: :btree
+  add_index "mailboxer_notifications", ["type"], name: "index_mailboxer_notifications_on_type", using: :btree
 
   create_table "mailboxer_receipts", force: true do |t|
     t.integer  "receiver_id"
@@ -122,8 +125,8 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "updated_at",                                 null: false
   end
 
-  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
-  add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
+  add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id", using: :btree
+  add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type", using: :btree
 
   create_table "mentions", force: true do |t|
     t.string   "mentioner_type"
@@ -133,8 +136,8 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "created_at"
   end
 
-  add_index "mentions", ["mentionable_id", "mentionable_type"], name: "fk_mentionables"
-  add_index "mentions", ["mentioner_id", "mentioner_type"], name: "fk_mentions"
+  add_index "mentions", ["mentionable_id", "mentionable_type"], name: "fk_mentionables", using: :btree
+  add_index "mentions", ["mentioner_id", "mentioner_type"], name: "fk_mentions", using: :btree
 
   create_table "merit_actions", force: true do |t|
     t.integer  "user_id"
@@ -178,7 +181,7 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.string   "oneliner"
   end
 
-  add_index "past_gigs", ["user_id"], name: "index_past_gigs_on_user_id"
+  add_index "past_gigs", ["user_id"], name: "index_past_gigs_on_user_id", using: :btree
 
   create_table "playlists", force: true do |t|
     t.text     "content"
@@ -188,7 +191,7 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "updated_at"
   end
 
-  add_index "playlists", ["user_id", "created_at"], name: "index_playlists_on_user_id_and_created_at"
+  add_index "playlists", ["user_id", "created_at"], name: "index_playlists_on_user_id_and_created_at", using: :btree
 
   create_table "sashes", force: true do |t|
     t.datetime "created_at"
@@ -203,7 +206,7 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.datetime "updated_at"
   end
 
-  add_index "songs", ["user_id", "created_at"], name: "index_songs_on_user_id_and_created_at"
+  add_index "songs", ["user_id", "created_at"], name: "index_songs_on_user_id_and_created_at", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider"
@@ -232,5 +235,11 @@ ActiveRecord::Schema.define(version: 20141001235613) do
     t.integer  "sash_id"
     t.integer  "level",            default: 0
   end
+
+  add_foreign_key "mailboxer_conversation_opt_outs", "mailboxer_conversations", name: "mb_opt_outs_on_conversations_id", column: "conversation_id"
+
+  add_foreign_key "mailboxer_notifications", "mailboxer_conversations", name: "notifications_on_conversation_id", column: "conversation_id"
+
+  add_foreign_key "mailboxer_receipts", "mailboxer_notifications", name: "receipts_on_notification_id", column: "notification_id"
 
 end

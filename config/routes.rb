@@ -40,8 +40,8 @@ Resnate::Application.routes.draw do
   get '/:user/:songkick_id/gigs/friendsGoing' => 'gigs#friendsGoing'
   get "/:songkick_id/:user/reviewForm" => "past_gigs#reviewForm"
   get "/:songkick_id/:user/reviewLike" => "past_gigs#reviewLike"
+  get "/:songkick_id/:user/reviewUnlike" => "past_gigs#reviewUnlike"
   get "/:id/reviewShow" => "past_gigs#reviewShow"
-  get "/:user/:multiGigs/multipleCreate" => "past_gigs#multipleCreate"
   resources :users, :path => ''
   resources :songs, only: [:create, :destroy]
   resources :gigs, only: [:create, :destroy]

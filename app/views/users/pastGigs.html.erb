@@ -79,7 +79,7 @@
         </li><br>
         <% end %></div>
       <% end %>
-      <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.oneliner == 'One liner about the show.' && PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 5000 characters)' && current_user != @user %>
+      <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.oneliner == 'One liner about the show.' && PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 2000 characters)' && current_user != @user %>
       <div class="review">
         <div class="reviewHeader">Review</div>
 
@@ -89,7 +89,7 @@
           <div class="reviewOneliner">
             <%= best_in_place_if current_user == @user, PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first, :oneliner, :type => :input %>
           </div>
-          <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 5000 characters)' && current_user != @user %>
+          <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 2000 characters)' && current_user != @user %>
           <div class="reviewFull">
             <%= best_in_place_if current_user == @user, PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first, :review, :type => :textarea, :display_with => :simple_format %>
           </div>
@@ -128,10 +128,16 @@
       <% elsif likeTotal > 3 %>
       <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
       <% end %>
+          
+         
           <% end %>
-          
-          
         
+      </div>
+
+      <div class="photos">
+        <div class="photosHeader">Photos & Videos</div>
+        <div class="photoContent">Share Imgur Photos</div>
+        <div class="videoContent">Share YouTube Videos</div>
       </div>
 
 

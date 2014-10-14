@@ -36,11 +36,12 @@ gem 'unicorn'
 gem 'browser'
 gem 'underscore-rails'
 gem 'best_in_place', github: 'aaronchi/best_in_place'
+gem 'taps-taps'
+gem 'pg'
 gem 'bulk_data_methods'
 
-
 group :development, :test do
-  gem 'pg'
+  
   gem 'rspec-rails', '2.13.1'
   # The following optional lines are part of the advanced setup.
   # gem 'guard-rspec', '2.5.0'
@@ -72,6 +73,6 @@ group :doc do
 end
 
 group :production do
-  gem 'pg'
+  
   gem 'rails_12factor', '0.0.2'
 end

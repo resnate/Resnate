@@ -899,10 +899,12 @@ tr {
   top: 0px;
   background-color: #FF0035;
   font-weight: bold;
-  padding: 5px;
+  padding: 0.3em;
   display: none;
   height: 2.9em;
   color: white;
+  line-height: 1.2em;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -1052,6 +1054,14 @@ tr {
   width: calc(100% - 115px);
 }
 
+.onelinerPreview {
+  font-style: italic;
+  font-weight: normal;
+  clear: left;
+  margin-top: 10px;
+  margin-left: 40px;
+}
+
 .gigUberTable {
   width: 100%;
 }
@@ -1063,7 +1073,7 @@ tr {
   margin-bottom: 15px;
 }
 
-.setlistHeader, .reviewHeader {
+.setlistHeader, .reviewHeader, .photosHeader {
   font-weight: bold;
   padding-left: 0px;
 }
@@ -1080,11 +1090,20 @@ tr {
   text-align: left;
 }
 
-.setlistDiv, .review {
+.reviewThumb {
+  top: 8px;
+  margin-right: 10px;
+}
+
+.setlistDiv, .review, .photos {
   display: inline-block;
   
   vertical-align: top;
-  margin-left: 5px;
+  margin-left: 0.5%;
+}
+
+.csImgReview {
+  height: 40px;
 }
 
 .setlistDiv {
@@ -1094,6 +1113,10 @@ tr {
 .review {
   width: 40%;
   margin-bottom: 40px;
+}
+
+.photos {
+  width: 35%;
 }
 
 .reviewSubmit {
@@ -1427,7 +1450,7 @@ tr {
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   position: relative;
-      height: 5em;
+      height: 4.6em;
   &:hover {
     color: red;
   }

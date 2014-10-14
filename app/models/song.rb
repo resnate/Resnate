@@ -7,5 +7,5 @@ class Song < ActiveRecord::Base
 	validates :user_id, presence: true
 
 	include PublicActivity::Model
-tracked owner: ->(controller, model) { controller && controller.current_user }
+tracked except: :destroy, owner: ->(controller, model) { controller && controller.current_user }
 end
