@@ -41,7 +41,7 @@ gem 'pg'
 gem 'bulk_data_methods'
 
 group :development, :test do
-  gem 'sqlite3'
+  
   gem 'rspec-rails', '2.13.1'
   # The following optional lines are part of the advanced setup.
   # gem 'guard-rspec', '2.5.0'

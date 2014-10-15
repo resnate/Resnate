@@ -22,3 +22,6 @@ test:
   <<: *default
   database: resnate_test
 
+production:
+  <<: *default
+  database: resnate_production
