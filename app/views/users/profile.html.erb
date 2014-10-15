@@ -245,14 +245,34 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
 
  </div>
 
-  <% elsif JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["results"]["calendarEntry"].nil? %> <!-- 2 -->
-<div id="noGigs">No gigs! <br> You just need to get a few gigs under your belt at <a href="www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).</div>
-  <% else %>
-<% calendarEntry = JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["results"]["calendarEntry"] %>
+  <% elsif JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["totalEntries"] == 0 %> <!-- 2 -->
+<div id="noPastGigs" class="gigBlocks">No past gigs! <br> Add a few gigs you've already been to at <a href="www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).</div>
+
+<% else %>
+
 <div id="pastGigs" class="gigBlocks">
   <table class="gigTables userInfo">
     <tr><td colspan="2"><span data-toggle="modal" data-target="#pastGigsModal" id="seeAllpast"><h4>Past Gigs</h4></span></td></tr>
   <% userCalendar = JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["results"]["event"] %>
+
+  <% if JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["totalEntries"] == 1%>
+
+   <% artistImage = userCalendar[0]["performance"][0]["artist"]["id"] %>
+    <tr class="pastGigsRows"><td><a href="<%= userCalendar[0]["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistImage %>/large_avatar" class="artistImages"></a></td>
+    <td>
+    <% d = (userCalendar[0]["start"]["date"]).to_date %>
+    <div class="uberdate myDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
+    <a href="<%= userCalendar[0]["uri"] %>" target="_blank"><%= userCalendar[0]["displayName"] %></a><br>
+    <%= cityName = userCalendar[0]["venue"]["metroArea"]["displayName"] %>
+    
+    
+    <% pgOne = PastGig.where(songkick_id: userCalendar[0]["id"], user_id: @user.id).first.oneliner %>
+    <% unless pgOne.nil? || pgOne == "One liner about the show." %>
+    <div class="onelinerPreview">"<%= pgOne %>"</div>
+    <% end %>
+    </td></tr>
+
+  <% else %>
     <% for i in (0..1) %> 
   
     <% artistImage = userCalendar[i]["performance"][0]["artist"]["id"] %>
@@ -271,15 +291,67 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
     </td></tr>
     
     <% end %> 
-  
+  <% end %>
   </table>
   </div>
-  
 
-  <div id="goingTo" class="gigBlocks">
+<% end %>
+
+
+<%if JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["totalEntries"] == 0 %>
+<div id="noUpcomingGigs" class="gigBlocks">No upcoming gigs! <br> Add a few gigs you're going to at <a href="www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).</div>
+
+  <% else %>
+<% calendarEntry = JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["results"]["calendarEntry"] %>
+
+<div id="goingTo" class="gigBlocks">
     
 <table class="gigTables userInfo">
 <tr><td colspan="2"><span data-toggle="modal" data-target="#upcomingGigsModal" id="seeAll"><h4>Upcoming Gigs</h4></span></td></tr>
+
+<% if JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["totalEntries"] == 1%>
+
+
+<% if calendarEntry[0]["reason"]["attendance"] == "im_going"  %> 
+  
+    <% artistid = calendarEntry[0]["event"]["performance"][0]["artist"]["id"] %>
+    <tr><td class="artistImageTd"><a href="<%= calendarEntry[0]["event"]["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistid %>/large_avatar" class="artistImages"></a></td>
+  
+    <td>
+      
+    <% d = (calendarEntry[0]["event"]["start"]["date"]).to_date %>
+    <div class="hiddenGigID"><%= ds = calendarEntry[0]["event"]["id"] %></div>
+    <div class="uberdate myDates">
+      <li class="datewrapLi"><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div>
+
+      <li class="gigName"><a href="<%= calendarEntry[0]["event"]["uri"] %>" target="_blank"><%= calendarEntry[0]["event"]["displayName"] %></a>
+        <br>
+        <%= calendarEntry[0]["event"]["venue"]["metroArea"]["displayName"] %></li>
+        <% unless @user.friends.count == 0 %>
+         <% @user.friends.each do |friend| %>
+         <% unless User.find_by_uid(friend).nil? %>
+    <% unless  Gig.where(user_id: User.find_by_uid(friend).id).nil? || Gig.where(user_id: User.find_by_uid(friend).id).count == 0 %>
+    <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
+    <% gigs.each do |gig| %>
+    <% if gig.songkick_id == ds %>
+    <img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <% end %>
+    <li class="shareGigLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
+
+      </div></div>
+    
+    
+    <% end %>  
+ </td></tr>
+
+
+<% else %>
+  
 
 
   <% for i in (0..1) %>  
@@ -319,7 +391,7 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
     
     
     
-    
+  <% end %>   
   <% end %> 
   </td></tr>
   <% end %> 

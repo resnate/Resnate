@@ -618,7 +618,7 @@ img {border:none;}
 .artistImages  {
   background-image: image-url("ResnateThickerSquare.svg");
   background-repeat:no-repeat;
-  background-size: 140px;
+  background-size: 100%;
   background-position: 50% 50%;
   float:left;
   
@@ -642,8 +642,12 @@ img {border:none;}
   text-align: left;
 }
 
-#goingTo, #pastGigs {
+#goingTo, #pastGigs, #noPastGigs, #noUpcomingGigs, #noSongkick {
   margin-right: 100px;
+}
+
+#noPastGigs, #noUpcomingGigs {
+  padding-top: 10px;
 }
 
 tr {
@@ -753,7 +757,6 @@ tr {
 }
 
 #noSongkick {
-  margin-right: 150px;
   width: 450px;
   display: inline-block;
   text-align: left;
@@ -785,10 +788,6 @@ tr {
 #setlistLogo {
   position: relative;
   bottom: 2px;
-}
-
-#noGigs {
-  text-align: center;
 }
 
 #editJam {
@@ -975,6 +974,7 @@ tr {
   font-size: 13px;
   width: 180px;
   border: 1px solid grey;
+  overflow: hidden;
 }
 
 .tt-cursor {

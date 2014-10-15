@@ -374,7 +374,7 @@ $("#navTitle").mouseout(function() {
           });
 
 
-  var pGurl="https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/gigography.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?";
+  var pGurl="https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/gigography.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?";
   var pastGigsArray = [];
   $.getJSON(pGurl,function(json){ 
     
