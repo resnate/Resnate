@@ -36,7 +36,6 @@ gem 'unicorn'
 gem 'browser'
 gem 'underscore-rails'
 gem 'best_in_place', github: 'aaronchi/best_in_place'
-gem 'taps-taps'
 gem 'pg'
 gem 'bulk_data_methods'
 
