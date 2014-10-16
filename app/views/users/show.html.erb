@@ -193,7 +193,7 @@ $('.unfollow').click(function(){
 <div id="noSongkick">
 
   <%= @user.first_name %> has no Songkick account to display past or upcoming gigs.
-
+</div>
 <% else %>
 
 
@@ -360,17 +360,16 @@ $('.unfollow').click(function(){
 <tr><td colspan="2"><span data-toggle="modal" data-target="#playlistsModal" id="userSeePlaylists"><h4>Playlists</h4></span></td></tr>
 
 
-<% if Like.where(liker_id: @user.id).count === 0 %>
+<% if Like.where(liker_id: @user.id, likeable_type: "Song").count === 0 %>
 <tr><td><div id="noLikes">Like some songs!</div></td></tr>
 <% else %>
-<tr class="userLikedInfo"><td>
+<tr class="likedInfo"><td>
 <div class="likedContent">
 
 
 
 </div>
-<img src="https://img.youtube.com/vi/<%= Song.find(Like.find_by_liker_id(@user.id).likeable_id).content %>/hqdefault.jpg" class="playlistImg" >
-
+<img src="https://img.youtube.com/vi/<%= Song.find(Like.where(liker_id: @user.id, likeable_type: "Song").first.likeable_id).content %>/hqdefault.jpg" class="playlistImg" >
 </td>
 <td class="playlistName">Liked</td>
 
@@ -621,11 +620,13 @@ $('#userSeePlaylists').click(function(){
   $('#userPlaylistsBody').html(result);});
 });
 
+
 $('.userPlaylistInfo').click(function(){
-  $.get("<%= @user.id %>/"+$(this).find('.playlistContent').html()+"/show", function(result){
+  $.get($(this).find('.playlistContent').html()+"/show", function(result){
     $('#Playlist').html(result);
-  home();
+  
 });
+  home();
 });
 
 $('.userLikedInfo').click(function(){

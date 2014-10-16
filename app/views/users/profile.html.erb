@@ -408,7 +408,7 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
 <tr><td colspan="2"><span data-toggle="modal" data-target="#playlistsModal" id="seePlaylists"><h4>Playlists</h4></span></td></tr>
 
 
-<% if Like.where(liker_id: @user.id).count === 0 %>
+<% if Like.where(liker_id: @user.id, likeable_type: "Song").count === 0 %>
 <tr><td><div id="noLikes">Like some songs!</div></td></tr>
 <% else %>
 <tr class="likedInfo"><td>
@@ -417,7 +417,7 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
 
 
 </div>
-<img src="https://img.youtube.com/vi/<%= Song.find(Like.find_by_liker_id(@user.id).likeable_id).content %>/hqdefault.jpg" class="playlistImg" >
+<img src="https://img.youtube.com/vi/<%= Song.find(Like.where(liker_id: @user.id, likeable_type: "Song").first.likeable_id).content %>/hqdefault.jpg" class="playlistImg" >
 
 </td>
 <td class="playlistName">Liked</td>
