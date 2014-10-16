@@ -35,31 +35,15 @@
 <div id="userJam"><img width="361px"height="271px" src="https://img.youtube.com/vi/<%= jamID %>/hqdefault.jpg" id="userJamImg"><p class="historyPs" id="userJamText"><%= @user.jamName %></p>
 <% end %>
 
-<div class="userInfo" id="userNameNstatus"><h5><%= @user.name %></h5><div id="picNfollow"><%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "userProfilePicBig" %>
-
-  <% if current_user.follows?(@user) %>
-  <div id="picFooter">
-  <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :get , class: "unfollow", style: "display: block" %>
-  <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :get , class: "follow", style: "display: none" %>
-</div>
-
-  <% else %>
-    <% if current_user == @user %>
-
-    <% else %>
+<div class="userInfo" id="userNameNstatus">
   
-    <div id="picFooter">
-    <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :get , class: "follow", style: "display: block" %>
-    <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :get , class: "unfollow", style: "display: none" %>
-    <span class="hiddenID"><%= @user.id %></span>
-  <span id="hiddenUser" class="hiddenID"><%= current_user.name%></span>
-  </div>
-  <% end %>
-  <% end %>
-
+ <%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
+ <h5><%= @user.name %></h5>
 </div>
 
-</div>
+
+
+ 
 
 
 </div>
@@ -84,9 +68,9 @@ $('#userJam').hover(
 
 $('.follow, .unfollow').hover(
   function(){
-    $(".follow, .unfollow").css("color", "white");
+    $( this ).animate({ opacity: 0.5 }, 250);
   }, function(){
-    $(".follow, .unfollow").css("color", "#D8D8D8 ");
+    $( this ).animate({ opacity: 1 }, 250);
   });
 
 
@@ -109,6 +93,25 @@ $('.unfollow').click(function(){
 
 
 <div id="followsAndBadges">
+
+ <% if current_user.follows?(@user) %>
+  
+  <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :get , class: "unfollow", style: "display: block" %>
+  <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :get , class: "follow", style: "display: none" %>
+
+
+  <% else %>
+    <% if current_user == @user %>
+
+    <% else %>
+  
+    <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :get , class: "follow", style: "display: block" %>
+    <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :get , class: "unfollow", style: "display: none" %>
+    <span class="hiddenID"><%= @user.id %></span>
+  <span id="hiddenUser" class="hiddenID"><%= current_user.name%></span>
+  <% end %>
+  <% end %>
+
   <div id="userFollows" data-toggle="modal" data-target="#UserFolloweesModal"><h4>Following</h4>
    <h5> <%= @user.followees(User).count %></h5>
   </div>

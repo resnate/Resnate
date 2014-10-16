@@ -930,18 +930,12 @@ tr {
   border: none;
 }
 
-#picFooter, .followNames {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  background: rgba(0, 0, 0, .6);
-  color: white;
+
   .follow, .unfollow {
-    color: #D8D8D8;
-    background-color: transparent;
+    background-color: #FF0035;
+    top: 0px;
   }
-}
+
 
 #nameNstatus, #userNameNstatus {
   line-height: 0.1em;
