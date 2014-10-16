@@ -200,7 +200,7 @@ $('.unfollow').click(function(){
 <% else %>
 
 
-  <% if JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["totalEntries"] == 0 %> <!-- 2 -->
+  <% if JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["totalEntries"] == 0 || @user.past_gigs.count == 0 %> <!-- 2 -->
 <div id="noPastGigs" class="gigBlocks"><%= @user.first_name %> has no past gigs!</div>
 
 <% else %>
