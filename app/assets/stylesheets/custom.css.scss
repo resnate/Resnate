@@ -937,6 +937,15 @@ tr {
   }
 
 
+#picFooter, .followNames {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  
+  color: white;
+}
+
 #nameNstatus, #userNameNstatus {
   line-height: 0.1em;
   vertical-align: top;
