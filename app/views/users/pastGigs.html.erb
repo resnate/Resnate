@@ -20,12 +20,16 @@
 
     <% url = URI.parse(setlistURL.gsub(" ", "+")) %>
     <% request = Net::HTTP.get_response(url) %>
+
+    <br></li></div><br>
+
+
     <% if request.body.include?("not found") || request.body.include?('"sets":""') %>
-      <br> No setlist found
+      <div class="setlistDiv"> No setlist found </div>
       
     <% else %>
-      <br>
-      </li></div><br>
+      
+      
       <% isArray = JSON.parse(request.body)["setlists"]["setlist"].kind_of?(Array) %>
       <% if isArray == false %>
       <% result = JSON.parse(request.body)["setlists"]["setlist"]["sets"]["set"] %>
@@ -79,6 +83,11 @@
         </li><br>
         <% end %></div>
       <% end %>
+
+<% end %>
+
+
+
       <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.oneliner == 'One liner about the show.' && PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 2000 characters)' && current_user != @user %>
       <div class="review">
         <div class="reviewHeader">Review</div>
@@ -141,7 +150,7 @@
       </div>
 
 
-      <% end %>
+      
     <% end %>
     </td></tr>
     

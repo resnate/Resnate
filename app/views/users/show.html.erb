@@ -242,12 +242,13 @@ $('.unfollow').click(function(){
     <%= cityName = userCalendar[i]["venue"]["metroArea"]["displayName"] %>
     
     
+    <% unless PastGig.where(songkick_id: userCalendar[i]["id"], user_id: @user.id).first.nil? %>
     <% pgOne = PastGig.where(songkick_id: userCalendar[i]["id"], user_id: @user.id).first.oneliner %>
     <% unless pgOne.nil? || pgOne == "One liner about the show." %>
     <div class="onelinerPreview">"<%= pgOne %>"</div>
     <% end %>
     </td></tr>
-    
+    <% end %>
     <% end %> 
   <% end %>
   </table>
