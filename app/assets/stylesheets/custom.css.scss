@@ -189,7 +189,7 @@ body {
 
 #videoResultsDiv li, #Playlist li {
   width: 150px;
-  background-color: #FF0035;
+  background-color: #FF0050;
   color: white;
   height: 128px;
   padding: 5px 2px 3px 3px;
@@ -371,7 +371,7 @@ margin-bottom: 30px;
 }
 
 .liked {
-  color: #FF0035;
+  color: #FF0050;
 }
 
 #fbShare {
@@ -586,7 +586,7 @@ li {
 
 #newSearch, #editJam, #saveJam, #saveIndexJam, #makeJam, .messageJam, #noJam, .makeFeedJam, #clearPlaylist, .reviewSubmit {
   border-style: none;
-  background: #FF0035;
+  background: #FF0050;
   cursor: pointer;
   color: white;
   /*text-shadow: 0.1em 0.1em 0.15em black;*/
@@ -896,7 +896,7 @@ tr {
   position: absolute;
   z-index: 99;
   top: 0px;
-  background-color: #FF0035;
+  background-color: #FF0050;
   font-weight: bold;
   padding: 0.3em;
   display: none;
@@ -932,7 +932,7 @@ tr {
 
 
   .follow, .unfollow {
-    background-color: #FF0035;
+    background-color: #FF0050;
     top: 0px;
   }
 
