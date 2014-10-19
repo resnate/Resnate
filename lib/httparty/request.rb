@@ -1,15 +1,15 @@
 module HTTParty
   class Request #:nodoc:
     SupportedHTTPMethods = [
-      Net::HTTP::Get,
-      Net::HTTP::Post,
-      Net::HTTP::Patch,
-      Net::HTTP::Put,
-      Net::HTTP::Delete,
-      Net::HTTP::Head,
-      Net::HTTP::Options,
-      Net::HTTP::Move,
-      Net::HTTP::Copy
+      Net::https::Get,
+      Net::https::Post,
+      Net::https::Patch,
+      Net::https::Put,
+      Net::https::Delete,
+      Net::https::Head,
+      Net::https::Options,
+      Net::https::Move,
+      Net::https::Copy
     ]
 
     SupportedURISchemes  = [URI::HTTP, URI::HTTPS, URI::Generic]
@@ -103,7 +103,7 @@ module HTTParty
         end
       end
 
-      handle_deflation unless http_method == Net::HTTP::Head
+      handle_deflation unless http_method == Net::https::Head
       handle_response(chunked_body, &block)
     end
 
@@ -256,7 +256,7 @@ module HTTParty
         end
         self.path = last_response['location']
         self.redirect = true
-        self.http_method = Net::HTTP::Get unless options[:maintain_method_across_redirects]
+        self.http_method = Net::https::Get unless options[:maintain_method_across_redirects]
         capture_cookies(last_response)
         perform(&block)
       else
@@ -324,7 +324,7 @@ module HTTParty
     end
 
     def post?
-      Net::HTTP::Post == http_method
+      Net::https::Post == http_method
     end
   end
 end

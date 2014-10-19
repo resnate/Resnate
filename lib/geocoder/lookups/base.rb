@@ -106,7 +106,7 @@ module Geocoder
             raise ConfigurationError,
               "Error parsing #{protocol.upcase} proxy URL: '#{proxy_url}'"
           end
-          Net::HTTP::Proxy(uri.host, uri.port, uri.user, uri.password)
+          Net::https::Proxy(uri.host, uri.port, uri.user, uri.password)
         else
           Net::HTTP
         end

@@ -43,7 +43,7 @@
 
 <div class="userInfo" id="nameNstatus">
   
- <%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
+ <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
  <h5><%= @user.name %></h5>
 </div>
 
@@ -228,7 +228,7 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
     <% end %>
 
   <br>
-  Enter your Songkick ID (or <a href="https://www.songkick.com/signup" target="_blank">sign up to Songkick</a>) to get your upcoming and past gigs, with setlists from <a href="http://www.setlist.fm" target="_blank">setlist.fm</a>!</div>
+  Enter your Songkick ID (or <a href="https://www.songkick.com/signup" target="_blank">sign up to Songkick</a>) to get your upcoming and past gigs, with setlists from <a href="https://www.setlist.fm" target="_blank">setlist.fm</a>!</div>
 
 <% else %>
 
@@ -334,7 +334,7 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
     <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
     <% gigs.each do |gig| %>
     <% if gig.songkick_id == ds %>
-    <img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
+    <img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
     <% end %>
     <% end %>
     <% end %>
@@ -378,7 +378,7 @@ $('.historyImgTDs, .userHistoryImgTDs').hover(
     <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
     <% gigs.each do |gig| %>
     <% if gig.songkick_id == ds %>
-    <img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
+    <img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
     <% end %>
     <% end %>
     <% end %>
@@ -461,7 +461,7 @@ $(function(){
 
   $('#saveJam').click(function(){
     expr = /(youtu\.be\/|[?&]v=)([^&]+)/;
-    url = 'http://gdata.youtube.com/feeds/api/videos/' + $('#jamURL').val().match(expr)[2] + '?v=2&alt=jsonc';
+    url = 'https://gdata.youtube.com/feeds/api/videos/' + $('#jamURL').val().match(expr)[2] + '?v=2&alt=jsonc';
     $.getJSON(url,function(json){ 
       $('#jamName').val(json["data"]["title"]);
       

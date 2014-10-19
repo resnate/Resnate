@@ -17,7 +17,7 @@ module Songkick
     # * max_date
     #
     # Look at this page for more information about the location option: 
-    # http://www.songkick.com/developer/event-search
+    # https://www.songkick.com/developer/event-search
     #
     # Example:
     # sg = Songkick.new("myapikey")
@@ -39,7 +39,7 @@ module Songkick
     # * location
     #
     # Look at this page for more information about the location option: 
-    # http://www.songkick.com/developer/location-search
+    # https://www.songkick.com/developer/location-search
     #
     # Example:
     # sg = Songkick.new("myapikey")

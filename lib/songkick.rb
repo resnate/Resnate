@@ -6,12 +6,12 @@ require "songkick/client"
 
 module Songkick
   
-  API_URL = 'http://api.songkick.com/api/3.0/'
+  API_URL = 'https://api.songkick.com/api/3.0/'
   
   class << self
    	
    	# In order to use the API you must have an API key
-   	# To request one, go to this url: http://developer.songkick.com/
+   	# To request one, go to this url: https://developer.songkick.com/
    	#
    	# Example:
    	# sg = Songkick.new("myaipkey")

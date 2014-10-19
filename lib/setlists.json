@@ -16,7 +16,7 @@
     "@name":"Arcade Fire",
     "@sortName":"Arcade Fire",
     "@tmid":"946978",
-    "url":"http:\/\/www.setlist.fm\/setlists\/arcade-fire-6bd6ae92.html"
+    "url":"https:\/\/www.setlist.fm\/setlists\/arcade-fire-6bd6ae92.html"
    },
    "venue":{
     "@id":"2bd6d0d2",
@@ -35,7 +35,7 @@
       "@name":"United Kingdom"
      }
     },
-    "url":"http:\/\/www.setlist.fm\/venue\/roundhouse-london-england-2bd6d0d2.html"
+    "url":"https:\/\/www.setlist.fm\/venue\/roundhouse-london-england-2bd6d0d2.html"
    },
    "sets":{
     "set":[
@@ -81,7 +81,7 @@
          "@name":"DEVO",
          "@sortName":"DEVO",
          "@tmid":"869383",
-         "url":"http:\/\/www.setlist.fm\/setlists\/devo-53d68b21.html"
+         "url":"https:\/\/www.setlist.fm\/setlists\/devo-53d68b21.html"
         }
        },
        {
@@ -103,7 +103,7 @@
      }
     ]
    },
-   "url":"http:\/\/www.setlist.fm\/setlist\/arcade-fire\/2013\/roundhouse-london-england-6bc49662.html"
+   "url":"https:\/\/www.setlist.fm\/setlist\/arcade-fire\/2013\/roundhouse-london-england-6bc49662.html"
   }
  }
 }

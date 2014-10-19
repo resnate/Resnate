@@ -1,6 +1,6 @@
 <% @followers.each do |f| %>
 <div class="followInfo">
-<%= image_tag "http://graph.facebook.com/#{f.uid}/picture?width=100&height=100", class: "followImgs" %>
+<%= image_tag "https://graph.facebook.com/#{f.uid}/picture?width=100&height=100", class: "followImgs" %>
       <div class="followNames"><%= f.name %></div>
       <div class="hiddenID"><%= f.id %></div>
 </div>

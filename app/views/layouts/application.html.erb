@@ -110,7 +110,7 @@ $('#search_user').typeahead(
       'Unable to find any users',
       '</div>'
     ].join('\n'),
-    suggestion: Handlebars.compile('<p class="userSuggestions"><img src="http://graph.facebook.com/{{uid}}/picture?width=50&height=50" class="dropdownImg"></img><strong>{{name}}</strong></p>')
+    suggestion: Handlebars.compile('<p class="userSuggestions"><img src="https://graph.facebook.com/{{uid}}/picture?width=50&height=50" class="dropdownImg"></img><strong>{{name}}</strong></p>')
   }
 });
 
@@ -140,11 +140,11 @@ function searchUser(){
 function amazonIntl(){
   var userSearch = $('#search_query').val();
    <% if current_user.country == "United Kingdom" %>
-       $("#moreMerch").html('<a href="http://www.amazon.co.uk/s/ref=sr_nr_n_8?rh=n%3A83450031%2Ck%3A&keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
+       $("#moreMerch").html('<a href="https://www.amazon.co.uk/s/ref=sr_nr_n_8?rh=n%3A83450031%2Ck%3A&keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
    <% elsif current_user.country == "France" %>
-       $("#moreMerch").html('<a href="http://www.amazon.fr/s/ref=sr_nr_n_8?url=search-alias%3Dclothing&field-keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
+       $("#moreMerch").html('<a href="https://www.amazon.fr/s/ref=sr_nr_n_8?url=search-alias%3Dclothing&field-keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
    <% else %>
-       $("#moreMerch").html('<a href="http://www.amazon.com/s/ref=sr_nr_n_8?url=search-alias%3Dapparel&field-keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
+       $("#moreMerch").html('<a href="https://www.amazon.com/s/ref=sr_nr_n_8?url=search-alias%3Dapparel&field-keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
    <% end %>
 }
 
@@ -232,7 +232,7 @@ function amazonIntl(){
           
 
           
-          <li><img src="http://graph.facebook.com/<%=current_user.uid%>/picture?width=100&height=100" id="profilePic" onclick="profile()"></li>
+          <li><img src="https://graph.facebook.com/<%=current_user.uid%>/picture?width=100&height=100" id="profilePic" onclick="profile()"></li>
           
     <!--<li id="currentUser" class="currentUserInfo"><strong><%= current_user.name %></strong></li>-->
     <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>

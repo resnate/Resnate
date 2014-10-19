@@ -22,7 +22,7 @@
     <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
     <% gigs.each do |gig| %>
     <% if gig.songkick_id == ds %>
-    <img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
+    <img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div>
     <% end %>
     <% end %>
     <% end %>

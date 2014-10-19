@@ -8,7 +8,7 @@ module Geocoder
     # ATAN2(), DEGREES(), and RADIANS().
     #
     # Based on the excellent tutorial at:
-    # http://www.scribd.com/doc/2569355/Geo-Distance-Search-with-MySQL
+    # https://www.scribd.com/doc/2569355/Geo-Distance-Search-with-MySQL
     #
     def full_distance(latitude, longitude, lat_attr, lon_attr, options = {})
       units = options[:units] || Geocoder.config.units
@@ -60,7 +60,7 @@ module Geocoder
     # (:linear or :spherical).
     #
     # Based on:
-    # http://www.beginningspatial.com/calculating_bearing_one_point_another
+    # https://www.beginningspatial.com/calculating_bearing_one_point_another
     #
     def full_bearing(latitude, longitude, lat_attr, lon_attr, options = {})
       degrees_per_radian = Geocoder::Calculations::DEGREES_PER_RADIAN

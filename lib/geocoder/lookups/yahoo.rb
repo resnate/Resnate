@@ -10,7 +10,7 @@ module Geocoder::Lookup
     end
 
     def map_link_url(coordinates)
-      "http://maps.yahoo.com/#lat=#{coordinates[0]}&lon=#{coordinates[1]}"
+      "https://maps.yahoo.com/#lat=#{coordinates[0]}&lon=#{coordinates[1]}"
     end
 
     def required_api_key_parts

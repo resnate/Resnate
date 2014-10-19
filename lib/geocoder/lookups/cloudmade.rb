@@ -9,7 +9,7 @@ module Geocoder::Lookup
     end
 
     def query_url(query)
-      "http://geocoding.cloudmade.com/#{configuration.api_key}/geocoding/v2/find.js?#{url_query_string(query)}"
+      "https://geocoding.cloudmade.com/#{configuration.api_key}/geocoding/v2/find.js?#{url_query_string(query)}"
     end
 
     def required_api_key_parts

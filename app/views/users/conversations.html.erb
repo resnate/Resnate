@@ -12,11 +12,11 @@
         <% message = receipt.message %>
 
         <div class="messageImgs">
-        <div class="senderImg"><img src="http://graph.facebook.com/<%= User.find(message.sender_id).uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= message.sender_id %></div></div>
+        <div class="senderImg"><img src="https://graph.facebook.com/<%= User.find(message.sender_id).uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= message.sender_id %></div></div>
       <% conversation.participants.each do |participant| %>
         <% if participant != User.find(message.sender_id) %>
 
-        <div class="messageImg"><img src="http://graph.facebook.com/<%= participant.uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
+        <div class="messageImg"><img src="https://graph.facebook.com/<%= participant.uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
         <% end %>
       <% end %>
         </div>
@@ -136,10 +136,10 @@
         <% elsif message.subject[0] == 'G' %>
         <br><br>
         <div class="messageGigSubject">
-          <span class="msgGigImgSpan"><a href="http://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..9] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs"></a></span>
+          <span class="msgGigImgSpan"><a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..9] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs"></a></span>
         <div class="uberdate myDates msgDates"><li class="datewrapLi"><div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div> </li> 
 
-<li class="gigName"><a href="http://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
+<li class="gigName"><a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
         <br>
         <span class="msgGigLocation"></span></li>
         

@@ -12,7 +12,7 @@ module Geocoder
 
     ##
     # Radius of the Earth, in kilometers.
-    # Value taken from: http://en.wikipedia.org/wiki/Earth_radius
+    # Value taken from: https://en.wikipedia.org/wiki/Earth_radius
     #
     EARTH_RADIUS = 6371.0
 
@@ -115,7 +115,7 @@ module Geocoder
     #   (returns due east or west when given two points with the same latitude).
     #   Use Geocoder.configure(:distances => ...) to configure calculation method.
     #
-    # Based on: http://www.movable-type.co.uk/scripts/latlong.html
+    # Based on: https://www.movable-type.co.uk/scripts/latlong.html
     #
     def bearing_between(point1, point2, options = {})
 
@@ -164,7 +164,7 @@ module Geocoder
     # Compute the geographic center (aka geographic midpoint, center of
     # gravity) for an array of geocoded objects and/or [lat,lon] arrays
     # (can be mixed). Any objects missing coordinates are ignored. Follows
-    # the procedure documented at http://www.geomidpoint.com/calculation.html.
+    # the procedure documented at https://www.geomidpoint.com/calculation.html.
     #
     def geographic_center(points)
 

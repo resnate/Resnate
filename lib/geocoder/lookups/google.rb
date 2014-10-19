@@ -9,7 +9,7 @@ module Geocoder::Lookup
     end
 
     def map_link_url(coordinates)
-      "http://maps.google.com/maps?q=#{coordinates.join(',')}"
+      "https://maps.google.com/maps?q=#{coordinates.join(',')}"
     end
 
     def query_url(query)

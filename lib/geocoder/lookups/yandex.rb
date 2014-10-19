@@ -9,7 +9,7 @@ module Geocoder::Lookup
     end
 
     def map_link_url(coordinates)
-      "http://maps.yandex.ru/?ll=#{coordinates.reverse.join(',')}"
+      "https://maps.yandex.ru/?ll=#{coordinates.reverse.join(',')}"
     end
 
     def query_url(query)

@@ -3,7 +3,7 @@
   <% fl.musicLikes.select do |s| %>
     <% if s.gsub(/[\'.]/, '').downcase.include?(params[:search].gsub(/[\'.]/, '').downcase) == true %>
  	<div class="followDiv">
-  	<%= image_tag "http://graph.facebook.com/#{fl.uid}/picture?width=100&height=100", class: "friendsWhoLikeImgs" %>
+  	<%= image_tag "https://graph.facebook.com/#{fl.uid}/picture?width=100&height=100", class: "friendsWhoLikeImgs" %>
       
       
       <div class="hiddenID"><%= fl.id %></div>

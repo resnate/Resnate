@@ -1,5 +1,5 @@
 # More information about the Data Science Toolkit can be found at:
-# http://www.datasciencetoolkit.org/. The provided APIs mimic the
+# https://www.datasciencetoolkit.org/. The provided APIs mimic the
 # Google geocoding api.
 
 require 'geocoder/lookups/google'

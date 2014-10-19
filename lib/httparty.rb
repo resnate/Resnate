@@ -87,7 +87,7 @@ module HTTParty
     #
     #   class Foo
     #     include HTTParty
-    #     http_proxy 'http://foo.com', 80, 'user', 'pass'
+    #     http_proxy 'https://foo.com', 80, 'user', 'pass'
     #   end
     def http_proxy(addr=nil, port=nil, user=nil, pass=nil)
       default_options[:http_proxyaddr] = addr
@@ -209,7 +209,7 @@ module HTTParty
     # @example
     #   class Foo
     #     include HTTParty
-    #     base_uri 'http://google.com'
+    #     base_uri 'https://google.com'
     #     follow_redirects true
     #   end
     def follow_redirects(value = true)
@@ -243,7 +243,7 @@ module HTTParty
     # @example
     #   class Foo
     #     include HTTParty
-    #     base_uri 'http://google.com'
+    #     base_uri 'https://google.com'
     #     no_follow true
     #   end
     #
@@ -263,7 +263,7 @@ module HTTParty
     # @example
     #   class Foo
     #     include HTTParty
-    #     base_uri 'http://google.com'
+    #     base_uri 'https://google.com'
     #     maintain_method_across_redirects true
     #   end
 
@@ -339,7 +339,7 @@ module HTTParty
     # Allows setting of SSL ciphers to use.  This only works in Ruby 1.9+.
     # You can get a list of valid specific ciphers from OpenSSL::Cipher.ciphers.
     # You also can specify a cipher suite here, listed here at openssl.org:
-    # http://www.openssl.org/docs/apps/ciphers.html#CIPHER_SUITE_NAMES
+    # https://www.openssl.org/docs/apps/ciphers.html#CIPHER_SUITE_NAMES
     #
     #   class Foo
     #     include HTTParty
@@ -425,13 +425,13 @@ module HTTParty
     #   end
     #
     #   # Simple get with full url
-    #   Foo.get('http://foo.com/resource.json')
+    #   Foo.get('https://foo.com/resource.json')
     #
     #   # Simple get with full url and query parameters
-    #   # ie: http://foo.com/resource.json?limit=10
-    #   Foo.get('http://foo.com/resource.json', :query => {:limit => 10})
+    #   # ie: https://foo.com/resource.json?limit=10
+    #   Foo.get('https://foo.com/resource.json', :query => {:limit => 10})
     def get(path, options={}, &block)
-      perform_request Net::HTTP::Get, path, options, &block
+      perform_request Net::https::Get, path, options, &block
     end
 
     # Allows making a post request to a url.
@@ -441,48 +441,48 @@ module HTTParty
     #   end
     #
     #   # Simple post with full url and setting the body
-    #   Foo.post('http://foo.com/resources', :body => {:bar => 'baz'})
+    #   Foo.post('https://foo.com/resources', :body => {:bar => 'baz'})
     #
     #   # Simple post with full url using :query option,
     #   # which gets set as form data on the request.
-    #   Foo.post('http://foo.com/resources', :query => {:bar => 'baz'})
+    #   Foo.post('https://foo.com/resources', :query => {:bar => 'baz'})
     def post(path, options={}, &block)
-      perform_request Net::HTTP::Post, path, options, &block
+      perform_request Net::https::Post, path, options, &block
     end
 
     # Perform a PATCH request to a path
     def patch(path, options={}, &block)
-      perform_request Net::HTTP::Patch, path, options, &block
+      perform_request Net::https::Patch, path, options, &block
     end
 
     # Perform a PUT request to a path
     def put(path, options={}, &block)
-      perform_request Net::HTTP::Put, path, options, &block
+      perform_request Net::https::Put, path, options, &block
     end
 
     # Perform a DELETE request to a path
     def delete(path, options={}, &block)
-      perform_request Net::HTTP::Delete, path, options, &block
+      perform_request Net::https::Delete, path, options, &block
     end
 
     # Perform a MOVE request to a path
     def move(path, options={}, &block)
-      perform_request Net::HTTP::Move, path, options, &block
+      perform_request Net::https::Move, path, options, &block
     end
 
     # Perform a COPY request to a path
     def copy(path, options={}, &block)
-      perform_request Net::HTTP::Copy, path, options, &block
+      perform_request Net::https::Copy, path, options, &block
     end
 
     # Perform a HEAD request to a path
     def head(path, options={}, &block)
-      perform_request Net::HTTP::Head, path, options, &block
+      perform_request Net::https::Head, path, options, &block
     end
 
     # Perform an OPTIONS request to a path
     def options(path, options={}, &block)
-      perform_request Net::HTTP::Options, path, options, &block
+      perform_request Net::https::Options, path, options, &block
     end
 
     def default_options #:nodoc:

@@ -1,7 +1,7 @@
 # A utility for signing an url using OAuth in a way that's convenient for debugging
-# Note: the standard Ruby OAuth lib is here http://github.com/mojodna/oauth
-# Source: http://gist.github.com/383159
-# License: http://gist.github.com/375593
+# Note: the standard Ruby OAuth lib is here https://github.com/mojodna/oauth
+# Source: https://gist.github.com/383159
+# License: https://gist.github.com/375593
 # Usage: see example.rb below
 #
 # NOTE: This file has been modified from the original Gist:
@@ -33,33 +33,33 @@ class OauthUtil
   end
 
   # openssl::random_bytes returns non-word chars, which need to be removed. using alt method to get length
-  # ref http://snippets.dzone.com/posts/show/491
+  # ref https://snippets.dzone.com/posts/show/491
   def nonce
     Array.new( 5 ) { rand(256) }.pack('C*').unpack('H*').first
   end
 
   def percent_encode( string )
 
-    # ref http://snippets.dzone.com/posts/show/1260
+    # ref https://snippets.dzone.com/posts/show/1260
     return URI.escape( string, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]") ).gsub('*', '%2A')
   end
 
-  # @ref http://oauth.net/core/1.0/#rfc.section.9.2
+  # @ref https://oauth.net/core/1.0/#rfc.section.9.2
   def signature
     key = percent_encode( @consumer_secret ) + '&' + percent_encode( @token_secret )
 
-    # ref: http://blog.nathanielbibler.com/post/63031273/openssl-hmac-vs-ruby-hmac-benchmarks
+    # ref: https://blog.nathanielbibler.com/post/63031273/openssl-hmac-vs-ruby-hmac-benchmarks
     digest = OpenSSL::Digest.new( 'sha1' )
     hmac = OpenSSL::HMAC.digest( digest, key, @base_str )
 
-    # ref http://groups.google.com/group/oauth-ruby/browse_thread/thread/9110ed8c8f3cae81
+    # ref https://groups.google.com/group/oauth-ruby/browse_thread/thread/9110ed8c8f3cae81
     Base64.encode64( hmac ).chomp.gsub( /\n/, '' )
   end
 
   # sort (very important as it affects the signature), concat, and percent encode
-  # @ref http://oauth.net/core/1.0/#rfc.section.9.1.1
-  # @ref http://oauth.net/core/1.0/#9.2.1
-  # @ref http://oauth.net/core/1.0/#rfc.section.A.5.1
+  # @ref https://oauth.net/core/1.0/#rfc.section.9.1.1
+  # @ref https://oauth.net/core/1.0/#9.2.1
+  # @ref https://oauth.net/core/1.0/#rfc.section.A.5.1
   def query_string
     pairs = []
     @params.sort.each { | key, val | 
@@ -90,11 +90,11 @@ class OauthUtil
       end
     end
 
-    # @ref http://oauth.net/core/1.0/#rfc.section.9.1.2
+    # @ref https://oauth.net/core/1.0/#rfc.section.9.1.2
     @req_url = parsed_url.scheme + '://' + parsed_url.host + parsed_url.path
 
     # create base str. make it an object attr for ez debugging
-    # ref http://oauth.net/core/1.0/#anchor14
+    # ref https://oauth.net/core/1.0/#anchor14
     @base_str = [ 
       @req_method, 
       percent_encode( req_url ), 

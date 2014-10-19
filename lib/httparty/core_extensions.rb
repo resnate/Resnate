@@ -7,7 +7,7 @@ module HTTParty
     end
   end
 
-  unless defined?(Net::HTTP::Patch)
+  unless defined?(Net::https::Patch)
     class Net::HTTP
       def patch(path, data, initheader = nil, dest = nil, &block) #:nodoc:
         res = nil

@@ -9,7 +9,7 @@ module Geocoder::Lookup
     end
 
     def map_link_url(coordinates)
-      "http://www.bing.com/maps/default.aspx?cp=#{coordinates.join('~')}"
+      "https://www.bing.com/maps/default.aspx?cp=#{coordinates.join('~')}"
     end
 
     def required_api_key_parts

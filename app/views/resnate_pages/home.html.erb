@@ -489,7 +489,7 @@ $.get( '/<%= current_user.id %>/'+(pastGigsArray)+'/multipleCreate', function( d
 function userFormatResult(user) {
         var markup = "<table class='user-result'><tr>";
         if (user.uid !== undefined ) {
-            markup += "<td class='user-image'><img src='http://graph.facebook.com/" + user.uid + "/picture?width=50&height=50'class='multiplePic'/></td>";
+            markup += "<td class='user-image'><img src='https://graph.facebook.com/" + user.uid + "/picture?width=50&height=50'class='multiplePic'/></td>";
         }
         markup += "<td class='multipleName'><div>" + user.name + "</div></td></tr></table>";
         return markup;

@@ -34,8 +34,8 @@ module Geocoder::Lookup
       params.merge(super)
     end
 
-    # http://www.mapquestapi.com/geocoding/status_codes.html
-    # http://open.mapquestapi.com/geocoding/status_codes.html
+    # https://www.mapquestapi.com/geocoding/status_codes.html
+    # https://open.mapquestapi.com/geocoding/status_codes.html
     def results(query)
       return [] unless doc = fetch_data(query)
       return doc["results"][0]['locations'] if doc['info']['statuscode'] == 0 # A successful geocode call

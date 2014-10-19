@@ -8,7 +8,7 @@
 <% @user.friends.each do |friend| %>
   <% unless User.find_by_uid(friend).nil? %>
     <div class="followDiv">
-    <img src="http://graph.facebook.com/<%= friend %>/picture?width=200&height=200" class="followImgs"><span class="hiddenID"><%= User.find_by_uid(friend).id %></span><span class="followNames"><%= User.find_by_uid(friend).name %></span>
+    <img src="https://graph.facebook.com/<%= friend %>/picture?width=200&height=200" class="followImgs"><span class="hiddenID"><%= User.find_by_uid(friend).id %></span><span class="followNames"><%= User.find_by_uid(friend).name %></span>
   <% end %>
 </div>
 <% end %>
@@ -27,16 +27,16 @@
     
    
     
-    <%= image_tag "http://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+    <%= image_tag "https://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
     <% if activity.trackable_type == "Gig" %>
 
-        <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= activity.trackable.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
+        <div class="gigImgSpan"><a href="https://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= activity.trackable.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
 
         <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "Gig" %>
-  <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
+  <div class="gigImgSpan"><a href="https://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
 
    <% elsif activity.trackable_type == "Socialization::ActiveRecordStores::Like" && Like.find(activity.trackable_id).likeable_type == "PastGig" %>
-   <div class="gigImgSpan"><a href="http://www.songkick.com/concerts/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
+   <div class="gigImgSpan"><a href="https://www.songkick.com/concerts/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs"></a></div>
 
         
     
@@ -81,7 +81,7 @@
         <% unless User.find_by_id(Follow.find(activity.trackable_id).followable_id).nil? %>
 
         <div class="activityYT" >
-            <%= image_tag "http://graph.facebook.com/#{User.find(Follow.find(activity.trackable_id).followable_id).uid}/picture?width=200&height=200", class: "feedFollowPic" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+            <%= image_tag "https://graph.facebook.com/#{User.find(Follow.find(activity.trackable_id).followable_id).uid}/picture?width=200&height=200", class: "feedFollowPic" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
           </div>
         <% end %>
 
@@ -163,7 +163,7 @@
         <div class="uberdate myDates feedDates"><li class="datewrapLi"><div class="date-wrap"><span class="month feedMonth"></span><span class="day feedDay"></span></li>
 
 
-          <li class="gigName"><a href="http://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
+          <li class="gigName"><a href="https://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
         <br>
         <span class="feedGigLocation"></span></li>
 
@@ -174,7 +174,7 @@
     <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
     <% gigs.each do |gig| %>
     <% if gig.songkick_id == Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>
-    <span class="followerSpan"><img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div></span>
+    <span class="followerSpan"><img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div></span>
     <% end %>
     <% end %>
     <% end %>
@@ -186,7 +186,7 @@
       </div><div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
 
        <% elsif Like.find(activity.trackable_id).likeable_type == "PastGig" %>
-       <div class="profileName"><%= User.find(PastGig.find(Like.find(activity.trackable_id).likeable_id).user_id).name %></div><div class="hiddenID" style="display:none"><%= PastGig.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>'s review of <a href="http://www.songkick.com/concerts/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
+       <div class="profileName"><%= User.find(PastGig.find(Like.find(activity.trackable_id).likeable_id).user_id).name %></div><div class="hiddenID" style="display:none"><%= PastGig.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>'s review of <a href="https://www.songkick.com/concerts/<%= PastGig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
        <div class="hiddenReviewID"><%= Like.find(activity.trackable_id).likeable_id %></div>
        <div class="feedReview" data-toggle="modal" data-target="#reviewModal">
         <% unless PastGig.find(Like.find(activity.trackable_id).likeable_id).oneliner.nil? %>
@@ -244,7 +244,7 @@
         <div class="uberdate myDates feedDates"><li class="datewrapLi"><div class="date-wrap"><span class="month feedMonth"></span><span class="day feedDay"></span></li>
 
 
-          <li class="gigName"><a href="http://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
+          <li class="gigName"><a href="https://www.songkick.com/concerts/<%= activity.trackable.songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName"></span></a>
         <br>
         <span class="feedGigLocation"></span></li>
 
@@ -255,7 +255,7 @@
     <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
     <% gigs.each do |gig| %>
     <% if gig.songkick_id == activity.trackable.songkick_id %>
-    <span class="followerSpan"><img src="http://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div></span>
+    <span class="followerSpan"><img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="followerID"><%= User.find_by_uid(friend).id %></div></span>
     <% end %>
     <% end %>
     <% end %>

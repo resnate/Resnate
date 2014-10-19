@@ -9,7 +9,7 @@ module Geocoder::Lookup
     end
 
     def map_link_url(coordinates)
-      "http://www.openstreetmap.org/?lat=#{coordinates[0]}&lon=#{coordinates[1]}&zoom=15&layers=M"
+      "https://www.openstreetmap.org/?lat=#{coordinates[0]}&lon=#{coordinates[1]}&zoom=15&layers=M"
     end
 
     def query_url(query)
