@@ -1,7 +1,9 @@
-<% @likes.each do |likedSong|  %>
+<% @likes.each do |likedSong| %>
+		<li class="playlistSong playlistSongLi">
 
-<li style="" class="ui-draggable"><p><%= Song.find(likedSong.likeable_id).name %><span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", data: {toggle: "modal",target: "#shareModal"} %></span></p><img src="https://img.youtube.com/vi/<%= Song.find(likedSong.likeable_id).content %>/mqdefault.jpg" class="playlistYT" alt="thumbnail" width="150px"></li>
-
-
-
+			<img class="playlistYT playlistSong" src="https://img.youtube.com/vi/<%= Song.find(likedSong.likeable_id).content %>/default.jpg"></img>
+			<p class="playlistSongP">
+				<%= Song.find(likedSong.likeable_id).name %>
+			</p>
+		</li>
 <% end %>

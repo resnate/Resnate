@@ -1,0 +1,7 @@
+<% broadcast "/messages/new" do %>
+
+	<% @recipient.each do |re| %>
+	<%= User.find(re).id %>
+	<% end %>
+
+<% end %>

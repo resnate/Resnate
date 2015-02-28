@@ -1,0 +1,33 @@
+<div class="modal-body leaderboard">
+
+<h4 class="featuredHeader">Top Users</h4>
+    
+    <% @sortedUsers.first(10).each do |rankedUser| %>
+      
+      <% id = rankedUser[:id] %>
+      <div class="rankedUser">
+            <img src="https://graph.facebook.com/<%= User.find(id).uid %>/picture?width=100&height=100" class="followImgs"></img>
+            <div class="hiddenID"><%= id %></div>
+            <div class="profileName leaderName"><%= User.find(id).name %></div>
+              
+          
+
+          <% if User.find(id).level_name == "Filthy Casual" %>  
+            <div class="filthy topLevels leaderName"><%= User.find(id).level_name %></div>
+          <% elsif User.find(id).level_name == "Hipster" %>
+            <div class="hipster topLevels leaderName"><%= User.find(id).level_name %></div>   
+          <% elsif User.find(id).level_name == "ÜberHipster" %>
+            <div class="uberHipster topLevels leaderName"><%= User.find(id).level_name %></div>
+          <% elsif User.find(id).level_name == "Groupie" %> 
+            <div class="topLevels groupie leaderName"><%= User.find(id).level_name %></div>
+          <% elsif User.find(id).level_name == "SuperGroupie" %> 
+            <div class="topLevels superGroupie leaderName"><%= User.find(id).level_name %></div>
+          <% end %>
+
+          <div class="topNames likesNpoints leaderName"><%= rankedUser[:points] %></div>
+      </div>
+      
+      <% end %>
+      
+
+</div>

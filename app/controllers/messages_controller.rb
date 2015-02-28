@@ -9,6 +9,8 @@ class MessagesController < ApplicationController
   	attrs = params[:user].split(',').each do |attri|
   		@recipient.push(User.find(attri))
   	end
+
+    @sender = current_user.id
     
     current_user.send_message(@recipient, params[:body], params[:subject])
   end

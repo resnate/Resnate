@@ -1,0 +1,21 @@
+<%= image_tag "https://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+<div class="hiddenID">
+	<%= activity.owner.id %>
+</div>
+
+<%= image_tag (Merit::Badge.find(User.find(activity.owner_id).level).custom_fields[:image]), class: 'feedBadge' %>
+
+<div class="activityInfo">
+	<div class="profileName">
+		<%= activity.owner.name if activity.owner %>
+	</div>
+	<div class="hiddenID">
+		<%= activity.owner.id %>
+	</div>
+	<div class="activityName levelNtf">
+		New level: <%= User.find(activity.owner_id).level_name %>
+	</div>
+	<div class="createdAt">
+		<%= time_ago_in_words(DateTime.parse(activity.created_at.to_s)) %> ago
+	</div>
+</div>

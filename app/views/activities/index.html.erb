@@ -1,0 +1,75 @@
+<% if current_user.followees(User).count == 0 %>
+
+	<h3> Follow friends to see their activity! </h3>
+
+	<% unless @user.friends.nil? || @user.friends.count == 0 %>
+
+
+		<% @user.friends.each do |friend| %>
+  			<% unless User.find_by_uid(friend).nil? %>
+    			<div class="followDiv">
+    			<img src="https://graph.facebook.com/<%= friend %>/picture?width=200&height=200" class="followImgs">
+    			<span class="hiddenID"><%= User.find_by_uid(friend).id %></span>
+    			<span class="followNames"><%= User.find_by_uid(friend).name %></span>
+    			</div>
+  			<% end %>
+		<% end %>
+	<% end %>
+
+
+<% else %>
+
+	<% @activities.each do |activity| %>
+		<% if activity.trackable %>
+			<div class="activity">
+				<%= render_activity activity %>
+			</div>
+		<% end %>
+	<% end %>
+
+	<div id="infinite-scrolling">
+		<%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
+	</div>
+
+	<script type="text/javascript">
+
+$(function(){
+
+
+
+  
+
+   
+
+  $('.feedCsImg').click(function(){
+     $('#messageURL').val('~`' + $(this).parent().siblings('.activityInfo').find('.hiddenYTID').html()+','+$(this).parent().siblings('.activityInfo').find('.activityName').html());
+  });
+
+
+$('.feedFollow.fFl').click(function(){
+  $(this).parents('.feedShares').css("display", "none");
+  $(this).parents('.feedShares').siblings('.feedShares.fUl').css("display", "inline-block");
+});
+
+$('.feedUnfollow.fUl').click(function(){
+  $(this).parents('.feedShares').css("display", "none");
+  $(this).parents('.feedShares').siblings('.feedShares.fFl').css("display", "inline-block");
+});
+
+$('.feedUnfollow.fUlUser').click(function(){
+  $(this).parents('.feedShares.fUlUser').css("display", "none");
+  $(this).parents('.feedShares.fUlUser').siblings('.feedShares.fFlUser').css("display", "inline-block");
+});
+
+$('.feedFollow.fFlUser').click(function(){
+  $(this).parents('.feedShares.fFlUser').css("display", "none");
+  $(this).parents('.feedShares.fFlUser').siblings('.feedShares.fUlUser').css("display", "inline-block");
+});
+
+
+
+
+});
+</script>
+
+<% end %>

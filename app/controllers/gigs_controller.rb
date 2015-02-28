@@ -2,20 +2,23 @@ class GigsController < ApplicationController
 
   def create
   	@gig = current_user.gigs.build(gig_params)
-    if @gig.save
-      
-      redirect_to root_url
-    else
-      redirect_to root_url
-    end
+    @gig.save
+    @gig.create_activity :create, owner: current_user
   end
 
   def destroy
+    @gig = Gig.find(params[:id])
+    @gig.destroy
+    PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: @gig.id).first.destroy
+      render :layout => false
   end
 
   def like
       @gig = Gig.find_by_songkick_id(params[:songkick_id])
       current_user.like!(@gig)
+      @like = Like.where(liker_id: current_user.id, likeable_type: "Gig").find_by_likeable_id(@gig.id)
+      @like.create_activity :create, owner: current_user
+      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first
       render :layout => false
     end
 
@@ -28,6 +31,23 @@ class GigsController < ApplicationController
       render :layout => false
     end
 
+    def multipleCreate
+    @user = params[:user]
+    @gigs = JSON.parse(params[:multiGigs])
+      respond_to do |format|
+        format.html { render :layout => false }
+        format.json
+      end
+    
+    end
+
+    def gigUndo
+      @gig = Gig.find_by_songkick_id(params[:songkick_id])
+      @gig.destroy
+      PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: @gig.id).first.destroy
+      render :layout => false
+    end
+
     def friendsGoing
       @user = User.find(params[:user])
       render :layout => false
@@ -36,7 +56,7 @@ class GigsController < ApplicationController
   private
 
     def gig_params
-      params.require(:gig).permit(:songkick_id)
+      params.require(:gig).permit(:songkick_id, :gig_date)
     end
 
 end

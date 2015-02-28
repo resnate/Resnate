@@ -1,0 +1,87 @@
+<%= image_tag "https://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+<div class="hiddenID">
+	<%= activity.owner.id %>
+</div>
+
+<div class="activityYT playlistInfo" >
+    <div class="hiddenPlaylistID">
+      <%= activity.trackable_id %>
+    </div>
+    <div class="playlistUserId">
+      <%= Playlist.find(activity.trackable_id).user_id %>
+    </div>
+
+<% unless Playlist.find(activity.trackable_id).content.nil? || Playlist.find(activity.trackable_id).content == "[]" %>
+ 	<% img1 = "a" %>
+
+	<% JSON.parse(Playlist.find(activity.trackable_id).content)[0].each do |k, v| %>
+		<% img1 = v %>
+	<% end %>
+
+	<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
+
+<% else %>
+  <span class="glyphicon glyphicon-music feedMusic"></span>
+<% end %>
+</div>
+
+<% if current_user.follows?(Playlist.find(activity.trackable_id)) %>
+	<div class="feedButtons">
+    	<span class="feedShares fUl"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :post, class: "feedUnfollow fUl", style: "display: inline" %></span>
+    	<span class="feedShares fFl" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :post, class: "feedFollow fFl" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div></span>
+    	<%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div>
+    </div>
+ <% elsif current_user.follows?(Playlist.find(activity.trackable_id)) == false && current_user.id != Playlist.find(activity.trackable_id).user_id %>
+	<div class="feedButtons">
+        <span class="feedShares fFl"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :post, class: "feedFollow fFl", style: "display: inline" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div></span>
+        <span class="feedShares fUl" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(activity.trackable_id)) , remote: true, method: :post, class: "feedUnfollow fUl" %></span>
+        <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div>
+    </div>
+<% elsif current_user.id == Playlist.find(activity.trackable_id).user_id %>
+    <div class="feedButtons">
+        <%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+        <div class="sharePlaylistID" style="display:none"><%= activity.trackable_id %></div>
+    </div>
+<% end %>
+
+<div class="activityInfo">
+	<div class="profileName"><%= activity.owner.name if activity.owner %></div>
+	<div class="hiddenID" style="display:none"><%= activity.owner.id %></div>
+	<div class="verb">
+    	<% if activity.key == "playlist.create" %>created the playlist
+    	<% elsif activity.key == "playlist.update" %>updated the playlist
+   		<% end %>
+   	</div>
+   	<div class="activityDetails">
+   		<div class="activityName feedPlaylistName"><%= activity.trackable.name %></div>
+      <% unless Playlist.find(activity.trackable_id).content.nil? || Playlist.find(activity.trackable_id).content == "[]" %>
+   		 <div class="hiddenYTID" style="display:none">
+         <%= activity.trackable.content %>
+        </div>
+      <% end %>
+        <% if activity.key == "playlist.create" %>
+          	<div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+        <% elsif activity.key == "playlist.update" %>
+          	<div class="updatedAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.updated_at.to_s)) %> ago</div>
+        <% end %>
+   	</div>
+   	<div class="likesNcomments">
+   		<div class="likers">
+   		</div>
+   		<div class="comments activity<%=activity.id%>comments">
+   			<% activity.comment_threads.each do |comment| %>
+  				<div class="comment">
+            <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+            <span class="hiddenID"><%= comment.user_id %></span>
+            <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+            </div>
+          </div>
+  			<% end %>
+		</div>
+		<div class="commentURL">
+    		/activity/<%=activity.id%>/comments/
+ 		</div>
+ 		<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+ 		<textarea class="inputComment"></textarea>
+   	</div>
+</div>

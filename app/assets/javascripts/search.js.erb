@@ -61,15 +61,88 @@ YT_ready(function(){
               'onStateChange': stopCycle
             }
         });
+
+
+        
     }
 });
 
  var playerReady = false;
         function onPlayerReady(event) {
             playerReady = true;
+            var $ = document.querySelector.bind(document);
+            iframe = $('#player');
+            $('.glyphicon-fullscreen').addEventListener('click', playFullscreen);
+            function playFullscreen() {
+  var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+  if (requestFullScreen) {
+    requestFullScreen.bind(iframe)();
+  }
+  
+}
+
+        }
+
+
+        function toHHMMSS(unformat){
+          var sec_num = unformat;
+
+          if(sec_num / 3600 <= 1) {
+            var minutes = Math.floor(sec_num / 60);
+    var seconds = Math.round(sec_num - (minutes * 60));
+
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = minutes+':'+seconds;
+  } else {
+          var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = Math.round(sec_num - (hours * 3600) - (minutes * 60));
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+':'+minutes+':'+seconds;
+  }
+    return time;
+
         }
 
 function stopCycle(event) {
+
+  duration = player.getDuration();
+  $('#duration').html(toHHMMSS(duration));
+        totalBytes = player.getVideoBytesTotal();
+
+        $("#slider").slider({
+        range: "max",
+        min: 0,
+        max: duration,
+        value: 1,
+        slide: function( event, ui ) {player.seekTo(ui.value);}
+    });
+
+        function loop() {
+        var time = player.getCurrentTime(),
+            // make loaded a percentage
+            loaded = 100 - (player.getVideoBytesLoaded() / totalBytes) * 100;
+$('#currentTime').html(toHHMMSS(time));
+        // set limit - no one likes negative widths
+        if (loaded < 0) { loaded = 0; }
+
+        // update time on slider
+        $('#slider')
+            .slider('option', 'value', time)
+            .find('.ui-widget-header').css('width', loaded + '%');
+
+        // repeat loop as needed
+        if (loaded < 0 || time < duration) {
+            setTimeout(loop, 500);
+        }
+    }
+    loop(); 
+
+
           if (event.data == YT.PlayerState.ENDED) {
                var url = event.target.getVideoUrl();
                var match = url.match(/[?&]v=([^&]+)/);
@@ -77,7 +150,7 @@ function stopCycle(event) {
                $('#stopID').html(videoId);
                
                 if($('#stopID').html() == videoID){
-                  var thisVideo = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+videoID+'/mqdefault.jpg"]');
+                  var thisVideo = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+videoID+'/default.jpg"]');
                   nextVideo = $(thisVideo).parent().next().find('.playlistYT');
                   nextVideo.click();
                 }
@@ -101,24 +174,31 @@ function stopCycle(event) {
 function ytSearch()
         {
             var userSearch = document.getElementById('search_query').value;
-            var songSearch = document.getElementById('song_query').value;    
             var script = document.createElement('script');
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
-            if (songSearch.length == 0) {
-                script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
-              + userSearch + ' ' + '&type=video&start-index='+Math.round(Math.random()*100+1) +'&max-results=50&' + 
+            script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
+              + userSearch + '&type=video&max-results=50&' + 
                    'alt=json-in-script&callback=showMyVideos&' + 
                    'orderby=relevance&sortorder=descending&format=5');
-            }
-            else {
-                script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
-              + userSearch.replace(/'/g, " ") + songSearch.replace(/'/g, " ") + '  ' + '&type=video&start-index=1&max-results=50&' + 
-                   'alt=json-in-script&callback=showMyVideos&' + 
-                   'orderby=relevance&sortorder=descending&format=5');
-            };
             
             document.documentElement.firstChild.appendChild(script);
+
+            $('#videoResultsDiv').on('scroll', function(){
+              if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                var userSearch = document.getElementById('search_query').value;
+            var script = document.createElement('script');
+            script.setAttribute('id', 'jsonScript');
+            script.setAttribute('type', 'text/javascript');
+                script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
+              + userSearch + '&type=video&start-index='+$('.startIndex:last').html() +'&max-results=50&' + 
+                   'alt=json-in-script&callback=appendVideos&' + 
+                   'orderby=relevance&sortorder=descending&format=5');
+            
+            document.documentElement.firstChild.appendChild(script);
+              }
+              
+            });
         }
 
         
@@ -127,60 +207,42 @@ function ytSearch()
 
 
 
-
-        
-
-$(function(){
-    $('#Welcome').hide().fadeIn(3000);
-});
-
 function abracadabra() {
     
-    $("#merchNgigs").fadeIn().css("display","inline-block");    
-
+    $('#searchPlaceholder').fadeOut();
+    $("#YTtest, #searchNsee, #iframeAmazon").fadeIn().css("display","inline-block");
     
 }
 
-
-function profile() {
-  $.get('/profile', function(result){
-  $('#box2').html(result);});
-  
-
-    $('#container').animate({
-        left: '0%',
-        top: '-100%'
-    });
-}
-
-
-function home(){
-    $('#container').animate({
-        left: '100%',
-        top: '56px'
-    });
-}
 
 
 $(function(){
-  $('#Playlist').on('click', '.glyphicon-remove', function(){$(this).parent().parent().remove();});
-  $("#Playlist").sortable({
-      helper : 'clone',
-    receive:function(event, ui) {
-      transferred = true;
-      
 
+  $('#Welcome').hide().fadeIn(3000);
 
+  $('#Playlist').on('click', '.glyphicon-remove', function(){
+    var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
+    var playlistContent = [];
+      $(this).parents('.dropdownPlaylist').children('li').not($(this).parent()).each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    $.ajax({
+   url: updatePlaylistURL ,
+   type: 'PUT',
+   data: {content: JSON.stringify(playlistContent)},
+   success: function(response) {
+     //...
+   }
+});
+    $(this).parent().remove();
+  });
 
-
-
-    }});
-
-
-
-
+  
     
-
 
 
 

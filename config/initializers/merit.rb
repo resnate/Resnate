@@ -15,30 +15,37 @@ end
 
 Merit::Badge.create!(
    id: 1,
-   name: '5',
-   custom_fields: { image: "badge_4.png"}
+   name: 'Hipster',
+   level: 1,
+   custom_fields: { image: "HipsterGlasses.png"}
 )
 
 Merit::Badge.create!(id: 2,
-   name: '10',
-   custom_fields: { image: "badge_5.png"})
+   name: 'ÜberHipster',
+   level: 2,
+   custom_fields: { image: "UberHipsterTache.png"})
 
 Merit::Badge.create!(id: 3,
-   name: '25',
-   custom_fields: { image: "badge_6.png"})
+   name: 'Groupie',
+   level: 3,
+   custom_fields: { image: "Groupie.png"})
 
 Merit::Badge.create!(id: 4,
-   name: '50',
+   name: 'SuperGroupie',
+   level: 4,
    custom_fields: { image: "badge_7.png"})
 
 Merit::Badge.create!(id: 5,
-   name: '100',
+   name: 'Rock Star',
+   level: 5,
    custom_fields: { image: "badge_8.png"})
 
 Merit::Badge.create!(id: 6,
-   name: '500',
+   name: 'Rap God',
+   level: 6,
    custom_fields: { image: "badge_9.png"})
 
 Merit::Badge.create!(id: 7,
-   name: '1000',
+   name: 'BIGGER THAN JESUS',
+   level: 7,
    custom_fields: { image: "badge_10.png"})

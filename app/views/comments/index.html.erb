@@ -1,0 +1,10 @@
+<% unless @comments.count == 0 %>
+	<% @comments.each do |comment| %>
+	<div class="comment">
+  		<img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+        <span class="hiddenID"><%= comment.user_id %></span>
+    	<div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+    	</div>
+  	</div>
+  	<% end %>
+<% end %>

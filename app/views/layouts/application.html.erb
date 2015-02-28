@@ -8,13 +8,363 @@
                                            "data-turbolinks-track" => true %>
     <link href='//fonts.googleapis.com/css?family=Lato:400,900' rel='stylesheet' type='text/css'>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <script type="text/javascript" 
+        src="http://localhost:9292/faye/client.js">
+        </script>
+
     <%= favicon_link_tag 'favicon2.ico' %>
     <%= csrf_meta_tags %>
     <%= render 'layouts/shim' %>
   </head>
   <body>
+    <div id="fb-root"></div>
+<script>
+
+<% if !current_user.nil? %>
 
 
+$(function(){
+
+  $(document).on({
+    mouseenter: function () {
+        $(this).addClass('animated pulse')
+    },
+    mouseleave: function () {
+      $(this).removeClass('animated pulse') 
+    }
+}, '.glyphicon, .feedShares, .shareGig, .shareReview, .csIcons, #sign_out, #rsCrop, .button_to');
+
+
+    $('#Welcome').css("display", "none");
+
+    
+
+
+
+var users = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 10,
+  prefetch: {
+    ttl: 1,
+    url: '../autocomplete.json',
+
+  }
+});
+ 
+users.initialize();
+
+$('#search_user').typeahead(
+{
+  hint: false
+}
+  , {
+  name: 'users',
+  displayKey: 'name',
+  source: users.ttAdapter(),
+  templates: {
+    empty: [
+      '<div class="empty-message">',
+      'Unable to find any users',
+      '</div>'
+    ].join('\n'),
+    suggestion: Handlebars.compile('<p class="userSuggestions"><img src="https://graph.facebook.com/{{uid}}/picture?width=50&height=50" class="dropdownImg"></img><strong>{{name}}</strong></p>')
+  }
+});
+
+$("#search_user").on("typeahead:selected typeahead:autocompleted", function(e,datum) { 
+$('#userId').val(datum.id);
+$('#userButton').trigger('click');
+})
+
+$("#search_user").keydown(function(event){
+  if(event.keyCode==13){
+       $('#userButton').trigger('click');
+    }
+});
+
+});
+
+function searchUser(){
+  var userSearch = "/" + $('#userId').val() + '/profile';
+  $.get(userSearch, function(result){
+  $('#box2').html(result);});
+    $('#container').animate({
+        top: '-100%'
+    });
+}
+
+function amazonIntl(){
+  var userSearch = $('#search_query').val();
+   <% if current_user.country == "United Kingdom" %>
+       $("#moreMerch").html('<a href="https://www.amazon.co.uk/s/ref=sr_nr_n_8?rh=n%3A83450031%2Ck%3A&keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
+   <% elsif current_user.country == "France" %>
+       $("#moreMerch").html('<a href="https://www.amazon.fr/s/ref=sr_nr_n_8?url=search-alias%3Dclothing&field-keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
+   <% else %>
+       $("#moreMerch").html('<a href="https://www.amazon.com/s/ref=sr_nr_n_8?url=search-alias%3Dapparel&field-keywords=' + userSearch + '" target="_blank">More Merch at Amazon</a>');
+   <% end %>
+}
+
+$('body').on('click', '.inboxNotification', function(){
+  getConvos();
+  $('#genericModal').modal('show');
+});
+
+$('body').on('click', '.pointsNotification', function(){
+  getPoints();
+  $('#genericModal').modal('show');
+});
+
+$('body').on('click', '.ns-close', function(){
+    $(this).parents('.ns-effect-thumbslider').addClass('ns-hide');
+  });
+
+
+<% end %>
+
+</script>
+<% if signed_in? %>
+
+<div class="sidebar-nav">
+  <div id="searchNsee">          
+        
+        <iframe name="AmazonResults" id="iframeAmazon">
+            </iframe>
+            <h6 id="moreMerch">More Merch at Amazon</h6>
+        
+          
+            <div id="friendsLikeArtist">
+              <div id="friendsHeader"><h4>Friends who like <br><span id="queryFriends"></span></h4></div>
+              <div id="friendsLikeDiv"></div>
+            </div>
+            <h4 id="searchPlaceholder">Enter an artist's name to find Music, Gigs & Merch</h4>
+        
+            <div id="Gigs">
+            </div>
+            <h6 id="moreGigs"></h6>
+          
+        
+
+
+      <div id="videoResultsDiv">
+        
+      </div>
+      <div id="Playlist">
+        <h4 id="playlistsHeader">My Playlists</h4>
+        <ul id="sidePlaylistUl">
+        <li class="sideLiked">
+          <span class="glyphicon glyphicon-thumbs-up sideGlyph"></span>
+          <span class="hiddenPlaylistID"><%= current_user.id %></span>
+          <h5 class="sideLikedName">Liked</h5>
+          <div class="dropdownLikeDiv" id="dropdownLikeDiv<%= current_user.id %>">
+            <div class="dropdownLike" id="dropdownLike<%= current_user.id %>"></div>
+          </div>
+        </li>
+        <li class="sideNewPlaylist">
+          <span class="glyphicon glyphicon-plus sideGlyph"></span>
+          <h5 class="sideNewPlaylistName">Create a New Playlist</h5>
+          <%= form_for(Playlist.new, remote:true) do |f| %>
+      <%= f.text_field :user_id, value: current_user.id  %>
+      <%= f.text_field :name, id: "playlistName" %>
+      
+      <%= f.submit "Save Playlist", id: "savePlaylist", remote:true %>
+
+
+      
+     <% end %>
+        </li>
+
+        <div id="deletePrompt">
+          <div>Delete <span id="deletePlaylistName"></span>?</div>
+          <div id="deletePlaylistYes">Yes</div><div id="deletePlaylistNo">No</div><div id="deletePlaylistID"></div>
+        </div>
+
+        <% img1 = "v" %>
+        <% unless current_user.playlists.count == 0 %>
+          <% current_user.playlists.each do |playlist| %>
+            
+              
+
+              <li class="sidePlaylist">
+                <% unless playlist.content == "[]" || playlist.content.nil? || playlist.content == "null" %>
+                  <% JSON.parse(playlist.content)[0].each do |k, v| %>
+                    <% img1 = v %>
+                  <% end %>
+
+                <img src="https://img.youtube.com/vi/<%= img1 %>/default.jpg" class="playlistYT" >
+                <% else %>
+                <span class="glyphicon glyphicon-music sideGlyph"></span>
+                <% end %>
+                <span class="hiddenPlaylistID"><%= playlist.id %></span>
+                <h5 class="sidePlaylistName"><%= playlist.name %></h5>
+                <input class="editPlaylistInput">
+                <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= playlist.id %>">
+                   <div class="sideDestroy">Delete</div>
+                <div class="sideEdit">Edit</div>
+                <div class="sideShare" data-toggle="modal" data-target="#shareModal">Share</div>
+
+                  <div class="dropdownPlaylist" id="dropdownPlaylist<%= playlist.id %>"></div>
+                </div>
+              </li>
+
+            
+          <% end %>
+        <% end %>
+        
+        <% unless Follow.where(follower_id: current_user.id, followable_type: "Playlist").count == 0 %>
+          <% Follow.where(follower_id: current_user.id, followable_type: "Playlist").each do |fP| %>
+            
+          <% playlist = Playlist.find(fP.followable_id) %>
+          <li class="sideFollowed">
+                <% unless playlist.content == "[]" || playlist.content.nil? || playlist.content == "null" %>
+                  <% JSON.parse(playlist.content)[0].each do |k, v| %>
+                    <% img1 = v %>
+                  <% end %>
+
+                <img src="https://img.youtube.com/vi/<%= img1 %>/default.jpg" class="playlistYT" >
+                <% else %>
+                <span class="glyphicon glyphicon-music sideGlyph"></span>
+                <% end %>
+                <span class="hiddenPlaylistID"><%= playlist.id %></span>
+                <h5 class="sidePlaylistName"><%= playlist.name %> by <%= User.find(playlist.user_id).name %></h5>
+                <input class="editPlaylistInput">
+                <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= playlist.id %>">
+                    <div class="sideUnfollow"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist) , remote: true, method: :post, class: "sideUnfollowButton" %></div>
+                    <div class="sideFollow" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "sideFollowButton" %></div>
+                <div class="sideShare" data-toggle="modal" data-target="#shareModal">Share</div>
+
+                  <div class="dropdownPlaylist" id="dropdownPlaylist<%= playlist.id %>"></div>
+                </div>
+              </li>
+
+          <% end %>
+        <% end %>
+        </ul>
+      </div>
+  </div>
+</div>
+   
+  	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <form action="/resnate_pages/AmazonStore" method='GET' target="AmazonResults">
+        <input type="text" class="lol">
+      <input id="search_query" class="search" name="search_query" placeholder="Search Artists" type="text" maxlength="128"
+              class="navbar-form navbar-left">
+                <button name="searchButton" id="newSearch" type="submit" 
+                class="navbar-form navbar-left"
+                   onclick="ytSearch(); merchNgigsSearch(); abracadabra(); amazonIntl(); friendsLikeArtist()"><span class="glyphicon glyphicon-search" ></span></button>
+                 </form>
+     
+
+      
+
+        <ul class="nav navbar-nav navbar-right">
+          
+          <li id="custom-templates"><input id="search_user" class="typeahead" placeholder="Search People" type="text" autocomplete="off" >
+            <input type="hidden" name="resultDiv" id="resultDiv" />
+            <input type="hidden" name="pointDiv" id="pointDiv" />
+            <input type="hidden" name="userId" id="userId" value="" />
+          <input id="userButton" type="submit" onclick="searchUser()"></li>
+          <% recCountArray = [] %>
+          <% pointCountArray = [] %>
+          <% recCount = 0 %>
+          <% pointCount = 0 %>
+          <% unless current_user.mailbox.receipts.where(is_read:false ).count == 0 %>
+            <% current_user.mailbox.receipts.where(is_read:false, ).each do |receipt| %>
+              <% if receipt.message.subject[1] == "|" %>
+                <% pointCount += 1 %>
+              <% else %>
+                <% recCount += 1 %>
+              <% end %>
+              <% recCountArray.push(recCount) %>
+              <% pointCountArray.push(pointCount) %>
+            <% end %>
+
+          <% end %>
+
+          
+         <li><span><span class="glyphicon glyphicon-envelope" data-toggle="modal" data-target="#genericModal" onclick="getConvos()" ></span>
+          <% if recCountArray.empty? || recCountArray[-1] == 0  %>
+          <div id="recCount" class="invisCount">0</div>
+          <% else %>
+          <div id="recCount"><%= recCountArray[-1] %></div>
+          <% end %>
+        </span></li>
+
+         <li><span><span class="glyphicon glyphicon-bell" data-toggle="modal" data-target="#genericModal" onclick="getPoints()"></span>
+
+
+          <% if pointCountArray.empty? || pointCountArray[-1] == 0 %>
+          <div id="pointCount" class="invisCount">0</div>
+          <% else %>
+          <div id="pointCount"><%= pointCountArray[-1] %></div>
+          <% end %>
+
+          <div id="lastMsgDiv"></div>
+
+         </span></li>
+          
+
+
+        
+         <li><span class="glyphicon glyphicon-home" onclick="feed()"></span></li>
+          
+
+          
+          <li><img src="https://graph.facebook.com/<%=current_user.uid%>/picture?width=100&height=100" id="profilePic" onclick="profile()"></li>
+
+          <li class="levelNpoints" data-toggle="modal" data-target="#genericModal" onclick="getLeaderboard()">
+            <% if current_user.level_name == "Filthy Casual" %>   
+      <div class="levelName filthy">
+      <%= current_user.level_name %>
+      </div>
+
+    <% elsif current_user.level_name == "Hipster" %>
+      <div class="levelName hipster">
+      <%= current_user.level_name %>
+      </div>
+
+    <% elsif current_user.level_name == "ÜberHipster" %>
+      <div class="levelName uberHipster">
+          <%= current_user.level_name %>
+      </div>
+      
+    <% elsif current_user.level_name == "Groupie" %>
+      <div class="levelName groupie">
+      <%= current_user.level_name %>
+      </div>
+
+    <% elsif current_user.level_name == "SuperGroupie" %>   
+      <div class="levelName superGroupie">
+      <%= current_user.level_name %>
+      </div>
+
+    <% elsif current_user.level_name == "Rock Star" %>   
+      <div class="levelName rockStar">
+      <%= current_user.level_name %>
+      </div>
+
+    <% elsif current_user.level_name == "Rap God" %>   
+      <div class="levelName rapGod">
+      <%= current_user.level_name %>
+      </div>
+
+    <% elsif current_user.level_name == "BIGGER THAN JESUS" %>   
+      <div class="levelName">
+        <font color="red">BI</font><font color="orange">GG</font><font color="yellow">ER </font></font><font color="green">TH</font><font color="blue">AN </font><font color="indigo">JE</font><font color="violet">SUS</font>
+      </div>
+
+<% end %>
+
+            <div class="points navPoints">
+              <%= current_user.points %>
+            </div>
+          </li>
+          
+    <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
+  
+        </ul>
+</nav>
+<% end %>
     <%= yield %>
   </body>
 </html>

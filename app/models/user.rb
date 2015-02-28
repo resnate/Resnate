@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   extend BulkMethodsMixin
   has_merit
   require 'json'
-  
+  include PublicActivity::Common
   acts_as_follower
   acts_as_followable
   acts_as_mentionable
@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
   has_many :playlists, dependent: :destroy
   has_many :gigs, dependent: :destroy
   has_many :past_gigs, dependent: :destroy
-  accepts_nested_attributes_for :past_gigs
   
 
 serialize :musicLikes, JSON

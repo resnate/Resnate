@@ -1,7 +1,79 @@
 Resnate::Application.routes.draw do
-  root "resnate_pages#home"
   
 
+  root "resnate_pages#home"
+  
+  get "resnate_pages/AmazonStore"
+  get "/leaderboard" => "resnate_pages#leaderboard"
+  get "/:id/profile" => "users#profile"
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+
+  get "/:id/pastGigs" => "users#pastGigs"
+  get "/:id/upcomingGigs" => "users#upcomingGigs"
+  get "/:id/followees" => "users#followees"
+  get "/:id/followers" => "users#followers"
+  get "/:id/artistLikes" => "users#artistLikes"
+  get "/:id/lastMsg" => "users#lastMsg"
+  get "/points" => "users#points"
+  get "/:id/:search/friendsWhoLike" => "users#friendsWhoLike"
+  post "/:id/point1" => "users#point1"
+  post "/:id/pointMinus1" => "users#pointMinus1"
+  post "/:id/pointMinus5" => "users#pointMinus5"
+  post "/:id/point5" => "users#point5"
+  get "/:id/conversations" => "users#conversations"
+  get "/:id/notifications" => "users#notifications"
+
+  get "/:id/playlistFollowers" => "playlists#playlistFollowers"
+  get "/newPlaylist" => "playlists#newPlaylist"
+  post "/:id/:content/form" => "playlists#form"
+  get "/:id/userPlaylists" => "users#userPlaylists"
+
+  get "search" => "users#search"
+  get "autocomplete" => "users#autocomplete"
+
+  post 'follow' => 'users#follow'
+  post 'unfollow' => 'users#unfollow'
+  post 'playlists/follow' => 'playlists#follow'
+  post 'playlists/unfollow' => 'playlists#unfollow'
+  get 'playlists/:id/playlistLi' => 'playlists#playlistLi'
+  get '/:user/likes' => 'likes#show'
+
+  get '/:user/:content/songs/show' => 'songs#show'
+  get '/:user/history' => 'songs#history'
+  post '/:user/:content/like' => 'songs#like'
+  post '/:user/:content/unlike' => 'songs#unlike'
+  
+  post '/:user/:songkick_id/gigs/like' => 'gigs#like'
+  post '/:user/:songkick_id/gigs/unlike' => 'gigs#unlike'
+  get '/:user/:songkick_id/gigs/friendsGoing' => 'gigs#friendsGoing'
+  post '/gigUndo/:songkick_id' => 'gigs#gigUndo'
+  
+  post "/:user/multipleCreate" => "gigs#multipleCreate"
+
+  get "/:setlistURL/setlist" => "past_gigs#setlist"
+  post "/:user/pastMultipleCreate" => "past_gigs#pastMultipleCreate"
+
+  post "/reviews/:id/reviewLike" => "reviews#like"
+  post "/reviews/:id/reviewUnlike" => "reviews#unlike"
+  
+  get 'comments/index'
+  get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
+  post "/:commentable_type/:commentable_id/comments/create" => "comments#create"
+  resources :users, only: [:create, :update, :destroy]
+  resources :songs, only: [:create, :destroy]
+  resources :gigs, only: [:create, :destroy]
+  resources :past_gigs, only: [:create, :update, :destroy]
+  resources :playlists, only: [:create, :update, :destroy, :show]
+  resources :reviews
+  resources :messages do
+    member do
+      post :new
+    end
+  end
+
+  resources :activities
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

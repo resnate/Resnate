@@ -1,0 +1,8 @@
+<% if current_user != @user %>
+<% lv1 = @user.level %>
+<% @user.subtract_points(1) %>
+<% lv2 = @user.level %>
+	<% if lv1 != lv2 %>
+		<% @user.rm_badge(lv1) %>
+	<% end %>
+<% end %>

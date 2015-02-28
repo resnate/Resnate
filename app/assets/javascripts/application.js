@@ -13,7 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui/core
-
+//= require jquery-ui/slider
+//= require jquery-ui/widget
+//= require jquery-ui/mouse
+//= require jquery-ui/draggable
+//= require jquery-ui/droppable
+//= require jquery-ui/sortable
 //= require moment
 //= require twitter/typeahead.min
 //= require bootstrap
@@ -23,7 +28,5 @@
 
 //= require select2
 //= require turbolinks
-//= require gritter
-//= require best_in_place
 
 //= require_tree .

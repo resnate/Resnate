@@ -1,17 +1,1587 @@
-<div id="container">
-
-  <div id="Welcome">
+<div id="Welcome">
     <div id="Welcome1">
-      
+      <h3> One search for Music, Gigs & Merch.</h3>
       <h1 id="bigResnate">Resnate.</h1>
-      <h4>Coming Soon.</h4>
-      
+      <h4>Share Music. Get Cred.</h4>
+      <h4>Playlists with just a drag and a drop.</h4>
+      <h4>The music social network for hardcore music fans.</h4>
       
     </div>
   
     <div id="Welcome2">
-      <%= image_tag "ResnateCropped.png", id: 'rsCrop' %>
+      <%= link_to image_tag("ResnateCropped.png", id: 'rsCrop'), "/auth/facebook" %>
       <br><br><br>
+      <span><%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %></span>
+    </div>
+    <h4 id="homeFooter">Built using YouTube + Songkick + Amazon + Setlist.fm APIs. </h4>
+  </div>
+
+<div id="container">
+
+  
+
+<% unless current_user.nil? %>
+
+  <div id="box1" class="box">
+  
+
+
+<% unless current_user.songkickID.nil? %>
+  <div id="hiddenSongkickID"><%= current_user.songkickID %></div>
+    <div id="hiddenGigsIDs">
+        <% uGarray = [] %>
+        <% current_user.gigs.each do |uG| %>
+        <% uGarray.push(uG.songkick_id) %>
+        <% end %>
+        <%= uGarray.map(&:inspect).join(', ') %>
+    </div>
+
+     <div id="hiddenPastGigsIDs">
+        <% pGarray = [] %>
+        <% current_user.past_gigs.each do |pG| %>
+        <% pGarray.push(pG.songkick_id) %>
+        <% end %>
+        <%= pGarray %>
+    </div>
+
+    
+
+<% end %>
+
+<div id="hiddenFolloweesIDs">
+        <% fArray = [] %>
+        <% fArray.push(current_user.uid.to_i) %>
+        <% current_user.followees(User).each do |f| %>
+        <% fArray.push(f.uid.to_i) %>
+        <% end %>
+        <%= fArray.map(&:inspect).join(', ') %>
+</div>
+
+<div id="hiddenLevel"><%= current_user.level %></div>
+<div id="getBadge"></div>
+
+<div id="hub">
+
+<% @user = current_user %>
+
+  <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Share with:</h4>
+      </div>
+      <div class="modal-body">
+
+        <input id="shareCurrentInput" ><%= image_tag "ResnateShareIcon.png", id: "shareCurrentImg" %>
+        <%= form_tag({controller: "messages", action: "create"}, method: :post, remote:true) do %>
+        
+        <input type="textbox" name="user" id="shareCurrentID">
+        <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+        <%= text_field_tag :subject, nil, id: "messageURL" %>
+        <br><br>
+        <%= text_area_tag :body,  "Check this out!", rows: 4, maxlength: 256, placeholder: "Add a message!", class: "shareTextarea" %>
+        <%= submit_tag 'Send message', id: "shareSubmit" %>
+        <% end %>
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="modal fade" id="genericModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content genericContent">
+      
+        
+    </div>
+  </div>
+</div>
+
+
+
+      <div id="YTtest">
+        
+       
+        
+       
+        <div id="InfoShare">
+          <div id="likeOrNot"></div>
+          <div id="stopID">
+          </div>
+          <div id="infoTitle">
+            
+          </div>
+          <div id="infoIDstuff">
+            <% if !current_user.nil? %>
+            <%= form_for(@user.songs.create, remote:true) do |f| %>
+            <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
+      <%= f.text_field :content, id: "infoID" %>
+      <%= f.text_field :name, id: "infoIDName" %>
+
+      <%= f.submit "History ID", id: "subHistory", remote:true %>
+    <% end %>
+    <% end %>
+          </div>
+            <div id="likeForm">
+           
+    </div>
+        </div>
+        
+        
+            
+        
+      </div>
+
+      
+        
+</div>
+
+
+
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Add to:</h4>
+      </div>
+      <div class="modal-body">
+
+        
+            
+            <input id="search_playlists" placeholder="Search Playlists" type="text" autocomplete="off" >
+            <input type="hidden" name="newSong" id="newSong" value="" />
+      
+      <input type="hidden" name="playlistId" id="playlistId" value="" />
+      <button id="getPlaylist" type="hidden"></button>
+
+    
+      <div id="result2"></div>  
+        
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content photoModalContent">
+      <div class="modal-body" id="photoBody">
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+<div id="newStuff">
+
+
+
+
+  <div class="featuredContent">
+    <h1 class="featuredHeader">Top Reviews</h1>
+    <% if @topReviews.nil? %>
+    <% else %>
+    <% @topReviews.first(5).each do |rankedReview| %>
+
+    <div class="featuredReview">
+      <div class="reviewHeader">
+        <% id = rankedReview[:id] %>
+        <% likers = rankedReview[:likers] %>
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="topReviews reviewGig">
+
+        <div class="reviewTitle">
+          <div>
+            Review of
+            <div class="featuredReviewName"></div>
+            by
+            <div class="profileName"><%= User.find(PastGig.find(Review.find(id).reviewable_id).user_id).name %></div>
+            <div class="hiddenID">
+              <%= PastGig.find(Review.find(id).reviewable_id).user_id %>
+            </div>
+          </div>
+          <%= image_tag "https://graph.facebook.com/#{User.find(PastGig.find(Review.find(id).reviewable_id).user_id).uid}/picture?width=200&height=200", class: "reviewerPic" %>
+          <div class="hiddenID">
+              <%= PastGig.find(Review.find(id).reviewable_id).user_id %>
+            </div>
+        </div>
+      </div>
+
+      <div class="reviewContent"><%= sanitize Review.find(id).content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+
+      <div class="likerNumber">
+        <% if likers == 1 %>
+          <%= likers %> like
+        <% else %>
+          <%= likers %> likes
+        <% end %>
+      </div>
+
+  <div class="feedButtons reviewButtons">
+    <% if current_user.likes?(Review.find(id)) %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+    <% elsif current_user.id != PastGig.find(Review.find(id).reviewable_id).user_id %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
+    <% end %>
+        
+        <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+      <div class="hiddenReviewID"><%= id %></div>
+      <span class="hiddenID"><%= PastGig.find(Review.find(id).reviewable_id).user_id %></span>
+  </div>
+
+  
+
+  <% activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: id).first %>
+  <% unless activity.nil? %>
+  <div class="comments activity<%=activity.id%>comments">
+          <% activity.comment_threads.each do |comment| %>
+            <div class="comment">
+              <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+              <span class="hiddenID"><%= comment.user_id %></span>
+              <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+              </div>
+            </div>
+          <% end %>
+    </div>
+    <% end %>
+
       
     </div>
-  </div></div>
+    <% end %>
+    <% end %>
+  </div>
+
+
+</div>
+
+<div id="feedBox">
+</div>
+
+<div id="box2" class="box">
+
+</div>
+
+
+
+</div>
+
+<div id="footerPlayer">
+  <iframe id="player" frameborder="0" title="YouTube video player"type="text/html"src="https://www.youtube.com/embed/tza3RLAfGzo?html5=1&enablejsapi=1&rel=0&showinfo=0&controls=0&iv_load_policy=3" webkitallowfullscreen mozallowfullscreen allowfullscreen name="player"></iframe>
+  <div id="navNslider">
+    <div id="navTitle"></div>
+    <div id="navButtons"></div>
+    
+    <div id="slider"></div>
+    <div id="currentTime"></div>
+    <span class="glyphicon glyphicon-fullscreen"></span>
+    <div id="duration"></div>
+  </div> 
+  
+  
+  
+
+  <span class="glyphicon glyphicon-chevron-down"></span>
+
+  
+  <div id="currentShare"></div>
+    
+</div>
+
+<div id="maximise"><span class="glyphicon glyphicon-chevron-up"></span></div>
+
+<% end %>
+
+<script type="text/javascript">
+
+var draggable_opts = {
+      scroll: false,
+      containment: '#searchNsee',
+      zIndex: 1000,
+      connectToSortable: '.dropdownPlaylist',
+      helper: 'clone',
+        start: function(event, ui)
+        {
+            $(this).hide();
+            $('.sidePlaylistName').removeClass('animated bounce');
+
+        },
+        stop: function(event, ui)
+        {
+            
+                $(this).show();
+              
+        }
+    }
+
+
+
+$('.glyphicon-chevron-down').click(function(){
+  $('#footerPlayer').animate({bottom: '-=150'});
+  $('#maximise').show();
+});
+
+$('#maximise').click(function(){
+  $(this).hide();
+  $('#footerPlayer').animate({bottom: '+=150'});
+});
+
+ $("#shareCurrentInput").select2({
+    placeholder: "Name(s)",
+    width: "350px",
+    quietMillis: 100,
+    multiple: true,
+    minimumInputLength: 2,
+    maximumSelectionSize: 3,
+    formatSelectionTooBig: "You can only message 3 users at once",
+    ajax: { 
+        url: "search.json",
+        dataType: 'json',
+        data: function (term, page) {
+            return {
+                search: term
+            };
+        },
+        results: function (data, page) { 
+            return {results: data};
+        }
+    },
+    formatResult: userFormatResult,
+    formatSelection: userFormatSelection,  
+    
+    escapeMarkup: function (m) { return m; } 
+});
+
+
+function userFormatResult(user) {
+        var markup = "<table class='user-result'><tr>";
+        if (user.uid !== undefined ) {
+            markup += "<td class='user-image'><img src='https://graph.facebook.com/" + user.uid + "/picture?width=50&height=50'class='multiplePic'/></td>";
+        }
+        markup += "<td class='multipleName'><div>" + user.name + "</div></td></tr></table>";
+        return markup;
+    }
+
+    function userFormatSelection(user) {
+      /*$('#shareCurrentID').val(function(i,val) { 
+        return val + (!val ? '' : ', ') + user.id;
+      });*/
+        
+        return user.name +'<div style="display:none" class="shareCurrentID">'+user.id+'</div>';
+    }
+
+$('#shareCurrentImg').click(function(){
+  var inputIDs = [];
+  $('.shareCurrentID').each(function(){
+    inputIDs.push($(this).html());
+  });
+  $('#shareCurrentID').val(inputIDs);
+  if ($('.shareTextarea').val() == '') {
+    $('.shareTextarea').val('Check this out!');
+  }
+
+  $('#shareSubmit').click();
+  $('.modal').modal('hide');
+});
+
+      
+
+      function deleteAll(){
+        $('#Playlist').html('');
+      }
+
+      
+
+      <% if !current_user.nil? %>
+
+      function profile() {
+  $.get('/<%= current_user.id%>/profile', function(result){
+  $('#box2').html(result);});
+  
+
+    $('#container').animate({
+        top: '-100%'
+    });
+}
+
+  $('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
+    
+  $.get($(this).siblings('.hiddenID').html() + '/profile', function(result){
+  $('#box2').html(result);});
+  $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
+    });
+  });
+
+  $(document).on('click', '.reviewerName', function(){
+    $.get($(this).siblings('.hiddenReviewerID').html() + '/profile', function(result){
+  $('#box2').html(result);});
+  $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
+    });
+  });
+
+      function getConvos(){
+  $.get("<%= current_user.id %>/conversations", function(result){
+  $('.genericContent').html(result);});
+  $('#recCount').html(0);
+}
+
+function getPoints(){
+  $.get("<%= current_user.id %>/notifications", function(result){
+  $('.genericContent').html(result);});
+  $('#pointCount').html(0);
+}
+
+function getLeaderboard(){
+  $.get("/leaderboard", function(result){
+  $('.genericContent').html(result);});
+}
+
+      function feed(){
+  $("#feedBox").scrollTop(0);
+    $('#container').animate({
+        top: '51px'
+    });
+}
+
+
+function friendsLikeArtist(){
+  $("#searchNsee").scrollTop(0);
+  $('#queryFriends').html($('#search_query').val().replace(/\./g, '').replace(/\b./g, function(m){ return m.toUpperCase(); }));
+  $.get("/<%= @user.id %>/"+$('#search_query').val().replace(/\./g, '')+"/friendsWhoLike", function(result){
+    $('#friendsLikeDiv').html(result);  
+  });
+  $('#friendsLikeArtist').css('display', 'inline-block');
+}
+
+      $(function(){
+
+        var featuredUrls = [];
+
+  for(j=0; j<$('.featuredReview').length; j++){
+    featuredUrls.push($('.topReviews').eq(j).attr('src'));
+  }
+
+  for(j=0; j<$('.featuredReview').length; j++){
+    $.ajax({
+      url: featuredUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.topReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.featuredReviewName').eq(i).html(data.resultsPage.results.event.displayName);
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
+
+
+        $('.modal').on('shown.bs.modal', function () {
+    $(".modal-content").scrollTop(0);
+});
+
+        $(document).on('keydown', ".reviewInput", function(event){
+  
+    if(event.keyCode==13 && !event.shiftKey){
+  var contentText = $(this).val();
+  var ID = $(this).siblings('.pgID').html();
+  $.post('/reviews', { reviewable_id: ID, content: contentText } );
+  $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
+}
+});
+
+
+
+$(document).on('click', '.reviewContent', function(){
+  if('<%=current_user.id %>' == $('.hiddenUserID').html()){
+    var content = $(this).html();
+  $(this).replaceWith('<textarea class="reviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
+  }
+  
+});
+
+
+  $('.genericContent').on('scroll', function(){
+    if($('.pGinfinite-scrolling .pagination .next').length){
+      if(!$('.next').hasClass('disabled')) {
+        url = $('.pGinfinite-scrolling .next').find('a').attr('href');
+        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
+      
+          $('.pGinfinite-scrolling').remove();
+          $.get(url, function(response){
+            setTimeout(
+              function() {
+                $('#pastGigsBody').append(response); 
+                }, 2500);
+                     });
+        }    
+      }
+          
+    } else if($('.uGinfinite-scrolling .pagination .next').length){
+      if(!$('.next').hasClass('disabled')) {
+        url = $('.uGinfinite-scrolling .next').find('a').attr('href');
+        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
+      
+          $('.uGinfinite-scrolling').remove();
+          $.get(url, function(response){
+            setTimeout(
+              function() {
+                $('#upcomingGigsBody').append(response); 
+                }, 2500);
+                     });
+        }    
+      }
+
+    } else if($('.cVinfinite-scrolling .pagination .next').length){
+      if(!$('.next').hasClass('disabled')) {
+        url = $('.cVinfinite-scrolling .next').find('a').attr('href');
+        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
+      
+          $('.cVinfinite-scrolling').remove();
+          $.get(url, function(response){
+            setTimeout(
+              function() {
+                $('#convosBody').append(response); 
+                }, 2500);
+                     });
+        }    
+      }
+
+    } else if($('.nTinfinite-scrolling .pagination .next').length){
+      if(!$('.next').hasClass('disabled')) {
+        url = $('.cVinfinite-scrolling .next').find('a').attr('href');
+        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
+      
+          $('.nTinfinite-scrolling').remove();
+          $.get(url, function(response){
+            setTimeout(
+              function() {
+                $('#convosBody').append(response); 
+                }, 2500);
+                     });
+        }    
+      }
+
+    }
+  });
+
+
+
+  
+
+
+         $('#shareCurrentInput, #shareCurrentID').val('');
+
+         $(document).on('click', '.popup', function (event) {
+    event.preventDefault();
+    window.open($(this).attr("href"), "popupWindow", "width=600,height=400,scrollbars=yes");
+    return false;
+});
+
+    $(document).on('click', '.glyphicon-plus' , function(event){
+    event.stopPropagation();
+    $('.dropdown-menu').html('');
+    $.getJSON("../<%= current_user.id %>/userPlaylists.json",function(data){
+      if(data == '') {
+      $('.dropdown-menu').append('<li>No Playlists Found</li>')
+    } else {
+
+        $(data).each(function(i,result){
+        $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
+    });
+  }
+      
+    });
+
+    $(this).siblings('.btn-group').find('.dropdown-menu').toggle();
+  });
+
+  $(document).click( function(e){
+        $('.dropdown-menu').hide();
+
+        if(e.target.className.indexOf('sideNewPlaylist') != -1){
+          return;
+        } else {
+          $('#newPlaylistInput').replaceWith('<h5 class="sideNewPlaylistName">Create a New Playlist</h5>');  
+        }
+
+        if(e.target.className.indexOf('sideEdit') == -1){
+          $('.editPlaylistInput').each(function(){
+            if($(this).css('display') == 'inline'){
+              $(this).css('display', 'none');
+            }
+          });
+          
+          $('.sidePlaylistName').css('display', 'inline-block');
+        }
+        
+    });
+
+        feed();
+
+          $('body').on('click', '#container #feedBox .activity .feedYT', function(){
+            videoID = $(this).attr("src").slice(27,38);
+            <%= render 'layouts/videoClick' %>
+          });
+
+          $('body').on('click', '#container #feedBox .activity .songThumb', function(){
+  if($(this).hasClass('liked')){
+    $(this).removeClass('liked');
+ $.post("/<%= current_user.id %>/"+$(this).siblings('.jamID').html()+"/unlike");
+
+ $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/pointMinus1");
+ } else {
+  $(this).addClass('liked');
+  $.post("/<%= current_user.id %>/"+$(this).siblings('.jamID').html()+"/like");
+
+  if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() != "<%= current_user.id %>"){
+    $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/point1");
+
+    $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
+  $('#messageURL').val('S|'+$(this).siblings('.jamID').html());
+  $('.shareTextarea').val('liked '+$(this).siblings('.jamTitle').html().trim() + '!');
+  $('#shareSubmit').click();
+  $('#messageURL').val('');
+  $('.shareTextarea').val('Check this out!');
+  }
+  
+ }
+});
+
+          $('body').on('click', '#container #feedBox .activity .gigThumb', function(){
+  if($(this).hasClass('liked')){
+    $(this).removeClass('liked');
+ $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
+ }
+
+  else {
+  $(this).addClass('liked');
+  $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
+
+if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() != "<%= current_user.id %>"){
+  $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/point5");
+  $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
+  $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html());
+  $('.shareTextarea').val('liked '+$(this).parent().siblings('.activityInfo').find('.feedGigName').text() + '!');
+  $('#shareSubmit').click();
+  $('#messageURL').val('');
+  $('.shareTextarea').val('Check this out!');
+  }
+
+ }
+
+ });
+
+          $('body').on('click', '.reviewThumb', function(){
+  if($(this).hasClass('liked')){
+    $(this).removeClass('liked');
+ $.post("/reviews/"+$(this).siblings('.hiddenReviewID').html()+"/reviewUnlike");
+ }
+
+  else {
+  $(this).addClass('liked');
+  $.post("/reviews/"+$(this).siblings('.hiddenReviewID').html()+"/reviewLike");
+
+if($(this).siblings('.hiddenID').html().trim() != "<%= current_user.id %>"){
+  $.post("/"+$(this).siblings('.hiddenID').html().trim()+"/point5");
+  $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
+  $('#messageURL').val('R|'+$(this).siblings('.hiddenReviewID').html());
+  $('.shareTextarea').val('liked your');
+  $('#shareSubmit').click();
+  $('#messageURL').val('');
+  $('.shareTextarea').val('Check this out!');
+  }
+
+ }
+
+ });
+
+
+$(document).on('click', '.shareGig', function(){
+        $('#messageURL').val('G#'+$(this).siblings('.hiddenGigID').html());
+  });
+
+$(document).on('click', '.shareReview', function(){
+        $('#messageURL').val('R#'+$(this).siblings('.hiddenReviewID').html());
+  });
+    
+    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg', function(){
+  
+  
+  $.get('/reviews/' + $(this).siblings('.hiddenReviewID').html(), function(result){
+  $('.genericContent').html(result);});
+    
+  
+});
+
+    $(document).on('keydown', ".inputComment", function(event){
+    if(event.keyCode==13 && !event.shiftKey){
+      event.preventDefault();
+      var text = $(this).val().replace(/\r\n|\r|\n/g,"%0A");
+      var url = $(this).siblings('.commentURL').html().trim() + "create";
+      
+      
+      $.post(url, {body: text});
+      
+      
+      $(this).val('');
+    }
+  });
+
+        var faye = new Faye.Client('http://localhost:9292/faye');
+
+  faye.subscribe("/comments/new", function(data) {
+    $.get(data + 'index', function(result){
+      var commentID = '.'+data.trim().replace(/\//g, '');
+      $(commentID).html(result);
+    });
+  });
+
+  faye.subscribe("/activities/new", function(data) {
+    var owner = data.trim().split(',')[1];
+    var activity = data.trim().split(',')[0];
+    var allFollowees = $('#hiddenFolloweesIDs').html().trim();
+    if(allFollowees.indexOf(owner) != -1){
+      $.get('/activities/'+activity, function(result){
+        var firstFeed = $('#feedBox:first');
+
+        var currentPos = firstFeed.offset().top - $('#feedBox').scrollTop();
+    
+        $('#feedBox').prepend(result);
+
+        $('#feedBox').scrollTop(firstFeed.offset().top - currentPos)
+      });
+      
+    }
+    
+
+
+    
+  });
+
+faye.subscribe("/messages/new", function(data) {
+  if('<%= current_user.id%>' == parseInt(data)) {
+    $.get(data + '/lastMsg', function(result){
+      $('#lastMsgDiv').html(result);
+
+      var lastMessageSenderID = $('#lastMessageSenderID').html();
+      var lastMessageSenderUID = $('#lastMessageSenderUID').html();
+      var lastMessageSenderName = $('#lastMessageSenderName').html();
+      var lastMessageSubject = $('#lastMessageSubject').html();
+
+      if(lastMessageSubject.charAt(1) != '|'){
+        $('#recCount').html(parseInt($('#recCount').html()) + 1);
+        $('#recCount').removeClass('invisCount');
+        if(lastMessageSubject.charAt(1) == '`') {
+          lastMessageSubjectType = 'song';
+        } else if(lastMessageSubject.charAt(0) == '~') {
+          lastMessageSubjectType = 'playlist';
+        } else if(lastMessageSubject == 'G#') {
+          lastMessageSubjectType = 'gig';
+        } else if(lastMessageSubject == 'R#') {
+          lastMessageSubjectType = 'review';
+        }
+
+        messageRT = '<div class="ns-thumb inboxNotification"><img src="https://graph.facebook.com/'+lastMessageSenderUID+'/picture?width=100&height=100" class="notificationImg"/></div><div class="ns-content inboxNotification"><p>'+lastMessageSenderName+' shared a '+lastMessageSubjectType+' with you!</p></div>';
+
+      } else {
+        $('#pointCount').html(parseInt($('#pointCount').html()) + 1);
+        $('#pointCount').removeClass('invisCount');
+        $.get('/points', function(result){
+          $('.points').html(result);
+        });
+        
+
+        if(lastMessageSubject != 'B|') {
+          if(lastMessageSubject == 'S|') {
+            lastMessageSubjectType = '1 point';
+          } else if(lastMessageSubject == 'G|' || lastMessageSubject == 'P|' || lastMessageSubject == 'R|') {
+            lastMessageSubjectType = '5 points';
+          }
+          messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>You got '+lastMessageSubjectType+'!</p></div>';
+        } else if(lastMessageSubject == 'B|') {
+          messageRT = '<div class="ns-thumb pointsNotification"><img src="/assets/<%= current_user.badges.last.name %>" class="notificationImg"></div><div class="ns-content pointsNotification"><p>New level: <%= current_user.badges.last.custom_fields[:image]%>!</p></div>';
+        }
+      } 
+      
+
+
+      var notification = new NotificationFx({
+
+      message : messageRT,      
+      layout : 'other',
+      ttl : 10000,
+      effect : 'thumbslider',
+      type : 'notice',
+      onClose : function() {
+      bttn.disabled = false;
+      }
+      });
+
+      for(i=1; i <= $('.ns-box').length; i++){
+                
+                $('.ns-box').eq(i).css('margin-top','+=90px');
+              }
+
+            notification.show();
+
+    });  
+  }
+  
+});
+         $("#navTitle").mouseover(function() {
+
+    var maxscroll = $(this).width();
+    var speed = maxscroll * 15;
+    $(this).animate({
+        scrollLeft: maxscroll
+    }, speed, "linear");
+});
+
+$("#navTitle").mouseout(function() {
+    $(this).stop();
+
+    $(this).animate({
+        scrollLeft: 0
+    }, 'slow');
+});
+
+        <% unless current_user.songkickID.nil? %>
+  
+  var url="https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/calendar.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?";
+
+  var gigsArray = [];
+
+  $.getJSON(url,function(json){ 
+
+      var allGigs = [];
+
+      var allPreviousGigs = $('#hiddenGigsIDs').html().trim();
+
+
+      allPreviousGigs = allPreviousGigs.split(',').map(function(x){return parseInt(x)});
+
+    
+      $.each(json.resultsPage.results.calendarEntry,function(j,e){
+
+        allGigs.push(e.event.id);
+
+        if($('#hiddenGigsIDs').html().indexOf(e.event.id) == -1){
+          
+          gigsArray.push({songkick_id: e.event.id , gig_date: e.event.start.date });
+          
+        }
+         
+          
+            });
+
+
+      $.each(allPreviousGigs, function(i, gigID){
+         if(allGigs.indexOf(gigID) == -1){
+          deleteURL = '/gigUndo/'+gigID;
+          $.post(deleteURL);
+      }
+      });
+
+     
+
+    $.post( '/<%= current_user.id %>/multipleCreate', { multiGigs: JSON.stringify(gigsArray) });
+      
+          });
+
+
+  var pGurl="https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/gigography.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?";
+
+  var pastGigsArray = [];
+
+  $.getJSON(pGurl,function(json){ 
+      $.each(json.resultsPage.results.event,function(j,e){
+        if($('#hiddenPastGigsIDs').html().indexOf(e.id) == -1){
+          
+          pastGigsArray.push({songkick_id: e.id , gig_date: e.start.date });
+          
+        }
+         
+          
+            });
+    $.post( '/<%= current_user.id %>/pastMultipleCreate', { multiGigs: JSON.stringify(pastGigsArray) });
+      
+          });
+
+
+  <% end %>
+
+ 
+  
+  $.get("/activities", function(result){
+  $('#feedBox').append(result);});
+
+ 
+
+  
+  
+});
+ 
+$('.modal').on('hidden.bs.modal', function () {
+  if($(this).attr('id') != 'shareModal'){
+    $('.genericContent').html('');  
+  }
+  
+});
+
+
+
+$(document).on('mouseenter', '.dropdown-menu li a', function(){
+    $(this).css({'color' : 'white', 'background-color': 'red'});
+});
+
+$(document).on('mouseleave', '.dropdown-menu li a', function(){
+
+    $(this).css({'color' : 'black', 'background-color': 'white'});
+});  
+
+$(document).on('click', '.dropdown-menu li a', function(e){
+  e.preventDefault();
+  var playlistURL = '/playlists/' + $(this).attr("href") + '.json';
+  var updatePlaylistURL = '/playlists/' + $(this).attr("href");
+        
+  if($(this).parents('.btn-group').siblings('.glyphicon-plus').hasClass('feedPlus')){
+    name = $(this).parents('.btn-group').siblings('.jamTitle').html().trim();
+    value = $(this).parents('.btn-group').siblings('.jamID').html().trim();
+  } else if($(this).parents('.btn-group').parent().hasClass('messageIcons')){
+    name = $(this).parents('.messageIcons').siblings('#makeJamLi').find('.jamTitle').html().trim();
+    value = $(this).parents('.messageIcons').siblings('#makeJamLi').find('.jamID').html().trim();
+  } else {
+    name = $('#infoTitle').html();
+    value = $('#infoID').val();
+  }
+      
+
+
+        $.getJSON(playlistURL, function(json){
+          playlistContent = JSON.parse(json["content"]);
+            
+          var playlistObject = {};
+          playlistObject[name] = value;
+
+          if(playlistContent == null) {
+            playlistContent = [];
+          }
+          
+
+          playlistContent.push(playlistObject);
+          
+          $.ajax({
+            url: updatePlaylistURL ,
+            type: 'PUT',
+            data: {content: JSON.stringify(playlistContent)}
+          });
+          
+          
+        });
+
+$('.dropdown-menu').toggle();
+
+});
+
+
+
+$('#Playlist').on('click', '.sidePlaylist, .sideFollowed', function(e){
+  if(e.target.className.indexOf('playlistSong') != -1){
+    return;
+  }
+
+  else if(e.target.className.indexOf('glyphicon-remove') != -1){
+    return;
+  }
+
+  else if(e.target.className.indexOf('descriptTxt') != -1){
+    var updatePlaylistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
+    $(this).keydown(function(event){
+    if(event.keyCode==13 && !event.shiftKey && $(this).find('.descriptTxt').val() != "" ){
+      descript = $(this).find('.descriptTxt').val();
+      $.ajax({
+            url: updatePlaylistURL ,
+            type: 'PUT',
+            data: {description: descript}
+          });
+      $(this).find('.descriptTxt').replaceWith('<p class="descriptP">' + descript + '</p>')
+    }
+  });
+
+    return;
+  }
+
+  else if(e.target.className.indexOf('descriptP') != -1){
+    if($(this).hasClass('sidePlaylist')){
+      text = $(e.target).html();
+    $(e.target).replaceWith('<textarea class="descriptTxt">' + text + '</textarea>')
+    return;
+    }
+    
+  }
+      var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
+      var playlistID = $(this).find('.hiddenPlaylistID').html();
+
+        $.get(playlistURL, function(result){
+          $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
+          $('#dropdownPlaylistDiv' + playlistID).toggle();
+        });
+      
+});
+
+function songDroppable(event, ui) {
+
+      var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html() + '.json';
+        var updatePlaylistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
+        $.getJSON(playlistURL, function(json){
+          playlistContent = JSON.parse(json[0]["content"]);
+            name = ui.draggable.find("p").text();
+          value = ui.draggable.find("img").attr("src").slice(27,-12);
+          var playlistObject = {};
+          playlistObject[name] = value;
+
+          if(playlistContent == null) {
+            playlistContent = [];
+          }
+          
+
+          playlistContent.push(playlistObject);
+          
+          $.ajax({
+            url: updatePlaylistURL ,
+            type: 'PUT',
+            data: {content: JSON.stringify(playlistContent)}
+          });
+          
+          
+        });
+$(this).find('.sidePlaylistName').addClass('animated bounce');
+
+    }
+
+$(".sidePlaylist").droppable({ 
+  accept: ".videoResultsDivLi", 
+  zIndex: 1,
+  hoverClass: "dropPlaylist",
+  drop: songDroppable
+});
+
+var sortable_opts = {
+    containment: '#searchNsee',
+sort: function(event, ui) {
+  $('.sidePlaylist').removeClass('dropPlaylist');
+  $(ui.helper).removeClass('videoResultsDivLi');
+  $(ui.helper).addClass('playlistSong playlistSongLi noclick');
+    },
+    stop: function(){
+    var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
+    var playlistContent = [];
+      $(this).children('li').each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    $.ajax({
+   url: updatePlaylistURL ,
+   type: 'PUT',
+   data: {content: JSON.stringify(playlistContent)},
+   success: function(response) {
+     //...
+   }
+});
+    },
+    receive: function(event, ui){
+
+      var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
+    var playlistContent = [];
+      $(this).children('li').each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    $.ajax({
+   url: updatePlaylistURL ,
+   type: 'PUT',
+   data: {content: JSON.stringify(playlistContent)},
+   success: function(response) {
+     //...
+   }
+});
+    }
+      }
+
+$(".sidePlaylist .dropdownPlaylist").sortable(sortable_opts);
+    
+
+
+$('#Playlist').on('click', '.sideNewPlaylist', function(e){
+  $(this).find('.sideNewPlaylistName').replaceWith('<input id="newPlaylistInput">');
+  $('#newPlaylistInput').focus();
+  $("#newPlaylistInput").keydown(function(event){
+    if(event.keyCode==13 && $('#newPlaylistInput').val() != '' ){
+      var newPlaylistName = $('#newPlaylistInput').val();
+      $('#playlistName').val(newPlaylistName);
+      $('#savePlaylist').click();
+      $('#newPlaylistInput').replaceWith('<h5 class="sideNewPlaylistName">Create a New Playlist</h5>');  
+      $.get('/newPlaylist', function(result){
+        $('.sideNewPlaylist').after($(result).droppable({ 
+  accept: ".videoResultsDivLi", 
+  zIndex: 1,
+  hoverClass: "dropPlaylist",
+  drop: songDroppable
+}));
+dr = '#' + $(result).find('.dropdownPlaylist').attr('id');
+$(dr).sortable(sortable_opts);
+      });
+    }
+  });
+});
+
+$('#Playlist').on('click', '.sideLiked', function(e){
+  if(e.target.className.indexOf('playlistSong') != -1){
+    return;
+  }
+
+
+      var likesURL = $(this).find('.hiddenPlaylistID').html() + '/likes';
+      var likestID = $(this).find('.hiddenPlaylistID').html();
+
+        $.get(likesURL, function(result){
+          $('#Playlist').find('#dropdownLike' + likestID).html(result);
+          $('#dropdownLikeDiv' + likestID).toggle();
+        });
+      
+});
+
+$('#Playlist').on('click', '.dropdownPlaylist li, .dropdownLike li', function(e){
+  if ($(this).hasClass('noclick')) {
+        $(this).removeClass('noclick');
+    }
+
+    else if(e.target.className.indexOf('glyphicon-remove') != -1){
+      return;
+    }
+
+    else {
+        videoID = $(this).find('img').attr("src").slice(27,38);
+        
+        <%= render "layouts/videoClick" %>
+        $('.dropdownPlaylist li, .dropdownLike li').off('click');
+    }
+      
+    });
+
+$('#Playlist').on({
+   mouseenter: function(){
+    
+    $(this).find('.glyphicon-remove').show();
+
+  },
+  mouseleave:  function(){
+    
+    $(this).find('.glyphicon-remove').hide();
+  }
+}, '.dropdownPlaylist .playlistSongLi, .dropdownLike .playlistSongLi');
+
+$('.dropdownPlaylist, .dropdownLike').on({
+   mouseenter: function(){
+    $(this).parent().addClass('noclick');
+
+  },
+  mouseleave:  function(){
+    $(this).parent().removeClass('noclick');
+  }
+}, '.dropdownPlaylist .playlistSongLi .glyphicon-remove, .dropdownLike .playlistSongLi .glyphicon-remove');
+
+
+
+$('.dropdownPlaylistDiv, .dropdownLikeDiv').on({
+   mouseenter: function(){
+    $(this).addClass('animated pulse');
+
+  },
+  mouseleave:  function(){
+    $(this).removeClass('animated pulse');
+  }
+}, '.sideDestroy, .sideEdit, .sideShare, .sideFollow, .sideUnfollow');
+
+$(document).on('click', '.playlistInfo, #latestPlaylist', function(e){
+  var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim();
+  var playlistLiURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim() + '/playlistLi';
+
+  var playlistID = $(this).find('.hiddenPlaylistID').html().trim();
+  if($('#dropdownPlaylist' + playlistID).length < 1){
+    $.get(playlistLiURL, function(result){
+           $('.sideNewPlaylist').after(result);
+        });
+
+    $.get(playlistURL, function(result){
+          $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
+          $('#dropdownPlaylistDiv' + playlistID).toggle();
+        });
+
+  } else {
+    $.get(playlistURL, function(result){
+          $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
+          $('#dropdownPlaylistDiv' + playlistID).toggle();
+        });
+  }
+
+  if($(e.target).parents('.modal-content').length && e.target.className.indexOf('playlistImgOrName') == -1) {
+    return;
+  }
+  else {
+    $('.modal').modal('hide');  
+  }
+  
+});
+
+$('#Playlist ul').on('click', '.sideFollow', function(){
+  $(this).siblings('.sideUnfollow').show();
+  $(this).hide();
+});
+
+$('#Playlist ul').on('click', '.sideUnfollow', function(){
+  $(this).parents('li').hide();
+});
+
+
+
+$('#Playlist ul').on('click', '.sideEdit', function(){
+  $(this).parent().siblings('.sidePlaylistName').toggle();
+  $(this).parent().siblings('.editPlaylistInput').toggle();
+  $(this).parent().siblings('.editPlaylistInput').val('');
+  $('.editPlaylistInput').focus();
+});
+
+$('#Playlist ul').on('click', '.sideDestroy', function(){
+  var offset = $(this).offset();
+  left = offset.left;
+  $('#deletePrompt').css('top', offset["top"] -70 );
+  $('#deletePrompt').css('left', left - 160 );
+  $('#deletePlaylistName').html($(this).parent().siblings('.sidePlaylistName').html().slice(0, 14));
+  var deletePlaylistURL = $(this).parent().siblings('.hiddenPlaylistID').html();
+  $('#deletePlaylistID').html(deletePlaylistURL);
+  $('#deletePrompt').show();
+  
+  
+});
+
+$('#deletePlaylistYes').on('click', function(){
+
+    $('#dropdownPlaylistDiv'+$('#deletePlaylistID').html()).parent().remove();
+    $('#deletePrompt').hide();
+
+    $.ajax({
+            url: '/playlists/' + $('#deletePlaylistID').html() ,
+            type: 'DELETE'
+          });
+  });
+  $('#deletePlaylistNo').on('click', function(){
+    $('#deletePrompt').hide();
+  });
+
+$(".editPlaylistInput").keydown(function(event){
+    if(event.keyCode==13 && $(this).val() != '' ){
+      var updatePlaylistURL = '/playlists/' + $(this).siblings('.hiddenPlaylistID').html();
+      var newName = $(this).val();
+      $.ajax({
+            url: updatePlaylistURL ,
+            type: 'PUT',
+            data: {name: newName}
+          });
+      $(this).siblings('.sidePlaylistName').show().html(newName);
+      $(this).hide();
+    }
+  });
+
+$('.sideShare').click(function(){
+        $('#messageURL').val('~#' + $(this).parent().siblings('.hiddenPlaylistID').html()+','+$(this).parent().siblings('.sidePlaylistName').html());
+  });
+
+$(document).on('click', '#currentShare #csImg', function(){
+        $('#messageURL').val('~`' + $('#infoID').val()+','+$('#infoTitle').html());
+  });
+
+function appendVideos(data) {
+  var feed = data.feed;
+            var entries = feed.entry || [];
+            var html = ['<ul>'];
+            for (var i = 0; i < entries.length; i++)
+            {
+                var entry = entries[i];
+                var title = entry.title.$t;
+                var lnk = entry.link[0].href;
+                var videoID = lnk.slice(32,-22);
+                var ytThumbnail = '<img src="https://img.youtube.com/vi/' + videoID + '/default.jpg" class="playlistYT" alt="thumbnail"/>';
+
+                html.push('<li class="videoResultsDivLi">', ytThumbnail, '<span class="glyphicon glyphicon-remove"></span><p class="playlistSongP">', title.trim(), '</p></li><p class="thumbID">'+videoID+'</p>');
+                
+            }
+            var startIndex = parseInt($('.startIndex:last').html()) + 51;
+            html.push('</ul><div class="startIndex">'+startIndex+'</div>');
+            $('#videoResultsDiv').append(html.join(''));
+            $('#videoResultsDiv li').draggable(draggable_opts);
+}
+
+
+
+function showMyVideos(data)
+        {
+            var feed = data.feed;
+            var entries = feed.entry || [];
+            var html = ['<ul>'];
+            for (var i = 0; i < entries.length; i++)
+            {
+                var entry = entries[i];
+                var title = entry.title.$t;
+                var lnk = entry.link[0].href;
+                var videoID = lnk.slice(32,-22);
+                var ytThumbnail = '<img src="https://img.youtube.com/vi/' + videoID + '/default.jpg" class="playlistYT" alt="thumbnail"/>';
+
+                html.push('<li class="videoResultsDivLi">', ytThumbnail, '<span class="glyphicon glyphicon-remove"></span><p class="playlistSongP">', title.trim(), '</p></li><p class="thumbID">'+videoID+'</p>');
+                
+            }
+            html.push('</ul><div class="startIndex">51</div>');
+
+            document.getElementById('videoResultsDiv').innerHTML = html.join('');
+
+            
+            $(function() {
+
+            
+  
+            
+
+              
+    $( "#videoResultsDiv li" ).draggable(draggable_opts);
+
+    
+
+    $("#videoResultsDiv").scrollTop(0);
+
+
+    $(document).on('click', "#videoResultsDiv li", function(){
+
+        
+        videoID = $(this).find('img').attr("src").slice(27,38);
+        
+        <%= render "layouts/videoClick" %>
+
+            });
+
+    });}
+
+$('#footerPlayer').on('click', '.glyphicon-thumbs-up', function(){
+  
+    if($(this).hasClass('liked')) {
+      $(this).removeClass('liked');
+      $.post("/<%= current_user.id %>/"+$('#infoID').val()+"/unlike");
+    } else {
+      $(this).addClass('liked');
+       $.post("/<%= current_user.id %>/"+$('#infoID').val()+"/like");
+    }
+});
+
+$('#navButtons').on('click', '.glyphicon-pause', function(){
+      player.pauseVideo();
+      $(this).parent().css('display', 'none');
+      $('.glyphicon-play').parent().css('display', 'inline-block');
+    });
+
+$('#navButtons').on('click', '.glyphicon-play', function(){
+      player.playVideo();
+      $(this).parent().css('display', 'none');
+      $('.glyphicon-pause').parent().css('display', 'inline-block');
+    });
+
+$('#navButtons').on('click', '.glyphicon-fast-forward', function(){
+    var thisVideo2 = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/default.jpg"]');
+    var nextVideo2 = $(thisVideo2).parent().next().find('.playlistYT');
+    nextVideo2.click();
+  });
+
+    $('#navButtons').on('click', '.glyphicon-fast-backward', function(){
+    var thisVideo2 = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/default.jpg"]');
+    var nextVideo2 = $(thisVideo2).parent().prev().find('.playlistYT');
+    nextVideo2.click();
+  });
+
+    function merchNgigsSearch(){
+            var userSearch = $('#search_query').val();
+            $('#moreMerch').show();
+            
+            var key="Pxms4Lvfx5rcDIuR";
+            var url="https://api.songkick.com/api/3.0/search/artists.json?query=" + userSearch + "&apikey="
+            + key + "&jsoncallback=?"; 
+            
+            $.getJSON(url,function(json){ 
+            $.each(json.resultsPage.results.artist,function(i,result){
+            if(i==0){
+            localGigs = "https://api.songkick.com/api/3.0/events.json?apikey=" + key + "&artist_name=" + userSearch + "&location=clientip&jsoncallback=?";
+            artist_url="https://api.songkick.com/api/3.0/artists/" + result.id + "/calendar.json?apikey="
+            + key +"&jsoncallback=?";
+            $("#Gigs").html("<div id='gig0' class='uberdate threeGigs'></div><div id='shareNfriends0' class='shareNfriends'></div><div id='gig1' class='uberdate threeGigs'></div><div id='shareNfriends1' class='shareNfriends'></div><div id='gig2' class='uberdate threeGigs'></div><div id='shareNfriends2' class='shareNfriends'></div>");
+                    $.getJSON(localGigs,function(data){
+
+                        var events = data['resultsPage']['results']['event'];
+
+                        if(!events){
+                            $.getJSON(artist_url,function(data){
+
+                        var events = data['resultsPage']['results']['event'];
+                            if(!events){
+                                $("#Gigs").html("<h4 id='noGigs'>No Gigs Announced</h4>");
+                                $("#moreGigs").html('');
+
+                            };
+
+                                var urls = [];
+
+                              for(k=0; k<=2; k++ ){
+                                if(events[k] != null){
+                                urls.push('/<%= current_user.id %>/'+events[k]['id']+'/gigs/friendsGoing');
+                              }
+                              }
+
+                              for(k=0; k<=2; k++ ){
+                                $("#gig"+k+"").append('<li><div class="date-wrap"><a href="'
+                                +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
+                                +'</span><span class= "day">'
+                                + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
+                                +'<div class="gigInfo">' +events[k]['location']['city']+ '<br />' + '<a href="'
+                                +events[k]['uri']+'" target="_blank">'
+                                +events[k]['displayName']+'</a></li>');
+
+                                $.ajax({
+                                  url: urls[k],
+                                  indexValue: k,
+                                  async: false,
+      
+                                  success: function(html) {
+        
+                                  image_link(html , this.indexValue);
+
+                                  function image_link(data, i) {
+                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>');
+                                  }
+                                }
+                              });
+                                
+                                $("#moreGigs").html('<a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a>');
+
+                            
+                              }
+                        
+                            
+
+                            
+                            })}
+
+                            else {
+                              var urls = [];
+
+                              for(k=0; k<=2; k++ ){
+                                if(events[k] != null){
+                                urls.push('/'+<%= current_user.id %>+'/'+events[k]['id']+'/gigs/friendsGoing');
+                              }
+                              }
+
+                              for(k=0; k<=2; k++ ){
+                                $("#gig"+k+"").append('<li><div class="date-wrap"><a href="'
+                                +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
+                                +'</span><span class= "day">'
+                                + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
+                                +'<div class="gigInfo">' +events[k]['location']['city']+ '<br />' + '<a href="'
+                                +events[k]['uri']+'" target="_blank">'
+                                +events[k]['displayName']+'</a></li>');
+
+                                var gigID = events[k]['id'];
+
+                                $.ajax({
+                                  url: urls[k],
+                                  indexValue: k,
+                                  async: false,
+                                  success: function(html) {
+                                    image_link(html , this.indexValue);
+                                    function image_link(data, i) {
+                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
+                                    }
+                                  }});
+                                
+                                $("#moreGigs").html('<a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a>');
+
+                            
+                              }
+                            }
+
+             });}});});}
+
+    
+
+    var topGigURL = $('#topGigImg').attr('src');
+
+  
+    $.ajax({
+      url: topGigURL,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('#topGigImg').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.topMonth').html(moment(data.resultsPage.results.event.start.date).format("MMM"));
+
+                            $('.topDay').html(moment(data.resultsPage.results.event.start.date).format("DD"));
+
+                            $('.topGigName').html(data.resultsPage.results.event.displayName);
+
+                            $('.topGigLocation').html(data.resultsPage.results.event.venue.metroArea.displayName);
+
+                          
+                    }
+        
+      }
+    });
+
+
+$('#topPhoto').click(function(){
+  $('#photoBody').html('<img src="'+$(this).attr('src')+'">');
+});
+
+
+<% end %>
+</script>

@@ -1,0 +1,61 @@
+<div id="reviewBody" class="modal-body">
+	<div class="reviewHeader">
+		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@review.reviewable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewGig reviewGigs<%= @review.id %>"></a>
+		
+		<div class="reviewTitle">
+			<div>
+			Review of
+			<div class="reviewGigName<%= @review.id %>"></div>
+			by
+			<div class="profileName"><%= User.find(PastGig.find(@review.reviewable_id).user_id).name %></div>
+			<div class="hiddenID">
+  				<%= PastGig.find(@review.reviewable_id).user_id %>
+			</div>
+			</div>
+			<%= image_tag "https://graph.facebook.com/#{User.find(PastGig.find(@review.reviewable_id).user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
+			<div class="hiddenID">
+  				<%= PastGig.find(@review.reviewable_id).user_id %>
+			</div>
+		</div>
+		
+	</div>
+	
+	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+
+	<div class="feedButtons reviewButtons">
+		<% if current_user.likes?(@review) %>
+			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+		<% elsif current_user.id != PastGig.find(@review.reviewable_id).user_id %>
+			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
+		<% end %>
+      	
+      	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+      <div class="hiddenReviewID"><%= @review.id %></div>
+      <span class="hiddenID"><%= PastGig.find(@review.reviewable_id).user_id %></span>
+	</div>
+
+	<div class="comments activity<%=@activity.id%>comments">
+  				<% @activity.comment_threads.each do |comment| %>
+  					<div class="comment">
+              <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+              <span class="hiddenID"><%= comment.user_id %></span>
+              <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+              </div>
+            </div>
+  				<% end %>
+			</div>
+	
+</div>
+
+<script type="text/javascript">
+
+var url = $('.reviewGigs<%= @review.id %>').attr('src');
+  $.getJSON(url, function(data){
+    $('.reviewGigs<%= @review.id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.reviewGigName<%= @review.id %>').html(data.resultsPage.results.event.displayName);
+  });
+
+  
+
+</script>

@@ -1,6 +1,0 @@
-<%= form_for(@playlist, remote:true) do |f|%>
-<%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
-<%= f.text_field :content, id: "updateContent" %>
-<%= f.submit "Update Playlist", id: "updatePlaylist", remote:true %>
-<% end %>
-

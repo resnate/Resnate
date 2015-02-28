@@ -5,19 +5,3 @@
       <div class="hiddenID"><%= f.id %></div>
 </div>
 <% end %>
-
-<script type="text/javascript">
-
-$('.followNames, .followImgs').click(function(){
-    var userSearch = "/" + $(this).parent().find('.hiddenID').html();
-    $('.close').click();
-  $.get(userSearch, function(result){
-  $('#box3').html(result);});
-    $('#box1').animate({
-        left: '0%',
-        top: '-100%'
-    });
-  });
-
-
-</script>

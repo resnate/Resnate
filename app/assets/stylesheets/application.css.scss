@@ -10,6 +10,7 @@
  *
  *= require_self
 	*= require jquery-ui/core
+	*= require jquery-ui/slider
  *= require normalize-rails
  *= require select2
  *= require select2-bootstrap
@@ -18,4 +19,4 @@
 
  @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "gritter";
+

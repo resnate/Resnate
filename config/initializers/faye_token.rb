@@ -1,0 +1,1 @@
+FAYE_TOKEN = "ResnateAxl626206041988"

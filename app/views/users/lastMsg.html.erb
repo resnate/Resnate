@@ -1,0 +1,4 @@
+<div id="lastMessageSenderID"><%= @message.sender_id %></div>
+<div id="lastMessageSenderUID"><%= User.find(@message.sender_id).uid %></div>
+<div id="lastMessageSenderName"><%= User.find(@message.sender_id).name %></div>
+<div id="lastMessageSubject"><%= @message.subject[0..1] %></div>

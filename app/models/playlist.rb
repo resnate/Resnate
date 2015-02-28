@@ -3,12 +3,10 @@ class Playlist < ActiveRecord::Base
 	belongs_to :user
 	acts_as_followable
 	default_scope -> { order('created_at DESC') }
-	validates :content, presence: true
-	validates :name, presence: true, presence: true, length: { maximum: 140 }
+	validates :name, presence: true, length: { maximum: 140 }
 	validates :user_id, presence: true
 	def self.search(query)
   		where("name ILIKE ?", "%#{query}%") 
 	end
-	include PublicActivity::Model
-tracked except: :destroy, owner: ->(controller, model) { controller && controller.current_user }
+	include PublicActivity::Common
 end

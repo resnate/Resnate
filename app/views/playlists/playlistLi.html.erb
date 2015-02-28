@@ -1,0 +1,21 @@
+<% img1 = "v" %>
+<li class="sidePlaylist">
+                <% unless @playlist.content == "[]" || @playlist.content.nil? || @playlist.content == "null" %>
+                  <% JSON.parse(@playlist.content)[0].each do |k, v| %>
+                    <% img1 = v %>
+                  <% end %>
+
+                <img src="https://img.youtube.com/vi/<%= img1 %>/default.jpg" class="playlistYT" >
+                <% else %>
+                <span class="glyphicon glyphicon-music sideGlyph"></span>
+                <% end %>
+                <span class="hiddenPlaylistID"><%= @playlist.id %></span>
+                <h5 class="sidePlaylistName"><%= @playlist.name %> by <%= User.find(@playlist.user_id).name %></h5>
+                <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= @playlist.id %>">
+                    <div class="sideFollow"><%= button_to "Follow", playlists_follow_path(playlist: @playlist) , remote: true, method: :post, class: "sideFollowButton" %></div>
+                    <div class="sideUnfollow" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: @playlist) , remote: true, method: :post, class: "sideUnfollowButton" %></div>
+                  <div class="sideShare" data-toggle="modal" data-target="#shareModal">Share</div>
+
+                  <div class="dropdownPlaylist" id="dropdownPlaylist<%= @playlist.id %>"></div>
+                </div>
+              </li>

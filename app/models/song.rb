@@ -6,6 +6,5 @@ class Song < ActiveRecord::Base
 	validates :name, presence: true, length: { maximum: 128 }
 	validates :user_id, presence: true
 
-	include PublicActivity::Model
-tracked except: :destroy, owner: ->(controller, model) { controller && controller.current_user }
+	include PublicActivity::Common
 end

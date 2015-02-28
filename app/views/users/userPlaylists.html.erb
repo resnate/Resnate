@@ -1,52 +1,43 @@
 
-<% @playlists.limit(2).each do |p| %>
-<table>
-<tr class="playlistInfo"><td><div class="playlistContent">
-<% img1 = "a" %>
-<%= p.id %></div>
-<% JSON.parse(p.content)[0].each do |k, v| %>
-<% img1 = v %>
-<% end %>
+<% @playlists.each do |p| %>
+	<table>
+		<tr class="playlistInfo">
+			<td>
+				<div class="playlistContent">
+					<% img1 = "a" %>
+					<%= p.id %>
+				</div>
+				<% JSON.parse(p.content)[0].each do |k, v| %>
+					<% img1 = v %>
+				<% end %>
 
-<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg" >
-</td>
-<td class="playlistName"><%= p.name %></td>
-<td class="hiddenPlaylistID"><%= p.id %></td>
-
-
-
-<% if @user != current_user %>
-<% if current_user.follows?(p) %>
-<td class="playlistUnfollow">Unfollow</td>
-<% else %>
-<td class="playlistFollow">Follow</div></td>
-<% end %>
-<% end %>
-
-<% if @user == current_user %>
-<td class="playlistDestroy">Delete</div></td>
-<% end %>
-
-<td class="playlistShare"><li class="playlistCsImgLi"><%= image_tag "ResnateShareIcon.png", class: "playlistCsImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li></td>
-
-<% if p.followers(User).count > 0 %>
-	
-	<td class="playlistFollowers">
-		<% p.followers(User).take(10).each do |follower| %>
-		<img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="followerID"><%= follower.id %></div>
+				<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg latest playlistImgOrName" >
+			</td>
+			<td class="playlistName playlistImgOrName"><%= p.name %></td>
+			<td class="hiddenPlaylistID"><%= p.id %></td>
 			
-		<% end %>
-		<% if p.followers(User).count == 1 %>
-			<span class="followersOpener" ><%= p.followers(User).count %> follower<div class="hiddenPlaylistID"><%= p.id %></div></span>
-			<% else %>
-			<span class="followersOpener"><%= p.followers(User).count %> followers<div class="hiddenPlaylistID"><%= p.id %></div></span>
+			<% unless @user != current_user %>
+			
+			<td class="playlistDestroy">Delete</td>
 			<% end %>
-	</td>
-<% end %>
+			</td>
 
-</tr>
-
-</table>
+			<% if p.followers(User).count > 0 %>
+	
+				<td class="playlistFollowers">
+					<% p.followers(User).take(10).each do |follower| %>
+						<img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>
+					<% end %>
+					<% if p.followers(User).count == 1 %>
+						<span class="followersOpener" ><%= p.followers(User).count %> follower<div class="hiddenPlaylistID"><%= p.id %></div></span>
+					<% else %>
+						<span class="followersOpener"><%= p.followers(User).count %> followers<div class="hiddenPlaylistID"><%= p.id %></div></span>
+					<% end %>
+				</td>
+			<% end %>
+			<td class="tdDescriptP"><%= simple_format(p.description, class: "descriptP latest") %></td>
+		</tr>
+	</table>
 <% end %>
 
 <% if @followedPlaylists.count != 0 %>
@@ -61,17 +52,17 @@
 <% img3 = v %>
 <% end %>
 
-<img src="https://img.youtube.com/vi/<%= img3 %>/hqdefault.jpg" class="playlistImg" >
+<img src="https://img.youtube.com/vi/<%= img3 %>/hqdefault.jpg" class="playlistImg latest playlistImgOrName" >
 
 </td>
-<td class="playlistName"><%= fp.name %></td>
+<td class="playlistName playlistImgOrName"><%= fp.name %></td>
 <td class="hiddenPlaylistID"><%= fp.id %></td>
-<td class="playlistCreator"><img src="https://graph.facebook.com/<%= User.find(fp.user_id).uid %>/picture?width=50&height=50" class="userImg" title="<%= User.find(fp.user_id).name %>"></img><div class="followerID"><%= User.find(fp.user_id).id %></div>
+<td class="playlistCreator"><img src="https://graph.facebook.com/<%= User.find(fp.user_id).uid %>/picture?width=50&height=50" class="userImg" title="<%= User.find(fp.user_id).name %>"></img><div class="hiddenID"><%= User.find(fp.user_id).id %></div>
 			by <span class="playlistCreatorName"><%= User.find(fp.user_id).name %></span></td>
 <td class="playlistShare"><li class="playlistCsImgLi"><%= image_tag "ResnateShareIcon.png", class: "playlistCsImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li></td>
 <td class="playlistFollowers">
 		<% fp.followers(User).take(10).each do |follower| %>
-		<td class="playlistFollower"><img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="followerID"><%= follower.id %></div>
+		<td class="playlistFollower"><img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>
 			
 		<% end %>
 		<% if fp.followers(User).count == 1 %>
@@ -80,23 +71,8 @@
 			<span class="followersOpener"><%= fp.followers(User).count %> followers<div class="hiddenPlaylistID"><%= fp.id %></div></span>
 			<% end %>
 
-	</td></td>
-
-	<% if @user != current_user %>
-	
-		<% if current_user.follows?(fp) %>
-		<td class="playlistUnfollow">Unfollow</td>
-		<% else %>
-			
-		<% if current_user.id == Playlist.find(fp.id).user_id %>
-		<% else %>
-		<td class="playlistFollow">Follow</td>
-		<% end %>
-		<% end %>
-	<% else %>
-		<td class="playlistUnfollow">Unfollow</td>
-	
-	<% end %>
+	</td>
+</td>
 
 </tr>
 </table>
@@ -110,60 +86,29 @@ $('.playlistCsImg').click(function(){
         $('#messageURL').val('~#' + $(this).parents('.playlistShare').siblings('.hiddenPlaylistID').html()+','+$(this).parents('.playlistShare').siblings('.playlistName').html());
   });
 
-$('.playlistInfo img, .playlistName').click(function(){
-	$.get($(this).siblings('.playlistContent').html()+"/show", function(result){
-    $('#Playlist').html(result);
-  
-});
-  
-  home();
-  $('#playlistsModal, #userPlaylistsModal').modal('hide');
-});
-
 
 $('.playlistDestroy').click(function(){
-	$.get('/' + $(this).parent().find('.hiddenPlaylistID').html() + '/destroy', function(){
-		
-	});
+	var destroyURL = '/playlists/' + $(this).siblings('.hiddenPlaylistID').html() ;
+	$.ajax({
+            url: destroyURL,
+            type: 'DELETE'
+          });
 	$(this).parent().remove();
 });
 
-$('.playlistFollow').click(function(){
-	$.get('/playlists/follow?playlist='+ $(this).parent().find('.hiddenPlaylistID').html(), function(){
-		
-	});
-	$(this).parent().append('<td class="playlistUnfollow">Unfollow</td>');
-	$(this).remove();
+$('.unfollow').click(function(){
+  $(this).css("display", "none");
+  $(this).parents('.playlistFollowButtons').siblings(".tdFollow").find('.follow').css("display", "block");
 });
 
-$('.playlistUnfollow').click(function(){
-	$.get('/playlists/unfollow/?playlist='+ $(this).parent().find('.hiddenPlaylistID').html(), function(){
-		
-	});
-	$(this).parent().append('<td class="playlistFollow">Follow</td>');
-	$(this).remove();
-});
-
- $('.userImg, .playlistCreatorName').click(function(){
-    var userSearch = "/" + $(this).siblings('.followerID').html();
-    $('#playlistsModal, #userPlaylistsModal').modal('hide');
-  $.get(userSearch, function(result){
-  $('#box3').html(result);});
-    $('#box1').animate({
-        left: '0%',
-        top: '-100%'
-    });
-  });
 
  $('.followersOpener').click(function(){
-  $('#playlistFollowersBody').html("<p>Loading...</p>");
   
   $.get($(this).find('.hiddenPlaylistID').html() + "/playlistFollowers", function(result){
   	
   	
-  $('#playlistFollowersBody').html(result);});
-  $('#playlistsModal, #userPlaylistsModal').modal('hide');
-  $('#playlistFollowersModal').modal('show');
+  $('.genericContent').html(result);});
+  $('#genericModal').modal('show');
 });
 
 

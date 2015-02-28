@@ -1,0 +1,17 @@
+<% gArray = [] %>
+<% @gigs.each do |g| %>
+	
+	<% hash = { user_id: params[:user], songkick_id: g["songkick_id"], gig_date: g["gig_date"]} %>
+	<% gArray.push(hash) %>
+	
+<% end %>
+<%= Gig.create_many(gArray) %>
+
+<% gArray.each do |gA| %>
+	<% gA = Gig.find_by_songkick_id(gA[:songkick_id]) %>
+	<% gA.create_activity :create, owner: current_user %>
+	<% activity = PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: gA.id).first.id %>
+	<% broadcast "/activities/new" do %>
+		<%= activity %>,<%= current_user.uid %>
+	<% end %>
+<% end %>

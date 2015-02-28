@@ -1,0 +1,112 @@
+<%= image_tag "https://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+<div class="hiddenID">
+	<%= activity.owner.id %>
+</div>
+
+<% if Follow.find(activity.trackable_id).followable_type == "User" %>
+	
+		<div class="activityYT" >
+		<%= image_tag "https://graph.facebook.com/#{User.find(Follow.find(activity.trackable_id).followable_id).uid}/picture?width=200&height=200", class: "feedFollowPic" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+        </div>
+        <% if current_user == User.find(Follow.find(activity.trackable_id).followable_id) %>
+    		<div class="feedButtons"></div>
+     	<% elsif current_user.follows?(User.find(Follow.find(activity.trackable_id).followable_id)) %>
+          	<div class="feedButtons">
+          		<span class="feedShares fUlUser"><%= button_to "Unfollow", unfollow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedUnfollow fUlUser", style: "display: inline" %></span>
+				<span class="feedShares fFlUser" style="display: none"><%= button_to "Follow", follow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedFollow fFlUser" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div></span>
+          	</div>
+        <% else %>
+          	<div class="feedButtons">
+            	<span class="feedShares fFlUser"><%= button_to "Follow", follow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedFollow fFlUser", style: "display: inline" %><div class="hiddenID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div></span>
+            	<span class="feedShares fUlUser" style="display: none"><%= button_to "Unfollow", unfollow_path(user: User.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedUnfollow fUlUser" %></span>
+          	</div>
+        <% end %>
+
+        <div class="activityInfo">
+			<div class="profileName">
+				<%= activity.owner.name if activity.owner %>
+			</div>
+			<div class="hiddenID">
+				<%= activity.owner.id %>
+			</div>
+
+			<div class="verb">
+				is following
+			</div>
+
+        	<div class="activityName">
+        		<div class="profileFollowName">
+        			<%= User.find(Follow.find(activity.trackable_id).followable_id).name %>
+        		</div>
+        		<div class="hiddenID">
+        			<%= Follow.find(activity.trackable_id).followable_id %>
+        		</div>
+        	</div>
+        	<div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+        </div>
+    
+
+<% elsif Follow.find(activity.trackable_id).followable_type == "Playlist" %>
+    <% unless Playlist.find_by_id(Follow.find(activity.trackable_id).followable_id).nil? %>
+        <div class="activityYT playlistInfo" >
+          	<div class="hiddenPlaylistID">
+          		<%= Follow.find(activity.trackable_id).followable_id %>
+            </div>
+          	<div class="playlistUserId">
+            	<%= Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+          	</div>
+
+			<% img2 = "a" %>
+
+			<% JSON.parse(Playlist.find(Follow.find(activity.trackable_id).followable_id).content)[0].each do |k, v| %>
+          		<% img2 = v %>
+          	<% end %>
+
+          	<img src="https://img.youtube.com/vi/<%= img2 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
+
+        </div>
+
+        <% if current_user.follows?(Playlist.find(Follow.find(activity.trackable_id).followable_id)) %>
+          	<div class="feedButtons">
+          		<span class="feedShares fUl"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedUnfollow fUl", style: "display: inline" %></span>
+				<span class="feedShares fFl" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedFollow fFl" %></span>
+          		<%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+          	</div>
+      	<% elsif current_user.follows?(Playlist.find(Follow.find(activity.trackable_id).followable_id)) == false && current_user.id != Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+          	<div class="feedButtons">
+            	<span class="feedShares fFl"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedFollow fFl", style: "display: inline" %></span>
+				<span class="feedShares fUl" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(Follow.find(activity.trackable_id).followable_id)) , remote: true, method: :post, class: "feedUnfollow fUl" %></span>
+            	<%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+          	</div>
+      	<% elsif current_user.id == Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+    		<div class="feedButtons">
+        		<%= image_tag "ResnateShareIcon.png", class: "feedShares feedCsImgFollow", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="sharePlaylistID" style="display:none"><%= Follow.find(activity.trackable_id).followable_id %></div>
+    		</div>
+      	<% end %>
+
+      	<div class="activityInfo">
+		    <div class="profileName">
+		    	<%= activity.owner.name if activity.owner %>
+		    </div>
+		    <div class="hiddenID" style="display:none"><%= activity.owner.id %></div>
+		    <div class="verb">
+		    	followed the playlist
+		    </div>
+
+      		<div class="activityName feedPlaylistName">
+      			<%= Playlist.find(Follow.find(activity.trackable_id).followable_id).name %>
+      		</div>
+      		<span style="display:inline"> by </span>
+      		<span class="playlistCreatorSpan">
+      			<div class="playlistCreatorFeed">
+      			<%= User.find(Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id).name %>
+      			</div>
+      			<div class="hiddenID">
+      				<%= Playlist.find(Follow.find(activity.trackable_id).followable_id).user_id %>
+      			</div>
+      		</span>
+        	<div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+        </div>
+    <% end %>
+
+<% end %>

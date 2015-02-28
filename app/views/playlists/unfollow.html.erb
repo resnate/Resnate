@@ -1,3 +1,9 @@
 <% if current_user != User.find(@playlist.user_id) %>
-<% User.find(@playlist.user_id).subtract_points(5) %>
+	<% user = User.find(@playlist.user_id) %>
+	<% lv1 = user.level %>
+	<% user.subtract_points(5) %>
+	<% lv2 = user.level %>
+	<% if lv1 != lv2 %>
+		<% @user.rm_badge(lv1) %>
+	<% end %>
 <% end %>

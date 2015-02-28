@@ -1,197 +1,189 @@
+<div class="hiddenUserID"><%= @user.id %></div>
 <table class="gigUberTable">
-  <div id="reviewForm"></div>
-<% @userCalendar.each do |pastGig| %>
-  
-    <% artistImage = pastGig["performance"][0]["artist"]["id"] %>
-    <tr class="pastGigsRows"><td class="artistImageTd"><a href="<%= pastGig["uri"] %>" target="_blank"><img src="https://ssl.sk-static.com/images/media/profile_images/artists/<%= artistImage %>/large_avatar" class="artistImages"></a></td>
-    <td class="gigDetailsTd">
-      
-    <% d = (pastGig["start"]["date"]).to_date %>
-    <div class="uberdate userDates"><li><div class="date-wrap"><span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span><span class= "day"><%= d.day %></span></div> 
-    <a href="<%= pastGig["uri"] %>" target="_blank"><%= pastGig["displayName"] %></a><br>
-    <%= cityName = pastGig["venue"]["metroArea"]["displayName"] %>
-    <% pastGig["performance"][0]["artist"]["displayName"] %>
-    <% pastGigDate = Date.parse(pastGig["start"]["date"]).strftime("%d-%m-%Y") %>
-    
-    
-    <% artistName = (pastGig["performance"][0]["artist"]["displayName"]) %>
-    
-    <% setlistURL = "http://api.setlist.fm/rest/0.1/search/setlists.json?artistName=" + artistName + "&cityName=" + cityName + "&date=" + pastGigDate +"&apikey=ece37fb8-74e5-40e1-b04a-a0c4f23b732d" %>
+<% @pastGigs.each do |pg| %>
 
-    <% url = URI.parse(setlistURL.gsub(" ", "+")) %>
-    <% request = Net::HTTP.get_response(url) %>
-
-    <br></li></div><br>
-
-
-    <% if request.body.include?("not found") || request.body.include?('"sets":""') %>
-      <div class="setlistDiv"> No setlist found </div>
-      
-    <% else %>
-      
-      
-      <% isArray = JSON.parse(request.body)["setlists"]["setlist"].kind_of?(Array) %>
-      <% if isArray == false %>
-      <% result = JSON.parse(request.body)["setlists"]["setlist"]["sets"]["set"] %>
-      <div class="setlistDiv">
-      <li class="setlistList">
-        <ol class="setlistHeader">Setlist</ol>
-      <% setsLength = result.length-1 %>
-      <% for i in 0..setsLength %>
-        <% if setsLength == 0 %>
-          <% allSets = result["song"] %>
-        <% else %>
-          <% allSets = result[i]["song"] %>
-        <% end %>
-        <% setLength = allSets.length-1 %>
-        
-        <% for j in 0..setLength %>
-          <% if allSets[j].nil? %>
-            <ol class="setlist"><li><%= allSets["@name"] %></li></ol>
-            <% break %>
-          <% else %>
-            <ol class="setlist"><li><%= allSets[j]["@name"] %></li></ol>
-          <% end %>
-        <% end %>
-
-      <% end %>
-      </li></div>
-      <% else %>
-      <div class="setlistDiv">
-        <% JSON.parse(request.body)["setlists"]["setlist"].each do |show| %>
-        
-          <li class="setlistHeader">Setlist
-          <% setsLength = show["sets"]["set"].length-1 %>
-          <% for i in 0..setsLength %>
-        <% if setsLength == 0 %>
-          <% allSets = show["sets"]["set"]["song"] %>
-        <% else %>
-          <% allSets = show["sets"]["set"][i]["song"] %>
-        <% end %>
-        <% setLength = allSets.length-1 %>
-        
-        <% for j in 0..setLength %>
-          <% if allSets[j].nil? %>
-            <ol class="setlist"><li><%= allSets["@name"] %></li></ol>
-            <% break %>
-          <% else %>
-            <ol class="setlist"><li><%= allSets[j]["@name"] %></li></ol>
-          <% end %>
-        <% end %>
-
-      <% end %>
-        </li><br>
-        <% end %></div>
-      <% end %>
-
-<% end %>
-
-
-
-      <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.oneliner == 'One liner about the show.' && PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 2000 characters)' && current_user != @user %>
-      <div class="review">
-        <div class="reviewHeader">Review</div>
-
-        
-          <div class="reviewGigID"><%= pastGig["id"] %></div>
+        <tr class="pastGigsRows">
+          <td class="artistImageTd">
+            <a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank">
+              <img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="artistImages latest">
+            </a>
+          </td>
           
-          <div class="reviewOneliner">
-            <%= best_in_place_if current_user == @user, PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first, :oneliner, :type => :input %>
-          </div>
-          <% unless PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first.review == 'Geek out to your heart\'s content (as long as it\'s less than 2000 characters)' && current_user != @user %>
-          <div class="reviewFull">
-            <%= best_in_place_if current_user == @user, PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first, :review, :type => :textarea, :display_with => :simple_format %>
-          </div>
-            <% if current_user != @user %>
-                <% if current_user.likes?(PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first) %>
-                  <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
-                <% else %>
-                  <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
-                <% end %>
+          <td class="gigDetailsTd">
+            <% d = pg.gig_date.to_date %>
+            <div class="uberdate myDates">
+              <div class="date-wrap">
+                <span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
+                <span class= "day"><%= d.day %></span>
+              </div> 
 
-                
+              <li class="gigName">
+                <a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank" class="pgA">
+                </a>
+                <br>
+                <span class="profileGigLocation"></span>
+              </li>
+    
+            </div>
+
+            <br>
+
+            <div class="setlistDiv">
               
-            <% end %>
+                
 
-            <% likeTotal = 0 %>
-    <% likerNames = [] %>
-    <% pastGig = PastGig.where(songkick_id: pastGig["id"], user_id: @user.id ).first %>
-    <% likeTotal += pastGig.likers(User).count %>
-    <% pastGig.likers(User). each do |liker| %>
-      <% if liker == current_user %>
-        <% likerNames.unshift("You") %>
-      <% else %>
-        <% likerNames.push(liker.name) %>
-      <% end %>
-    <% end %>
-    <% if likeTotal == 1 %>
-        <% if likerNames[0] == "You" %>
-        <%= likerNames[0] %> like this.
-        <% else %>
-        <%= likerNames[0] %> likes this.
-        <% end%>
-      <% elsif likeTotal == 2 %>
-      <%= likerNames[0] %> and <%= likerNames[1] %> like this.
-      <% elsif likeTotal == 3 %>
-      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
-      <% elsif likeTotal > 3 %>
-      <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
-      <% end %>
-          
-         
+                <span class="hiddenGigDate"><%= pastGigDate = Date.parse(pg.gig_date).strftime("%d-%m-%Y") %></span>
+                <span class="hiddenArtistName"></span>
+                <span class="hiddenGigLocation"></span>
+              
+            </div>
+
+      <div class="review">
+        
+        <div class="pgID"><%= pg.id %></div>
+        <% if pg.review.nil? && current_user.id == @user.id %>
+        <div class="reviewHeader">Review</div>
+        <textarea class="reviewInput" placeholder="Write a review of the show to your heart's extent (as long as your heart's extent is less than 5000 characters)!"></textarea>
+        <% elsif pg.review.present?%>
+        <div class="reviewHeader">Review</div>
+          <div class="reviewContent"><%= sanitize pg.review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+
+
+          <div class="likesNcomments">
+            <div class="reviewButtons">
+              <% if current_user.id != @user.id %>
+              <% if current_user.likes?(pg.review) %>
+                <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+              <% else %>
+                <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
+              <% end %>
+            <% end %>
+            <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+            <div class="hiddenReviewID"><%= pg.review.id %></div>
+            <div class="hiddenID"><%= @user.id %></div>
+          </div>
+    <div class="likers">
+      <% likeTotal = 0 %>
+        <% likerNames = [] %>
+        <% likeTotal += pg.review.likers(User).count %>
+        <% pg.review.likers(User). each do |liker| %>
+            <% if liker == current_user %>
+              <% likerNames.unshift("You") %>
+            <% else %>
+              <% likerNames.push(liker.name) %>
+            <% end %>
+        <% end %>
+        <% if likeTotal == 1 %>
+            <% if likerNames[0] == "You" %>
+              <%= likerNames[0] %> like this.
+            <% else %>
+              <%= likerNames[0] %> likes this.
+            <% end%>
+          <% elsif likeTotal == 2 %>
+            <%= likerNames[0] %> and <%= likerNames[1] %> like this.
+          <% elsif likeTotal == 3 %>
+            <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+          <% elsif likeTotal > 3 %>
+            <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
           <% end %>
+    </div>
+
+   <% activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: pg.review.id).first %> 
+   <% unless  activity.nil? %> 
+   
+    <div class="comments activity<%=activity.id%>comments">
+        <% activity.comment_threads.each do |comment| %>
+          <div class="comment">
+            <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+            <span class="hiddenID"><%= comment.user_id %></span>
+            <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="commentURL">
+        /activity/<%=activity.id%>/comments/
+      </div>
+
+    <% end %>
+
+    <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+
+    <textarea class="inputComment"></textarea>
+  </div>
+          
+          
+
+
+        <% end %>
+
         
       </div>
 
-      <div class="photos">
-        <div class="photosHeader">Photos & Videos</div>
-        <div class="photoContent">Share Imgur Photos</div>
-        <div class="videoContent">Share YouTube Videos</div>
-      </div>
+          </td>
+        </tr>
+<% end %> 
 
 
-      
-    <% end %>
-    </td></tr>
-    
-  <% end %>
 
 
-  <tr class="pastGigsRows"><td><%= will_paginate @userCalendar, renderer: BootstrapPagination::Rails %></td></tr>
 </table>
-<script type="text/javascript">
+<div class="pGinfinite-scrolling">
+   <%= will_paginate @pastGigs, renderer: BootstrapPagination::Rails %>
+ </div>
 
-$(function(){
-  $('.best_in_place').bind('ajax:success', function(){ this.innerHTML = this.innerHTML.replace(/\n/g, '<p>') });
-});
+ <script type="text/javascript">
 
+var gigUrls = [];
 
-$('.setlistHeader').on('click', function(){
-          $(this).siblings('.setlist').toggle();
-        });
+ 
 
-$('.reviewThumb').on('click', function(){
+    
 
-
-if($(this).hasClass('liked')) {
-      $(this).removeClass('liked');
-} 
-
-  else {
-    $(this).addClass('liked');
-    var reviewLink = '/' + $(this).siblings('.reviewGigID').html() + '/<%= @user.id %>/reviewLike';
-    $.get(reviewLink, function(){
-
-    });
-
-    $('#shareCurrentID').val('<%= @user.id %>');
-    $('#messageURL').val('R|');
-    $('.shareTextarea').val('<%= current_user.name %> liked your review of ' + $(this).parents('.gigDetailsTd').find('a').text());
-    $('#shareSubmit').click();
-    $('#messageURL').val('');
-    $('.shareTextarea').val('Check this out!');
+   for(j=0; j<$('.artistImages').length; j++){
+    gigUrls.push($('.artistImages').eq(j).attr('src'));
   }
-          
-        });
 
-</script>
+
+
+  for(j=0; j<$('.artistImages').length; j++){
+    $.ajax({
+      url: gigUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.artistImages').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.gigName a').eq(i).text(data.resultsPage.results.event.displayName);
+
+                            $('.profileGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
+
+                            $('.hiddenArtistName').eq(i).html(data.resultsPage.results.event.performance[0].artist.displayName);
+
+                            
+
+                            
+                            
+
+                            $.get('/' + $('.setlistDiv').eq(i).find('.hiddenArtistName').html() + ',' + $('.setlistDiv').eq(i).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $('.setlistDiv').eq(i).find('.hiddenGigDate').html() + '/setlist', function(re){
+                              $('.setlistDiv').eq(i).append(re);
+                            });
+                            
+
+                            
+
+
+                            
+                    }
+      }
+    });
+  }
+
+ </script>

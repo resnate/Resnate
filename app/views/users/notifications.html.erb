@@ -1,33 +1,198 @@
-<% if current_user.mailbox.conversations.count == 0 %>
-        No notifications (share some music with your friends!).
+<% if @conversations.count == 0 %>
+        <div id="noMessages">No notifications.<br>Share some music with your friends!</div>
 <% else %>
-	<% current_user.mailbox.conversations.each do |conversation| %>
+
+<div id="ntBody">
+	<% @conversations.each do |conversation| %>
          
       
     <% receipts = conversation.receipts_for current_user %>
       <% receipts.each do |receipt|%>
         <% unless receipt.message.subject[1] != "|" %>
       		<% conversation.mark_as_read(current_user) %>
-          <% unless receipt.message.body.include?(current_user.name) %>
+          <% unless receipt.message.sender_id == current_user.id %>
       		<% message = receipt.message %>
-          <div class="notificationMsg">
-      		<%= message.body %>
-          <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+          <div class="notification">
+
+            <% if message.subject[0..1] == 'B|' %>
+              <img src="https://graph.facebook.com/<%= receipt.receiver.uid %>/picture?width=200&height=200" class="profileImg">
+                <div class="notificationMsg">
+                  <div class="notificationDetails">
+                    <div class="hiddenID" style="display:none"><%= receipt.receiver_id %></div>
+                    <div class="profileNameMsg"><%= User.find(receipt.receiver_id).name %></div>
+                    <div class="activityName levelNtf"><%= message.body[0..-1] %></div>
+                    <br>
+                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+                  </div>
+                  <% unless Merit::Badge.by_name(message.subject[2..-1]).first.nil? %>
+                      <%= image_tag (Merit::Badge.by_name(message.subject[2..-1]).first.custom_fields[:image]), class: 'feedBadge' %>
+                    <% end %>
+                </div>
+
+              
+            <% elsif message.subject[0..1] == 'S|' %>
+              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
+              <div class="notificationMsg">
+                <div class="notificationDetails">
+                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
+                  <span class=""><%= message.body[0..4] %></span>
+                  <div class="activityName"><%= message.body[6..-1] %></div>
+                  <br>
+                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+                </div>
+                <img src="https://img.youtube.com/vi/<%= message.subject[2..-1] %>/hqdefault.jpg" class="notificationYTimg">
+                <p class="jamTitle"><%= message.body[6..-1] %></p>
+
+              </div>
+
+            <% elsif message.subject[0..1] == 'P|' %>
+              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
+              <div class="notificationMsg">
+                <div class="notificationDetails">
+                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
+                  <span class=""><%= message.body[0..16] %></span>
+                  <div class="activityName"><%= message.body[18..-1] %></div>
+                  <br>
+                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+                </div>
+                <% img1 = "v" %>
+                <% JSON.parse(Playlist.find(message.subject[2..-1]).content)[0].each do |k, v| %>
+                  <% img1 = v %>
+                <% end %>
+                <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="notificationYTimg">
+              </div>
+
+            <% elsif  message.subject[0..1] == 'G|' %>
+            <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
+            
+              <div class="notificationMsg">
+                <div class="notificationDetails">
+                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
+                  <span class=""><%= message.body[0..4] %></span>
+                  <div class="uberdate">
+                    <li class="datewrapLi">
+                      <div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span>
+                      </div>
+                    </li> 
+                    <li class="gigName">
+                      <a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span>
+                      </a>
+                      <br>
+                      <span class="msgGigLocation"></span>
+                    </li>
+                    <div class="hiddenGigID"> <%= message.subject[2..-1] %></div>
+                  </div>
+                  <br>
+                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+                </div>
+                <span class="msgGigImgSpan">
+                    <a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank">
+                      <img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..9] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs">
+                    </a>
+              </span>
+              </div>
+
+
+              <% elsif  message.subject[0..1] == 'R|' %>
+              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
+              <div class="notificationMsg">
+                <div class="notificationDetails">
+                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
+                  <span><%= message.body[0..-1] %></span>
+                  <span class="reviewReview activityName">review</span> of 
+                  <span class="msgGigName activityName reviewName"></span>!
+                  <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
+                  <br>
+                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+                </div>
+                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs msgReviews">
+                <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
+
+              </div>
+                
+            <% end %>
+                
           </div>
-        <br>
+
+
+              
+        </div>
+      </div>
+
+      
+        
           <% end %>
       	
         <% end %>
       
       <% end %>
     <% end %>
+</div>
+<% end %>
+<div class="nTinfinite-scrolling">
+   <%= will_paginate @conversations, renderer: BootstrapPagination::Rails %>
+ </div>
 
 <script type="text/javascript">
+
+$('.reviewName, .msgReviews').click(function(){
+  $.get('/reviews/' + $(this).siblings('.hiddenReviewID').html(), function(result){
+  $('.genericContent').html(result);});
+});
 
 $('#pointDiv').val($('#pointCount').html());
 
 $('#pointCount').addClass('invisCount');
 
+$('.notificationYTimg').click( function() {
+      var videoID = $(this).attr('src').slice(27,38);
+      <%= render "layouts/videoClick" %>
+      
+     
+    });
+
+var urls = [];
+
+  for(j=0; j<$('.msgGigs').length; j++){
+    urls.push($('.msgGigs').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.msgGigs').length; j++){
+    $.ajax({
+      url: urls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.msgGigs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.msgMonth').eq(i).html(moment(data.resultsPage.results.event.start.date).format("MMM"));
+
+                            $('.msgDay').eq(i).html(moment(data.resultsPage.results.event.start.date).format("DD"));
+
+                            $('.msgGigName').eq(i).html(data.resultsPage.results.event.displayName);
+
+                            $('.msgGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
+
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
+
 </script>
 
-<% end %>

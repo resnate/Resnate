@@ -1,12 +1,9 @@
 class PlaylistsController < ApplicationController
 	def create
   	@playlist = current_user.playlists.build(playlist_params)
-    if @playlist.save
-      
-      redirect_to root_url
-    else
-      redirect_to root_url
-    end
+    @playlist.save
+    @playlist.create_activity :create, owner: current_user
+    @activity = PublicActivity::Activity.where(trackable_type: "Playlist", trackable_id: @playlist.id).first.id
   end
 
     def edit
@@ -14,24 +11,28 @@ class PlaylistsController < ApplicationController
     end
 
     def update
-    @playlist = current_user.playlists.find(params[:id])
-    if @playlist.update_attributes(playlist_params)
-      
-      redirect_to :root
-    else
-      redirect_to :root
-    end   
-    end
-
-  def form
-    @playlist = current_user.playlists.find(params[:id])
-    render :layout => false
+      @playlist = Playlist.find(params[:id])
+      @content = params[:content]
+      @name = params[:name]
+      @description = params[:description]
+      unless current_user.id != @playlist.user_id
+        if @name.present?
+          @playlist.update_attributes(name: @name)
+        elsif @description.present?
+          @playlist.update_attributes(description: @description)
+        elsif @content.present?
+          @playlist.update_attributes(content: @content)
+        end
+      end
     end
 
     def show
       
       @playlist = Playlist.find(params[:id])
-      render :layout => false
+      respond_to do |format|
+        format.html { render :layout => false }
+        format.json
+      end
     end
 
 
@@ -39,18 +40,32 @@ class PlaylistsController < ApplicationController
 
     
     @playlist = Playlist.find(params[:id])
-    @playlist.destroy
+    if @playlist.user_id == current_user.id
+      @playlist.destroy
+      PublicActivity::Activity.where(trackable_type: "Playlist", trackable_id: @playlist.id).first.destroy
+    end
       render :layout => false
+  end
+
+  def playlistLi
+    @playlist = Playlist.find(params[:id])
+    render :layout => false
   end
 
   def follow
       @playlist = Playlist.find(params[:playlist])
+      @user = User.find(@playlist.user_id)
       current_user.follow!(@playlist)
+      
+      @follow = Follow.where(follower_id: current_user.id, followable_type: "Playlist").find_by_followable_id(@playlist.id)
+      @follow.create_activity :create, owner: current_user
+      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id
       render :layout => false
     end
 
     def unfollow
       @playlist = Playlist.find(params[:playlist])
+      @user = User.find(@playlist.user_id)
       current_user.unfollow!(@playlist)
       render :layout => false
     end
@@ -62,11 +77,15 @@ class PlaylistsController < ApplicationController
       render :layout => false
     end
 
+    def newPlaylist
+      render :layout => false
+    end
+
   private
 
 
     def playlist_params
-      params.require(:playlist).permit(:content, :name)
+      params.require(:playlist).permit(:content, :name, :user_id, :description)
     end
 
 

@@ -1,0 +1,302 @@
+<%= image_tag "https://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+<div class="hiddenID">
+	<%= activity.owner.id %>
+</div>
+
+<% if Like.find(activity.trackable_id).likeable_type == "Song" %>
+
+  <img src='https://img.youtube.com/vi/<%= Song.find(Like.find(activity.trackable_id).likeable_id).content %>/hqdefault.jpg' class="feedYT" >
+  <p class="hiddenYTName">
+    <%=Song.find(Like.find(activity.trackable_id).likeable_id).name %>
+  </p>
+
+	<div class="feedButtons">
+    <span class="glyphicon glyphicon-plus feedPlus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu feedDropdown" role="menu" aria-labelledby="dLabel"></ul></div>
+		<% likedSongsCount = Like.where(likeable_type: "Song", likeable_id: Like.find(activity.trackable_id).likeable_id, liker_id: current_user.id).count %>
+    <% if likedSongsCount >= 1 %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb liked"></span>
+    <% else %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb"></span>
+    <% end %>
+  		
+  		<div class="jamID"><%= Song.find(Like.find(activity.trackable_id).likeable_id).content %></div>
+  		<div class="jamTitle"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></div>
+  		<%= image_tag "ResnateShareIcon.png", class: "feedCsImg feedShares", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+	</div>
+
+	<div class="activityInfo">
+		<div class="profileName"><%= activity.owner.name if activity.owner %></div>
+    	<div class="hiddenID" style="display:none"><%= activity.owner.id %></div>
+    	<div class="verb">liked</div>
+    	<div class="activityDetails">
+    		<div class="hiddenYTID" style="display:none"><%= Song.find(Like.find(activity.trackable_id).likeable_id).content %></div>
+        	<div class="activityName"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></div>
+        	<div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+    	</div>
+   
+
+    	<div class="likesNcomments">
+    		<div class="likers">
+    			<% songs = Song.where(content: Song.find(Like.find(activity.trackable_id).likeable_id).content) %>
+    			<% likeTotal = 0 %>
+    			<% likerNames = [] %>
+    			<% songs.each do |song| %>
+      				<% likeTotal += song.likers(User).count %>
+      				<% song.likers(User). each do |liker| %>
+        				<% if liker == current_user %>
+        					<% likerNames.unshift("You") %>
+        				<% else %>
+        					<% likerNames.push(liker.name) %>
+        				<% end %>
+      				<% end %>
+    			<% end %>
+      			<% if likeTotal == 1 %>
+        			<% if likerNames[0] == "You" %>
+        				<%= likerNames[0] %> like this.
+        			<% else %>
+        				<%= likerNames[0] %> likes this.
+        			<% end%>
+      			<% elsif likeTotal == 2 %>
+      				<%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      			<% elsif likeTotal == 3 %>
+      				<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      			<% elsif likeTotal > 3 %>
+      				<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      			<% end %>
+      		</div>
+      		<div class="comments activity<%=PublicActivity::Activity.where(trackable_type: "Song", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id %>comments">
+  				<% PublicActivity::Activity.where(trackable_type: "Song", trackable_id: Like.find(activity.trackable_id).likeable_id).first.comment_threads.each do |comment| %>
+  					<div class="comment">
+    					<img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+    					<div class="commentContent"><%= simple_format(comment.body) %></div>
+  					</div>
+  				<% end %>
+			</div>
+			<div class="commentURL">
+    			/activity/<%=PublicActivity::Activity.where(trackable_type: "Song", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id%>/comments/
+  			</div>
+			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+			<textarea class="inputComment"></textarea>
+		</div>
+ 	</div>
+
+<% elsif Like.find(activity.trackable_id).likeable_type == "Gig" %>
+
+  <a href="https://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs feedGigs<%= activity.trackable_id %>"></a>
+
+	<div class="feedButtons">
+  		<% if @gigArray.include?(Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id) || Like.find(activity.trackable_id).liker_id == current_user.id  %>
+  			<%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+  			<div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+  		<% else %>
+  			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
+  			<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+  			<div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+ 		<% end %>
+	</div>
+
+	<div class="activityInfo">
+		<div class="profileName"><%= activity.owner.name if activity.owner %></div>
+    	<div class="hiddenID" style="display:none"><%= activity.owner.id %></div>
+    	<div class="verb">liked</div>
+    	<div class="activityDetails">
+    		<div class="uberdate myDates feedDates">
+    			<li class="datewrapLi">
+    				<div class="date-wrap">
+    					<span class="month feedMonth feedMonth<%= activity.trackable_id %>"></span>
+    					<span class="day feedDay feedDay<%= activity.trackable_id %>"></span>
+    				</div>
+    			</li>
+        </div>
+    			<li class="gigName">
+    				<a href="https://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank" class="feedGigLink"><span class="feedGigName feedGigName<%= activity.trackable_id %>"></span></a>
+        			<br>
+        			<span class="feedGigLocation feedGigLocation<%= activity.trackable_id %>"></span>
+        		</li>
+        		<% unless @user.friends.count == 0 %>
+         			<% @user.friends.each do |friend| %>
+         				<% unless User.find_by_uid(friend).nil? %>
+    						<% unless  Gig.where(user_id: User.find_by_uid(friend).id).nil? || Gig.where(user_id: User.find_by_uid(friend).id).count == 0 %>
+    							<% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
+    							<% gigs.each do |gig| %>
+    								<% if gig.songkick_id == Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>
+    									<div class="followerDiv">
+    										<img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img>
+    										<div class="hiddenID"><%= User.find_by_uid(friend).id %></div>
+    									</div>
+    								<% end %>
+    							<% end %>
+						    <% end %>
+    					<% end %>
+    				<% end %>
+    			<% end %>
+    		</div>
+
+    		<div class="likesNcomments">
+    			<div class="likers">
+    				<% likeTotal = 0 %>
+    				<% likerNames = [] %>
+    				<% gig = Gig.find(Like.find(activity.trackable_id).likeable_id) %>
+    				<% likeTotal += gig.likers(User).count %>
+    				<% gig.likers(User). each do |liker| %>
+      					<% if liker == current_user %>
+        					<% likerNames.unshift("You") %>
+      					<% else %>
+        					<% likerNames.push(liker.name) %>
+      					<% end %>
+    				<% end %>
+    				<% if likeTotal == 1 %>
+        				<% if likerNames[0] == "You" %>
+        					<%= likerNames[0] %> like this.
+        				<% else %>
+        					<%= likerNames[0] %> likes this.
+        				<% end%>
+      				<% elsif likeTotal == 2 %>
+      					<%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      				<% elsif likeTotal == 3 %>
+      					<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      				<% elsif likeTotal > 3 %>
+      					<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      				<% end %>
+    			</div>
+    			<div class="comments activity<%=PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id %>comments">
+  				<% PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.comment_threads.each do |comment| %>
+  					<div class="comment">
+    					<img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+    					<div class="commentContent"><%= simple_format(comment.body) %></div>
+  					</div>
+  				<% end %>
+			</div>
+			<div class="commentURL">
+    			/activity/<%=PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id%>/comments/
+  			</div>
+			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+			<textarea class="inputComment"></textarea>
+    		</div>
+    	</div>
+    </div>
+
+<% elsif Like.find(activity.trackable_id).likeable_type == "Review" %>
+	<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedReviewLikeGigs feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>">
+
+  <div class="feedButtons">
+    <% if current_user.id != PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id && current_user.likes?(Review.find(Like.find(activity.trackable_id).likeable_id)) == true %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+    <% elsif current_user.id != PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id && current_user.likes?(Review.find(Like.find(activity.trackable_id).likeable_id)) == false %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
+    <% end %>
+      <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+      <div class="hiddenReviewID"><%= Like.find(activity.trackable_id).likeable_id %></div>
+      <div class="hiddenID"><%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
+  </div>
+
+  <div class="activityInfo">
+    <div class="activityDetails">
+      <div class="profileName"><%= activity.owner.name if activity.owner %></div>
+      <div class="hiddenID"><%= activity.owner.id %></div>
+      <div class="verb">liked</div>
+      <div class="hiddenReviewerID"><%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
+      <div class="reviewerName"><%= User.find(PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id).name %></div>'s review of
+      <span class="feedReviewLikeGigName feedReviewLikeGigName<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>"></span>
+      <div class="feedReview" data-toggle="modal" data-target="#genericModal">
+        <%= Review.find(Like.find(activity.trackable_id).likeable_id).content %>
+      </div>
+      <div class="hiddenReviewID"><%= Like.find(activity.trackable_id).likeable_id %></div>
+      <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+    </div>
+
+    <div class="likesNcomments">
+    <div class="likers">
+      <% likeTotal = 0 %>
+        <% likerNames = [] %>
+        <% review = Review.find(Like.find(activity.trackable_id).likeable_id) %>
+        <% likeTotal += review.likers(User).count %>
+        <% review.likers(User). each do |liker| %>
+            <% if liker == current_user %>
+              <% likerNames.unshift("You") %>
+            <% else %>
+              <% likerNames.push(liker.name) %>
+            <% end %>
+        <% end %>
+        <% if likeTotal == 1 %>
+            <% if likerNames[0] == "You" %>
+              <%= likerNames[0] %> like this.
+            <% else %>
+              <%= likerNames[0] %> likes this.
+            <% end%>
+          <% elsif likeTotal == 2 %>
+            <%= likerNames[0] %> and <%= likerNames[1] %> like this.
+          <% elsif likeTotal == 3 %>
+            <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+          <% elsif likeTotal > 3 %>
+            <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+          <% end %>
+    </div>
+
+<% unless PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).count == 0 %>
+
+    <div class="comments activity<%=PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id %>comments">
+        <% PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.comment_threads.each do |comment| %>
+          <div class="comment">
+            <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+            <span class="hiddenID"><%= comment.user_id %></span>
+            <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="commentURL">
+        /activity/<%= PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id %>/comments/
+      </div>
+
+
+    <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+
+    <textarea class="inputComment"></textarea>
+<% end %>
+
+  </div>
+  </div>
+
+        
+<% end %>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+  <% if Like.find(activity.trackable_id).likeable_type == "Gig" %>
+
+  var url = $('.feedGigs<%= activity.trackable_id %>').attr('src');
+  $.getJSON(url, function(data){
+    $('.feedGigs<%= activity.trackable_id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.feedMonth<%= activity.trackable_id %>').html(moment(data.resultsPage.results.event.start.date).format("MMM"));
+
+                            $('.feedDay<%= activity.trackable_id %>').html(moment(data.resultsPage.results.event.start.date).format("DD"));
+
+                            $('.feedGigName<%= activity.trackable_id %>').html(data.resultsPage.results.event.displayName);
+
+                            $('.feedGigLocation<%= activity.trackable_id %>').html(data.resultsPage.results.event.venue.metroArea.displayName);
+  });
+
+  <% elsif Like.find(activity.trackable_id).likeable_type == "Review" %>
+
+  var url = $('.feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>').attr('src');
+  $.getJSON(url, function(data){
+    $('.feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.feedReviewLikeGigName<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>').html(data.resultsPage.results.event.displayName);
+  });
+
+  <% end %>
+  
+});
+                        
+                            
+
+                          
+
+</script>

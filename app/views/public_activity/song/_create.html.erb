@@ -1,0 +1,79 @@
+<%= image_tag "https://graph.facebook.com/#{activity.owner.uid}/picture?width=200&height=200", class: "feedPic" %>
+<div class="hiddenID">
+	<%= activity.owner.id %>
+</div>
+
+<img src='https://img.youtube.com/vi/<%= activity.trackable.content %>/hqdefault.jpg' class="feedYT" >
+<p class="hiddenYTName">
+	<%= activity.trackable.name %>
+</p>
+
+<div class="feedButtons">
+  <span class="glyphicon glyphicon-plus feedPlus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu feedDropdown" role="menu" aria-labelledby="dLabel"></ul></div>
+	<% likedSongsCount = Like.where(likeable_type: "Song", likeable_id: activity.trackable_id, liker_id: current_user.id).count %>
+    <% if likedSongsCount >= 1 %>
+		<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb liked"></span>
+		<% else %>
+		<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb"></span>
+		<% end %>
+	<div class="jamID"><%= Song.find(activity.trackable_id).content %></div>
+	<div class="jamTitle"><%= Song.find(activity.trackable_id).name %></div>
+
+	<%= image_tag "ResnateShareIcon.png", class: "feedCsImg feedShares", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+</div>
+
+<div class="activityInfo">
+	<div class="profileName"><%= activity.owner.name if activity.owner %></div>
+	<div class="hiddenID" style="display:none"><%= activity.owner.id %></div>
+	<div class="verb">listened to</div>
+	<div class="activityDetails">
+		<div class="activityName"><%= activity.trackable.name %></div>
+		<div class="hiddenYTID" style="display:none"><%= activity.trackable.content %></div>
+		<div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
+	</div>
+	<div class="likesNcomments">
+  		<div class="likers">
+			<% songs = Song.where(content: activity.trackable.content) %>
+    		<% likeTotal = 0 %>
+    		<% likerNames = [] %>
+    		<% songs.each do |song| %>
+      			<% likeTotal += song.likers(User).count %>
+      			<% song.likers(User). each do |liker| %>
+        			<% if liker == current_user %>
+        				<% likerNames.unshift("You") %>
+        			<% else %>
+        				<% likerNames.push(liker.name) %>
+        			<% end %>
+      			<% end %>
+    		<% end %>
+      		<% if likeTotal == 1 %>
+        		<% if likerNames[0] == "You" %>
+        			<%= likerNames[0] %> like this.
+        		<% else %>
+        			<%= likerNames[0] %> likes this.
+        		<% end%>
+      		<% elsif likeTotal == 2 %>
+      			<%= likerNames[0] %> and <%= likerNames[1] %> like this.
+      		<% elsif likeTotal == 3 %>
+      			<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
+      		<% elsif likeTotal > 3 %>
+      			<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
+      		<% end %>
+		</div>
+	</div>
+	<div class="comments activity<%=activity.id%>comments">
+  		<% activity.comment_threads.each do |comment| %>
+  			<div class="comment">
+    			<img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+          <span class="hiddenID"><%= comment.user_id %></span>
+    			<div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+    			</div>
+  			</div>
+  		<% end %>
+	</div>
+	<div class="commentURL">
+    	/activity/<%=activity.id%>/comments/
+  	</div>
+	<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+	<textarea class="inputComment"></textarea>
+</div>

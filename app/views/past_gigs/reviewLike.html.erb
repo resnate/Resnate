@@ -3,7 +3,16 @@
 <% @user.add_points(5) %>
 <% lv2 = @user.level %>
 	<% if lv1 != lv2 %>
-		<% User.find(1).send_message(@user, "New level: " + @user.level_name, "B|") %>
+		<% User.find(1).send_message(@user, "New level: " + @user.level_name, "B|"+ @user.level_name) %>
+		<% @user.create_activity key: 'badge.create', owner: @user %>
 		<% @user.add_badge(@user.level) %>
+		<% broadcast "/activities/new" do %>
+			<%= PublicActivity::Activity.where(key: "badge.create", owner: @user).last %>,<%= current_user.uid %>
+		<% end %>
 	<% end %>
+<% end %>
+<% broadcast "/activities/new" do %>
+
+<%= @activity %>,<%= current_user.uid %>
+
 <% end %>

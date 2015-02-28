@@ -15,7 +15,7 @@
 
 <div id="upperHalf">
 <div class="fbLikes userInfo" >
-  <h4 style="float:left" id="getUserLikes" data-toggle="modal" data-target="#getUserLikesModal" onclick="getLikes">Artists <%=@user.first_name%> Likes</h4>
+  <h4 style="float:left" id="getUserLikes" data-toggle="modal" data-target="#genericModal" onclick="getLikes">Artists <%=@user.first_name%> Likes</h4>
   <br>
   <ul>
     <% unless @user.musicLikes.nil? %>
@@ -112,10 +112,10 @@ $('.unfollow').click(function(){
   <% end %>
   <% end %>
 
-  <div id="userFollows" data-toggle="modal" data-target="#UserFolloweesModal"><h4>Following</h4>
+  <div id="userFollows" data-toggle="modal" data-target="#genericModal"><h4>Following</h4>
    <h5> <%= @user.followees(User).count %></h5>
   </div>
-  <div id="userFollowers" data-toggle="modal" data-target="#UserFollowersModal"><h4>Followers</h4>
+  <div id="userFollowers" data-toggle="modal" data-target="#genericModal"><h4>Followers</h4>
     <h5>
     <%= @user.followers(User).count %></h5>
   </div>
@@ -187,8 +187,7 @@ $('.unfollow').click(function(){
   
 </div>
 </div>
-<br>
-<br><br><br>
+
 <div id="lowerHalf">
 <% if songkickID.nil? %>
  
@@ -207,7 +206,7 @@ $('.unfollow').click(function(){
 
 <div id="pastGigs" class="gigBlocks">
   <table class="gigTables userInfo">
-    <tr><td colspan="2"><span data-toggle="modal" data-target="#pastGigsModal" id="userSeeAllpast"><h4>Past Gigs</h4></span></td></tr>
+    <tr><td colspan="2"><span data-toggle="modal" data-target="#genericModal" id="userSeeAllpast"><h4>Past Gigs</h4></span></td></tr>
   <% userCalendar = JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["results"]["event"] %>
 
   <% if JSON.parse((client.gigography(songkickID)).to_json)["resultsPage"]["totalEntries"] == 1%>
@@ -266,7 +265,7 @@ $('.unfollow').click(function(){
 <div id="goingTo" class="gigBlocks">
     
 <table class="gigTables userInfo">
-<tr><td colspan="2"><span data-toggle="modal" data-target="#upcomingGigsModal" id="userSeeAll"><h4>Upcoming Gigs</h4></span></td></tr>
+<tr><td colspan="2"><span data-toggle="modal" data-target="#genericModal" id="userSeeAll"><h4>Upcoming Gigs</h4></span></td></tr>
 
 <% if JSON.parse((client.user_calendar(songkickID)).to_json)["resultsPage"]["totalEntries"] == 1%>
 
@@ -364,7 +363,7 @@ $('.unfollow').click(function(){
 
 <div id="playlists" class="gigBlocks">
   <table class="gigTables userInfo">
-<tr><td colspan="2"><span data-toggle="modal" data-target="#playlistsModal" id="userSeePlaylists"><h4>Playlists</h4></span></td></tr>
+<tr><td colspan="2"><span data-toggle="modal" data-target="#genericModal" id="userSeePlaylists"><h4>Playlists</h4></span></td></tr>
 
 
 <% if Like.where(liker_id: @user.id, likeable_type: "Song").count === 0 %>
@@ -384,7 +383,7 @@ $('.unfollow').click(function(){
 
 </tr>
 <% end %>
-<% if current_user.playlists.count === 0 %>
+<% if @user.playlists.count === 0 %>
 
 <tr class="userPlaylistInfo"><td>
   <br>
@@ -394,15 +393,15 @@ $('.unfollow').click(function(){
   <tr class="userPlaylistInfo"><td><div class="playlistContent">
 
   <% img1 = "a" %>
-  <%= current_user.playlists.first.id %></div>
-    <% JSON.parse(current_user.playlists[0].content)[0].each do |k, v| %>
+  <%= @user.playlists.first.id %></div>
+    <% JSON.parse(@user.playlists[0].content)[0].each do |k, v| %>
       <% img1 = v %>
     <% end %>
 
   <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg" >
 
   </td>
-  <td class="playlistName"><%= current_user.playlists[0].name %></td>
+  <td class="playlistName"><%= @user.playlists[0].name %></td>
   </tr>
 <% end %>
 </table>
@@ -568,7 +567,7 @@ $('body, #getUserLikesBody').on('click', '.ml', function(){
   $('.modal').modal('hide');
   $('#search_query').val($(this).find('.mlSpan').html());
   $('#newSearch').click();
-  $('body, #getUserLikesBody').unbind('click')
+  $('body, #getUserLikesBody').unbind('click');
 });
 
 $('.userHistoryImgTDs').hover( 

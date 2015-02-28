@@ -1,174 +1,194 @@
 <% if current_user.mailbox.conversations.count == 0 %>
-        No messages (share some music with your friends!).
+       <div id="noMessages">No messages.<br>Share some music with your friends!</div>
 <% else %>
+
+<div id="convosBody">
        
-  <% current_user.mailbox.conversations.each do |conversation| %>
+  <% @conversations.each do |conversation| %>
       
-        <% receipts = conversation.receipts_for current_user %>
+    <% receipts = conversation.receipts_for current_user %>
     <% receipts.each do |receipt|%>
       <% unless receipt.message.subject[1] == "|" %>
-      <div class="message">
-      <% conversation.mark_as_read(current_user) %>
+        <div class="message">
+        <% conversation.mark_as_read(current_user) %>
         <% message = receipt.message %>
 
         <div class="messageImgs">
         <div class="senderImg"><img src="https://graph.facebook.com/<%= User.find(message.sender_id).uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= message.sender_id %></div></div>
-      <% conversation.participants.each do |participant| %>
-        <% if participant != User.find(message.sender_id) %>
-
-        <div class="messageImg"><img src="https://graph.facebook.com/<%= participant.uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
-        <% end %>
-      <% end %>
-        </div>
-        <div class="messageDetails">
-        <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
-                    
-      <% if message.subject[1] == '`' %>
-        <% imgAndTitle = message.subject[2..-1].split(',') %>
-        <div class="messageSong songTitle"><%= title = imgAndTitle[1] %></div>
-        <div>with 
         <% conversation.participants.each do |participant| %>
           <% if participant != User.find(message.sender_id) %>
-            <div><div class="profileNameMsg"><%= participant.name %></div><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
-            
+
+            <div class="messageImg"><img src="https://graph.facebook.com/<%= participant.uid %>/picture?width=200&height=200"  class="profileImg"><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
           <% end %>
-
-       
-
         <% end %>
-             </div>
-            <br>
-            <div class="messageSong">"<%= message.body %>"</div>
-       
-
-            <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-            <br>
-          <% unless message.sender_id == current_user.id %>
-              <li class="messageIcons"><span class="glyphicon glyphicon-plus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div></li>
-              <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up messageThumbs"></span></li>
-
-              <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= img = imgAndTitle[0] %></div>
-             
-              
-            <% songs = Song.where(content: img) %>
-            <% songs.each do |song| %>
-            <% song.liked_by?(@user) %>
-              <% if song.liked_by?(@user) == true %>
-              <div class="likeTrue">true</div>
-              <% end %>
-            <% end %>
-              <div class="jamTitle"><%= title = imgAndTitle[1] %></div>
-              </li>
-
-              <li class="messageIcons csImgMsg" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
-
-          <% end %>
         </div>
-        
-        
-        
-        
-        
+
+        <!-- Song -->
+
+        <% if message.subject[1] == '`' %>
+        <% imgAndTitle = message.subject[2..-1].split(',') %>
         <div class="inboxYT inboxSong">
         <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
         <p class="jamTitle"><%= title = imgAndTitle[1] %></p>
         </div>
-
-        <% elsif message.subject[1] == '#'  %>
-        <% if message.subject[0] == '~' %>
-        <% imgAndTitle = message.subject[2..-1].split(',') %>
-        <div class="messageSong playlistTitle"><%= title = imgAndTitle[1] %></div>
-        <div>with 
-        <% conversation.participants.each do |participant| %>
-          <% if participant != User.find(message.sender_id) %>
-            <div><div class="profileNameMsg"><%= participant.name %></div><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
-            
+        <div class="messageDetails">
+        <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+                    
+        
+          
+          <div class="messageSong songTitle"><%= title = imgAndTitle[1] %></div>
+          <div>with 
+          <% conversation.participants.each do |participant| %>
+            <% if participant != User.find(message.sender_id) %>
+              <div class="profilePlusID"><div class="profileNameMsg"><%= participant.name %></div><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
+            <% end %>
           <% end %>
+          </div>
+          <br>
+          <div class="messageSong">"<%= message.body %>"</div> 
 
-       
+          <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+          <br>
+          <% unless message.sender_id == current_user.id %>
+            <li class="messageIcons"><span class="glyphicon glyphicon-plus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div></li>
+            <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up messageThumbs"></span></li>
+            <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= img = imgAndTitle[0] %></div>
+             
+              
+            <% songs = Song.where(content: img) %>
+            <% songs.each do |song| %>
+              <% song.liked_by?(@user) %>
+              <% if song.liked_by?(@user) == true %>
+                <div class="likeTrue">true</div>
+              <% end %>
+            <% end %>
+            <div class="jamTitle"><%= title = imgAndTitle[1] %></div>
+            </li>
 
-        <% end %>
-             </div>
+            <li class="messageIcons csImgMsg" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
+          <% end %>
+        </div>     
+        
+      
+
+      <% elsif message.subject[1] == '#'  %>
+
+        <% if message.subject[0] == '~' %>
+          <% imgAndTitle = message.subject[2..-1].split(',') %>
+
+          <% unless Playlist.find_by_id(imgAndTitle[0]).nil? %>
+
+          <div class="inboxYT playlistInfo" >
+            <div class="hiddenPlaylistID"><%= imgAndTitle[0] %></div>
+
+              <% img1 = "a" %>
+              <% JSON.parse(Playlist.find(imgAndTitle[0]).content)[0].each do |k, v| %>
+                <% img1 = v %>
+              <% end %>
+              <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
+          </div>
+
+          <div class="messageDetails">
+            <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+            <div class="messageSong playlistTitle"><%= title = imgAndTitle[1] %></div>
+            <div>with 
+              <% conversation.participants.each do |participant| %>
+                <% if participant != User.find(message.sender_id) %>
+                  <div class="profilePlusID"><div class="profileNameMsg"><%= participant.name %></div><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
+                <% end %>
+              <% end %>
+            </div>
              <br>
             <div class="messageSong">"<%= message.body %>"</div>
-       
 
             <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
             <br>
 
             <% if current_user.follows?(Playlist.find(imgAndTitle[0])) %>
-            <br>
-            <div class="msgButtons">
-          <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgUnfollow", style: "display: inline" %></li>
-
-          <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
-          
-           <% elsif current_user.follows?(Playlist.find(imgAndTitle[0])) == false && current_user.id != Playlist.find(imgAndTitle[0]).user_id %>
-           <br>
-          <div class="msgButtons">
-            <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgFollow", style: "display: inline" %></li>
-
-            <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgUnfollow", style: "display: none" %></li>
-          
-    <% elsif current_user.id == Playlist.find(imgAndTitle[0]).user_id %>
-    <br>
-    <div class="msgButtons">
-        
-   
+              <div class="msgButtons">
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgUnfollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
+            <% elsif current_user.follows?(Playlist.find(imgAndTitle[0])) == false && current_user.id != Playlist.find(imgAndTitle[0]).user_id %>
+              <div class="msgButtons">
+                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgFollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgUnfollow", style: "display: none" %></li>
+            <% elsif current_user.id == Playlist.find(imgAndTitle[0]).user_id %>
+              <div class="msgButtons">
             <% end %>
-            <div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div>
-            <div class="sharePlaylistName" style="display:none"><%= imgAndTitle[1] %></div>
-            <li class="messageIcons csImgMsgPlaylist" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
-        </div></div>
-        <div class="inboxYT messagePlaylist" >
-    <div class="playlistContent"><%= imgAndTitle[0] %></div>
+                <div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div>
+                <div class="sharePlaylistName" style="display:none"><%= imgAndTitle[1] %></div>
+                <li class="messageIcons csImgMsgPlaylist" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
+              </div>
+          </div>
 
+          <% else %>
 
-     <% img1 = "a" %>
-
-      <% JSON.parse(Playlist.find(imgAndTitle[0]).content)[0].each do |k, v| %>
-      <% img1 = v %>
-      <% end %>
-
-      <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
-
-    
-        <% elsif message.subject[0] == 'G' %>
-        <br><br>
-        <div class="messageGigSubject">
-          <span class="msgGigImgSpan"><a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..9] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs"></a></span>
-        <div class="uberdate myDates msgDates"><li class="datewrapLi"><div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div> </li> 
-
-<li class="gigName"><a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
-        <br>
-        <span class="msgGigLocation"></span></li>
-        
-        
-        <div class="hiddenGigID"> <%= message.subject[2..9] %></div>
-        </div></div>
-        <% gigs = Gig.where(songkick_id: message.subject[70..78]) %>
-            <% gigs.each do |gig| %>
-            
-              <% if gig.liked_by?(@user) == true %>
-              <div class="likeTrue">true</div>
+          <div class="messageDetails">
+            <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+            a playlist
+            <div>with 
+              <% conversation.participants.each do |participant| %>
+                <% if participant != User.find(message.sender_id) %>
+                  <div class="profilePlusID"><div class="profileNameMsg"><%= participant.name %></div><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
+                <% end %>
               <% end %>
-            <% end %>
-            <br>
-        <div class="messageSong messageGigStuff">"<%= message.body %>"</div>
-        <div class="createdAt messageGigStuff"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+            </div>
+            but has since deleted it.
+          </div>
 
-        <% unless message.sender_id == current_user.id %>
-        <div class="messageIcons messageGigIcons"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+          <% end %>
+
+          <% elsif message.subject[0] == 'G' %>
+
+            <a href="https://www.songkick.com/concerts/<%= message.subject[2..-1] %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..-1] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs"></a>
+
+            <div class="messageDetails">
+              <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+              <div class="uberdate myDates msgDates">
+                <li class="datewrapLi"><div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div></li> 
+                <li class="gigName"><a href="https://www.songkick.com/concerts/<%= message.subject[2..-1] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
+                <br>
+                <span class="msgGigLocation"></span></li><div class="hiddenGigID"> <%= message.subject[2..-1] %></div>
+              </div>
+              <div>with 
+              <% conversation.participants.each do |participant| %>
+                <% if participant != User.find(message.sender_id) %>
+                  <div class="profilePlusID"><div class="profileNameMsg"><%= participant.name %></div><div class="hiddenID" style="display:none"><%= participant.id %></div></div>
+                <% end %>
+              <% end %>
+              </div>
+              <div class="messageSong">"<%= message.body %>"</div>
+              
+              <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+              <br>
+              <div class="msgButtons">
+                <% unless message.sender_id == current_user.id %>
+                  <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up msgGigThumb"></span><div class="hiddenGigID"> <%= message.subject[2..-1] %></div><div class="hiddenID"> <%= message.sender_id %></div></li>
+                  <li class="messageIcons csImgMsgPlaylist" id="csImgLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"> <%= message.subject[2..-1] %></div></li>
+                  
+                <% end %>
+              </div>
+            </div>
+
+          <% elsif message.subject[0] == 'R' %>
+            <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+            <div class="messageDetails">
+              <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+              <div class="reviewerName"><%= User.find(PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).user_id).name %></div>'s review of
+              <span class="msgReviewName" ></span>
+              <div class="msgReviewContent">
+                <%= Review.find(message.subject[2..-1]).content %>
+              </div>
+              <div class="hiddenReviewID"><%= message.subject[2..-1] %></div>
+            </div>
+          <% end %>
+        
         <% end %>
 
-        <% end %>
+
         </div>
-        <br>
-        <% end %>
 
-        </div></div>
-        <br>
-        </div>
+
         <% end %> <!-- unless -->
 
         <% end %> <!-- receipts -->
@@ -176,8 +196,15 @@
         
         
     <% end %>
+
+</div>
+
+<div class="cVinfinite-scrolling">
+   <%= will_paginate @conversations, renderer: BootstrapPagination::Rails %>
+ </div>
         
         <script type="text/javascript">
+
 
          var urls = [];
 
@@ -218,6 +245,37 @@
     
   }
 
+  var reviewUrls = [];
+
+  for(j=0; j<$('.msgReviews').length; j++){
+    reviewUrls.push($('.msgReviews').eq(j).attr('src'));
+  }  
+
+   for(j=0; j<$('.msgReviews').length; j++){
+    $.ajax({
+      url: reviewUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.msgReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.msgReviewName').eq(i).html(data.resultsPage.results.event.displayName);
+
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
+
 
         $('#resultDiv').val($('#recCount').html());
 
@@ -235,12 +293,11 @@
   });
 
         $('.profileImg, .profileNameMsg').click(function(){
-            var userSearch = "/" + $(this).siblings('.hiddenID').html();
+            var userSearch = "/" + $(this).siblings('.hiddenID').html() + '/profile';
   $.get(userSearch, function(result){
-  $('#box3').html(result);});
-  $('#inboxModal').modal('hide');
-    $('#box1').animate({
-        left: '0%',
+  $('#box2').html(result);});
+  $('#genericModal').modal('hide');
+    $('#container').animate({
         top: '-100%'
     });
         });
@@ -254,21 +311,19 @@
       $('.message').on('click', '.messageThumbs', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.get("/<%= current_user.id %>/"+$(this).parent().siblings('#makeJamLi').find('.jamID').html().trim()+"/unlike", function(result){
-        
-      });
+ $.post("/<%= current_user.id %>/"+$(this).parent().siblings('.hiddenID').html().trim()+"/unlike");
+
+ $.post("/"+$(this).parent().siblings('.hiddenID').html().trim()+"/pointMinus5");
+
+
  } else {
   $(this).addClass('liked');
-  $.get("/<%= current_user.id %>/"+$(this).parent().siblings('#makeJamLi').find('.jamID').html().trim()+"/like", function(result){
-        
-      });
-  $.get("/"+$(this).parent().siblings('.hiddenID').html().trim()+"/point1", function(result){
-        
-      });
+  $.post("/<%= current_user.id %>/"+$(this).parent().siblings('#makeJamLi').find('.jamID').html().trim()+"/like");
+  $.post("/"+$(this).parent().siblings('.hiddenID').html().trim()+"/point1");
 
   $('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim());
-  $('#messageURL').val('S|');
-  $('.shareTextarea').val('<%= current_user.name %> liked '+$(this).parent().siblings('.songTitle').html() + '!');
+  $('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.jamID').html().trim());
+  $('.shareTextarea').val('liked '+$(this).parent().siblings('.songTitle').html() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
@@ -276,26 +331,20 @@
 });
 
 
-      $('.message').on('click', '.messageGigIcons', function(){
-  if($(this).find('.glyphicon-thumbs-up').hasClass('liked')){
-    $(this).find('.glyphicon-thumbs-up').removeClass('liked');
- $.get("/<%= current_user.id %>/"+$(this).siblings('.messageGigSubject').find('.hiddenGigID').html()+"/gigs/unlike", function(result){
-        
-      });
+      $('.message').on('click', '.msgGigThumb', function(){
+  if($(this).hasClass('liked')){
+    $(this).removeClass('liked');
+ $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
  }
 
   else {
   $(this).addClass('liked');
-  $.get("/<%= current_user.id %>/"+$(this).siblings('.messageGigSubject').find('.hiddenGigID').html()+"/gigs/like", function(result){
-        
-      });
-  $.get("/"+$(this).siblings('.hiddenID').html().trim()+"/point5", function(result){
-        
-      });
+  $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
+  $.post("/"+$(this).siblings('.hiddenID').html().trim()+"/point5");
 
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
-  $('#messageURL').val('G|');
-  $('.shareTextarea').val('<%= current_user.name %> liked '+$(this).siblings('.messageGigSubject').find('div.uberdate.threeDate.myDates').find('.gigName').find('a').text() + '!');
+  $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html().trim());
+  $('.shareTextarea').val('liked '+$(this).parents('.msgButtons').siblings('.uberdate').find('.msgGigName').text() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
@@ -303,81 +352,7 @@
 
  });
 
-      $('.glyphicon-plus').click(function(event){
-    event.stopPropagation();
-    $(this).siblings('.btn-group').find('.dropdown-menu').toggle();
-  });
 
-      $.getJSON("../<%= current_user.id %>/userPlaylists.json",function(data){
-      $(data).each(function(i,result){
-        $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
-    });
-    });
-
-      $('.messageIcons').on('click', '.dropdown-menu li a', function(e){
-  e.preventDefault();
-  var playlistId = $(this).attr("href");
-  var playlistSongName = $(this).parents('.messageIcons').siblings('#makeJamLi').find('.jamTitle').html();
-  var playlistSongID = $(this).parents('.messageIcons').siblings('#makeJamLi').find('.jamID').html().trim();
-  $.get("/<%= @user.id %>/"+playlistId+"/show", function(result){
-    var songContent = '<li style=" class="ui-draggable"><p>'+playlistSongName+'<span class="glyphicon glyphicon-remove"></span><span id="rsShare"><%= image_tag "ResnateShareIcon.png", id: "playlistShare", data: {toggle: "modal",target: "#shareModal"} %></span></p><img src="https://img.youtube.com/vi/'+playlistSongID+'/hqdefault.jpg" class="playlistYT" alt="thumbnail" width="150px"></li>';
-
-  $.get("/"+playlistId+"/form", function(result2){
-
-    $('#result2').html(result2);
-    $('#updateContent').val(result + songContent);
-    $('#updatePlaylist').click();
-    $('#result2').html('');
-    $('#addModal').modal('hide');
-    $.get("<%= current_user.id %>/userPlaylists", function(result){
-  $('#playlistsBody').html(result);});
-});});
-
-$('.dropdown-menu').toggle();
-});
-
-$('.messageIcons').on('mouseenter', '.dropdown-menu li a', function(){
-    $(this).css({'color' : 'white', 'background-color': 'red'});
-});
-
-$('.messageIcons').on('mouseleave', '.dropdown-menu li a', function(){
-
-    $(this).css({'color' : 'black', 'background-color': 'white'});
-});  
-
-$(document).click( function(){
-        $('.dropdown-menu').hide();
-    });
-
-$('.msgFollow').click(function(){
-  $(this).css("display", "none");
-  $(this).parents('.msgButtons').find(".msgUnfollow").css("display", "inline-block");
-    $('#shareCurrentID').val($(this).parents('.msgButtons').siblings('.hiddenID').html().trim());
-  $('#messageURL').val('P|');
-  $('.shareTextarea').val('<%= current_user.name %> is following '+$(this).parents('.msgButtons').siblings('.playlistTitle').html() + '!');
-  $('#shareSubmit').click();
-  $('#messageURL').val('');
-  $('.shareTextarea').val('Check this out!');
-});
-
-$('.msgUnfollow').click(function(){
-  $(this).css("display", "none");
-  $(this).parents('.msgButtons').find(".msgFollow").css("display", "inline-block");
-});
-
-$('.csImgMsgPlaylist').click(function(){
-     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).siblings('.sharePlaylistName').html());
-  });
-
-$('.messagePlaylist').click(function(){
-  $.get($(this).find('.playlistContent').html()+"/show", function(result){
-    $('#Playlist').html(result);
-  
-});
-  
-  $('#inboxModal').modal('hide');
-  home();
-});
 
 
         </script>
