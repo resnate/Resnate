@@ -440,6 +440,7 @@ $(function(){
         image_link(json , this.indexValue);
 
                     function image_link(data, i) {
+                      alert(data);
                         
                             $('.mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
                           
