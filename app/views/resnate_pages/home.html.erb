@@ -821,7 +821,7 @@ faye.subscribe("/messages/new", function(data) {
           }
           messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>You got '+lastMessageSubjectType+'!</p></div>';
         } 
-        <% unless current_user.badges.nil? %>
+        <% unless current_user.badges.last.nil? %>
           else if(lastMessageSubject == 'B|') {
             messageRT = '<div class="ns-thumb pointsNotification"><img src="/assets/<%= current_user.badges.last.name %>" class="notificationImg"></div><div class="ns-content pointsNotification"><p>New level: <%= current_user.badges.last.custom_fields[:image]%>!</p></div>';
           }
