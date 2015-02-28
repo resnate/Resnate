@@ -423,6 +423,8 @@ $(function(){
   
   var urls = [];
 
+  alert('a');
+
   for(j=0; j<$('.ml').length; j++){
     urls.push($('.mlImg').eq(j).attr('src'));
   }
@@ -430,6 +432,7 @@ $(function(){
 
 
   for(j=0; j<$('.ml').length; j++){
+
     $.ajax({
       url: urls[j],
       indexValue: j,
@@ -440,7 +443,7 @@ $(function(){
         image_link(json , this.indexValue);
 
                     function image_link(data, i) {
-                      alert('a');
+
                         
                             $('.mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
                           
