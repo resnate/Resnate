@@ -488,6 +488,7 @@ $('body, #getLikesBody').on('click', '.ml', function(){
   $('.modal').modal('hide');
   $('#search_query').val($(this).find('.mlSpan').html());
   $('#newSearch').click();
+  $('.ml').off('click');
 });
 
 $('#seeAllpast').click(function(){
