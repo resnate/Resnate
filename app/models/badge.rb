@@ -11,8 +11,6 @@ module Merit
     validates_presence_of :id, :name
     validates_uniqueness_of :id
 
-    include PublicActivity::Common
-
     filters do
       def find_by_id(ids)
         ids = Array.wrap(ids)
