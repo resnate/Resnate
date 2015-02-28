@@ -2,7 +2,19 @@
 
 	<h3> Follow friends to see their activity! </h3>
 
-	
+	<% unless @user.friends.nil? || @user.friends.count == 0 %>
+
+
+		<% @user.friends.each do |friend| %>
+  			<% unless User.find_by_uid(friend).nil? %>
+    			<div class="followDiv">
+    			<img src="https://graph.facebook.com/<%= friend %>/picture?width=200&height=200" class="followImgs">
+    			<span class="hiddenID"><%= User.find_by_uid(friend).id %></span>
+    			<span class="followNames"><%= User.find_by_uid(friend).name %></span>
+    			</div>
+  			<% end %>
+		<% end %>
+	<% end %>
 
 
 <% else %>
