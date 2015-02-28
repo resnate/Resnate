@@ -1,27 +1,4 @@
-<script type="text/javascript">
 
-$(function(){
-  alert('test');
-});
-
-</script>
-
-  <div class="gigBlocks" >
-    <h4 style="float:left" id="getLikes" data-toggle="modal" data-target="#genericModal" onclick="getLikes">
-      Artists <%=@user.first_name%> Likes
-    </h4>
-    <br>
-  <ul>
-    <% unless @user.musicLikes.nil? %>
-      <% @user.musicLikes.take(6).each do |ml| %>
-        <li class="ml">
-          <h5 class="mlSpan"><%= ml %></h5>
-            <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
-  </div>
 
   <div class="gigBlocks">
     <h4><%= @user.name %></h4>
@@ -430,7 +407,7 @@ $(function(){
   
   var urls = [];
 
-
+  alert('a');
 
   for(j=0; j<$('.ml').length; j++){
     urls.push($('.mlImg').eq(j).attr('src'));
