@@ -1,9 +1,7 @@
-$('#maximise').hide();
-var oT = $('#footerPlayer').offset();
-var oT = oT.top;
-var bottom = $(window).height() - oT - $('#footerPlayer').height();
-if(bottom == -150){
+
+if($('#footerPlayer').css('bottom') == '-150px'){
    $('#footerPlayer').animate({bottom: '+=150'});
+   $('#footerPlayer').css('bottom', '0px');
 }
 $('#infoID').val(videoID);
         $('#navButtons').html('<li class="navLis"><span class="glyphicon glyphicon-fast-backward" ></span></li><li class="navLis"><span class="glyphicon glyphicon-pause" ></span></li><li class="navLis" style="display:none"><span class="glyphicon glyphicon-play" ></span></li><li class="navLis"><span class="glyphicon glyphicon-fast-forward" ></span></li>');
