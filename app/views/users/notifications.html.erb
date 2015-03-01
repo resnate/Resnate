@@ -95,6 +95,18 @@
               </span>
               </div>
 
+              <% elsif  message.subject[0..1] == 'U|' %>
+              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
+              <div class="notificationMsg">
+                <div class="notificationDetails">
+                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
+                  <span class=""><%= message.body[0..-1] %></span>
+                  <br>
+                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+                </div>
+
+              </div>
 
               <% elsif  message.subject[0..1] == 'R|' %>
               <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">

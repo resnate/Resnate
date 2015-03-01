@@ -2,7 +2,7 @@
     <div id="Welcome1">
       <h3> One search for Music, Gigs & Merch.</h3>
       <h1 id="bigResnate">Resnate.</h1>
-      <h4>Share Music. Get Cred.</h4>
+      <h4>Share Music. Get Points.</h4>
       <h4>Playlists with just a drag and a drop.</h4>
       <h4>The music social network for hardcore music fans.</h4>
       
@@ -1375,7 +1375,7 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                               }
 
                               for(k=0; k<=2; k++ ){
-                                $("#gig"+k+"").append('<li><div class="date-wrap"><a href="'
+                                $("#gig"+k+"").html('<li><div class="date-wrap"><a href="'
                                 +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
                                 +'</span><span class= "day">'
                                 + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
@@ -1419,7 +1419,7 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                               }
 
                               for(k=0; k<=2; k++ ){
-                                $("#gig"+k+"").append('<li><div class="date-wrap"><a href="'
+                                $("#gig"+k+"").html('<li><div class="date-wrap"><a href="'
                                 +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
                                 +'</span><span class= "day">'
                                 + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
