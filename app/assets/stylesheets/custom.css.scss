@@ -257,6 +257,11 @@ body {
   }
 }
 
+#signIn {
+  max-width: 270px;
+  text-align: center;
+}
+
   #user_songkickID {
     color: black;
   }
@@ -1077,6 +1082,7 @@ tr {
   display: inline-block;
   text-align: left;
   vertical-align: top;
+  margin-top: 10px;
   margin-bottom: 30px;
   a {
     text-decoration: none;

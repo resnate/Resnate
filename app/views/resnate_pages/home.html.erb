@@ -1,17 +1,22 @@
 <div id="Welcome">
     <div id="Welcome1">
-      <h3> One search for Music, Gigs & Merch.</h3>
+      
       <h1 id="bigResnate">Resnate.</h1>
-      <h4>Share Music. Get Points.</h4>
-      <h4>Playlists with just a drag and a drop.</h4>
-      <h4>The music social network for hardcore music fans.</h4>
+      <h3>The social network for people who love music.</h3>
+
+      <h4>Enter an artist's name to find Music, Gigs & Merch.</h4>
+      <h4>Share music.</h4>
+      <h4>Tell friends about gigs.</h4>
+      <h4>Write reviews.</h4>
+      <h4>Get points.</h4>
+      
       
     </div>
   
     <div id="Welcome2">
       <%= link_to image_tag("ResnateCropped.png", id: 'rsCrop'), "/auth/facebook" %>
       <br><br><br>
-      <span><%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %></span>
+      <div id="signIn"><%= link_to "Sign in with Facebook Follow your Friends", "/auth/facebook", id: "sign_in" %></div>
     </div>
     <h4 id="homeFooter">Built using YouTube + Songkick + Amazon + Setlist.fm APIs. </h4>
   </div>
@@ -960,7 +965,7 @@ function songDroppable(event, ui) {
       var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html() + '.json';
         var updatePlaylistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
         $.getJSON(playlistURL, function(json){
-          playlistContent = JSON.parse(json[0]["content"]);
+          playlistContent = JSON.parse(json["content"]);
             name = ui.draggable.find("p").text();
           value = ui.draggable.find("img").attr("src").slice(27,-12);
           var playlistObject = {};
