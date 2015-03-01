@@ -1003,6 +1003,7 @@ sort: function(event, ui) {
   $('.sidePlaylist').removeClass('dropPlaylist');
   $(ui.helper).removeClass('videoResultsDivLi');
   $(ui.helper).addClass('playlistSong playlistSongLi noclick');
+  $(ui.helper).css('width', '238px');
     },
     stop: function(){
     var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
