@@ -10,8 +10,7 @@ module Merit
 
     validates_presence_of :id, :name
     validates_uniqueness_of :id
-include PublicActivity::Model
-  tracked owner: :owner, recipient: -> proc { |user| user }
+
     filters do
       def find_by_id(ids)
         ids = Array.wrap(ids)
