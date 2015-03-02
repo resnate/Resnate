@@ -756,7 +756,7 @@ $(document).on('click', '.shareReview', function(){
 
        
       
-var faye = new Faye.Client('/faye');
+var faye = new Faye.Client('https://www.resnate.com/faye');
 
   faye.subscribe("/comments/new", function(data) {
     $.get(data + 'index', function(result){
