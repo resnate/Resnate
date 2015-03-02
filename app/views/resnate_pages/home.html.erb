@@ -756,7 +756,107 @@ $(document).on('click', '.shareReview', function(){
 
        
       
+var faye = new Faye.Client('/faye');
 
+  faye.subscribe("/comments/new", function(data) {
+    $.get(data + 'index', function(result){
+      var commentID = '.'+data.trim().replace(/\//g, '');
+      $(commentID).html(result);
+    });
+  });
+
+  faye.subscribe("/activities/new", function(data) {
+    var owner = data.trim().split(',')[1];
+    var activity = data.trim().split(',')[0];
+    var allFollowees = $('#hiddenFolloweesIDs').html().trim();
+    if(allFollowees.indexOf(owner) != -1){
+      $.get('/activities/'+activity, function(result){
+        var firstFeed = $('#feedBox:first');
+
+        var currentPos = firstFeed.offset().top - $('#feedBox').scrollTop();
+    
+        $('#feedBox').prepend(result);
+
+        $('#feedBox').scrollTop(firstFeed.offset().top - currentPos)
+      });
+      
+    }
+    
+
+
+    
+  });
+
+faye.subscribe("/messages/new", function(data) {
+  if('<%= current_user.id%>' == parseInt(data)) {
+    $.get(data + '/lastMsg', function(result){
+      $('#lastMsgDiv').html(result);
+
+      var lastMessageSenderID = $('#lastMessageSenderID').html();
+      var lastMessageSenderUID = $('#lastMessageSenderUID').html();
+      var lastMessageSenderName = $('#lastMessageSenderName').html();
+      var lastMessageSubject = $('#lastMessageSubject').html();
+
+      if(lastMessageSubject.charAt(1) != '|'){
+        $('#recCount').html(parseInt($('#recCount').html()) + 1);
+        $('#recCount').removeClass('invisCount');
+        if(lastMessageSubject.charAt(1) == '`') {
+          lastMessageSubjectType = 'song';
+        } else if(lastMessageSubject.charAt(0) == '~') {
+          lastMessageSubjectType = 'playlist';
+        } else if(lastMessageSubject == 'G#') {
+          lastMessageSubjectType = 'gig';
+        } else if(lastMessageSubject == 'R#') {
+          lastMessageSubjectType = 'review';
+        }
+
+        messageRT = '<div class="ns-thumb inboxNotification"><img src="https://graph.facebook.com/'+lastMessageSenderUID+'/picture?width=100&height=100" class="notificationImg"/></div><div class="ns-content inboxNotification"><p>'+lastMessageSenderName+' shared a '+lastMessageSubjectType+' with you!</p></div>';
+
+      } else {
+        $('#pointCount').html(parseInt($('#pointCount').html()) + 1);
+        $('#pointCount').removeClass('invisCount');
+        $.get('/points', function(result){
+          $('.points').html(result);
+        });
+        
+
+        if(lastMessageSubject != 'B|') {
+          if(lastMessageSubject == 'S|') {
+            lastMessageSubjectType = '1 point';
+          } else if(lastMessageSubject == 'G|' || lastMessageSubject == 'P|' || lastMessageSubject == 'R|') {
+            lastMessageSubjectType = '5 points';
+          }
+          messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>You got '+lastMessageSubjectType+'!</p></div>';
+        } else if(lastMessageSubject == 'B|') {
+          messageRT = '<div class="ns-thumb pointsNotification"><img src="/assets/<%= current_user.badges.last.name %>" class="notificationImg"></div><div class="ns-content pointsNotification"><p>New level: <%= current_user.badges.last.custom_fields[:image]%>!</p></div>';
+        }
+      } 
+      
+
+
+      var notification = new NotificationFx({
+
+      message : messageRT,      
+      layout : 'other',
+      ttl : 10000,
+      effect : 'thumbslider',
+      type : 'notice',
+      onClose : function() {
+      bttn.disabled = false;
+      }
+      });
+
+      for(i=1; i <= $('.ns-box').length; i++){
+                
+                $('.ns-box').eq(i).css('margin-top','+=90px');
+              }
+
+            notification.show();
+
+    });  
+  }
+  
+});
 
    
          $("#navTitle").mouseover(function() {

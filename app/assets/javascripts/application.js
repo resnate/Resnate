@@ -24,7 +24,7 @@
 //= require bootstrap
 //= require handlebars
 //= require underscore
-
+//= require faye
 
 //= require select2
 //= require turbolinks

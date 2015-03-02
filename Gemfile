@@ -29,6 +29,7 @@ gem 'mailboxer'
 gem 'whenever', :require => false
 gem 'merit'
 gem 'faye'
+gem 'faye-rails', '~> 2.0'
 gem 'underscore-rails'
 gem 'acts_as_commentable_with_threading'
 gem 'thin'
