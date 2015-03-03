@@ -83,6 +83,30 @@ def self.remote_ip
     end
   end
 
+  def update_music_image_etc(auth)
+    
+      self.uid = auth.uid
+      self.oauth_token = auth.credentials.token
+      self.oauth_expires_at = Time.at(auth.credentials.expires_at)
+      self.info = Net::HTTP.get(URI("https://graph.facebook.com/" + auth.uid + "/music?access_token=" + self.oauth_token + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], self.oauth_token) + '&limit=1000'))
+      self.ip_address = remote_ip
+      self.location = user.country 
+    
+
+    data = (ActiveSupport::JSON.decode(self.info))["data"]
+
+    unless data.empty?
+      arr = []
+      data.each do |d|
+          arr.push(d["name"])
+      end
+      self.musicLikes = arr
+    end
+
+    self.save!
+
+  end
+
   def self.from_omniauth(auth)
 
     require 'net/http'

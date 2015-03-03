@@ -4,7 +4,7 @@ class SongsController < ApplicationController
   	@song = current_user.songs.build(song_params)
     @song.save
     @song.create_activity :create, owner: current_user
-    @activity = PublicActivity::Activity.where(trackable_type: "Song", trackable_id: @song.id).first.id
+    @activity = PublicActivity::Activity.where(trackable_type: "Song", trackable_id: @song.id).first
   end
 
   def destroy

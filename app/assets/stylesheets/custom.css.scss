@@ -220,11 +220,16 @@ body {
 
 #Welcome {
   height: 100%;
-  width: 99%;
-  margin-top: 5%;
-  margin-left: 5%;
-  
-  
+  width: 100%;
+  text-align: center;
+  overflow: auto;
+  a {
+      color: black;
+      &:hover {
+    color: red;
+    text-decoration: none;
+  }
+    }
   
 
   #homeFooter {
@@ -232,28 +237,44 @@ body {
   }
 }
 
-#Welcome1{
+.tuteTextNImage {
+  max-width: 950px;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  display: inline-block;
+  vertical-align: top;
+  h4 {
     display: inline-block;
-    vertical-align: top;
-    margin-right: 300px;
+    width: 250px;
+    margin-right: 30px;
   }
+}
 
-  .welcomeScreens {
-    height: 200px;
-  }
+.centred {
+  text-align: center;
+}
 
+.tuteImages {
+  max-height: 400px;
+  max-width: 600px;
+  margin-right: 30px;
+  display: inline-block;
+}
   #bigResnate {
     font-size: 80px;
   }
 
 #Welcome2 {
   display: inline-block;
+  margin-top: 50px;
+  margin-left: 200px;
   a {
     text-decoration: none;
     color: black;
   }
    img{
     width: 270px;
+    margin-bottom: 30px;
   }
 }
 
@@ -950,7 +971,7 @@ tr {
 
 #sign_in {
   
-  font-size: 28.5px;
+  font-size: 2em;
   &:hover {
     color: red;
     text-decoration: none;
