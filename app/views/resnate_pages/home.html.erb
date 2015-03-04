@@ -4,32 +4,31 @@
       <h2 id="bigResnate">Resnate.</h2>
       <h3>The social network for people who love music.</h3>
 
-      <div class="tuteTextNImage">
-      
-      <h4>Enter an artist's name to find<br>Music, Gigs & Merch.</h4>
-      <%= image_tag "musicgigsmerch.png", class: "tuteImages" %>
-      </div>
-
       <div id="Welcome2">
         <%= link_to image_tag("ResnateCropped.png", id: 'rsCrop'), "/auth/facebook" %>
       
-        <div id="signIn"><%= link_to "Sign in with Facebook Follow your Friends", "/auth/facebook", id: "sign_in" %></div>
+        <div id="signIn"><%= link_to simple_format("Sign in with Facebook<br />Follow your Friends"), "/auth/facebook", id: "sign_in" %></div>
       </div>
+
+      <div class="tuteTextNImage">
+      
+      
+      <%= image_tag "previewimg3.png", class: "tuteImages" %>
+      <h4>Enter an artist's name to find<br>Music, Gigs & Merch.</h4>
+      </div>
+
+      
 
       <div class="centred">
       <div class="tuteTextNImage">
-      <%= image_tag "sharemusic.png", class: "tuteImages" %>
       <h4>Share music.<br>Playlists with a drag and a drop.</h4>
       </div>
 
       <div class="tuteTextNImage">
-      <%= image_tag "reviews.png", class: "tuteImages" %>
       <h4>Write reviews for past gigs.<br>Tell friends about upcoming concerts.*</h4>
       </div>
 
       <div class="tuteTextNImage">
-      <%= image_tag "ranks.png", class: "tuteImages" %>
-      <%= image_tag "badges.png", id: "badgesImage", class: "tuteImages" %>
       <h4>Get points. Collect badges.<br>Climb the ranks of music fans.</h4>
       </div>
       </div>

@@ -270,23 +270,17 @@ body {
   }
 
 #Welcome2 {
-  display: inline-block;
   margin-top: 50px;
-  margin-left: 200px;
   a {
     text-decoration: none;
     color: black;
   }
    img{
-    width: 270px;
+    width: 200px;
     margin-bottom: 30px;
   }
 }
 
-#signIn {
-  max-width: 270px;
-  text-align: center;
-}
 
   #user_songkickID {
     color: black;
