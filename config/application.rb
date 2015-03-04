@@ -11,7 +11,6 @@ module Resnate
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.assets.compile = true
     config.middleware.delete Rack::Lock
     config.middleware.use FayeRails::Middleware, mount: '/faye', :timeout => 25
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
