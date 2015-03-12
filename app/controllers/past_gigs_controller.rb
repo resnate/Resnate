@@ -39,8 +39,4 @@ class PastGigsController < ApplicationController
     def past_gig_params
       params.require(:past_gig).permit(:songkick_id, :gig_date)
     end
-
-    def review_params
-      params.require(:review).permit(:content) 
-    end
 end

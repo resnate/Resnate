@@ -43,7 +43,7 @@
         <div class="pgID"><%= pg.id %></div>
         <% if pg.review.nil? && current_user.id == @user.id %>
         <div class="reviewHeader">Review</div>
-        <textarea class="reviewInput" placeholder="Write a review of the show to your heart's extent (as long as your heart's extent is less than 5000 characters)!"></textarea>
+        <textarea class="pastGigreviewInput" placeholder="Write a review of the show to your heart's extent (as long as your heart's extent is less than 5000 characters)!"></textarea>
         <% elsif pg.review.present?%>
         <div class="reviewHeader">Review</div>
           <div class="reviewContent"><%= sanitize pg.review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
@@ -129,7 +129,7 @@
 
 
 </table>
-<div class="pGinfinite-scrolling">
+<div class="genericInfinite-scrolling">
    <%= will_paginate @pastGigs, renderer: BootstrapPagination::Rails %>
  </div>
 

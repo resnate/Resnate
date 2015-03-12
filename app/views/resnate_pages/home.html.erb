@@ -219,7 +219,7 @@
       <div class="reviewHeader">
         <% id = rankedReview[:id] %>
         <% likers = rankedReview[:likers] %>
-        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="topReviews reviewGig">
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="topReviews reviewImg">
 
         <div class="reviewTitle">
           <div>
@@ -274,6 +274,9 @@
             </div>
           <% end %>
     </div>
+    <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+
+    <textarea class="inputComment"></textarea>
     <% end %>
 
       
@@ -309,6 +312,8 @@
   </div> 
   
   
+  
+  <textarea id="songReviewInput" placeholder="Write a review for this song, album or concert."></textarea>
   
 
   <span class="glyphicon glyphicon-chevron-down"></span>
@@ -525,6 +530,8 @@ function ytSearch()
               }
               
             });
+
+
         }
 
         
@@ -675,6 +682,8 @@ $('#shareCurrentImg').click(function(){
 
       <% if !current_user.nil? %>
 
+      $('#Welcome').remove();
+
       function profile() {
   $.get('/<%= current_user.id%>/profile', function(result){
   $('#box2').html(result);});
@@ -723,7 +732,7 @@ function getLeaderboard(){
 
       function feed(){
         $.get("/activities", function(result){
-  $('#feedBox').append(result);});
+  $('#feedBox').html(result);});
   $("#feedBox").scrollTop(0);
     $('#container').animate({
         top: '51px'
@@ -777,12 +786,12 @@ function friendsLikeArtist(){
     $(".modal-content").scrollTop(0);
 });
 
-        $(document).on('keydown', ".reviewInput", function(event){
+        $(document).on('keydown', ".pastGigreviewInput", function(event){
   
     if(event.keyCode==13 && !event.shiftKey){
   var contentText = $(this).val();
   var ID = $(this).siblings('.pgID').html();
-  $.post('/reviews', { reviewable_id: ID, content: contentText } );
+  $.post('/reviews', { reviewable_id: ID, reviewable_type: "PastGig", content: contentText, user_id: parseInt('<%=current_user.id %>') } );
   $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
 }
 });
@@ -792,74 +801,51 @@ function friendsLikeArtist(){
 $(document).on('click', '.reviewContent', function(){
   if('<%=current_user.id %>' == $('.hiddenUserID').html()){
     var content = $(this).html();
-  $(this).replaceWith('<textarea class="reviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
+  $(this).replaceWith('<textarea class="pastGigreviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
   }
   
 });
 
 
+$(document).on('keydown', "#songReviewInput", function(event){
+  
+    if(event.keyCode==13 && !event.shiftKey){
+  var contentText = $(this).val();
+  var songURL = '/<%= current_user.id %>/' + $('#infoID').val() + '/songs/lastSong';
+  $.get(songURL, function(result){
+    $.post('/reviews', { reviewable_id: result, reviewable_type: "Song", content: contentText, user_id: parseInt('<%=current_user.id %>') } );
+  });
+  
+  $(this).replaceWith('<div id="songReviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
+}
+});
+
+$(document).on('click', '#songReviewContent', function(){
+  
+    var content = $(this).html();
+  $(this).replaceWith('<textarea id="songReviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
+  
+  
+});
+
+
   $('.genericContent').on('scroll', function(){
-    if($('.pGinfinite-scrolling .pagination .next').length){
+    if($('.genericInfinite-scrolling .pagination .next').length){
       if(!$('.next').hasClass('disabled')) {
-        url = $('.pGinfinite-scrolling .next').find('a').attr('href');
-        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
+        url = $('.genericInfinite-scrolling .next').find('a').attr('href');
+        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 200){
       
-          $('.pGinfinite-scrolling').remove();
+          $('.genericInfinite-scrolling').remove();
           $.get(url, function(response){
             setTimeout(
               function() {
-                $('#pastGigsBody').append(response); 
+                $('.genericContent .modal-body').append(response); 
                 }, 2500);
                      });
         }    
       }
           
-    } else if($('.uGinfinite-scrolling .pagination .next').length){
-      if(!$('.next').hasClass('disabled')) {
-        url = $('.uGinfinite-scrolling .next').find('a').attr('href');
-        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
-      
-          $('.uGinfinite-scrolling').remove();
-          $.get(url, function(response){
-            setTimeout(
-              function() {
-                $('#upcomingGigsBody').append(response); 
-                }, 2500);
-                     });
-        }    
-      }
-
-    } else if($('.cVinfinite-scrolling .pagination .next').length){
-      if(!$('.next').hasClass('disabled')) {
-        url = $('.cVinfinite-scrolling .next').find('a').attr('href');
-        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
-      
-          $('.cVinfinite-scrolling').remove();
-          $.get(url, function(response){
-            setTimeout(
-              function() {
-                $('#convosBody').append(response); 
-                }, 2500);
-                     });
-        }    
-      }
-
-    } else if($('.nTinfinite-scrolling .pagination .next').length){
-      if(!$('.next').hasClass('disabled')) {
-        url = $('.cVinfinite-scrolling .next').find('a').attr('href');
-        if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 100){
-      
-          $('.nTinfinite-scrolling').remove();
-          $.get(url, function(response){
-            setTimeout(
-              function() {
-                $('#convosBody').append(response); 
-                }, 2500);
-                     });
-        }    
-      }
-
-    }
+    } 
   });
 
 
@@ -1002,7 +988,7 @@ $(document).on('click', '.shareReview', function(){
         $('#messageURL').val('R#'+$(this).siblings('.hiddenReviewID').html());
   });
     
-    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg', function(){
+    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg, .reviewSong, .reviewGigName, .reviewGigImgs', function(){
   
   
   $.get('/reviews/' + $(this).siblings('.hiddenReviewID').html(), function(result){
@@ -1673,7 +1659,7 @@ function showMyVideos(data)
     $("#videoResultsDiv").scrollTop(0);
 
 
-    $(document).on('click', "#videoResultsDiv li", function(){
+    $("#videoResultsDiv li").click(function(){
 
         
         videoID = $(this).find('img').attr("src").slice(27,38);

@@ -3,7 +3,7 @@
 <% @user.add_points(1) %>
 <% lv2 = @user.level %>
 	<% if lv1 != lv2 %>
-		<% @user.create_activity key: 'badge.create', owner: @user %>
+		<% @user.create_activity key: 'badge.create', parameters: {level: @user.level}, owner: @user %>
 		<% User.find(3).send_message(@user, "New level: "+ @user.level_name, "B|"+ @user.level_name) %>
 		<% @user.add_badge(@user.level) %>
 		<% broadcast "/activities/new" do %>

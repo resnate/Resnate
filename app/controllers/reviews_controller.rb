@@ -1,7 +1,11 @@
 class ReviewsController < ApplicationController
 	def create
-		@reviewable = PastGig.find(params[:reviewable_id])
-		@review = Review.build_from( @reviewable, params[:content] )
+    if params[:reviewable_type] == "PastGig"
+		  @reviewable = PastGig.find(params[:reviewable_id])
+    elsif params[:reviewable_type] == "Song"
+      @reviewable = Song.find(params[:reviewable_id])
+    end
+		@review = Review.build_from( @reviewable, params[:content], params[:user_id] )
     @review.save
     @review.create_activity :create, owner: current_user
     @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first

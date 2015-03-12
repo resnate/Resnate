@@ -1,17 +1,9 @@
 
-<% unless @user.friends.count == 0 %>
-         <% @user.friends.each do |friend| %>
-         <% unless User.find_by_uid(friend).nil? %>
-    <% unless  Gig.where(user_id: User.find_by_uid(friend).id).nil? || Gig.where(user_id: User.find_by_uid(friend).id).count == 0 %>
-    <% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
-    <% gigs.each do |gig| %>
-    <% if gig.songkick_id.to_s == params[:songkick_id].to_s %>
-    <img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="hiddenID"><%= User.find_by_uid(friend).id %></div>
-
+<% unless @user.followees(User).count == 0 %>
+    <% @user.followees(User).each do |friend| %>   
+        <% if  Gig.where(user_id: friend.id, songkick_id: params[:songkick_id].to_s ).present?  %>
+            <img src="https://graph.facebook.com/<%= friend.uid %>/picture?width=50&height=50" class="userImg goingImg" title="<%= friend.name %>"></img><div class="hiddenID"><%= friend.id %></div>
+        <% end %>
     <% end %>
-    <% end %>
-    <% end %>
-    <% end %>
-    <% end %>
-    <% end %>
+<% end %>
     

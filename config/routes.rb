@@ -16,6 +16,7 @@ Resnate::Application.routes.draw do
   get "/:id/followers" => "users#followers"
   get "/:id/artistLikes" => "users#artistLikes"
   get "/:id/lastMsg" => "users#lastMsg"
+  get "/:id/userActivities" => "users#userActivities"
   get "/points" => "users#points"
   get "/:id/:search/friendsWhoLike" => "users#friendsWhoLike"
   post "/:id/point1" => "users#point1"
@@ -41,6 +42,7 @@ Resnate::Application.routes.draw do
   get '/:user/likes' => 'likes#show'
 
   get '/:user/:content/songs/show' => 'songs#show'
+  get '/:user/:content/songs/lastSong' => 'songs#lastSong'
   get '/:user/history' => 'songs#history'
   post '/:user/:content/like' => 'songs#like'
   post '/:user/:content/unlike' => 'songs#unlike'

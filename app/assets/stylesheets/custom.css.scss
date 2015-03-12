@@ -81,16 +81,16 @@ textarea {
 
 
 #feedBox {
-  background-color: #E9EAED;
+  background-color: #1F000A;
   overflow: auto;
   display: inline-block;
   height: calc(50% - 51px);
   padding: 7.5px;
   width: 235.3px;
   margin-left: -3px;
-
+  color: white;
   a {
-    color: black;
+    color: white;
   }
 }
 
@@ -307,6 +307,7 @@ body {
    overflow-x: hidden;
    display: inline-block;
    height: 100%;
+   margin-bottom: 50px;
    ul {
     padding-left: 0px;
    }
@@ -446,19 +447,29 @@ body {
     }
 
 #player {
-  width: 267px;
+  width: 250px;
   height: 150px;
   display: inline-block;
   position: relative;
-  margin-right: 30px;
+  margin-right: 10px;
 }
 
 #navNslider {
   display: inline-block;
   vertical-align: top;
-  width: 250px;
+  width: 220px;
   text-align: center;
   margin-top: 15px;
+}
+
+#songReviewInput {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 300px;
+  width: calc(100% - 730px);
+  height: 140px;
+  margin: 5px 0px 0px 10px;
+  color: black;
 }
 
 .glyphicon-fullscreen {
@@ -469,6 +480,22 @@ body {
 
 #slider {
   margin-top: 30px;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+  border-bottom-right-radius: 0px;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+  border-bottom-left-radius: 0px;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+  border-top-right-radius: 0px;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+  border-top-left-radius: 0px;
 }
 
 #currentTime, #duration {
@@ -531,11 +558,6 @@ body {
   display: block;
 }
 
-#makeJamLi {
-  width: 100px;
-  display: inline;
-}
-
 .fb-share-button {
  display: inline; 
 }
@@ -571,7 +593,11 @@ body {
 
 
 .csIcons {
-  padding-left: 15px;
+  margin-left: 12px;
+}
+
+.csIcons .glyphicon-plus {
+  margin-left: 5px;
 }
 
 .messageIcons {
@@ -807,12 +833,10 @@ background-color: white;
 #footerPlayer {
   height: 150px;
     position: fixed;
-    background-image: image-url("AxlPowerDesat2.jpg");
-  background-repeat:no-repeat;
-  background-position: 50% 50%;
+    background-color: #801336;
     bottom: -150px;
     right: 0px;
-    width: calc(100% - 495px);
+    width: 100%;
   color: white;
 }
 
@@ -944,6 +968,7 @@ img {border:none;}
 .latestContent {
   display: inline-block;
   width: 592px;
+  vertical-align: top;
 }
 
 .latestPlaylistName, .latestSongName, #latestGigDate, #latestReviewName {
@@ -983,12 +1008,11 @@ tr {
 }
 
 .sidebar-nav {
-  display: inline-block;
+  position: fixed;
   width: 495px;
   height: 100%;
-  background-image: image-url("AxlDesat5.jpg");
-  background-repeat:no-repeat;
-  background-position: 50% 50%;
+  margin-top: 50px;
+  background-color: #1F000A;
   color: white;
   a {
     color: white;
@@ -1001,7 +1025,7 @@ tr {
   height: 51px;
   margin-bottom: 0px;
   border: 0px;
-  background-color: #5E001E;
+  background-color: #801336;
   li a {
     padding: 0px;
   }
@@ -1010,20 +1034,16 @@ tr {
 
 
 .navbar-static-top {
-  width: calc(100% - 495px);
-  margin-left: -4px;
-  display: inline-block;
+  width: 100%;
+  position: fixed;
+  left: 0;
   vertical-align: top;
-}
-
-#navID {
-  margin-left: 30px;
 }
 
 #navTitle {
 
   cursor: pointer;
-  width: 250px;
+  width: 100%;
   white-space: nowrap;
   overflow-x: hidden;
 }
@@ -1061,9 +1081,9 @@ tr {
 .glyphicon-chevron-down {
   color: white;
   font-size: 16px;
-  float: right;
+  position: absolute;
   margin-top: 5px;
-  margin-right: 17.5px;
+  right: 5px;
 }
 
 .glyphicon-chevron-up {
@@ -1190,13 +1210,10 @@ tr {
     margin-bottom: 10px;
   }
 
-  #seeAll, #seeAllpast, #userSeeAll, #userSeeAllpast, #seePlaylists, #userSeePlaylists, .playlistName, .followersOpener, #getLikes, #getUserLikes, .levelNpoints {
+  #seeAll, #seeAllpast, #seePlaylists, .playlistName, .followersOpener, #getLikes, #getUserLikes, .levelNpoints {
     cursor: pointer;
     &:hover {
       color: red;
-    }
-    h4 {
-      /*margin-left: 5px;*/
     }
   }
 
@@ -1366,19 +1383,21 @@ tr {
 }
 
 .reviewContent {
-  background-color: #E9EAED;
+  background-color: #3D0013;
   padding: 15px;
   margin-bottom: 10px;
   font-size: 1.1em;
   line-height: 2em;
+  color: white;
 }
 
 .reviewHeader {
   margin-bottom: 20px;
 }
 
-.reviewGig {
-  height: 250px;
+.reviewImg {
+  width: 250px;
+  cursor: pointer;
 }
 
 .likerNumber {
@@ -1403,7 +1422,7 @@ tr {
   vertical-align: top;
 }
 
-.reviewInput {
+.pastGigreviewInput {
   width: 95%;
   height: 10em;
 }
@@ -1631,10 +1650,6 @@ height: 90%;
   height: 40px;
 }
 
-.comments {
-  max-width: 500px;
-}
-
 .commentPic {
   vertical-align: top;
   margin-right: 3px;
@@ -1653,7 +1668,8 @@ height: 90%;
 }
 
 .comment {
-  background-color: #C0C0C0;
+  background-color: #801336;
+  color: white;
 }
 
 .activityInfo {
@@ -1815,7 +1831,7 @@ height: 90%;
       right: 0;
       width: 70%;
       height: 1.2em;
-      background: linear-gradient(to right, rgba(233, 233, 233, 0), rgba(233, 233, 233, 1) 90%);
+      background: linear-gradient(to right, rgba(31, 0, 10, 0), rgba(31, 0, 10, 1) 90%);
 
 
   }
@@ -1966,7 +1982,7 @@ height: 90%;
   margin-left: 55px;
 }
 
-.playlistContent, .playlistUserId, #playlistContent, #savePlaylist, #likeForm, #lastMsgDiv, #hiddenLevel, #getBadge, .startIndex, .pGinfinite-scrolling, .uGinfinite-scrolling, .cVinfinite-scrolling, .nTinfinite-scrolling {
+.playlistContent, .playlistUserId, #playlistContent, #savePlaylist, #likeForm, #lastMsgDiv, #hiddenLevel, #getBadge, .startIndex, .genericInfinite-scrolling {
   display: none;
 }
 

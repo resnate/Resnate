@@ -3,7 +3,20 @@
   <%= activity.owner.id %>
 </div>
 
+<% if Review.find(activity.trackable_id).reviewable_type == "PastGig" %>
+
 <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(activity.trackable_id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedReviewGigs feedReviewGigs<%= Review.find(activity.trackable_id).reviewable_id %>">
+
+<% elsif Review.find(activity.trackable_id).reviewable_type == "Song" %>
+
+<% song = Song.find(Review.find(activity.trackable_id).reviewable_id) %>
+
+<img src='https://img.youtube.com/vi/<%= song.content %>/hqdefault.jpg' class="feedYT" >
+<p class="hiddenYTName">
+  <%= song.name %>
+</p>
+
+<% end %>
 
 <div class="feedButtons">
   <% if current_user.likes?(Review.find(activity.trackable_id)) %>
@@ -21,13 +34,27 @@
     <div class="profileName"><%= activity.owner.name if activity.owner %></div>
     <div class="hiddenID"><%= activity.owner.id %></div>
     <div class="verb">wrote a review for</div>
-    <span class="feedReviewGigName feedGigName<%= Review.find(activity.trackable_id).reviewable_id %>"></span>
+
+    <% if Review.find(activity.trackable_id).reviewable_type == "PastGig" %>
+
+      <span class="feedReviewGigName feedGigName<%= Review.find(activity.trackable_id).reviewable_id %>"></span>
+
+    <% elsif Review.find(activity.trackable_id).reviewable_type == "Song" %>
+
+      <% song = Song.find(Review.find(activity.trackable_id).reviewable_id) %>
+
+    <div class="activityName"><%= song.name %></div>
+    <div class="hiddenYTID" style="display:none"><%= song.content %></div>
+
+<% end %>
     <div class="feedReview" data-toggle="modal" data-target="#genericModal">
       <%= Review.find(activity.trackable_id).content %>
     </div>
     <div class="hiddenReviewID"><%= activity.trackable_id %></div>
     <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
   </div>
+
+
 
   <div class="likesNcomments">
     <div class="likers">

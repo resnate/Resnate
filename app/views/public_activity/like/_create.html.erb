@@ -160,7 +160,7 @@
       				<% end %>
     			</div>
     			<div class="comments activity<%=PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id %>comments">
-  				<% PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.comment_threads.each do |comment| %>
+  				<% PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: Like.find(activity.trackable_id).likeable_id).first.comment_threads.each do |comment| %>
   					<div class="comment">
     					<img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
     					<div class="commentContent"><%= simple_format(comment.body) %></div>
@@ -168,7 +168,7 @@
   				<% end %>
 			</div>
 			<div class="commentURL">
-    			/activity/<%=PublicActivity::Activity.where(trackable_type: "Review", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id%>/comments/
+    			/activity/<%=PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id%>/comments/
   			</div>
 			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
@@ -177,6 +177,9 @@
     </div>
 
 <% elsif Like.find(activity.trackable_id).likeable_type == "Review" %>
+  
+  <% if Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "PastGig" %>
+
 	<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedReviewLikeGigs feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>">
 
   <div class="feedButtons">
@@ -190,6 +193,15 @@
       <div class="hiddenID"><%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
   </div>
 
+  <% elsif Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "Song" %>
+
+  <img src='https://img.youtube.com/vi/<%= Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).content %>/hqdefault.jpg' class="feedYT" >
+  <p class="hiddenYTName">
+    <%= Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).name %>
+  </p>
+
+  <% end %>
+
   <div class="activityInfo">
     <div class="activityDetails">
       <div class="profileName"><%= activity.owner.name if activity.owner %></div>
@@ -197,13 +209,20 @@
       <div class="verb">liked</div>
       <div class="hiddenReviewerID"><%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
       <div class="reviewerName"><%= User.find(PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id).name %></div>'s review of
+
+      <% if Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "PastGig" %>
       <span class="feedReviewLikeGigName feedReviewLikeGigName<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>"></span>
+      <% elsif Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "Song" %>
+      <div class="activityName"><%= Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).name %></div>
+      <% end %>
+
       <div class="feedReview" data-toggle="modal" data-target="#genericModal">
         <%= Review.find(Like.find(activity.trackable_id).likeable_id).content %>
       </div>
       <div class="hiddenReviewID"><%= Like.find(activity.trackable_id).likeable_id %></div>
       <div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
     </div>
+
 
     <div class="likesNcomments">
     <div class="likers">

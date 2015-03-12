@@ -21,6 +21,12 @@ class SongsController < ApplicationController
       render :layout => false
     end
 
+  def lastSong
+    @user = User.find(params[:user])
+    @song = Song.where(content: (params[:content])).first
+    render :layout => false
+  end
+
     def history
       @user = User.find(params[:user])
       @songs = @user.songs

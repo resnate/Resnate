@@ -1,20 +1,35 @@
 <div id="reviewBody" class="modal-body">
+
+	
 	<div class="reviewHeader">
-		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@review.reviewable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewGig reviewGigs<%= @review.id %>"></a>
+
+		<% if @review.reviewable_type == "PastGig" %>
+
+		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@review.reviewable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= @review.id %>"></a>
+
+		<% elsif @review.reviewable_type == "Song" %>
+
+		<img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg" >
+
+		<% end %>
 		
 		<div class="reviewTitle">
 			<div>
 			Review of
+			<% if @review.reviewable_type == "PastGig" %>
 			<div class="reviewGigName<%= @review.id %>"></div>
+			<% elsif @review.reviewable_type == "Song" %>
+			<div class="activityName"><%= Song.find(@review.reviewable_id).name %></div>
+			<% end %>
 			by
-			<div class="profileName"><%= User.find(PastGig.find(@review.reviewable_id).user_id).name %></div>
+			<div class="profileName"><%= User.find(@review.user_id).name %></div>
 			<div class="hiddenID">
-  				<%= PastGig.find(@review.reviewable_id).user_id %>
+  				<%= @review.user_id %>
 			</div>
 			</div>
-			<%= image_tag "https://graph.facebook.com/#{User.find(PastGig.find(@review.reviewable_id).user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
+			<%= image_tag "https://graph.facebook.com/#{User.find(@review.user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
 			<div class="hiddenID">
-  				<%= PastGig.find(@review.reviewable_id).user_id %>
+  				<%= @review.user_id %>
 			</div>
 		</div>
 		
@@ -25,25 +40,27 @@
 	<div class="feedButtons reviewButtons">
 		<% if current_user.likes?(@review) %>
 			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
-		<% elsif current_user.id != PastGig.find(@review.reviewable_id).user_id %>
+		<% elsif current_user.id != @review.user_id %>
 			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
 		<% end %>
       	
       	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
       <div class="hiddenReviewID"><%= @review.id %></div>
-      <span class="hiddenID"><%= PastGig.find(@review.reviewable_id).user_id %></span>
+      <span class="hiddenID"><%= @review.user_id %></span>
 	</div>
 
 	<div class="comments activity<%=@activity.id%>comments">
-  				<% @activity.comment_threads.each do |comment| %>
-  					<div class="comment">
+  			<% @activity.comment_threads.each do |comment| %>
+  			<div class="comment">
               <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
               <span class="hiddenID"><%= comment.user_id %></span>
               <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
               </div>
             </div>
-  				<% end %>
-			</div>
+  			<% end %>
+  			<img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+			<textarea class="inputComment"></textarea>
+	</div>
 	
 </div>
 

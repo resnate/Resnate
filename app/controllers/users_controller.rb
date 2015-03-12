@@ -118,6 +118,7 @@ end
       @songs = @user.songs
       @pastGigs = @user.past_gigs
       @gigs = @user.gigs
+      @reviews = Review.where(user_id: @user.id)
       render :layout => false
     end
 
@@ -162,6 +163,12 @@ end
       @user = User.find(params[:id])
       @followees = @user.followees(User)
       @users = User.all
+      render :layout => false
+    end
+
+    def userActivities
+      @user = User.find(params[:id])
+      @activities = PublicActivity::Activity.where(owner_id: @user, owner_type: "User").order("created_at desc").paginate(page: params[:page], per_page: 10)
       render :layout => false
     end
 
