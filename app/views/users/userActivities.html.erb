@@ -1,0 +1,83 @@
+<% if @activities.count == 0 %>
+
+	<div id="noActivities" class="noContent">
+		<%= @user.first_name %> hasn't been up to much, share a playlist or review of yours with them!
+	</div>
+
+<% else %>
+
+	<% @activities.each do |activity| %>
+		<%if activity.trackable_type == "Gig" %>
+			<div class="latest userGig">
+      			<% latestGig = Gig.find(activity.trackable_id) %>
+      			<a href="https://www.songkick.com/concerts/<%= latestGig.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= latestGig.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg" id="latestGigImg">
+      				<div class="latestContent">
+        				<%= @user.first_name %> is going to <span class="userGigDate"></span>
+      				</div>
+      			</a>
+    		</div>
+
+		<%elsif activity.trackable_type == "Song" %>
+			<div class="latest userSong">
+      			<% latestSong = Song.find(activity.trackable_id) %>
+      			<img src="https://img.youtube.com/vi/<%= latestSong.content %>/hqdefault.jpg" class="playlistImg latestImg" >
+      			<div class="latestContent">
+        			<%= @user.first_name %> listened to <span class="latestSongName"><%= latestSong.name %></span>
+      			</div>
+    		</div>
+		
+		
+
+		<%elsif activity.trackable_type == "Review" %>
+			<div class="latest userReview">
+      			<% latestReview = activity.trackable_id %>
+          		<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(latestReview).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg"  data-toggle="modal" data-target="#genericModal">
+          		<div class="hiddenReviewID"><%= latestReview %></div>
+          		<div class="latestContent">
+            		<%= @user.first_name %> wrote a review for <span class="userReviewName" data-toggle="modal" data-target="#genericModal"></span>
+            		<div class="hiddenReviewID"><%= latestReview %></div>
+          		</div>
+    		</div>
+
+    	<%elsif activity.trackable_type == "Playlist" %>
+    		<div class="latest userPlaylist">
+      		<% latestPlaylist = activity.trackable_id %>
+      		<% img1 = "a" %>
+          	<% JSON.parse(Playlist.find(latestPlaylist).content)[0].each do |k, v| %>
+            	<% img1 = v %>
+          	<% end %>
+          		<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg latestImg" >
+          		<div class="hiddenPlaylistID"><%= latestPlaylist %></div>
+          		<div class="latestContent">
+            		<div class="hiddenPlaylistID"><%= latestPlaylist %></div>
+            		<% if activity.key == "playlist.create" %>
+              			<%= @user.first_name %> created the playlist <span class="latestPlaylistName"><%= Playlist.find(latestPlaylist).name %></span>
+            		<% elsif activity.key == "playlist.update" %>
+              			<%= @user.first_name %> updated the playlist <span class="latestPlaylistName"><%= Playlist.find(latestPlaylist).name %></span>
+            		<% end %>
+          		</div>
+    		</div>
+
+    	<%elsif activity.trackable_type == "User" %>
+    		<div class="latest userUser">
+    			<% user = User.find(activity.trackable_id) %>
+    			<img src="<%= user.image %>" class="latestImg userImg" >
+    			<div class="hiddenID"><%= user.id %></div>
+    			<div class="latestContent">
+    				<% if activity.parameters.level.nil? %>
+    					New level: <%= user.level_name %>
+    				<% else %>
+    					New level: <%= user.level_name %>
+    				<% end %>
+    			</div>
+    		</div>
+
+    	<% end %>
+	
+	<% end %>
+
+<% end %>
+
+<div class="genericInfinite-scrolling">
+   <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
+ </div>
