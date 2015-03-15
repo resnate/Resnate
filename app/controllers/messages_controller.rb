@@ -5,13 +5,16 @@ class MessagesController < ApplicationController
   end
  
   def create
-  	@recipient = []
+  	@recipients = []
   	attrs = params[:user].split(',').each do |attri|
-  		@recipient.push(User.find(attri))
+  		@recipients.push(User.find(attri))
   	end
 
     @sender = current_user.id
     
-    current_user.send_message(@recipient, params[:body], params[:subject])
+    current_user.send_message(@recipients, params[:body], params[:subject])
+    @recipients.each do |recipient|
+      Pusher.trigger('messages', 'inbox', {:message => recipient.id})
+    end
   end
 end

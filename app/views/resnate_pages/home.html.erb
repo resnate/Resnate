@@ -274,6 +274,9 @@
             </div>
           <% end %>
     </div>
+    <div class="commentURL">
+        /activity/<%=activity.id%>/comments/
+      </div>
     <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 
     <textarea class="inputComment"></textarea>
@@ -1011,19 +1014,14 @@ $(document).on('click', '.shareReview', function(){
     }
   });
 
-       
-      
-var faye = new Faye.Client('https://www.resnate.com/faye');
 
-  faye.subscribe("/comments/new", function(data) {
-    $.get(data + 'index', function(result){
-      var commentID = '.'+data.trim().replace(/\//g, '');
-      $(commentID).html(result);
-    });
-  });
+        var pusher = new Pusher('2967e7560c555db90088');
+        var channel = pusher.subscribe('activities');
 
-  faye.subscribe("/activities/new", function(data) {
-    var owner = data.trim().split(',')[1];
+        
+        channel.bind('feed', function(re) {
+          var data = re.message;
+          var owner = data.trim().split(',')[1];
     var activity = data.trim().split(',')[0];
     var allFollowees = $('#hiddenFolloweesIDs').html().trim();
     if(allFollowees.indexOf(owner) != -1){
@@ -1039,13 +1037,25 @@ var faye = new Faye.Client('https://www.resnate.com/faye');
       
     }
     
+        });
 
+        var commentsChannel = pusher.subscribe('comments');
 
-    
-  });
+        commentsChannel.bind('comment', function(re) {
+          var data = re.message;
+          $.get(data + 'index', function(result){
+            var commentID = '.'+data.trim().replace(/\//g, '');
+            $(commentID).html(result);
+          });
+        });
 
-faye.subscribe("/messages/new", function(data) {
-  if('<%= current_user.id%>' == parseInt(data)) {
+        
+
+        var msgChannel = pusher.subscribe('messages');
+
+        msgChannel.bind('inbox', function(re) {
+          var data = re.message;
+          if('<%= current_user.id%>' == parseInt(data)) {
     $.get(data + '/lastMsg', function(result){
       $('#lastMsgDiv').html(result);
 
@@ -1118,8 +1128,8 @@ faye.subscribe("/messages/new", function(data) {
 
     });  
   }
-  
-});
+
+        });
 
    
          $("#navTitle").mouseover(function() {

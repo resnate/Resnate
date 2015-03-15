@@ -11,7 +11,6 @@
 	<% gA = Gig.find_by_songkick_id(gA[:songkick_id]) %>
 	<% gA.create_activity :create, owner: current_user %>
 	<% activity = PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: gA.id).first.id %>
-	<% broadcast "/activities/new" do %>
-		<%= activity %>,<%= current_user.uid %>
-	<% end %>
+	<% @message = activity.to_s + ',' + current_user.uid.to_s %>
+    <% Pusher.trigger('activities', 'feed', {:message => @message}) %>
 <% end %>

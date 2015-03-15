@@ -143,6 +143,8 @@ end
       @follow = Follow.where(follower_id: current_user.id, followable_type: "User").find_by_followable_id(@user.id)
       @follow.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id
+      @message = @activity + ',' + current_user.uid.to_s
+      Pusher.trigger('activities', 'feed', {:message => @message})
       render :layout => false
     end
 

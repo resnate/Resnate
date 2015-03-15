@@ -18,7 +18,9 @@ class GigsController < ApplicationController
       current_user.like!(@gig)
       @like = Like.where(liker_id: current_user.id, likeable_type: "Gig").find_by_likeable_id(@gig.id)
       @like.create_activity :create, owner: current_user
-      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first
+      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
+      @message = @activity.to_s + ',' + current_user.uid.to_s
+      Pusher.trigger('activities', 'feed', {:message => @message})
       render :layout => false
     end
 

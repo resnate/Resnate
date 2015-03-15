@@ -1,6 +1,11 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  require 'pusher'
 
+  Pusher.encrypted = true
+  Pusher.app_id = '111191'
+  Pusher.key    = '18f25224620c76b2aa21'
+  Pusher.secret = '1e8c716123a77760c0c4'
   # Code is not reloaded between requests.
   config.cache_classes = true
 

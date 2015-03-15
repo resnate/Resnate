@@ -944,6 +944,7 @@ img {border:none;}
 
 .artistImages, .mlImg {
     height: 115px;
+    width: 115px;
     background-image: image-url("ResnateThickerSquare.svg");
     background-repeat:no-repeat;
     background-size: 115px;
@@ -1383,7 +1384,7 @@ tr {
 }
 
 .reviewContent {
-  background-color: #3D0013;
+  background-color: #1F000A;
   padding: 15px;
   margin-bottom: 10px;
   font-size: 1.1em;
@@ -1648,6 +1649,7 @@ height: 90%;
 .inputComment {
   width: calc(100% - 43px);
   height: 40px;
+  color: black;
 }
 
 .commentPic {

@@ -4,6 +4,8 @@ class PlaylistsController < ApplicationController
     @playlist.save
     @playlist.create_activity :create, owner: current_user
     @activity = PublicActivity::Activity.where(trackable_type: "Playlist", trackable_id: @playlist.id).first.id
+    @message = @activity.to_s + ',' + current_user.uid.to_s
+    Pusher.trigger('activities', 'feed', {:message => @message})
   end
 
     def edit
@@ -60,6 +62,8 @@ class PlaylistsController < ApplicationController
       @follow = Follow.where(follower_id: current_user.id, followable_type: "Playlist").find_by_followable_id(@playlist.id)
       @follow.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id
+      @message = @activity.to_s + ',' + current_user.uid.to_s
+      Pusher.trigger('activities', 'feed', {:message => @message})
       render :layout => false
     end
 
