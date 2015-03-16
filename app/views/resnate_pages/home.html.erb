@@ -1042,6 +1042,7 @@ $(document).on('click', '.shareReview', function(){
         var commentsChannel = pusher.subscribe('comments');
 
         commentsChannel.bind('comment', function(re) {
+          alert('a');
           var data = re.message;
           $.get(data + 'index', function(result){
             var commentID = '.'+data.trim().replace(/\//g, '');
