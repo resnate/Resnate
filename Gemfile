@@ -33,7 +33,6 @@ gem 'underscore-rails'
 gem 'acts_as_commentable_with_threading'
 gem 'thin'
 gem 'browser'
-gem 'faye-rails'
 gem 'pg'
 gem 'bulk_data_methods'
 
