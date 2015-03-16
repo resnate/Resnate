@@ -1018,10 +1018,6 @@ $(document).on('click', '.shareReview', function(){
         var pusher = new Pusher('2967e7560c555db90088');
         var channel = pusher.subscribe('activities');
 
-        pusher.connection.bind('connected', function(re) {
-          alert('a');
-        });
-
         
         channel.bind('feed', function(re) {
           var data = re.message;
