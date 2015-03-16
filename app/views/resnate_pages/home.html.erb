@@ -1015,7 +1015,7 @@ $(document).on('click', '.shareReview', function(){
   });
 
 
-        var pusher = new Pusher('2967e7560c555db90088');
+        var pusher = new Pusher('18f25224620c76b2aa21');
         var channel = pusher.subscribe('activities');
 
         
@@ -1042,7 +1042,6 @@ $(document).on('click', '.shareReview', function(){
         var commentsChannel = pusher.subscribe('comments');
 
         commentsChannel.bind('comment', function(re) {
-          alert('a');
           var data = re.message;
           $.get(data + 'index', function(result){
             var commentID = '.'+data.trim().replace(/\//g, '');
