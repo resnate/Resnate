@@ -271,6 +271,8 @@
               <span class="hiddenID"><%= comment.user_id %></span>
               <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
               </div>
+              <div class="hiddenCommentID"><%= comment.id %></div>
+              <span class="glyphicon glyphicon-remove commentDelete"></span>
             </div>
           <% end %>
     </div>
@@ -544,15 +546,32 @@ function ytSearch()
 
 
 function abracadabra() {
-    
-    $('#searchPlaceholder').fadeOut();
-    $("#YTtest, #searchNsee, #iframeAmazon").fadeIn().css("display","inline-block");
+    $('.sidebar-nav').css('width', '495px');
+    $('#newStuff').css('width', 'calc(100% - 235px)');
+    $('#container').css('margin-left', '495px');
+    $('#container').css('width', 'calc(100% - 495px)');
+    $("#YTtest, #videoResultsDiv, #Gigs, #iframeAmazon").fadeIn().css("display","inline-block");
     
 }
 
 
 
 $(function(){
+
+  if(window.location.hash) {
+    var url = window.location.hash.substr(1);
+    if($('#Welcome').length && url[0] == "r"){
+      $.get(url, function(result){
+      $('#Welcome').html(result);
+    });
+    }
+    else if(url[0] == "r"){
+      $.get(url, function(result){
+      $('#newStuff').html(result);
+    });
+    } 
+    
+}
 
   $('#Welcome').hide().fadeIn(3000);
 
@@ -1479,7 +1498,7 @@ $('#Playlist').on('click', '.dropdownPlaylist li, .dropdownLike li', function(e)
       
     });
 
-$('#Playlist').on({
+$(document).on({
    mouseenter: function(){
     
     $(this).find('.glyphicon-remove').show();
@@ -1489,7 +1508,7 @@ $('#Playlist').on({
     
     $(this).find('.glyphicon-remove').hide();
   }
-}, '.dropdownPlaylist .playlistSongLi, .dropdownLike .playlistSongLi');
+}, '.dropdownPlaylist .playlistSongLi, .dropdownLike .playlistSongLi, .comment');
 
 $('.dropdownPlaylist, .dropdownLike').on({
    mouseenter: function(){
@@ -1542,6 +1561,12 @@ $(document).on('click', '.playlistInfo, #latestPlaylist', function(e){
     $('.modal').modal('hide');  
   }
   
+});
+
+$(document).on('click', '.commentDelete', function(){
+  var deleteURL = '/comments/' + $(this).siblings('.hiddenCommentID').html() + '/destroy';
+  $.post(deleteURL);
+  $(this).parents('.comment').remove();
 });
 
 $('#Playlist ul').on('click', '.sideFollow', function(){

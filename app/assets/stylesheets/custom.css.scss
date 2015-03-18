@@ -64,9 +64,9 @@ textarea {
 
 #container {
     position: absolute;
-    margin-left: 495px;
+    margin-left: 250px;
     padding: 0px;
-    width: calc(100% - 495px);
+    width: calc(100% - 250px);
     height: 200%;
     
 }
@@ -223,6 +223,7 @@ body {
   width: 100%;
   text-align: center;
   overflow: auto;
+  display: none;
   a {
       color: black;
       &:hover {
@@ -299,18 +300,22 @@ body {
 
   #Playlist {
     margin-left: 2%;
+    display: inline-block;
   }
 
 #videoResultsDiv, #Playlist {
-   width: 48%;
+   width: 238px;
    vertical-align: top;
    overflow-x: hidden;
-   display: inline-block;
    height: 100%;
    margin-bottom: 50px;
    ul {
     padding-left: 0px;
    }
+}
+
+#videoResultsDiv {
+  display: none;
 }
 
 #videoResultsDiv li, .sidePlaylist, .sideNewPlaylist, .sideLiked, .sideFollowed {
@@ -340,7 +345,7 @@ body {
 }
 
 #videoResultsDiv li, .playlistSong {
-  background-color: #990031 !important;
+  background-color: #801336 !important;
   
 }
 
@@ -718,6 +723,7 @@ body {
     width: 95%;
     overflow: auto;
     height: 180px;
+    display: none;
 }
 
 #noGigs {
@@ -868,7 +874,10 @@ ol li {
   font-size: 1.2em;
   }
 
-
+.commentDelete {
+  right: 2px;
+  position: absolute;
+}
 
 
 #login{
@@ -1010,7 +1019,7 @@ tr {
 
 .sidebar-nav {
   position: fixed;
-  width: 495px;
+  width: 250px;
   height: 100%;
   margin-top: 50px;
   background-color: #1F000A;
@@ -1340,7 +1349,7 @@ tr {
 .hiddenPlaylistID, .hiddenYTName, .sharePlaylistID, #shareSubmit, #messageURL,
 #infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrentID, #stopID, .btn-default, .invisCount,
 #hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #hiddenPastGigsIDs, #pastSongkickGigID, .reviewGigID, #pastGigIDsSubmit, #new_gig, .lol, .hiddenUserID, .hiddenGigLocation, .hiddenArtistName, .hiddenGigDate, .hiddenReviewID, #infinite-scrolling .pagination, #hiddenFolloweesIDs,
-#deletePlaylistID, .hiddenReviewerID {
+#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID {
   display: none;
 }
 
@@ -1669,9 +1678,14 @@ height: 90%;
   margin-bottom: 10px;
 }
 
+.commentContent {
+  width: calc(100% - 60px);
+}
+
 .comment {
   background-color: #801336;
   color: white;
+  position: relative;
 }
 
 .activityInfo {

@@ -22,4 +22,9 @@ class CommentsController < ApplicationController
   	render :layout => false
   end
 
+  def destroy
+    @comment = Comment.find(params[:id])
+    @comment.destroy
+  end
+
 end

@@ -37,6 +37,8 @@
 	
 	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
 
+	<% unless current_user.nil? %>
+
 	<div class="feedButtons reviewButtons">
 		<% if current_user.likes?(@review) %>
 			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
@@ -45,6 +47,7 @@
 		<% end %>
       	
       	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+      	<a id="fbShare" class="twitter popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
       <div class="hiddenReviewID"><%= @review.id %></div>
       <span class="hiddenID"><%= @review.user_id %></span>
 	</div>
@@ -56,6 +59,8 @@
               <span class="hiddenID"><%= comment.user_id %></span>
               <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
               </div>
+              <div class="hiddenCommentID"><%= comment.id %></div>
+    			<span class="glyphicon glyphicon-remove commentDelete"></span>
             </div>
   			<% end %>
 
@@ -65,6 +70,8 @@
   			<img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
 	</div>
+
+	<% end %>
 	
 </div>
 

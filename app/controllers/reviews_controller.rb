@@ -20,6 +20,11 @@ class ReviewsController < ApplicationController
     render :layout => false
   end
 
+  def pl
+    @review = Review.find(params[:id])
+    redirect_to "/#reviews/show/<%= params[:id] %>"
+  end
+
 	def like
       @review = Review.find(params[:id])
       current_user.like!(@review)

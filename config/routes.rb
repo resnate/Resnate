@@ -59,10 +59,12 @@ Resnate::Application.routes.draw do
 
   post "/reviews/:id/reviewLike" => "reviews#like"
   post "/reviews/:id/reviewUnlike" => "reviews#unlike"
+  get "/reviews/:id/pl" => "reviews#pl"
   
-  get 'comments/index'
   get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
   post "/:commentable_type/:commentable_id/comments/create" => "comments#create"
+  post "/comments/:id/destroy" => "comments#destroy"
+
   resources :users, only: [:create, :update, :destroy]
   resources :songs, only: [:create, :destroy]
   resources :gigs, only: [:create, :destroy]

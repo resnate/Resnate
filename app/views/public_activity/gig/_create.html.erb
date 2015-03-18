@@ -88,6 +88,8 @@
             <span class="hiddenID"><%= comment.user_id %></span>
             <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
             </div>
+            <div class="hiddenCommentID"><%= comment.id %></div>
+            <span class="glyphicon glyphicon-remove commentDelete"></span>
           </div>
   			<% end %>
   		</div>

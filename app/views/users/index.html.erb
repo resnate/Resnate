@@ -547,6 +547,8 @@
     <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
     <div class="commentContent"><%= simple_format(comment.body) %>
     </div>
+    <div class="hiddenCommentID"><%= comment.id %></div>
+    <span class="glyphicon glyphicon-remove commentDelete"></span>
   </div>
   <% end %>
 
@@ -588,17 +590,6 @@ $(function(){
       $(this).val('');
     }
   });
-
-
-
-  $('.feedReview').click(function(){
-  
-  
-  $.get($(this).siblings('.hiddenReviewID').html()+"/reviewShow", function(result){
-  $('.genericContent').html(result);});
-    
-  
-});
 
   $('.shareGig').click(function(){
         $('#messageURL').val('G#'+$(this).siblings('.hiddenGigID').html());
