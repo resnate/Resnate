@@ -22,7 +22,11 @@ class ReviewsController < ApplicationController
 
   def pl
     @review = Review.find(params[:id])
-    redirect_to "/#reviews/" + params[:id]
+    if request.headers['HTTP_USER_AGENT'].eql? 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+      render :layout => false
+    else
+      redirect_to "/#reviews/" + params[:id]
+    end
   end
 
 	def like
