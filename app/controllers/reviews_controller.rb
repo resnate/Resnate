@@ -22,6 +22,14 @@ class ReviewsController < ApplicationController
 
   def pl
     @review = Review.find(params[:id])
+    if @review.reviewable_type == "PastGig"
+      @name = User.find(@review.user_id).first_name + "'s Gig Review"
+      @image = "https://graph.facebook.com/" + User.find(@review.user_id).uid + "/picture?width=200&height=200"
+    elsif @review.reviewable_type == "Song"
+      @name = User.find(@review.user_id).first_name + "'s Review of " + Song.find(@review.reviewable_id).name
+      @image = "https://img.youtube.com/vi/" + Song.find(@review.reviewable_id).content + "/hqdefault.jpg"
+    end
+      
     if request.headers['HTTP_USER_AGENT'].eql? 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
       render :layout => false
     else
