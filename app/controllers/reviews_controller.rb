@@ -22,7 +22,7 @@ class ReviewsController < ApplicationController
 
   def pl
     @review = Review.find(params[:id])
-    redirect_to "/#reviews/show/" + params[:id]
+    redirect_to "/#reviews/" + params[:id]
   end
 
 	def like
