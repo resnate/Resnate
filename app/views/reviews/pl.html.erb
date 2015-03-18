@@ -4,6 +4,6 @@
     <% if @review.reviewable_type == "Song" %>
     	<meta property="og:image" content="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" />
     <% else %>
-    <meta property="og:image" content="https://ssl.sk-static.com/images/media/profile_images/artists/44022/large_avatar" />
+    <meta property="og:image" content="https://graph.facebook.com/<%= User.find(@review.user_id).uid %>/picture?width=200&height=200" />
     <% end %>
  </head>
