@@ -1,7 +1,9 @@
 <head>
-	<meta property="og:title" content="<%= User.find(@review.user_id).first_name %>'s Review" />
+	<meta property="og:title" content="<%= User.find(@review.user_id).first_name %>'s Review of <%= @name %>" />
     <meta property="og:description" content="Resnate: The Music Social Network." />
     <% if @review.reviewable_type == "Song" %>
     	<meta property="og:image" content="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" />
+    <% else %>
+    <meta property="og:image" content="https://ssl.sk-static.com/images/media/profile_images/artists/44022/large_avatar" />
     <% end %>
  </head>
