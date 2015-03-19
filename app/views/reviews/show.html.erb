@@ -38,6 +38,15 @@
 	
 	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
 
+	<div class="likerNumber">
+		<% likers = @review.likers(User).count %>
+        <% if likers == 1 %>
+          <%= likers %> like
+        <% else %>
+          <%= likers %> likes
+        <% end %>
+      </div>
+
 	<% unless current_user.nil? %>
 
 	<div class="feedButtons reviewButtons">
@@ -48,7 +57,8 @@
 		<% end %>
       	
       	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-      	<a id="fbShare" class="twitter popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+      	<a class="twitter popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+      	<a class="twitter popup csIcons" href="https://twitter.com/share?url=resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
       <div class="hiddenReviewID"><%= @review.id %></div>
       <span class="hiddenID"><%= @review.user_id %></span>
 	</div>

@@ -81,17 +81,13 @@ textarea {
 
 
 #feedBox {
-  background-color: #1F000A;
+  background-color: #F2F2F2;
   overflow: auto;
   display: inline-block;
   height: calc(50% - 51px);
   padding: 7.5px;
   width: 235.3px;
   margin-left: -3px;
-  color: white;
-  a {
-    color: white;
-  }
 }
 
 #newStuff {
@@ -1022,11 +1018,7 @@ tr {
   width: 250px;
   height: 100%;
   margin-top: 50px;
-  background-color: #1F000A;
-  color: white;
-  a {
-    color: white;
-  }
+  background-color: #F2F2F2;
 }
 
 .navbar {
@@ -1397,12 +1389,9 @@ tr {
 }
 
 .reviewContent {
-  background-color: #1F000A;
-  padding: 15px;
   margin-bottom: 10px;
   font-size: 1.1em;
   line-height: 2em;
-  color: white;
 }
 
 .reviewHeader {
