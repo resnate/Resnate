@@ -76,7 +76,9 @@
             <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
             </div>
             <div class="hiddenCommentID"><%= comment.id %></div>
+            <% if comment.user_id == current_user.id %>
             <span class="glyphicon glyphicon-remove commentDelete"></span>
+            <% end %>
           </div>
   			<% end %>
 		</div>
