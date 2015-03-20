@@ -247,17 +247,20 @@
           <%= likers %> likes
         <% end %>
       </div>
+      <% if current_user.likes?(Review.find(id)) %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+    <% elsif current_user.id != Review.find(id).user_id  %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
+      <div class="hiddenReviewID"><%= id %></div>
+    <% end %>
 
   <div class="feedButtons reviewButtons">
-    <% if current_user.likes?(Review.find(id)) %>
-      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
-    <% elsif current_user.id != PastGig.find(Review.find(id).reviewable_id).user_id %>
-      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
-    <% end %>
         
         <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+        <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= id %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+        <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= id %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
       <div class="hiddenReviewID"><%= id %></div>
-      <span class="hiddenID"><%= PastGig.find(Review.find(id).reviewable_id).user_id %></span>
+      <span class="hiddenID"><%= Review.find(id).user_id %></span>
   </div>
 
   
@@ -578,7 +581,9 @@ $(function(){
       feed();
     }
     
-}
+} else {
+      feed();
+    }
 
   $('#Welcome').hide().fadeIn(3000);
 

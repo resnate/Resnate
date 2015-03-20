@@ -46,19 +46,21 @@
           <%= likers %> likes
         <% end %>
       </div>
+      <% if current_user.likes?(@review) %>
+			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+		<% elsif current_user.id != @review.user_id %>
+			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
+			<div class="hiddenReviewID"><%= @review.id %></div>
+		<% end %>
 
 	<% unless current_user.nil? %>
 
 	<div class="feedButtons reviewButtons">
-		<% if current_user.likes?(@review) %>
-			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
-		<% elsif current_user.id != @review.user_id %>
-			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
-		<% end %>
+		
       	
       	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-      	<a class="twitter popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
-      	<a class="twitter popup csIcons" href="https://twitter.com/share?url=resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
+      	<a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+      	<a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
       <div class="hiddenReviewID"><%= @review.id %></div>
       <span class="hiddenID"><%= @review.user_id %></span>
 	</div>

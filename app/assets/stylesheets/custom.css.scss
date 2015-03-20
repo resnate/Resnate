@@ -1405,6 +1405,9 @@ tr {
 
 .likerNumber {
   font-size: 1.5em;
+  display: inline-block;
+  vertical-align: text-bottom;
+  margin-right: 10px;
 }
 
 .reviewTitle {
