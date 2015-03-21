@@ -14,6 +14,13 @@ class ReviewsController < ApplicationController
   	render :layout => false
 	end
 
+  def update
+    @review = Review.find(params[:id])
+    @content = params[:content]
+    @review.update_attributes(content: @content)
+    render :layout => false
+  end
+
   def show
     @review = Review.find(params[:id])
     @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first
@@ -53,5 +60,9 @@ class ReviewsController < ApplicationController
       @review = Review.find(params[:id])
       current_user.unlike!(@review)
       render :layout => false
+    end
+
+    def review_params
+      params.require(:review).permit(:content)
     end
 end

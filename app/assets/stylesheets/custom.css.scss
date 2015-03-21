@@ -86,12 +86,13 @@ textarea {
   display: inline-block;
   height: calc(50% - 51px);
   padding: 7.5px;
-  width: 235.3px;
+  width: 248px;
   margin-left: -3px;
+  text-align: center;
 }
 
 #newStuff {
-  width: calc(100% - 235px);
+  width: calc(100% - 248px);
   overflow: auto;
   display: inline-block;
   vertical-align: top;
@@ -372,7 +373,7 @@ body {
   margin-top: 10px;
 }
 .dropPlaylist {
-  border: 3px solid white;
+  border: 3px solid #801336;
 }
 
 .sidePlaylistName, .sideLikedName, .sideNewPlaylistName {
@@ -957,7 +958,7 @@ img {border:none;}
   }
 
 .gigBlocks, #noPastGigs, #noUpcomingGigs, #noSongkick, .profileActivity, #topFive {
-  margin: 0px 30px 30px 20px;
+  margin: 0px 25px 30px 20px;
 }
 
 .latest {
@@ -1019,6 +1020,9 @@ tr {
   height: 100%;
   margin-top: 50px;
   background-color: #F2F2F2;
+  a {
+    color: black;
+  }
 }
 
 .navbar {
@@ -1341,7 +1345,7 @@ tr {
 .hiddenPlaylistID, .hiddenYTName, .sharePlaylistID, #shareSubmit, #messageURL,
 #infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrentID, #stopID, .btn-default, .invisCount,
 #hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #hiddenPastGigsIDs, #pastSongkickGigID, .reviewGigID, #pastGigIDsSubmit, #new_gig, .lol, .hiddenUserID, .hiddenGigLocation, .hiddenArtistName, .hiddenGigDate, .hiddenReviewID, #infinite-scrolling .pagination, #hiddenFolloweesIDs,
-#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID {
+#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID, #callbackID {
   display: none;
 }
 
@@ -1685,8 +1689,9 @@ height: 90%;
 }
 
 .activityInfo {
-  width: 100%;
+  width: 95%;
   margin-top: 15px;
+  text-align: left;
 }
 
 
@@ -1764,7 +1769,7 @@ height: 90%;
   padding-bottom: 25px;
   border-bottom: 1px solid #d7d7d7;
   vertical-align: top;
-  text-align: left;
+  text-align: center;
 }
 
 .feedThumbs {
@@ -1843,7 +1848,7 @@ height: 90%;
       right: 0;
       width: 70%;
       height: 1.2em;
-      background: linear-gradient(to right, rgba(31, 0, 10, 0), rgba(31, 0, 10, 1) 90%);
+      background: linear-gradient(to right, rgba(242, 242, 242, 0), rgba(242, 242, 242, 1) 90%);
 
 
   }

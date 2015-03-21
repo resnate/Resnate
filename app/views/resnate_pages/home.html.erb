@@ -551,10 +551,10 @@ function ytSearch()
 
 
 function abracadabra() {
-    $('.sidebar-nav').css('width', '495px');
-    $('#newStuff').css('width', 'calc(100% - 235px)');
-    $('#container').css('margin-left', '495px');
-    $('#container').css('width', 'calc(100% - 495px)');
+    $('.sidebar-nav').css('width', '510px');
+    $('#newStuff').css('width', 'calc(100% - 248px)');
+    $('#container').css('margin-left', '510px');
+    $('#container').css('width', 'calc(100% - 510px)');
     $("#YTtest, #videoResultsDiv, #Gigs, #iframeAmazon").fadeIn().css("display","inline-block");
     
 }
@@ -820,14 +820,31 @@ function friendsLikeArtist(){
     $(".modal-content").scrollTop(0);
 });
 
-        $(document).on('keydown', ".pastGigreviewInput", function(event){
+        $(document).on('keydown', ".noReview", function(event){
   
     if(event.keyCode==13 && !event.shiftKey){
   var contentText = $(this).val();
   var ID = $(this).siblings('.pgID').html();
-  $.post('/reviews', { reviewable_id: ID, reviewable_type: "PastGig", content: contentText, user_id: parseInt('<%=current_user.id %>') } );
-  $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
+  $.post('/reviews', { reviewable_id: ID, reviewable_type: "PastGig", content: contentText, user_id: parseInt('<%=current_user.id %>') } ).done(function( data ) {
+    $('#callbackID').html(data);
+  });;
+  $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div><div>' + $('#callbackID').html() + '</div>')
 }
+});
+
+        $(document).on('keydown', ".updateReview", function(event){
+  
+    if(event.keyCode==13 && !event.shiftKey){
+  var contentText = $(this).val();
+  var ID = $(this).siblings('.hiddenReviewID').html();
+  var updateURL = "/reviews/" + ID;
+  $.ajax({
+  url: updateURL,
+  method: "PUT",
+  data: { content : contentText }
+});
+  $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
+  }
 });
 
 
@@ -835,7 +852,7 @@ function friendsLikeArtist(){
 $(document).on('click', '.reviewContent', function(){
   if('<%=current_user.id %>' == $('.hiddenUserID').html()){
     var content = $(this).html();
-  $(this).replaceWith('<textarea class="pastGigreviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
+  $(this).replaceWith('<textarea class="pastGigreviewInput updateReview">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
   }
   
 });
