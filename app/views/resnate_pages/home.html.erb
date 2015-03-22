@@ -1561,10 +1561,10 @@ $('.dropdownPlaylistDiv, .dropdownLikeDiv').on({
   }
 }, '.sideDestroy, .sideEdit, .sideShare, .sideFollow, .sideUnfollow');
 
-$(document).on('click', '.playlistInfo, #latestPlaylist', function(e){
+$(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist', function(e){
   var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim();
   var playlistLiURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim() + '/playlistLi';
-
+  $('.modal').modal('hide');
   var playlistID = $(this).find('.hiddenPlaylistID').html().trim();
   if($('#dropdownPlaylist' + playlistID).length < 1){
     $.get(playlistLiURL, function(result){

@@ -115,11 +115,12 @@
 
 
 <div class="profileActivity" id="userReviews">
-  <h4><%= @user.first_name %>'s Reviews</h4>
+  <h4 id="seeAllReviews" data-toggle="modal" data-target="#genericModal"><%= @user.first_name %>'s Reviews</h4>
   <% if @reviews.count == 0 %>
   <%= @user.first_name %> hasn't written any reviews, share them a song or ask them to write a review for one of their past gigs.
   <% else %>
     <% @reviews.take(3).each do |review| %>
+    <div>
       <% if review.reviewable_type == "PastGig" %>
         <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg reviewGigImgs"  data-toggle="modal" data-target="#genericModal">
         <div class="hiddenReviewID"><%= review.id %></div>
@@ -128,7 +129,14 @@
             <div class="hiddenReviewID"><%= review.id %></div>
           </div>
       <% elsif review.reviewable_type == "Song" %>
+       <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="playlistImg latestImg reviewSong"  data-toggle="modal" data-target="#genericModal">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="latestContent">
+            <%= @user.first_name %> wrote a review for <span class="activityName reviewSong" data-toggle="modal" data-target="#genericModal"><%= Song.find(review.reviewable_id).name %></span>
+            <div class="hiddenReviewID"><%= review.id %></div>
+          </div>
       <% end %>
+    </div>
     <% end %>
 
   <% end %>
@@ -287,27 +295,7 @@
   <div class="profileActivity">
     <span data-toggle="modal" data-target="#genericModal" id="seeAllActivity"><h4 class="historyInfo"><%= @user.first_name %>'s Activity</h4><h6>Click to see all</h6></span>
 
-    <% unless PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Review").count == 0 %>
-      <div id="latestReview" class="latest">
-      <% latestReview = PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Review").last %>
-      <% if Review.find(latestReview.trackable_id).reviewable_type == "PastGig" %>
-          <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(latestReview.trackable_id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg reviewGigImgs" data-toggle="modal" data-target="#genericModal">
-          <div class="hiddenReviewID"><%= latestReview.trackable_id %></div>
-          <div class="latestContent">
-            <%= @user.first_name %> wrote a review for <span class="reviewGigName activityName" data-toggle="modal" data-target="#genericModal"></span>
-            <div class="hiddenReviewID"><%= latestReview.trackable_id %></div>
-          </div>
-      <% elsif Review.find(latestReview.trackable_id).reviewable_type == "Song" %>
-        <img src="https://img.youtube.com/vi/<%= Song.find(Review.find(latestReview.trackable_id).reviewable_id).content %>/hqdefault.jpg" class="playlistImg latestImg reviewSong"  data-toggle="modal" data-target="#genericModal">
-        <div class="hiddenReviewID"><%= latestReview.trackable_id %></div>
-          <div class="latestContent">
-            <%= @user.first_name %> wrote a review for <span class="activityName reviewSong" data-toggle="modal" data-target="#genericModal"><%= Song.find(Review.find(latestReview.trackable_id).reviewable_id).name %></span>
-            <div class="hiddenReviewID"><%= latestReview.trackable_id %></div>
-          </div>
-      <% end %>
-    </div>
-    <% end %>
-
+  
     <% unless PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Playlist").count == 0 %>
     <% latestPlaylist = PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Playlist").last %>
     <% unless Playlist.find(latestPlaylist.trackable_id).content.nil? %>
@@ -522,7 +510,7 @@
     $('#latestGigImg').attr('src', 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
   });
 
-  $('#latestSong').click(function(){
+  $(document).on('click', '#latestSong, .userSong', function(){
     videoID = $(this).find('img').attr("src").slice(27,38);
         
         <%= render "layouts/videoClick" %>
@@ -572,6 +560,15 @@ $('#seeAllActivity').click(function(){
   $.get("<%= @user.id %>/userActivities", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Activity</h4></div><div class="modal-body" id="userActivityBody">'+result+'</div>');
+});
+
+});
+
+$('#seeAllReviews').click(function(){ 
+
+  $.get("<%= @user.id %>/userReviews", function(result){
+
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Reviews</h4></div><div class="modal-body" id="userReviewsBody">'+result+'</div>');
 });
 
 });

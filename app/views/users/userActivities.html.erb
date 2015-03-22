@@ -6,7 +6,7 @@
 
 <% else %>
 
-	<% @activities.each do |activity| %>
+	<% @activities.where.not(trackable_type: "Review").each do |activity| %>
 		<%if activity.trackable_type == "Gig" %>
 			<div class="latest userGig">
       			<% latestGig = Gig.find(activity.trackable_id) %>
@@ -24,19 +24,6 @@
       			<div class="latestContent">
         			<%= @user.first_name %> listened to <span class="latestSongName"><%= latestSong.name %></span>
       			</div>
-    		</div>
-		
-		
-
-		<%elsif activity.trackable_type == "Review" %>
-			<div class="latest userReview">
-      			<% latestReview = activity.trackable_id %>
-          		<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(latestReview).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg"  data-toggle="modal" data-target="#genericModal">
-          		<div class="hiddenReviewID"><%= latestReview %></div>
-          		<div class="latestContent">
-            		<%= @user.first_name %> wrote a review for <span class="userReviewName" data-toggle="modal" data-target="#genericModal"></span>
-            		<div class="hiddenReviewID"><%= latestReview %></div>
-          		</div>
     		</div>
 
     	<%elsif activity.trackable_type == "Playlist" %>

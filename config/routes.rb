@@ -17,6 +17,7 @@ Resnate::Application.routes.draw do
   get "/:id/artistLikes" => "users#artistLikes"
   get "/:id/lastMsg" => "users#lastMsg"
   get "/:id/userActivities" => "users#userActivities"
+  get "/:id/userReviews" => "users#userReviews"
   get "/points" => "users#points"
   get "/:id/:search/friendsWhoLike" => "users#friendsWhoLike"
   post "/:id/point1" => "users#point1"

@@ -433,7 +433,7 @@ body {
 
 .dropdownPlaylistDiv, .dropdownLikeDiv {
   display: none;
-  background-color: #47051A !important;
+  background-color: #801336 !important;
   border-top: 1px solid white;
 }
 
@@ -978,7 +978,7 @@ img {border:none;}
   vertical-align: top;
 }
 
-.latestPlaylistName, .latestSongName, #latestGigDate, #latestReviewName {
+.latestPlaylistName, .latestSongName, #latestGigDate, .reviewGigName {
   font-weight: bold;
   &:hover {
     cursor: pointer;
@@ -1216,7 +1216,7 @@ tr {
     margin-bottom: 10px;
   }
 
-  #seeAll, #seeAllpast, #seePlaylists, .playlistName, .followersOpener, #getLikes, #getUserLikes, .levelNpoints {
+  #seeAll, #seeAllpast, #seeAllActivity, #seePlaylists, #seeAllReviews, .playlistName, .followersOpener, #getLikes, #getUserLikes, .levelNpoints {
     cursor: pointer;
     &:hover {
       color: red;
