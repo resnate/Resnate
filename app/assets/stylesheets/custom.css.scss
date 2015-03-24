@@ -1453,8 +1453,9 @@ tr {
 }
 
 .review {
-  width: 39%;
+  width: 500px;
   margin-bottom: 40px;
+  margin-left: 30px;
 }
 
 .photos {
@@ -1600,23 +1601,7 @@ tr {
   height: 32px;
 }
 
-.modal {
-  height: 100%;
 
-  .modal-content {
-  border-radius: 0px;
-  overflow: auto;
-  height: 100%;
-}
-
-.modal-dialog {
-width: 90%;
-height: 90%;
-
-  overflow: hidden;
-}
-
-}
 
 
 
@@ -1725,7 +1710,7 @@ height: 90%;
 .messageImgs {
   width: 180px;
   height: 180px;
-  float: left;
+  vertical-align: top;
   display: inline-block;
 }
 
@@ -1929,6 +1914,10 @@ height: 90%;
   &:hover {
     cursor: pointer;
   }
+}
+
+.modal-dialog {
+  width: 900px;
 }
 
 

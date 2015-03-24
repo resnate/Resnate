@@ -803,7 +803,7 @@ function friendsLikeArtist(){
 
                     function image_link(data, i) {
                         
-                            $('.topReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+                            $('.topReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
                             $('.featuredReviewName').eq(i).html(data.resultsPage.results.event.displayName);
                           
@@ -1880,38 +1880,6 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                             }
 
              });}});});}
-
-    
-
-    var topGigURL = $('#topGigImg').attr('src');
-
-  
-    $.ajax({
-      url: topGigURL,
-      async: false,
-      dataType: 'json',
-      success: function(json) {
-        
-        
-        image_link(json , this.indexValue);
-
-                    function image_link(data, i) {
-                        
-                            $('#topGigImg').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
-
-                            $('.topMonth').html(moment(data.resultsPage.results.event.start.date).format("MMM"));
-
-                            $('.topDay').html(moment(data.resultsPage.results.event.start.date).format("DD"));
-
-                            $('.topGigName').html(data.resultsPage.results.event.displayName);
-
-                            $('.topGigLocation').html(data.resultsPage.results.event.venue.metroArea.displayName);
-
-                          
-                    }
-        
-      }
-    });
 
 
 $('#topPhoto').click(function(){

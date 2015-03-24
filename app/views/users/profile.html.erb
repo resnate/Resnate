@@ -122,14 +122,14 @@
     <% @reviews.take(3).each do |review| %>
     <div>
       <% if review.reviewable_type == "PastGig" %>
-        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg reviewGigImgs"  data-toggle="modal" data-target="#genericModal">
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg reviewGigImgs latest"  data-toggle="modal" data-target="#genericModal">
         <div class="hiddenReviewID"><%= review.id %></div>
           <div class="latestContent">
             <%= @user.first_name %> wrote a review for <span class="reviewGigName activityName" data-toggle="modal" data-target="#genericModal"></span>
             <div class="hiddenReviewID"><%= review.id %></div>
           </div>
       <% elsif review.reviewable_type == "Song" %>
-       <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="playlistImg latestImg reviewSong"  data-toggle="modal" data-target="#genericModal">
+       <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="playlistImg latestImg reviewSong latest"  data-toggle="modal" data-target="#genericModal">
         <div class="hiddenReviewID"><%= review.id %></div>
           <div class="latestContent">
             <%= @user.first_name %> wrote a review for <span class="activityName reviewSong" data-toggle="modal" data-target="#genericModal"><%= Song.find(review.reviewable_id).name %></span>
