@@ -515,13 +515,24 @@ $('#currentTime').html(toHHMMSS(time));
 function ytSearch()
         {
             var userSearch = document.getElementById('search_query').value;
+            var songSearch = document.getElementById('song_query').value;  
             var script = document.createElement('script');
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
-            script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
+            if(songSearch.length > 0){
+              script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
+              + userSearch.replace(/'/g, " ") + songSearch.replace(/'/g, " ") + '  ' + '&type=video&start-index=1&max-results=50&' + 
+                   'alt=json-in-script&callback=showMyVideos&' + 
+                   'orderby=relevance&sortorder=descending&format=5');
+            } else {
+              script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
               + userSearch + '&type=video&max-results=50&' + 
                    'alt=json-in-script&callback=showMyVideos&' + 
                    'orderby=relevance&sortorder=descending&format=5');
+            }
+            
+
+            
             
             document.documentElement.firstChild.appendChild(script);
 

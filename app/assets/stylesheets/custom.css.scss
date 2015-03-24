@@ -1027,7 +1027,7 @@ tr {
 
 .navbar {
   background-color: white ;
-  /*box-shadow: 0px 1px 1px grey;*/
+  min-width: 900px;
   height: 51px;
   margin-bottom: 0px;
   border: 0px;
@@ -1290,6 +1290,10 @@ tr {
   width: 100px;
   background: rgba(0, 0, 0, .6);
   color: white;
+}
+
+#song_query {
+  width: 140px;
 }
 
 #search_user {
