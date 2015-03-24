@@ -1920,8 +1920,22 @@ tr {
   }
 }
 
+.modal {
+  height: 100%;
+
+  .modal-content {
+  border-radius: 0px;
+  overflow: auto;
+  height: 100%;
+}
+
 .modal-dialog {
-  width: 900px;
+width: 900px;
+height: 90%;
+
+  overflow: hidden;
+}
+
 }
 
 
