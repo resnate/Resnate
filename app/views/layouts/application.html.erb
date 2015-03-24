@@ -315,47 +315,9 @@ $('body').on('click', '.ns-close', function(){
           <li><img src="https://graph.facebook.com/<%=current_user.uid%>/picture?width=100&height=100" id="profilePic" onclick="profile()"></li>
 
           <li class="levelNpoints" data-toggle="modal" data-target="#genericModal" onclick="getLeaderboard()">
-            <% if current_user.level_name == "Filthy Casual" %>   
-      <div class="levelName filthy">
-      <%= current_user.level_name %>
-      </div>
-
-    <% elsif current_user.level_name == "Hipster" %>
-      <div class="levelName hipster">
-      <%= current_user.level_name %>
-      </div>
-
-    <% elsif current_user.level_name == "ÜberHipster" %>
-      <div class="levelName uberHipster">
-          <%= current_user.level_name %>
-      </div>
-      
-    <% elsif current_user.level_name == "Groupie" %>
-      <div class="levelName groupie">
-      <%= current_user.level_name %>
-      </div>
-
-    <% elsif current_user.level_name == "SuperGroupie" %>   
-      <div class="levelName superGroupie">
-      <%= current_user.level_name %>
-      </div>
-
-    <% elsif current_user.level_name == "Rock Star" %>   
-      <div class="levelName rockStar">
-      <%= current_user.level_name %>
-      </div>
-
-    <% elsif current_user.level_name == "Rap God" %>   
-      <div class="levelName rapGod">
-      <%= current_user.level_name %>
-      </div>
-
-    <% elsif current_user.level_name == "BIGGER THAN JESUS" %>   
-      <div class="levelName">
-        <font color="red">BI</font><font color="orange">GG</font><font color="yellow">ER </font></font><font color="green">TH</font><font color="blue">AN </font><font color="indigo">JE</font><font color="violet">SUS</font>
-      </div>
-
-<% end %>
+            <div class="levelName navLevel">
+              <%= current_user.level_name %>
+            </div>
 
             <div class="points navPoints">
               <%= current_user.points %>
