@@ -1,0 +1,60 @@
+<% if @reviews.count == 0 %>
+  <%= @user.first_name %> hasn't written any reviews, share them a song or ask them to write a review for one of their past gigs.
+  <% else %>
+    <% @reviews.each do |review| %>
+    <div>
+      <% if review.reviewable_type == "PastGig" %>
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg reviewGigImgs latest">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="latestContent">
+            <%= @user.first_name %> wrote a review for <span class="reviewGigName activityName"></span>
+            <div class="hiddenReviewID"><%= review.id %></div>
+          </div>
+      <% elsif review.reviewable_type == "Song" %>
+       <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="playlistImg latestImg reviewSong latest">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="latestContent">
+            <%= @user.first_name %> wrote a review for <span class="activityName reviewSong"><%= Song.find(review.reviewable_id).name %></span>
+            <div class="hiddenReviewID"><%= review.id %></div>
+          </div>
+      <% end %>
+    </div>
+    <% end %>
+
+  <% end %>
+
+  <div class="genericInfinite-scrolling">
+   <%= will_paginate @reviews, renderer: BootstrapPagination::Rails %>
+ </div>
+
+  <script type="text/javascript">
+
+  var userReviewUrls = [];
+
+  for(j=0; j<$('#userReviewsBody .reviewGigImgs').length; j++){
+    userReviewUrls.push($('.reviewGigImgs').eq(j).attr('src'));
+  }
+
+  for(j=0; j<$('#userReviewsBody .reviewGigImgs').length; j++){
+    $.ajax({
+      url: userReviewUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('#userReviewsBody .reviewGigImgs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                         
+
+                            $('#userReviewsBody .reviewGigName').eq(i).text(data.resultsPage.results.event.displayName);
+                    }
+      }
+    });
+  }
+
+  </script>
