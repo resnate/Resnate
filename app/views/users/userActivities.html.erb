@@ -51,10 +51,10 @@
     			<img src="<%= user.image %>" class="latestImg userImg" >
     			<div class="hiddenID"><%= user.id %></div>
     			<div class="latestContent">
-    				<% if activity.parameters.level.nil? %>
+    				<% if activity.parameters.nil? || activity.parameters == {} %>
     					New level: <%= user.level_name %>
     				<% else %>
-    					New level: <%= user.level_name %>
+    					New level: <%= activity.parameters.level %>
     				<% end %>
     			</div>
     		</div>
