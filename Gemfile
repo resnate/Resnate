@@ -35,6 +35,7 @@ gem 'thin'
 gem 'browser'
 gem 'pg'
 gem 'bulk_data_methods'
+gem 'newrelic_rpm'
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'
