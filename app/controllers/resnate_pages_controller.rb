@@ -35,6 +35,14 @@ class ResnatePagesController < ApplicationController
   end
 
   def AmazonStore
+    if current_user.country == "United Kingdom"
+      req = Vacuum.new('GB', true)
+    elsif current_user.country == "France"
+      req = Vacuum.new('FR', true)
+    else
+      req = Vacuum.new('US', true)
+    end
+    @search_query = params[:search_query]
   	render :layout => false
   end
 

@@ -1,14 +1,6 @@
  <%= stylesheet_link_tag "resnate_pages", media: "all",
                                            "data-turbolinks-track" => true %>
 <div id="azDiv">
- <% if current_user.country == "United Kingdom" %>
- <% req = Vacuum.new('GB') %>
- <% elsif current_user.country == "France" %>
- <% req = Vacuum.new('FR') %>
- <% else %>
- <% req = Vacuum.new('US') %>
- <% end %>
- <% @search_query = params[:search_query] %>
               <% req.associate_tag = 'resnate-21' %>
               <% req.configure(   aws_access_key_id:     'AKIAIK5DPVPX6A2SKBSQ',aws_secret_access_key: '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', associate_tag:         'resnate-21') %>
               <% params = {'SearchIndex' => 'Apparel', 'Keywords'    => @search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage'    => 1} %>
