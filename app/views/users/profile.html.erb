@@ -332,9 +332,9 @@
     <% unless PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Gig").count == 0 %>
     <div id="latestGig" class="latest">
       <% latestGig = Gig.find(PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Gig").last.trackable_id) %>
-      <a href="https://www.songkick.com/concerts/<%= latestGig.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= latestGig.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg" id="latestGigImg">
+      <a href="https://www.songkick.com/concerts/<%= latestGig.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= latestGig.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg latestGigImg">
       <div class="latestContent">
-        <%= @user.first_name %> is going to <span id="latestGigDate"></span>
+        <%= @user.first_name %> is going to <span class="latestGigDate"></span>
       </div>
       </a>
     </div>
@@ -427,6 +427,38 @@
                          
 
                             $('.profileGigName a').eq(i).text(data.resultsPage.results.event.displayName);
+
+                            $('.profileGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
+                    }
+      }
+    });
+  }
+
+  var latestGigUrls = [];
+
+  for(j=0; j<$('#box2 .latestGigImg').length; j++){
+    latestGigUrls.push($('.latestGigImg').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('#box2 .latestGigImg').length; j++){
+    $.ajax({
+      url: latestGigUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('#box2 .latestGigImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                         
+
+                            $('#box2 .latestGigDate').eq(i).text(data.resultsPage.results.event.displayName);
 
                             $('.profileGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
                     }
