@@ -1,0 +1,6 @@
+<% fArray = [] %>
+        <% fArray.push(@user.uid.to_i) %>
+        <% @followees.each do |f| %>
+        <% fArray.push(f.uid.to_i) %>
+        <% end %>
+        <%= fArray.map(&:inspect).join(', ') %>

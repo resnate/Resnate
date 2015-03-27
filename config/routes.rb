@@ -14,6 +14,7 @@ Resnate::Application.routes.draw do
   get "/:id/upcomingGigs" => "users#upcomingGigs"
   get "/:id/followees" => "users#followees"
   get "/:id/followers" => "users#followers"
+  get "/:id/followeesUIDs" => "users#followeesUIDs"
   get "/:id/artistLikes" => "users#artistLikes"
   get "/:id/lastMsg" => "users#lastMsg"
   get "/:id/userActivities" => "users#userActivities"

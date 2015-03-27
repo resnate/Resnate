@@ -776,12 +776,16 @@ function getLeaderboard(){
 }
 
       function feed(){
+        $.get('<%= current_user.id %>/followeesUIDs', function(result){
+      $('#hiddenFolloweesIDs').html(result);
+    });
         $.get("/activities", function(result){
   $('#feedBox').html(result);});
-  $("#feedBox").scrollTop(0);
+  $("#feedBox").scrollTop(0)
     $('#container').animate({
         top: '51px'
     });
+    
 }
 
 

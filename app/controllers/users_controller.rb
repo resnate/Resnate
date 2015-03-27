@@ -157,14 +157,18 @@ end
     def followers
       @user = User.find(params[:id])
       @followers = @user.followers(User)
-      @users = User.all
       render :layout => false
     end
 
     def followees
       @user = User.find(params[:id])
       @followees = @user.followees(User)
-      @users = User.all
+      render :layout => false
+    end
+
+    def followeesUIDs
+      @user = User.find(params[:id])
+      @followees = @user.followees(User)
       render :layout => false
     end
 
