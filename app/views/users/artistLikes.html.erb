@@ -9,9 +9,9 @@
   <ul class="artistLikesUl">
   <% @user.musicLikes.each do |ml| %>
   <% if current_user.musicLikes.include?(ml) %>
-  <li class="ml">
+  <li class="alMl">
     <h5 class="mlSpan"><%= ml %></h5>
-      <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
+      <img class="alMlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
 
   </li>
   <% end %>
@@ -26,9 +26,9 @@
 <h4>All Artists</h4>
   <ul class="artistLikesUl">
   <% @user.musicLikes.each do |ml| %>
-  <li class="ml">
+  <li class="alMl">
     <h5 class="mlSpan"><%= ml %></h5>
-      <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
+      <img class="alMlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
 
   </li>
   <% end %>
@@ -41,25 +41,24 @@ $(function(){
   
   var urls = [];
 
-  for(j=0; j<$('.ml').length; j++){
-    urls.push($('.mlImg').eq(j).attr('src'));
+  for(j=0; j<$('.alMl').length; j++){
+    urls.push($('.alMlImg').eq(j).attr('src'));
   }
 
 
 
-  for(j=0; j<$('.ml').length; j++){
+  for(j=0; j<$('.alMl').length; j++){
     $.ajax({
       url: urls[j],
       indexValue: j,
       async: false,
       dataType: 'json',
       success: function(json) {
-        
         image_link(json , this.indexValue);
 
                     function image_link(data, i) {
                         
-                            $('.mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
+                            $('.alMlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
                           
                     }
         

@@ -474,13 +474,13 @@
 
 
 
-  for(j=0; j<$('.ml').length; j++){
-    urls.push($('.mlImg').eq(j).attr('src'));
+  for(j=0; j<$('#box2 .ml').length; j++){
+    urls.push($('#box2 .mlImg').eq(j).attr('src'));
   }
 
 
 
-  for(j=0; j<$('.ml').length; j++){
+  for(j=0; j<$('#box2 .ml').length; j++){
 
     $.ajax({
       url: urls[j],
@@ -494,7 +494,7 @@
                     function image_link(data, i) {
 
                         
-                            $('.mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
+                            $('#box2 .mlImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.artist[0].id+'/large_avatar');
                           
                     }
         

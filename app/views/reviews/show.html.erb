@@ -3,7 +3,7 @@
 
 	
 	<div class="reviewHeader">
-
+		<div class="hiddenUserID"><%= @review.user_id%></div>
 		<% if @review.reviewable_type == "PastGig" %>
 
 		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@review.reviewable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= @review.id %>"></a>
@@ -37,6 +37,11 @@
 	</div>
 	
 	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+
+	<% if current_user.id == @review.user_id %>
+	<div>Edit</div>
+	<div>Delete</div>
+	<% end %>
 
 	<div class="likerNumber">
 		<% likers = @review.likers(User).count %>

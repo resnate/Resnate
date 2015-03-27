@@ -956,7 +956,7 @@ img {border:none;}
   margin-bottom: 10px;
 }
 
-.artistImages, .mlImg {
+.artistImages, .mlImg, .alMlImg {
     height: 115px;
     width: 115px;
     background-image: image-url("ResnateThickerSquare.svg");
@@ -1485,7 +1485,7 @@ tr {
 }
 
 
-.ml {
+.ml, .alMl {
   position: relative;
   float: left;
   color: white;
