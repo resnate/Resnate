@@ -10,9 +10,9 @@
 		<%if activity.trackable_type == "Gig" %>
 			<div class="latest userGig">
       			<% latestGig = Gig.find(activity.trackable_id) %>
-      			<a href="https://www.songkick.com/concerts/<%= latestGig.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= latestGig.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg" id="latestGigImg">
+      			<a href="https://www.songkick.com/concerts/<%= latestGig.songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= latestGig.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg latestGigImg">
       				<div class="latestContent">
-        				<%= @user.first_name %> is going to <span class="userGigDate"></span>
+        				<%= @user.first_name %> is going to <span class="latestGigDate"></span>
       				</div>
       			</a>
     		</div>
