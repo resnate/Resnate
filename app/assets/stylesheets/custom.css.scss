@@ -1881,7 +1881,8 @@ tr {
   }
 }
 
-.feedGigLink, .msgReviewName, .msgReviews {
+.feedGigLink, .msgReviewName, .msgReviews, .feedGigName {
+  color: black;
   font-weight: bold;
   &:hover {
     color: red;
