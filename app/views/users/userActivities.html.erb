@@ -68,3 +68,37 @@
 <div class="genericInfinite-scrolling">
    <%= will_paginate @activities, renderer: BootstrapPagination::Rails %>
  </div>
+
+ <script type="text/javascript">
+
+var latestGigUrls = [];
+
+  for(j=0; j<$('.latestGigImg').length; j++){
+    latestGigUrls.push($('.latestGigImg').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.latestGigImg').length; j++){
+    $.ajax({
+      url: latestGigUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.latestGigImg').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                         
+
+                            $('.latestGigDate').eq(i).text(data.resultsPage.results.event.displayName);
+                    }
+      }
+    });
+  }
+
+ </script>

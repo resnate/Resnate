@@ -986,7 +986,7 @@ img {border:none;}
   vertical-align: top;
 }
 
-.latestPlaylistName, .latestSongName, .latestGigDate, .reviewGigName {
+.latestPlaylistName, .latestSongName, .latestGigDate, #latestGigDate, .reviewGigName {
   font-weight: bold;
   &:hover {
     cursor: pointer;
