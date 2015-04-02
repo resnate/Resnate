@@ -248,12 +248,12 @@
         <% end %>
       </div>
       <% if current_user.likes?(Review.find(id)) %>
-      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+      <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
     <% elsif current_user.id != Review.find(id).user_id  %>
-      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
-      <div class="hiddenReviewID"><%= id %></div>
+      <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+      
     <% end %>
-
+      <div class="hiddenReviewID"><%= id %></div>
   <div class="feedButtons reviewButtons">
         
         <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
@@ -760,13 +760,13 @@ $('#shareCurrentImg').click(function(){
 
       function getConvos(){
   $.get("<%= current_user.id %>/conversations", function(result){
-  $('.genericContent').html(result);});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Messages</h4></div><div class="modal-body" id="convosBody">'+result+'</div>');});
   $('#recCount').html(0);
 }
 
 function getPoints(){
   $.get("<%= current_user.id %>/notifications", function(result){
-  $('.genericContent').html(result);});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Notifications</h4></div><div class="modal-body" id="ntBody">'+result+'</div>');});
   $('#pointCount').html(0);
 }
 
@@ -905,7 +905,7 @@ $(document).on('click', '#songReviewContent', function(){
           $.get(url, function(response){
             setTimeout(
               function() {
-                $('.genericContent .modal-body').append(response); 
+                $('#genericModal .modal-body').append(response); 
                 }, 2500);
                      });
         }    
@@ -968,7 +968,7 @@ $(document).on('click', '#songReviewContent', function(){
 
         
 
-          $('body').on('click', '#container #feedBox .activity .feedYT', function(){
+          $(document).on('click', '.feedYT, .inboxSong, .songName', function(){
             videoID = $(this).attr("src").slice(27,38);
             <%= render 'layouts/videoClick' %>
           });
@@ -1021,7 +1021,7 @@ if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() !=
 
  });
 
-          $('body').on('click', '.reviewThumb', function(){
+          $(document).on('click', '.reviewThumb', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
  $.post("/reviews/"+$(this).siblings('.hiddenReviewID').html()+"/reviewUnlike");
@@ -1058,7 +1058,12 @@ $(document).on('click', '.shareReview', function(){
   
   
   $.get('/reviews/' + $(this).siblings('.hiddenReviewID').html(), function(result){
-  $('.genericContent').html(result);});
+  $('.modal').modal('hide');
+  $('#box2').html('<div class="modal-body">'+result+'</div>');
+  $('#container').animate({
+        top: '-100%'
+    });
+});
     
   
 });
@@ -1074,6 +1079,27 @@ $(document).on('click', '.shareReview', function(){
       
       
       $(this).val('');
+
+      if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) {
+        $('#shareCurrentID').val($(this).parents('.likesNcomments').siblings('.hiddenID').html().trim());
+        
+        if($(this).parent().siblings('.activityDetails').children('.feedReviewGigName').length > 0) {
+          $('#messageURL').val('C|R' + $(this).parent().siblings('.activityDetails').find('.hiddenReviewID').html().trim());
+        } 
+         else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
+          $('#messageURL').val('C|P' + $(this).parents('.activityInfo').siblings('.playlistInfo').find('.hiddenPlaylistID').html().trim());
+        } else {
+          $('#messageURL').val('C|S' + $(this).parents('.activityInfo').find('.activityDetails').find('.hiddenYTID').html().trim());
+        }
+        
+        $('.shareTextarea').val('Check this out!');
+      } else if($(this).siblings('.hiddenReviewID').length > 0) {
+          $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
+        }
+        $('.shareTextarea').val($(this).siblings('.commentURL').html().trim());
+        $('#shareSubmit').click();
+        $('#messageURL').val('');
+      
     }
   });
 
@@ -1294,6 +1320,9 @@ $('.modal').on('hidden.bs.modal', function () {
   
 });
 
+$(document).on('click', '.feedCsImgFollow', function(){
+     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).parent().parent().find('.activityName').html());
+  });
 
 
 $(document).on('mouseenter', '.dropdown-menu li a', function(){
@@ -1576,7 +1605,7 @@ $('.dropdownPlaylistDiv, .dropdownLikeDiv').on({
   }
 }, '.sideDestroy, .sideEdit, .sideShare, .sideFollow, .sideUnfollow');
 
-$(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist', function(e){
+$(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPlaylistName', function(e){
   var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim();
   var playlistLiURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim() + '/playlistLi';
   $('.modal').modal('hide');
@@ -1584,12 +1613,13 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist', functio
   if($('#dropdownPlaylist' + playlistID).length < 1){
     $.get(playlistLiURL, function(result){
            $('.sideNewPlaylist').after(result);
-        });
-
-    $.get(playlistURL, function(result){
+           $.get(playlistURL, function(result){
           $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
           $('#dropdownPlaylistDiv' + playlistID).toggle();
         });
+        });
+
+    
 
   } else {
     $.get(playlistURL, function(result){
@@ -1605,6 +1635,32 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist', functio
     $('.modal').modal('hide');  
   }
   
+});
+
+$(document).on('click', '.feedFollow.fFl',function(){
+  $(this).parents('.feedShares').css("display", "none");
+  $(this).parents('.feedShares').siblings('.feedShares.fUl').css("display", "inline-block");
+  var playlistID = $(this).parents('.feedButtons').siblings('.activityYT').find('.hiddenPlaylistID').html().trim();
+  var playlistURL = '/playlists/' + playlistID;
+  var playlistLiURL = playlistURL + '/playlistLi';
+  $('.modal').modal('hide');
+  
+  if($('#dropdownPlaylist' + playlistID).length < 1){
+    $.get(playlistLiURL, function(result){
+           $('.sideNewPlaylist').after(result);
+           $.get(playlistURL, function(result){
+          $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
+          $('#dropdownPlaylistDiv' + playlistID).toggle();
+        });
+        });
+}
+});
+
+$(document).on('click', '.feedUnfollow.fUl',function(){
+  var playlistID = '#dropdownPlaylist' + $(this).parents('.feedButtons').siblings('.activityYT').find('.hiddenPlaylistID').html().trim();
+  $(this).parents('.feedShares').css("display", "none");
+  $(this).parents('.feedShares').siblings('.feedShares.fFl').css("display", "inline-block");
+  $(playlistID).parents('.sidePlaylist').remove();
 });
 
 $(document).on('click', '.commentDelete', function(){

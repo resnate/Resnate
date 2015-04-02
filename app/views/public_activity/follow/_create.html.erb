@@ -93,9 +93,7 @@
 		    	followed the playlist
 		    </div>
 
-      		<div class="activityName feedPlaylistName">
-      			<%= Playlist.find(Follow.find(activity.trackable_id).followable_id).name %>
-      		</div>
+      		<div class="activityName feedPlaylistName"><%= Playlist.find(Follow.find(activity.trackable_id).followable_id).name %><div class="hiddenPlaylistID"><%= Follow.find(activity.trackable_id).followable_id %></div></div>
       		<span style="display:inline"> by </span>
       		<span class="playlistCreatorSpan">
       			<div class="playlistCreatorFeed">

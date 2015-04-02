@@ -46,16 +46,6 @@ $(function(){
   });
 
 
-$('.feedFollow.fFl').click(function(){
-  $(this).parents('.feedShares').css("display", "none");
-  $(this).parents('.feedShares').siblings('.feedShares.fUl').css("display", "inline-block");
-});
-
-$('.feedUnfollow.fUl').click(function(){
-  $(this).parents('.feedShares').css("display", "none");
-  $(this).parents('.feedShares').siblings('.feedShares.fFl').css("display", "inline-block");
-});
-
 $('.feedUnfollow.fUlUser').click(function(){
   $(this).parents('.feedShares.fUlUser').css("display", "none");
   $(this).parents('.feedShares.fUlUser').siblings('.feedShares.fFlUser').css("display", "inline-block");

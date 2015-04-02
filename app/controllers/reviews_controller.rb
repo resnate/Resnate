@@ -63,7 +63,6 @@ class ReviewsController < ApplicationController
     end
 
     def unlike
-      @user = User.find(params[:user])
       @review = Review.find(params[:id])
       current_user.unlike!(@review)
       render :layout => false

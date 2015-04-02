@@ -30,14 +30,15 @@
 </div>
 
 <div class="activityInfo">
-  <div class="activityDetails">
-    <div class="profileName"><%= activity.owner.name if activity.owner %></div>
+  <div class="profileName"><%= activity.owner.name if activity.owner %></div>
     <div class="hiddenID"><%= activity.owner.id %></div>
     <div class="verb">wrote a review for</div>
+  <div class="activityDetails">
+    
 
     <% if Review.find(activity.trackable_id).reviewable_type == "PastGig" %>
 
-      <span class="feedReviewGigName feedGigName<%= Review.find(activity.trackable_id).reviewable_id %>"></span>
+      <span class="feedReviewGigName feedGigName<%= Review.find(activity.trackable_id).reviewable_id %> activityName"></span>
 
     <% elsif Review.find(activity.trackable_id).reviewable_type == "Song" %>
 
@@ -117,7 +118,7 @@ $(function(){
   $.getJSON(url, function(data){
     $('.feedReviewGigs<%= Review.find(activity.trackable_id).reviewable_id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 
-                            $('.feedReviewGigName<%= Review.find(activity.trackable_id).reviewable_id %>').html(data.resultsPage.results.event.displayName);
+                            $('.feedGigName<%= Review.find(activity.trackable_id).reviewable_id %>').html(data.resultsPage.results.event.displayName);
   });
   
 });

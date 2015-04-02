@@ -17,6 +17,10 @@ html, body{
     -webkit-animation-timing-function: linear;
 }
 
+.modal-backdrop {
+  bottom: 0;
+}
+
 p {
   margin: 0px;
 }
@@ -941,7 +945,7 @@ img {border:none;}
 
 .profileActivity {
   max-height: 475px;
-  width: 720px;
+  width: 725px;
   overflow: hidden;
   vertical-align: top;
   text-align: left;
@@ -1035,11 +1039,12 @@ tr {
 
 .navbar {
   background-color: white ;
-  min-width: 900px;
+  min-width: 910px;
   height: 51px;
   margin-bottom: 0px;
   border: 0px;
-  background-color: #801336;
+  background-color: #E50049;
+  border-bottom: 1px solid black;
   li a {
     padding: 0px;
   }
@@ -1633,16 +1638,20 @@ tr {
   font-weight: bold; 
 }
 
-.profileName, .feedPic, .feedFollowPic, .profileFollowName, .feedFollow, .msgFollow, .feedUnfollow, .profileNameMsg, .msgUnfollow, .reviewerName  {
+.profileName, .feedPic, .feedFollowPic, .profileFollowName, .feedFollow, .msgFollow, .feedUnfollow, .profileNameMsg, .msgUnfollow, .reviewerName, .activityName  {
   &:hover {
     color: red;
     cursor: pointer;
   }
 }
 
-.feedPlaylist, .feedFollowPic, .feedPic {
+.feedPlaylist, .feedFollowPic, .feedPic, .inboxSong {
   vertical-align: top;
   height: 90px;
+}
+
+.inboxSong {
+  margin-left: 10px;
 }
 
 .feedPic {
@@ -1754,10 +1763,6 @@ tr {
 .feedGigs, .feedReviewGigs, .feedReviewLikeGigs, .feedYT, .activityYT, .feedBadge {
   cursor: pointer;
   height: 90px;
-  vertical-align: top;
-}
-
-.feedYT, .feedPlaylist, .feedFollowPic {
   vertical-align: top;
 }
 
@@ -2020,7 +2025,7 @@ height: 90%;
   margin-left: 55px;
 }
 
-.playlistContent, .playlistUserId, #playlistContent, #savePlaylist, #likeForm, #lastMsgDiv, #hiddenLevel, #getBadge, .startIndex, .genericInfinite-scrolling {
+.playlistContent, .playlistUserId, #playlistContent, #savePlaylist, #likeForm, #lastMsgDiv, #hiddenLevel, #getBadge, .startIndex, .genericInfinite-scrolling, .activityLink {
   display: none;
 }
 
@@ -2028,8 +2033,8 @@ height: 90%;
   vertical-align: middle;
 }
 
-.playlistImg, .latestImg {
-  width: 115px;
+.playlistImg, .latestImg, .inboxSong {
+  width: 120px;
   cursor: pointer;
 }
 
@@ -2067,7 +2072,6 @@ height: 90%;
 
 .msgGigs, .msgReviews {
   width: 90px;
-  margin-right: 30px;
   vertical-align: top;
 }
 

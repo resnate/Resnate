@@ -2,7 +2,7 @@
        <div id="noMessages">No messages.<br>Share some music with your friends!</div>
 <% else %>
 
-<div id="convosBody" class="modal-body">
+
        
   <% @conversations.each do |conversation| %>
       
@@ -27,10 +27,10 @@
 
         <% if message.subject[1] == '`' %>
         <% imgAndTitle = message.subject[2..-1].split(',') %>
-        <div class="inboxYT inboxSong">
-        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
+        
+        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="inboxSong" >
         <p class="jamTitle"><%= title = imgAndTitle[1] %></p>
-        </div>
+        
         <div class="messageDetails">
         <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
                     
@@ -197,7 +197,6 @@
         
     <% end %>
 
-</div>
 
 <div class="genericInfinite-scrolling">
    <%= will_paginate @conversations, renderer: BootstrapPagination::Rails %>
@@ -280,13 +279,6 @@
         $('#resultDiv').val($('#recCount').html());
 
         $('#recCount').addClass('invisCount');
-
-        $('.inboxSong').on('click', 'img', function() {
-      var videoID = $(this).attr('src').slice(27,38);
-      <%= render "layouts/videoClick" %>
-      
-     
-    });
 
         $('.csImgMsg').click(function(){
         $('#messageURL').val('~`' + $(this).siblings('#makeJamLi').find('.jamID').html()+','+$(this).siblings('#makeJamLi').find('.jamTitle').html());

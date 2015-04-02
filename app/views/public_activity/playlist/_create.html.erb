@@ -53,12 +53,7 @@
    		<% end %>
    	</div>
    	<div class="activityDetails">
-   		<div class="activityName feedPlaylistName"><%= activity.trackable.name %></div>
-      <% unless Playlist.find(activity.trackable_id).content.nil? || Playlist.find(activity.trackable_id).content == "[]" %>
-   		 <div class="hiddenYTID" style="display:none">
-         <%= activity.trackable.content %>
-        </div>
-      <% end %>
+   		<div class="activityName feedPlaylistName"><%= activity.trackable.name %><div class="hiddenPlaylistID"><%= activity.trackable_id %></div></div>
         <% if activity.key == "playlist.create" %>
           	<div class="createdAt"><%= time_ago_in_words(DateTime.parse(activity.trackable.created_at.to_s)) %> ago</div>
         <% elsif activity.key == "playlist.update" %>

@@ -52,12 +52,13 @@
         <% end %>
       </div>
       <% if current_user.likes?(@review) %>
-			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
+			<span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
 		<% elsif current_user.id != @review.user_id %>
-			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
-			<div class="hiddenReviewID"><%= @review.id %></div>
+			<span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+			
 		<% end %>
-
+		<span class="hiddenID"><%= @review.user_id %></span>
+		<div class="hiddenReviewID"><%= @review.id -%></div>
 	<% unless current_user.nil? %>
 
 	<div class="feedButtons reviewButtons">

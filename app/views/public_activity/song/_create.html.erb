@@ -60,7 +60,7 @@
       			<%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
       		<% end %>
 		</div>
-	</div>
+	
 	<div class="comments activity<%=activity.id%>comments">
   		<% activity.comment_threads.each do |comment| %>
   			<div class="comment">
@@ -80,4 +80,5 @@
   	</div>
 	<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 	<textarea class="inputComment"></textarea>
+</div>
 </div>

@@ -71,7 +71,7 @@ def userPlaylists
 
 def conversations
   @user = User.find(params[:id])
-  @conversations = @user.mailbox.conversations.paginate(page: params[:page], per_page: 10)
+  @conversations = @user.mailbox.conversations.paginate(page: params[:page], per_page: 15)
   render :layout => false
 end
 
@@ -89,7 +89,7 @@ end
 
 def notifications
   @user = User.find(params[:id])
-  @conversations = @user.mailbox.conversations.paginate(page: params[:page], per_page: 10)
+  @conversations = @user.mailbox.conversations.paginate(page: params[:page], per_page: 15)
   render :layout => false
 end
 
@@ -151,6 +151,9 @@ end
     def unfollow
       @user = User.find(params[:user])
       current_user.unfollow!(@user)
+      @follow = Follow.where(follower_id: current_user.id, followable_type: "User").find_by_followable_id(@user.id)
+      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
+      @activity.destroy
       render :layout => false
     end
 
