@@ -214,7 +214,7 @@
     <% if @topReviews.nil? %>
     <% else %>
     <% @topReviews.first(5).each do |rankedReview| %>
-
+    <div>
     <div class="featuredReview">
       <div class="reviewHeader">
         <% id = rankedReview[:id] %>
@@ -291,6 +291,9 @@
 
       
     </div>
+
+    <div class="expandReview">Read and comment on review</div>
+  </div>
     <% end %>
     <% end %>
   </div>
@@ -893,6 +896,11 @@ $(document).on('click', '#songReviewContent', function(){
   
   
 });
+
+$('.expandReview').click(function(){
+  $(this).siblings('.featuredReview').css('height', 'auto');
+  $(this).remove();
+})
 
 
   $('.genericContent').on('scroll', function(){

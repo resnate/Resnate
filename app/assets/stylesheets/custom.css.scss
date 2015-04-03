@@ -710,7 +710,7 @@ body {
     
     text-decoration: none;
     &:hover {
-      color: red;
+      color: #E50049;
     }
   }
 }
@@ -748,7 +748,7 @@ body {
       text-decoration: none;
       
       &:hover {
-      color: red;
+      color: #E50049;
       }
     }
 }
@@ -763,7 +763,7 @@ body {
     text-decoration: none;
     
     &:hover {
-      color: red;
+      color: #E50049;
     }
   }
 }
@@ -994,7 +994,7 @@ img {border:none;}
   font-weight: bold;
   &:hover {
     cursor: pointer;
-    color: red;
+    color: #E50049;
   }
 }
 
@@ -1016,14 +1016,13 @@ tr {
   
   font-size: 2em;
   &:hover {
-    color: red;
+    color: #E50049;
     text-decoration: none;
   }
 }
 
 #sign_out {
   margin-top: 12px;
-  color: white;
 }
 
 .sidebar-nav {
@@ -1043,7 +1042,6 @@ tr {
   height: 51px;
   margin-bottom: 0px;
   border: 0px;
-  background-color: #E50049;
   border-bottom: 1px solid black;
   li a {
     padding: 0px;
@@ -1052,7 +1050,6 @@ tr {
 
 .navLevel {
   text-transform: uppercase;
-  color: white;
 }
 
 
@@ -1080,7 +1077,7 @@ tr {
   position: absolute;
   right: 30px;
   li {
-    padding-left: 15px;
+    padding-left: 16px;
   }
 }
 
@@ -1100,6 +1097,10 @@ tr {
   margin-top: 12px;
   font-size: 22px;
   color: white;
+}
+
+.navbar .glyphicon {
+  color: black;
 }
 
 .glyphicon-chevron-down {
@@ -1407,7 +1408,36 @@ tr {
 }
 
 .featuredReview {
-  margin-bottom: 150px;
+  
+  padding: 15px;
+  border: 1px solid #d7d7d7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  position: relative;
+  height: 325px;
+  &:after {
+
+      content: "";
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 70%;
+      height: 1.2em;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 90%);
+
+
+  }
+}
+
+.expandReview {
+  margin-bottom: 75px;
+  background-color: #E50049;
+  color: white;
+  text-align: center;
 }
 
 .reviewHeader, .reviewContent {
@@ -1544,10 +1574,6 @@ tr {
   font-weight: bold;
   font-size: 14px;
   text-align: center !important;
-}
-
-.navPoints {
-  color: white;
 }
 
 .filthy {
@@ -1855,7 +1881,7 @@ tr {
       right: 0;
       width: 70%;
       height: 1.2em;
-      background: linear-gradient(to right, rgba(242, 242, 242, 0), rgba(242, 242, 242, 1) 90%);
+      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 90%);
 
 
   }
