@@ -898,7 +898,10 @@ $(document).on('click', '#songReviewContent', function(){
 });
 
 $('.expandReview').click(function(){
-  $(this).siblings('.featuredReview').css('height', 'auto');
+  $(this).siblings('.featuredReview').css({
+    'height': 'auto',
+    'margin-bottom': '75px'
+  });
   $(this).remove();
 })
 

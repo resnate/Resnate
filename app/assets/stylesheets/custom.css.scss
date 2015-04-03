@@ -1438,6 +1438,7 @@ tr {
   background-color: #E50049;
   color: white;
   text-align: center;
+  cursor: pointer;
 }
 
 .reviewHeader, .reviewContent {
@@ -1448,6 +1449,7 @@ tr {
   margin-bottom: 10px;
   font-size: 1.1em;
   line-height: 2em;
+  height: 100%;
 }
 
 .reviewHeader {
