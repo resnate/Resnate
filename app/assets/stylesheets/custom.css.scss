@@ -90,13 +90,13 @@ textarea {
   display: inline-block;
   height: calc(50% - 51px);
   padding: 7.5px;
-  width: 248px;
+  width: 250px;
   margin-left: -3px;
   text-align: center;
 }
 
 #newStuff {
-  width: calc(100% - 248px);
+  width: calc(100% - 250px);
   overflow: auto;
   display: inline-block;
   vertical-align: top;
@@ -417,6 +417,8 @@ body {
   text-align: center;
   padding-top: 10px;
   display: none;
+  color: white;
+  z-index: 9;
 }
 
 #deletePlaylistYes, #deletePlaylistNo {
@@ -769,7 +771,7 @@ body {
 }
 
 .threeGigs {
-  width: 295px;
+  width: 279px;
   display: inline-block;
 }
 
@@ -1077,7 +1079,7 @@ tr {
   position: absolute;
   right: 30px;
   li {
-    padding-left: 16px;
+    padding-left: 15px;
   }
 }
 
@@ -1452,6 +1454,22 @@ tr {
   height: 100%;
 }
 
+.editReview, .deleteReview {
+  display: inline-block;
+  margin: 20px 30px 20px 0px;
+  cursor: pointer;
+}
+
+.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo {
+  display: none;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.inlinePrompt {
+  display: inline-block;
+}
+
 .reviewHeader {
   margin-bottom: 20px;
 }
@@ -1486,8 +1504,11 @@ tr {
   vertical-align: top;
 }
 
-.pastGigreviewInput {
+.pastGigreviewInput, .updateReview {
   width: 95%;
+}
+
+.pastGigreviewInput {
   height: 10em;
 }
 

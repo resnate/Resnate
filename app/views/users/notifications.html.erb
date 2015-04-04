@@ -36,7 +36,6 @@
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
                   <span class=""><%= message.body[0..4] %></span>
                   <div class="activityName songName" src="https://img.youtube.com/vi/<%= message.subject[2..-1] %>/hqdefault.jpg"><%= message.body[6..-1] %></div>
-                  <p class="jamTitle"><%= message.body[6..-1] %></p>
                   <br>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>

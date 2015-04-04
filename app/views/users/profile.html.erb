@@ -529,7 +529,7 @@ $('#getLikes').click(function(){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Artists <%=@user.first_name%> Likes</h4></div><div class="modal-body" id="getLikesBody">'+result+'</div>');});
 });
 
-$('body, #getLikesBody').on('click', '.ml', function(){
+$(document).on('click', '.ml, .alMl', function(){
   $('#getLikesBody').html('');
   $('.modal').modal('hide');
   $('#search_query').val($(this).find('.mlSpan').html());

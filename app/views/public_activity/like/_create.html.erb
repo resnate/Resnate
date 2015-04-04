@@ -224,7 +224,7 @@
       <div class="activityName"><%= Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).name %></div>
       <% end %>
 
-      <div class="feedReview" data-toggle="modal" data-target="#genericModal">
+      <div class="feedReview">
         <%= Review.find(Like.find(activity.trackable_id).likeable_id).content %>
       </div>
       <div class="hiddenReviewID"><%= Like.find(activity.trackable_id).likeable_id %></div>

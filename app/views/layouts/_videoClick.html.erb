@@ -3,6 +3,10 @@ if($('#footerPlayer').css('bottom') == '-150px'){
    $('#footerPlayer').animate({bottom: '+=150'});
    $('#footerPlayer').css('bottom', '0px');
 }
+
+$('#songReviewContent').replaceWith('<textarea id="songReviewInput"></textarea>')
+$('#songReviewInput').val();
+
 $('#infoID').val(videoID);
         $('#navButtons').html('<li class="navLis"><span class="glyphicon glyphicon-fast-backward" ></span></li><li class="navLis"><span class="glyphicon glyphicon-pause" ></span></li><li class="navLis" style="display:none"><span class="glyphicon glyphicon-play" ></span></li><li class="navLis"><span class="glyphicon glyphicon-fast-forward" ></span></li>');
 
@@ -12,6 +16,8 @@ $('#infoID').val(videoID);
         var songName = $(this).find('p').text().trim();
       } else if($(this).hasClass('latest')) {
         var songName = $(this).find('.latestSongName').text().trim();
+      } else if($(this).hasClass('songName')) {
+        var songName = $(this).html().trim();
       }
        else {
       var songName = $(this).siblings('p').text().trim();

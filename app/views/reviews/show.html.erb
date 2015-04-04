@@ -10,7 +10,8 @@
 
 		<% elsif @review.reviewable_type == "Song" %>
 
-		<img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg" >
+		<img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
+		<p class="jamTitle"><%= Song.find(@review.reviewable_id).name %></p>
 
 		<% end %>
 		
@@ -20,7 +21,7 @@
 			<% if @review.reviewable_type == "PastGig" %>
 			<div class="reviewGigName<%= @review.id %>"></div>
 			<% elsif @review.reviewable_type == "Song" %>
-			<div class="activityName"><%= Song.find(@review.reviewable_id).name %></div>
+			<div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
 			<% end %>
 			by
 			<div class="profileName"><%= User.find(@review.user_id).name %></div>
@@ -37,12 +38,16 @@
 	</div>
 	
 	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
-
+	<div class="hiddenReviewID"><%= @review.id -%></div>
+	
 	<% if current_user.id == @review.user_id %>
-	<div>Edit</div>
-	<div>Delete</div>
+	<div class="editReview">Edit</div>
+	<div class="deleteReview">Delete</div>
+	<div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
+	<div class="deleteReviewYes">Yes</div>
+	<div class="deleteReviewNo">No</div>
 	<% end %>
-
+	<div>
 	<div class="likerNumber">
 		<% likers = @review.likers(User).count %>
         <% if likers == 1 %>
@@ -60,7 +65,7 @@
 		<span class="hiddenID"><%= @review.user_id %></span>
 		<div class="hiddenReviewID"><%= @review.id -%></div>
 	<% unless current_user.nil? %>
-
+	</div>
 	<div class="feedButtons reviewButtons">
 		
       	

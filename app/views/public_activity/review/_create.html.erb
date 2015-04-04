@@ -48,7 +48,7 @@
     <div class="hiddenYTID" style="display:none"><%= song.content %></div>
 
 <% end %>
-    <div class="feedReview" data-toggle="modal" data-target="#genericModal">
+    <div class="feedReview">
       <%= Review.find(activity.trackable_id).content %>
     </div>
     <div class="hiddenReviewID"><%= activity.trackable_id %></div>

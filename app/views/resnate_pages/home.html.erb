@@ -566,7 +566,7 @@ function ytSearch()
 
 function abracadabra() {
     $('.sidebar-nav').css('width', '510px');
-    $('#newStuff').css('width', 'calc(100% - 248px)');
+    $('#newStuff').css('width', 'calc(100% - 250px)');
     $('#container').css('margin-left', '510px');
     $('#container').css('width', 'calc(100% - 510px)');
     $("#YTtest, #videoResultsDiv, #Gigs, #iframeAmazon").fadeIn().css("display","inline-block");
@@ -865,6 +865,32 @@ function friendsLikeArtist(){
   }
 });
 
+$(document).on('click', '.editReview', function(){
+  var reviewContent = $(this).siblings('.reviewContent').html();
+  $(this).siblings('.reviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
+});
+
+$(document).on('click', '.deleteReview', function(){
+  $(this).siblings('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').addClass('inlinePrompt');
+});
+
+$(document).on('click', '.deleteReviewNo', function(){
+  $(this).siblings('.deleteReviewPrompt, .deleteReviewYes').removeClass('inlinePrompt');
+  $(this).removeClass('inlinePrompt');
+});
+
+$(document).on('click', '.deleteReviewYes', function(){
+  var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();
+  $.ajax({
+            url: reviewURL ,
+            type: 'DELETE'
+          });
+  $.get('<%= current_user.id %>/profile', function(result){
+  $('#box2').html(result);});
+    $('#container').animate({
+        top: '-100%'
+    });
+});
 
 
 $(document).on('click', '.reviewContent', function(){
@@ -892,7 +918,7 @@ $(document).on('keydown', "#songReviewInput", function(event){
 $(document).on('click', '#songReviewContent', function(){
   
     var content = $(this).html();
-  $(this).replaceWith('<textarea id="songReviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
+  $(this).replaceWith('<textarea id="songReviewInput">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
   
   
 });
@@ -979,7 +1005,7 @@ $('.expandReview').click(function(){
 
         
 
-          $(document).on('click', '.feedYT, .inboxSong, .songName', function(){
+          $(document).on('click', '.feedYT, .inboxSong, .songName, .reviewSongImg', function(){
             videoID = $(this).attr("src").slice(27,38);
             <%= render 'layouts/videoClick' %>
           });
@@ -1055,6 +1081,8 @@ if($(this).siblings('.hiddenID').html().trim() != "<%= current_user.id %>"){
  }
 
  });
+
+
 
 
 $(document).on('click', '.shareGig', function(){
@@ -1701,8 +1729,8 @@ $('#Playlist ul').on('click', '.sideEdit', function(){
 $('#Playlist ul').on('click', '.sideDestroy', function(){
   var offset = $(this).offset();
   left = offset.left;
-  $('#deletePrompt').css('top', offset["top"] -70 );
-  $('#deletePrompt').css('left', left - 160 );
+  $('#deletePrompt').css('top', offset["top"] -120 );
+  $('#deletePrompt').css('left', left + 220 );
   $('#deletePlaylistName').html($(this).parent().siblings('.sidePlaylistName').html().slice(0, 14));
   var deletePlaylistURL = $(this).parent().siblings('.hiddenPlaylistID').html();
   $('#deletePlaylistID').html(deletePlaylistURL);
