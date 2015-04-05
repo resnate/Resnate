@@ -17,6 +17,12 @@ html, body{
     -webkit-animation-timing-function: linear;
 }
 
+body {
+  background-image: image-url("testBkgd.jpg");
+  background-repeat:no-repeat;
+    background-position: 50% 50%;
+}
+
 .modal-backdrop {
   bottom: 0;
 }
@@ -85,7 +91,7 @@ textarea {
 
 
 #feedBox {
-  border-left: 1px solid #d7d7d7;
+  color: white;
   overflow: auto;
   display: inline-block;
   height: calc(50% - 51px);
@@ -93,6 +99,9 @@ textarea {
   width: 250px;
   margin-left: -3px;
   text-align: center;
+  a {
+    color: white;
+  }
 }
 
 #newStuff {
@@ -210,8 +219,12 @@ body {
   left: 0%;
   margin-top: 51px;
   overflow: auto;
+  color: white;
   a {
-    color: black;
+    color: white;
+    &:hover {
+      color: #E50049;
+    }
   }
 }
 
@@ -228,7 +241,7 @@ body {
   a {
       color: black;
       &:hover {
-    color: red;
+    color: #E50049;
     text-decoration: none;
   }
     }
@@ -761,7 +774,7 @@ body {
   
   clear: both;
   font-weight: bold;
-  li a {
+  a {
     text-decoration: none;
     
     &:hover {
@@ -1032,9 +1045,9 @@ tr {
   width: 250px;
   height: 100%;
   margin-top: 50px;
-  border-right: 1px solid #d7d7d7;
+  color: white;
   a {
-    color: black;
+    color: white;
   }
 }
 
@@ -1102,7 +1115,7 @@ tr {
 }
 
 .navbar .glyphicon {
-  color: black;
+  color: #a7a7a7;
 }
 
 .glyphicon-chevron-down {
@@ -1157,7 +1170,7 @@ tr {
     font-weight: bold;
     
     &:hover {
-      color: red;
+      color: #E50049;
     }
   }
 }
@@ -1214,6 +1227,7 @@ tr {
 .myDates, .userDates {
   padding-bottom: 0px;
   padding-left: 5px;
+
 }
 
 
@@ -1240,7 +1254,7 @@ tr {
   #seeAll, #seeAllpast, #seeAllActivity, #seePlaylists, #seeAllReviews, .playlistName, .followersOpener, #getLikes, #getUserLikes, .levelNpoints {
     cursor: pointer;
     &:hover {
-      color: red;
+      color: #E50049;
     }
   }
 
@@ -1411,10 +1425,11 @@ tr {
 
 .featuredHeader {
   text-align: center;
+  color: white;
 }
 
 .featuredReview {
-  
+  background-color: white;
   padding: 15px;
   border: 1px solid #d7d7d7;
   overflow: hidden;
@@ -1643,7 +1658,7 @@ tr {
 #follows, #followers {
   display: inline-block;
   &:hover {
-    color: red;
+    color: #E50049;
     cursor: pointer;
   }
 }
@@ -1693,7 +1708,7 @@ tr {
 
 .profileName, .feedPic, .feedFollowPic, .profileFollowName, .feedFollow, .msgFollow, .feedUnfollow, .profileNameMsg, .msgUnfollow, .reviewerName, .activityName  {
   &:hover {
-    color: red;
+    color: #E50049;
     cursor: pointer;
   }
 }
@@ -1897,7 +1912,7 @@ tr {
   position: relative;
   height: 4.2em;
   &:hover {
-    color: red;
+    color: #E50049;
   }
   &:after {
 
@@ -1908,7 +1923,7 @@ tr {
       right: 0;
       width: 70%;
       height: 1.2em;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 90%);
+      
 
 
   }
@@ -1925,7 +1940,7 @@ tr {
   position: relative;
   height: 4.2em;
   &:hover {
-    color: red;
+    color: #E50049;
   }
   &:after {
     content: "";
@@ -1943,7 +1958,7 @@ tr {
   color: black;
   font-weight: bold;
   &:hover {
-    color: red;
+    color: #E50049;
     text-decoration: none;
     cursor: pointer;
   }
@@ -1969,7 +1984,7 @@ tr {
 .playlistDestroy, .feedPlaylistName, .playlistCreatorName, .playlistCreatorFeed, .reviewName {
   &:hover {
     cursor: pointer;
-    color: red;
+    color: #E50049;
   }
 }
 
@@ -2008,6 +2023,11 @@ height: 90%;
   overflow: hidden;
 }
 
+}
+
+#reviewBody {
+  background-color: white;
+  color: black;
 }
 
 
