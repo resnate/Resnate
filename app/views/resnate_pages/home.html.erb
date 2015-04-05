@@ -1360,7 +1360,7 @@ $('.modal').on('hidden.bs.modal', function () {
 });
 
 $(document).on('click', '.feedCsImgFollow', function(){
-     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).parent().parent().find('.activityName').html());
+     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).siblings('.activityInfo').find('.activityName').html());
   });
 
 
