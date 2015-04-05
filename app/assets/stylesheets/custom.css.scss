@@ -238,8 +238,9 @@ body {
   text-align: center;
   overflow: auto;
   display: none;
+  color: white;
   a {
-      color: black;
+      color: white;
       &:hover {
     color: #E50049;
     text-decoration: none;
@@ -286,10 +287,6 @@ body {
 
 #Welcome2 {
   margin-top: 50px;
-  a {
-    text-decoration: none;
-    color: black;
-  }
    img{
     width: 200px;
     margin-bottom: 30px;
