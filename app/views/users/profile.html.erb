@@ -27,13 +27,13 @@
       </div>
 
     <% elsif @user.level_name == "Hipster" %> 
-    <%= image_tag "HipsterGlasses.png", class: "hipsterSwag" %>   
+    <%= image_tag "HipsterGlassesWhite.png", class: "hipsterSwag" %>   
       <div class="levelName hipster">
       <%= @user.level_name %>
       </div>
 
     <% elsif @user.level_name == "ÜberHipster" %>
-      <%= image_tag "UberHipsterTache.png", class: "hipsterSwag" %> 
+      <%= image_tag "UberHipsterTacheWhite.png", class: "hipsterSwag" %> 
       <div class="levelName uberHipster">
           <%= @user.level_name %>
       </div>
@@ -87,7 +87,7 @@
   
       <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :post , class: "unfollow", style: "display: block" %>
       <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :post , class: "follow", style: "display: none" %>
-      <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span>
+      <!-- <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span> -->
 
     <% else %>
       <% unless current_user == @user %>
@@ -95,7 +95,7 @@
         <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :post , class: "follow", style: "display: block" %>
         <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :post , class: "unfollow", style: "display: none" %>
         <span class="hiddenID"><%= @user.id %></span>
-        <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span>
+        <!-- <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span> -->
       <% end %>
     <% end %>
     </div>
@@ -352,13 +352,7 @@
         </td>
       </tr>
 
-    <% if Like.where(liker_id: @user.id, likeable_type: "Song").count === 0 %>
-      <tr>
-        <td>
-          <div id="noLikes">Like some songs!</div>
-        </td>
-      </tr>
-    <% else %>
+    <% unless Like.where(liker_id: @user.id, likeable_type: "Song").count === 0 %>
       <tr class="likedInfo">
         <td>
           <div class="likedContent"></div>

@@ -17,13 +17,13 @@ Merit::Badge.create!(
    id: 1,
    name: 'Hipster',
    level: 1,
-   custom_fields: { image: "HipsterGlasses.png"}
+   custom_fields: { image: "HipsterGlassesWhite.png"}
 )
 
 Merit::Badge.create!(id: 2,
    name: 'ÜberHipster',
    level: 2,
-   custom_fields: { image: "UberHipsterTache.png"})
+   custom_fields: { image: "UberHipsterTacheWhite.png"})
 
 Merit::Badge.create!(id: 3,
    name: 'Groupie',
