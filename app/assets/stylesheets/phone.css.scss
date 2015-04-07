@@ -1,10 +1,47 @@
+body {
+	background-image: image-url("testBkgd.jpg");
+  	background-repeat:no-repeat;
+    background-position: 50% 50%;
+    font-family: 'Lato', "Helvetica", sans-serif;
+    color: white;
+    margin: 0px;
+    a {
+    	color: white;
+    	text-decoration: none;
+    }
+}
 
-
-#phoneDiv {
+#Welcome {
   text-align: center;
-  font-family: 'Lato', "Helvetica", sans-serif;
+  
   width: 100%;
   img {
-  	width: 100%;
+  	width: 50%;
   }
+}
+
+#homeFooter {
+	position: absolute;
+	bottom: 10px;
+}
+
+.mobileHeader {
+	height: 10%;
+	background-color: #801336;
+	width: 100%;
+}
+
+.mobileHeaderDiv {
+	width: 25%;
+	display: inline-block;
+}
+
+.mobileDivider {
+	height: 22.5%;
+	background-color: #E50049;
+	vertical-align: top;
+}
+
+.mobileProfilePic {
+	height: 100%;
 }

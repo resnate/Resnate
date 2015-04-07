@@ -1,3 +1,32 @@
-<%= image_tag "ResnateCropped.png" %>
-<h2>Coming to iOS in 2015.</h2>
-<h3></h3>
+<% if current_user.nil? %>
+	<div id="Welcome">
+	<h2 id="bigResnate">Resnate.</h2>
+      <h3>The social network for people who love music.</h3>
+
+      <div id="Welcome2">
+        <%= link_to image_tag("ResnateCropped.png", id: 'rsCrop'), "/auth/facebook" %>
+      
+        <div id="signIn"><%= link_to simple_format("Sign in with Facebook<br />Follow your Friends"), "/auth/facebook", id: "sign_in" %></div>
+        <h4 id="homeFooter">Built using YouTube + Songkick + Amazon + Setlist.fm APIs. </h4>
+      </div>
+     </div>
+<% else %>
+	<div class="mobileHeader">
+		<div class="mobileHeaderDiv">
+			Profile
+		</div>
+		<div class="mobileHeaderDiv">
+			Feed
+		</div>
+		<div class="mobileHeaderDiv">
+			Search music, gigs & merch
+		</div>
+		<div class="mobileHeaderDiv">
+			Search people
+		</div>
+	</div>
+	<div class="mobileDivider">
+		<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=100&height=100", class: "mobileProfilePic" %>
+		<%= current_user.name %>
+	</div>
+<% end %>
