@@ -5,6 +5,7 @@ body {
     font-family: 'Lato', "Helvetica", sans-serif;
     color: white;
     margin: 0px;
+    height: 100%;
     a {
     	color: white;
     	text-decoration: none;
@@ -33,7 +34,7 @@ body {
 
 .mobileHeaderDiv {
 	width: 25%;
-	display: inline-block;
+	float: left;
 }
 
 .mobileDivider {
@@ -44,4 +45,9 @@ body {
 
 .mobileProfilePic {
 	height: 100%;
+}
+
+.mobileProfilePic, .mobileUserInfo {
+	display: inline-block;
+	vertical-align: top;
 }
