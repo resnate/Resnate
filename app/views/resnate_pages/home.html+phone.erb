@@ -28,13 +28,13 @@
 	<div id="mobileMainBody">
 		
 	</div>
-<% end %>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 $(function(){
-	$.get('/<%=current_user.id %>/profile.html+phone.erb', function(result){
+	$.get('/<%=current_user.id %>/profile', function(result){
 		$('#mobileMainBody').html(result);
 	});
 	
 });
 </script>
+<% end %>
