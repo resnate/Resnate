@@ -1,5 +1,8 @@
+<head>
 <%= stylesheet_link_tag "phone", media: "all",
                                            "data-turbolinks-track" => true %>
 <link href='//fonts.googleapis.com/css?family=Lato:400,900' rel='stylesheet' type='text/css'>
-
+<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+<script src="https://js.pusher.com/2.2/pusher.min.js"></script>
+</head>
 <%= yield %>

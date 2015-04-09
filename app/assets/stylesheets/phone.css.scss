@@ -6,6 +6,7 @@ body {
     color: white;
     margin: 0px;
     height: 100%;
+    font-size: 1.2em;
     a {
     	color: white;
     	text-decoration: none;
@@ -37,17 +38,21 @@ body {
 	float: left;
 }
 
+#mobileMainBody {
+	height: 90%;
+}
+
 .mobileDivider {
-	height: 22.5%;
+	height: 25%;
 	background-color: #E50049;
 	vertical-align: top;
+	img {
+		height: 100%;
+		display: inline-block;
+	}
 }
 
-.mobileProfilePic {
-	height: 100%;
-}
-
-.mobileProfilePic, .mobileUserInfo {
+.mobileInfo {
 	display: inline-block;
 	vertical-align: top;
 }
