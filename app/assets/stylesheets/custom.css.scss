@@ -1952,12 +1952,17 @@ tr {
 }
 
 .feedGigLink, .msgReviewName, .msgReviews, .feedGigName {
+  
   font-weight: bold;
   &:hover {
     color: #E50049;
     text-decoration: none;
     cursor: pointer;
   }
+}
+
+.msgReviewName, .msgReviews {
+  color: black;
 }
 
 .msgFollow, .msgUnfollow {
