@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
 $(function(){
-	$.get('/<%=current_user.id %>/profile', function(result){
+	$.get('/<%=current_user.id %>/profile.html+phone.erb', function(result){
 		$('#mobileMainBody').html(result);
 	});
 	
