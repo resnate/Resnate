@@ -11,12 +11,16 @@
 <div class="feedButtons">
   <span class="glyphicon glyphicon-plus feedPlus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu feedDropdown" role="menu" aria-labelledby="dLabel"></ul></div>
   <% songs = Song.where(content: Song.find(activity.trackable_id).content) %>
+  <% likeCount = 0 %>
     <% songs.each do |song| %>
       <% if song.liked_by?(@user) == true %>
-          <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb liked"></span>
-		  <% else %>
-		      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb"></span>
+        <% likeCount = 1 %>
 		  <% end %>
+    <% end %>
+    <% if likeCount = 0 %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb"></span>
+    <% else %>
+      <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb liked"></span>
     <% end %>
 	<div class="jamID"><%= Song.find(activity.trackable_id).content %></div>
 	<div class="jamTitle"><%= Song.find(activity.trackable_id).name %></div>

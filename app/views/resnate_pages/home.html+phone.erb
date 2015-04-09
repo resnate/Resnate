@@ -12,16 +12,16 @@
      </div>
 <% else %>
 	<div class="mobileHeader">
-		<div class="mobileHeaderDiv">
+		<div class="mobileHeaderDiv" id="mobileProfile">
 			Profile
 		</div>
-		<div class="mobileHeaderDiv">
+		<div class="mobileHeaderDiv" id="mobileFeed">
 			Feed
 		</div>
-		<div class="mobileHeaderDiv">
+		<div class="mobileHeaderDiv" id="mobileArtists">
 			Search artists
 		</div>
-		<div class="mobileHeaderDiv">
+		<div class="mobileHeaderDiv" id="mobilePeople">
 			Search people
 		</div>
 	</div>
@@ -31,10 +31,17 @@
 
 	<script type="text/javascript">
 $(function(){
-	$.get('/<%=current_user.id %>/profile', function(result){
+	$.get('/activities/index', function(result){
 		$('#mobileMainBody').html(result);
 	});
 	
 });
+
+$('#mobileProfile').click(function(){
+	$.get('/<%=current_user.id %>/profile', function(result){
+		$('#mobileMainBody').html(result);
+	});
+});
+
 </script>
 <% end %>
