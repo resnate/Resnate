@@ -2,7 +2,7 @@ class ResnatePagesController < ApplicationController
   def home
     topReviewArray = []
     
-      Review.where(reviewable_type: "PastGig").each do |r|
+      Review.all.each do |r|
         h = { id: r.id, likers: r.likers(User).count, likersAndAge: r.likers(User).count * 10 + r.created_at.to_i/50000 }
         topReviewArray.push(h)
       end
