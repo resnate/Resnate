@@ -210,7 +210,7 @@
 
 
   <div class="featuredContent">
-    <h1 class="featuredHeader">Top Reviews</h1>
+    <h1 class="featuredHeader">Trending Reviews</h1>
     <% if @topReviews.nil? %>
     <% else %>
     <% @topReviews.first(5).each do |rankedReview| %>
@@ -239,8 +239,6 @@
       </div>
 
       <div class="reviewContent"><%= sanitize Review.find(id).content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
-      <div class="likerNumber"><%= rankedReview[:likersAndAge] %></div>
-      <%= Review.find(id).created_at %>
       <div class="likerNumber">
         <% if likers == 1 %>
           <%= likers %> like
