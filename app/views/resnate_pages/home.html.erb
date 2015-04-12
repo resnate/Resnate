@@ -578,9 +578,9 @@ $(function(){
 
   if(window.location.hash) {
     var url = window.location.hash.substr(1);
-    if($('#Welcome2').length && url[0] == "r"){
+    if($('#Welcome').length && url[0] == "r"){
       $.get(url, function(result){
-      $('#Welcome').prepend(result);
+      $('#Welcome2').before('<div class="modal-body">'+result+'</div>');
     });
     }
     else if(url[0] == "r"){
