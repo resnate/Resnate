@@ -239,7 +239,8 @@
       </div>
 
       <div class="reviewContent"><%= sanitize Review.find(id).content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
-
+      <div class="likerNumber"><%= rankedReview[:likersAndAge] %></div>
+      <%= Review.find(id).created_at %>
       <div class="likerNumber">
         <% if likers == 1 %>
           <%= likers %> like

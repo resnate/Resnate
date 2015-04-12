@@ -3,10 +3,10 @@ class ResnatePagesController < ApplicationController
     topReviewArray = []
     if Like.where(likeable_type: "Review").count > 0
       Like.where(likeable_type: "Review").each do |lR|
-        h = { id: lR.likeable_id, likers: Review.find(lR.likeable_id).likers(User).count }
+        h = { id: lR.likeable_id, likers: Review.find(lR.likeable_id).likers(User).count, likersAndAge: Review.find(lR.likeable_id).likers(User).count * 10 + Review.find(lR.likeable_id).created_at.to_i/50000 }
         topReviewArray.push(h)
       end
-      @topReviews = topReviewArray.sort_by { |review| review[:likers]}.reverse.uniq
+      @topReviews = topReviewArray.sort_by { |review| review[:likersAndAge]}.reverse.uniq
     else
       @topReviews = nil
     end

@@ -24,5 +24,17 @@
 			<% end %>
 		</div>
 		<div class="mobileDivider">
-			Your Playlists
+			<% if @user.playlists.count === 0 %>
+				Your Playlists
+			<% else %>
+				<% @user.playlists.limit(2).each do |playlist| %>
+      				<% unless playlist.content.nil? %>
+      					<% img1 = "a" %>
+            			<% JSON.parse(playlist.content)[0].each do |k, v| %>
+              				<% img1 = v %>
+            			<% end %>
+            			<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg">
+      				<% end %>
+      			<% end %>
+			<% end %>
 		</div>

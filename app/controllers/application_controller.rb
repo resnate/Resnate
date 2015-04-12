@@ -3,12 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-before_filter :beforeFilter
-before_action :set_device_type
-
-  def beforeFilter
-     $request = request
-  end 
+before_action :detect_device_format
 
   include PublicActivity::StoreController
 
@@ -23,10 +18,21 @@ before_action :set_device_type
   	
  helper_method :current_user
 
- private
-  def set_device_type
-    request.variant = :phone if browser.mobile?
-    request.variant = :tablet if browser.tablet?
-  end
+  private
+
+    def detect_device_format
+      case request.user_agent
+      when /iPad/i
+        request.variant = :tablet
+      when /iPhone/i
+        request.variant = :phone
+      when /Android/i && /mobile/i
+        request.variant = :phone
+      when /Android/i
+        request.variant = :tablet
+      when /Windows Phone/i
+        request.variant = :phone
+      end
+    end
 
 end
