@@ -585,7 +585,7 @@ $(function(){
     }
     else if(url[0] == "r"){
       $.get(url, function(result){
-      $('#box2').html(result);
+      $('#box2').html('<div class="modal-body">'+result+'</div>');
     });
       $('#container').animate({
         top: '-100%'
