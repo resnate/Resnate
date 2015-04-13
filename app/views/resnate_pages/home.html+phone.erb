@@ -13,16 +13,17 @@
 <% else %>
 	<div class="mobileHeader">
 		<div class="mobileHeaderDiv" id="mobileProfile">
-			Profile
+			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=100&height=100", id: "mobileHomePic" %>
+			<span><%= current_user.points %></span>
 		</div>
 		<div class="mobileHeaderDiv" id="mobileFeed">
-			Feed
+			<span class="glyphicon glyphicon-list" aria-hidden="true"></span>Feed
 		</div>
 		<div class="mobileHeaderDiv" id="mobileArtists">
-			Search artists
+			<span class="glyphicon glyphicon-music" aria-hidden="true"></span> Artists
 		</div>
 		<div class="mobileHeaderDiv" id="mobilePeople">
-			Search people
+			<span class="glyphicon glyphicon-user" aria-hidden="true"></span> People
 		</div>
 	</div>
 	<div id="mobileMainBody">

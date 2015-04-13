@@ -31,12 +31,26 @@ body {
 	height: 10%;
 	background-color: #801336;
 	width: 100%;
-	font-size: 40pt;
+	font-size: 4.2em;
+}
+
+#mobileHomePic {
+	height: 100%;
+	float: left;
 }
 
 .mobileHeaderDiv {
 	width: 25%;
 	float: left;
+	text-align: center;
+	&:active {
+		color: #E50049;
+	}
+	.glyphicon {
+		margin-top: 15px;
+		margin-bottom: 10px;
+		display: block;
+	}
 }
 
 #mobileMainBody {
