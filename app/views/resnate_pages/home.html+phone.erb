@@ -38,6 +38,11 @@ $(function(){
 	
 });
 
+$('.mobileHeaderDiv').click(function(){
+	$('.mobileHeaderDiv').css('color', 'white');
+	$(this).css('color', '#E50049');
+});
+
 $('#mobileProfile').click(function(){
 	$.get('/<%=current_user.id %>/profile', function(result){
 		$('#mobileMainBody').html(result);
