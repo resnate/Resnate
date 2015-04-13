@@ -39,13 +39,14 @@ body {
 	float: left;
 }
 
+#mobileHeaderPoints {
+	margin-top: 15%;
+}
+
 .mobileHeaderDiv {
 	width: 25%;
 	float: left;
 	text-align: center;
-	&:active {
-		color: #E50049;
-	}
 	.glyphicon {
 		margin-top: 15px;
 		margin-bottom: 10px;

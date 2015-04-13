@@ -14,7 +14,7 @@
 	<div class="mobileHeader">
 		<div class="mobileHeaderDiv" id="mobileProfile">
 			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=100&height=100", id: "mobileHomePic" %>
-			<span><%= current_user.points %></span>
+			<div id="mobileHeaderPoints"><%= current_user.points %></div>
 		</div>
 		<div class="mobileHeaderDiv" id="mobileFeed">
 			<span class="glyphicon glyphicon-list" aria-hidden="true"></span>Feed
