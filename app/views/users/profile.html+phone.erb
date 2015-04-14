@@ -14,7 +14,7 @@
 			<%= @user.first_name %> has not written any reviews yet.
 			<% else %>
 				<% if @review.reviewable_type == "PastGig" %>
-					<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewImg">
+					<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
 				<% else %>
 					<img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="mobileReviewImg">
 				<% end %>
@@ -31,18 +31,15 @@
 			<% if @pastGigs.count > 0 %>
 			<div class="mobileDivider">
 				<% pg = @pastGigs.first %>
-				<a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank">
               	<img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
               	<div class="mobileInfo">
 						Past Gigs & Reviews
 				</div>
-            </a>
 			</div>
 			<% end %>
 			<% if @gigs.count > 0 %>
 			<div class="mobileDivider">
 				<% g = @gigs.first %>
-				<a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
               	<img src="https://api.songkick.com/api/3.0/events/<%= g.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
               	<div class="mobileInfo">
               		Upcoming Gigs
