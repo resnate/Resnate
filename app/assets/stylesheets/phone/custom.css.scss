@@ -54,9 +54,11 @@ body {
 }
 
 #mobileMainBody {
+	display: inline-block;
 	height: 90%;
 	font-size: 500%;
 	overflow: scroll;
+	-webkit-overflow-scrolling: touch;    
 }
 
 .mobileDivider {
