@@ -13,7 +13,7 @@ body {
 
 #Welcome {
   text-align: center;
-  
+  font-size: 5vh;
   width: 100%;
   img {
   	width: 50%;
@@ -21,15 +21,13 @@ body {
 }
 
 #homeFooter {
-	position: absolute;
-	bottom: 10px;
 }
 
 .mobileHeader {
 	height: 10%;
 	background-color: #801336;
 	width: 100%;
-	font-size: 2.5vh;
+	font-size: 2.8vh;
 }
 
 #mobileHomePic {
@@ -93,6 +91,7 @@ body {
 #mobileYTPaste {
 	width: 90vw;
 	margin-top: 2vh;
+	text-align: center;
 	::-webkit-input-placeholder {
    		text-align: center;
 	}
