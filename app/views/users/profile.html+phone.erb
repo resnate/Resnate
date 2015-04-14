@@ -3,7 +3,7 @@
 			<div class="mobileGeneralInfo">
 				<div><%= @user.name %></div>
 				<div><%= @user.level_name %></div>
-				<div><%= @user.points %></div>
+				<div><%= @user.points %> points</div>
 			</div>
 		</div>
 		<div class="mobileDivider" id="mobileBadges">
@@ -16,10 +16,8 @@
 			Write a Review for a Song or Album
 			<input placeholder="Paste YouTube Link Here" id="mobileYTPaste">
 		</div>
-		<div class="mobileDivider">
-			<% if @reviews.count == 0 %>
-			<%= @user.first_name %> has not written any reviews yet.
-			<% else %>
+		<% unless @reviews.count == 0 %>
+		<div class="mobileDivider" id="mobileReviews">
 				<% if @review.reviewable_type == "PastGig" %>
 					<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
 				<% else %>
@@ -28,8 +26,8 @@
 				<div class="mobileInfo">
 					<%= @user.first_name %>'s Reviews
 				</div>
-			<% end %>
 		</div>
+		<% end %>
 		<% if @user.songkickID.nil? %>
 			<div class="mobileDivider">
 				<% @user.first_name %> has no Songkick account to display past and upcoming gigs, tell them to sign up at <a href="https://www.songkick.com" target="_blank">songkick.com</a>!
@@ -101,5 +99,12 @@
       }
     });
   }
+
+  $('#mobileReviews').click(function(){ 
+
+  $.get("<%= @user.id %>/userReviews", function(result){
+  	$('#mobileMainBody').html(result);
+  });
+});
 
 </script>

@@ -38,6 +38,9 @@ body {
 	background-color: #801336;
 	width: 100%;
 	font-size: 2.8vh;
+	.glyphicon {
+		font-size: 3.3vh;
+	}
 }
 
 #mobileHomePic {
@@ -71,20 +74,41 @@ body {
 .mobileDivider {
 	height: 20%;
 	margin-top: 5%;
+}
+
+.mobileReviewDivider {
+	height: 40%;
+	background-color: white;
+	color: black;
+	margin-top: 10%;
+}
+
+.mobileDivider, .mobileReviewDivider {
+	
 	img {
 		height: 100%;
 		display: inline-block;
 	}
 }
 
+.mobilePageHeader {
+	height: 10%;
+	margin-top: 5%;
+	margin-left: 2vw;
+}
+
 .mobileInfo, .mobileGeneralInfo {
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 2vw;
+	height: 100%;
+	max-width: 60%;
+	line-height: 6vh;
 }
 
 .mobileInfo {
 	margin-top: 6vh;
+
 }
 
 .mobileBadgeImg {
@@ -105,4 +129,30 @@ body {
 	::-webkit-input-placeholder {
    		text-align: center;
 	}
+}
+
+.mobileBoldNames {
+	font-weight: bold;
+}
+
+.mobileReviewImgNName {
+	height: 50%;
+	overflow: hidden;
+}
+
+.mobileReviewContent {
+	margin-top: 5%;
+	height: 45%;
+	overflow: hidden;
+}
+
+.expandReview {
+  background-color: #E50049;
+  color: white;
+  text-align: center;
+}
+
+
+.hiddenReviewID {
+	display: none;
 }
