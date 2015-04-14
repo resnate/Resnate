@@ -1,0 +1,73 @@
+<div class="mobilePageHeader">
+	<%= @user.first_name%>'s Reviews
+</div>
+
+<% @reviews.each do |review| %>
+	<div class="mobileReviewDivider">
+		<div class="mobileReviewImgNName">
+		<% if review.reviewable_type == "PastGig" %>
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewGigImgs">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="mobileGeneralInfo">
+          	<span class="mobileReviewGigName"></span>
+            <div class="hiddenReviewID"><%= review.id %></div>
+          </div>
+      <% elsif review.reviewable_type == "Song" %>
+       <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="mobileGeneralInfo">
+          	<%= Song.find(review.reviewable_id).name %>
+            <div class="hiddenReviewID"><%= review.id %></div>
+          </div>
+      <% end %>
+      	</div>
+      	<div class="mobileReviewContent"><%= sanitize review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %>
+		</div>
+	</div>
+	<div class="expandReview">Read and comment on review</div>
+	
+<% end %>
+
+<script type="text/javascript">
+
+
+
+  var reviewGigUrls = [];
+
+  for(j=0; j<$('.mobileReviewGigImgs').length; j++){
+    reviewGigUrls.push($('.mobileReviewGigImgs').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.mobileReviewGigImgs').length; j++){
+    $.ajax({
+      url: reviewGigUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.mobileReviewGigImgs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.mobileReviewGigName').eq(i).text(data.resultsPage.results.event.displayName);
+                    }
+      }
+    });
+  }
+
+  $('.expandReview').click(function(){
+  	var height = $(this).siblings('.mobileReviewDivider').find('mobileReviewImgNName').height();
+  	console.log(height);
+  $(this).siblings('.mobileReviewDivider').css({
+    'height': 'auto'
+  });
+  $(this).siblings('.mobileReviewDivider').find('mobileReviewImgNName').height(height);
+  $(this).remove();
+});
+
+</script>
