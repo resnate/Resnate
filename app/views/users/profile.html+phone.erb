@@ -6,7 +6,7 @@
 				<div><%= @user.points %></div>
 			</div>
 		</div>
-		<div class="mobileDivider">
+		<div class="mobileDivider" id="mobileBadges">
 			<% @user.badges.reverse.take(3).each do |badge| %>
             <%= image_tag (badge.custom_fields[:image]), class: 'mobileBadgeImg' %>
           
