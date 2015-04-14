@@ -93,6 +93,8 @@ body {
 
 #mobileYTPaste {
 	width: 90vw;
-	margin-top: 1vh;
-	text-align: center;
+	margin-top: 2vh;
+	::-webkit-input-placeholder {
+   		text-align: center;
+	}
 }
