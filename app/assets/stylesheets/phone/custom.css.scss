@@ -31,7 +31,7 @@ body {
 	height: 10%;
 	background-color: #801336;
 	width: 100%;
-	font-size: 4.2em;
+	font-size: 420%;
 }
 
 #mobileHomePic {
@@ -55,12 +55,15 @@ body {
 
 #mobileMainBody {
 	height: 90%;
+	font-size: 500%;
+	overflow: scroll;
 }
 
 .mobileDivider {
-	height: 25%;
-	background-color: #E50049;
+	height: 20%;
 	vertical-align: top;
+	margin-top: 5%;
+	margin-left: 5%;
 	img {
 		height: 100%;
 		display: inline-block;

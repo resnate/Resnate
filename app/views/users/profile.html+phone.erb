@@ -1,17 +1,17 @@
 <div class="mobileDivider">
-			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=100&height=100", class: "mobileProfilePic" %>
+			<%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=100&height=100", class: "mobileProfilePic" %>
 			<div class="mobileInfo">
-				<div><%= current_user.name %></div>
-				<div><%= current_user.level_name %></div>
-				<div><%= current_user.points %></div>
+				<div><%= @user.name %></div>
+				<div><%= @user.level_name %></div>
+				<div><%= @user.points %></div>
 			</div>
 		</div>
 		<div class="mobileDivider">
-			Write a Review
+			Write a Review for a Song or Album
 		</div>
 		<div class="mobileDivider">
 			<% if @reviews.count == 0 %>
-			Your Reviews
+			<%= @user.first_name %> has not written any reviews yet.
 			<% else %>
 				<% if @review.reviewable_type == "PastGig" %>
 					<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewImg">
@@ -19,15 +19,42 @@
 					<img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="mobileReviewImg">
 				<% end %>
 				<div class="mobileInfo">
-					Your Reviews
+					<%= @user.first_name %>'s Reviews
 				</div>
 			<% end %>
 		</div>
+		<% if @user.songkickID.nil? %>
+			<div class="mobileDivider">
+				<% @user.first_name %> has no Songkick account to display past and upcoming gigs, tell them to sign up at <a href="https://www.songkick.com" target="_blank">songkick.com</a>!
+			</div>
+		<% else %>
+			<% if @pastGigs.count > 0 %>
+			<div class="mobileDivider">
+				<% pg = @pastGigs.first %>
+				<a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank">
+              	<img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
+              	<div class="mobileInfo">
+						Past Gigs & Reviews
+				</div>
+            </a>
+			</div>
+			<% end %>
+			<% if @gigs.count > 0 %>
+			<div class="mobileDivider">
+				<% g = @gigs.first %>
+				<a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
+              	<img src="https://api.songkick.com/api/3.0/events/<%= g.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
+              	<div class="mobileInfo">
+              		Upcoming Gigs
+              	</div>
+			</div>
+			<% end %>
+		<% end %>
 		<div class="mobileDivider">
 			<% if @user.playlists.count === 0 %>
-				Your Playlists
+				<%= @user.first_name %> has not created any playlists yet.
 			<% else %>
-				<% @user.playlists.limit(2).each do |playlist| %>
+			<% playlist = @user.playlists.first %>
       				<% unless playlist.content.nil? %>
       					<% img1 = "a" %>
             			<% JSON.parse(playlist.content)[0].each do |k, v| %>
@@ -35,6 +62,40 @@
             			<% end %>
             			<img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg">
       				<% end %>
-      			<% end %>
+      				<div class="mobileInfo">
+						<%= @user.first_name %>'s Playlists
+					</div>
 			<% end %>
 		</div>
+
+<script type="text/javascript">
+
+
+
+  var gigUrls = [];
+
+  for(j=0; j<$('.mobileProfileSKImgs').length; j++){
+    gigUrls.push($('.mobileProfileSKImgs').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.mobileProfileSKImgs').length; j++){
+    $.ajax({
+      url: gigUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.mobileProfileSKImgs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+                    }
+      }
+    });
+  }
+
+</script>
