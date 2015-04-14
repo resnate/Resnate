@@ -1,13 +1,20 @@
 <div class="mobileDivider">
 			<%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=100&height=100", class: "mobileProfilePic" %>
-			<div class="mobileInfo">
+			<div class="mobileGeneralInfo">
 				<div><%= @user.name %></div>
 				<div><%= @user.level_name %></div>
 				<div><%= @user.points %></div>
 			</div>
 		</div>
 		<div class="mobileDivider">
+			<% @user.badges.reverse.take(3).each do |badge| %>
+            <%= image_tag (badge.custom_fields[:image]), class: 'mobileBadgeImg' %>
+          
+        <% end %>
+		</div>
+		<div class="mobileDivider" id="mobileWriteSongReview">
 			Write a Review for a Song or Album
+			<input placeholder="Paste YouTube Link Here">
 		</div>
 		<div class="mobileDivider">
 			<% if @reviews.count == 0 %>

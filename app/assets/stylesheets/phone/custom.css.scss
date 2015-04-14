@@ -55,23 +55,44 @@ body {
 #mobileMainBody {
 	display: inline-block;
 	height: 90%;
-	font-size: 500%;
+	font-size: 3.5vh;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;    
 }
 
 .mobileDivider {
 	height: 20%;
-	vertical-align: top;
 	margin-top: 5%;
-	margin-left: 5%;
 	img {
 		height: 100%;
 		display: inline-block;
 	}
 }
 
-.mobileInfo {
+.mobileInfo, .mobileGeneralInfo {
 	display: inline-block;
 	vertical-align: top;
+	margin-left: 2vw;
+}
+
+.mobileInfo {
+	margin-top: 6vh;
+}
+
+.mobileBadgeImg {
+	width: 25%;
+	margin-left: 5%;
+	height: auto !important;
+	max-height: 100%;
+	margin-top: 2%;
+}
+
+#mobileWriteSongReview {
+	text-align: center;
+}
+
+#mobileYTPaste {
+	width: 90vw;
+	margin-top: 1vh;
+	text-align: center;
 }
