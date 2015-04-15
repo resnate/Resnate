@@ -4,6 +4,7 @@
 
 <% @reviews.each do |review| %>
 	<div class="mobileReviewDivider">
+    
 		<div class="mobileReviewImgNName">
 		<% if review.reviewable_type == "PastGig" %>
         <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewGigImgs">
@@ -21,10 +22,10 @@
           </div>
       <% end %>
       	</div>
-      	<div class="mobileReviewContent"><%= sanitize review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %>
-		</div>
+      	<div class="mobileReviewContent"><%= sanitize review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+        <div class="expandReview">Read and comment on review</div>
 	</div>
-	<div class="expandReview">Read and comment on review</div>
+	
 	
 <% end %>
 
@@ -61,12 +62,12 @@
   }
 
   $('.expandReview').click(function(){
-  	var height = $(this).siblings('.mobileReviewDivider').find('mobileReviewImgNName').height();
+  	var height = $(this).siblings('.mobileReviewImgNName').height();
   	console.log(height);
-  $(this).siblings('.mobileReviewDivider').css({
+  $(this).parent().css({
     'height': 'auto'
   });
-  $(this).siblings('.mobileReviewDivider').find('mobileReviewImgNName').height(height);
+  $(this).siblings('.mobileReviewImgNName').height(height);
   $(this).remove();
 });
 

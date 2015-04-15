@@ -11,35 +11,39 @@ body {
     }
 }
 
+input {
+	color: black;
+}
+
 #Welcome {
   text-align: center;
   h2 {
-  	font-size: 7vh;
+  	font-size: 2em;
   }
   h3 {
-  	font-size: 5vh;
+  	font-size: 1em;
   }
-  font-size: 4vh;
+  font-size: 5em;
   width: 100%;
   img {
-  	margin-top: 5vh;
-  	margin-bottom: 5vh;
+  	margin-top: 15%;
+  	margin-bottom: 10%;
   	width: 50%;
   }
 }
 
 #homeFooter {
-	margin-top: 4vh;
-	font-size: 3vh;
+	margin-top: 5%;
+	font-size: 0.3em;
 }
 
 .mobileHeader {
-	height: 10%;
+	height: 8.5%;
 	background-color: #801336;
 	width: 100%;
-	font-size: 2.8vh;
+	font-size: 3.5em;
 	.glyphicon {
-		font-size: 3.3vh;
+		font-size: 1.3em;
 	}
 }
 
@@ -66,7 +70,8 @@ body {
 #mobileMainBody {
 	display: inline-block;
 	height: 90%;
-	font-size: 3.5vh;
+	width: 100%;
+	font-size: 5em;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;    
 }
@@ -76,14 +81,19 @@ body {
 	margin-top: 5%;
 }
 
+.mobileInputDivider {
+	height: 30%;
+	margin-top: 5%;
+}
+
 .mobileReviewDivider {
 	height: 40%;
 	background-color: white;
 	color: black;
-	margin-top: 10%;
+	margin-bottom: 20%;
 }
 
-.mobileDivider, .mobileReviewDivider {
+.mobileDivider, .mobileReviewDivider, .mobileInputDivider {
 	
 	img {
 		height: 100%;
@@ -94,20 +104,20 @@ body {
 .mobilePageHeader {
 	height: 10%;
 	margin-top: 5%;
-	margin-left: 2vw;
+	margin-left: 2%;
 }
 
 .mobileInfo, .mobileGeneralInfo {
 	display: inline-block;
 	vertical-align: top;
-	margin-left: 2vw;
+	margin-left: 2%;
 	height: 100%;
 	max-width: 60%;
-	line-height: 6vh;
+	line-height: 1.9em;
 }
 
 .mobileInfo {
-	margin-top: 6vh;
+	margin-top: 2em;
 
 }
 
@@ -118,17 +128,26 @@ body {
 	margin: 2% 2.5% 0% 2.5%;
 }
 
-#mobileBadges, #mobileWriteSongReview {
+#mobileBadges, #mobileWriteSongReview, #mobileInputSKID {
 	text-align: center;
 }
 
-#mobileYTPaste {
-	width: 90vw;
-	margin-top: 2vh;
+#mobileYTPaste, #user_songkickID {
+	width: 90%;
+	margin-top: 2%;
 	text-align: center;
+	height: 30%;
 	::-webkit-input-placeholder {
    		text-align: center;
 	}
+}
+
+#mobileSKIDSubmit, #mobileYTSubmit {
+	margin-top: 2%;
+	background-color: #E50049;
+	color: white;
+	padding: 0.5em;
+	border: none;
 }
 
 .mobileBoldNames {
@@ -142,7 +161,7 @@ body {
 
 .mobileReviewContent {
 	margin-top: 5%;
-	height: 45%;
+	height: 40%;
 	overflow: hidden;
 }
 

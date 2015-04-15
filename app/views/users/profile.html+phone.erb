@@ -12,9 +12,12 @@
           
         <% end %>
 		</div>
-		<div class="mobileDivider" id="mobileWriteSongReview">
+		<div class="mobileInputDivider" id="mobileWriteSongReview">
 			Write a Review for a Song or Album
-			<input placeholder="Paste YouTube Link Here" id="mobileYTPaste">
+			<%= form_for(@user.songs.create) do |f| %>
+        			<%= f.text_field :content, placeholder: "Paste YouTube Link Here", id: "mobileYTPaste" %>
+        			<%= f.submit "Submit Link", id: "mobileYTSubmit" %>
+      			<% end %>
 		</div>
 		<% unless @reviews.count == 0 %>
 		<div class="mobileDivider" id="mobileReviews">
@@ -29,8 +32,16 @@
 		</div>
 		<% end %>
 		<% if @user.songkickID.nil? %>
-			<div class="mobileDivider">
-				<% @user.first_name %> has no Songkick account to display past and upcoming gigs, tell them to sign up at <a href="https://www.songkick.com" target="_blank">songkick.com</a>!
+			<div class="mobileInputDivider" id="mobileInputSKID">
+				<% if current_user == @user %>
+				Enter your Songkick ID (or <a href="https://www.songkick.com/signup" target="_blank" style="font-weight:bold">sign up to Songkick</a>)
+				<%= form_for(@user) do |f| %>
+        			<%= f.text_field :songkickID, placeholder: "Get your Upcoming and Past Gigs" %>
+        			<%= f.submit "Add Songkick ID", id: "mobileSKIDSubmit" %>
+      			<% end %>
+				<% else %>
+					<%= @user.first_name %> has no Songkick account to display past and upcoming gigs, tell them to sign up at <a href="https://www.songkick.com" target="_blank">songkick.com</a>!
+				<% end %>
 			</div>
 		<% else %>
 			<% if @pastGigs.count > 0 %>
@@ -52,10 +63,8 @@
 			</div>
 			<% end %>
 		<% end %>
+		<% if @user.playlists.count > 0 %>
 		<div class="mobileDivider">
-			<% if @user.playlists.count === 0 %>
-				<%= @user.first_name %> has not created any playlists yet.
-			<% else %>
 			<% playlist = @user.playlists.first %>
       				<% unless playlist.content.nil? %>
       					<% img1 = "a" %>
@@ -67,8 +76,8 @@
       				<div class="mobileInfo">
 						<%= @user.first_name %>'s Playlists
 					</div>
-			<% end %>
 		</div>
+		<% end %>
 
 <script type="text/javascript">
 
