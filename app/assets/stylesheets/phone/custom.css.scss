@@ -1,10 +1,22 @@
+@media (min-height: 280px) {
+     body {
+        font-size: 10px;
+    }
+}
+
+@media (min-height: 500px) {
+    body {
+        font-size: 15px;
+    }
+}
+
+
 body {
 	background-image: image-url("testBkgd.jpg");
     background-position: 50% 50%;
     font-family: 'Lato', "Helvetica", sans-serif;
     color: white;
     margin: 0px;
-    font-size: 100%;
     a {
     	color: white;
     	text-decoration: none;
@@ -71,7 +83,7 @@ input {
 	display: inline-block;
 	height: 90%;
 	width: 100%;
-	font-size: 5em;
+	font-size: 2em;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;    
 }
