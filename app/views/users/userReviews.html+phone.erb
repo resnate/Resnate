@@ -22,9 +22,37 @@
           </div>
       <% end %>
       	</div>
-      	<div class="mobileReviewContent"><%= sanitize review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+      	<div class="mobileReviewContent">
+          <%= sanitize review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %>
+          <div class="hiddenReviewID"><%= review.id -%></div>
+          
+          <% if current_user.id == review.user_id %>
+            <div class="editReview">Edit</div>
+            <div class="deleteReview">Delete</div>
+            <div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
+            <div class="deleteReviewYes">Yes</div>
+            <div class="deleteReviewNo">No</div>
+          <% end %>
+          <div>
+            <div class="likerNumber">
+              <% likers = review.likers(User).count %>
+              <% if likers == 1 %>
+                <%= likers %> like
+              <% else %>
+                <%= likers %> likes
+              <% end %>
+            </div>
+            <% if current_user.likes?(review) %>
+              <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
+            <% elsif current_user.id != review.user_id %>
+              <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+            <% end %>
+            <span class="hiddenID"><%= review.user_id %></span>
+            <div class="hiddenReviewID"><%= review.id -%></div>
+          </div>
+        </div>
         <div class="expandReview">Read and comment on review</div>
-	</div>
+	 </div>
 	
 	
 <% end %>
@@ -63,7 +91,10 @@
 
   $('.expandReview').click(function(){
   	var height = $(this).siblings('.mobileReviewImgNName').height();
-  	console.log(height);
+  	$(this).siblings('.mobileReviewContent').css({
+      'height': 'auto',
+      'overflow': 'visible'
+    });
   $(this).parent().css({
     'height': 'auto'
   });

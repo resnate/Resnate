@@ -52,10 +52,6 @@ input {
 	height: 3em;
 	background-color: #801336;
 	width: 100%;
-	font-size: 1em;
-	.glyphicon {
-		font-size: 1em;
-	}
 }
 
 #mobileHomePic {
@@ -114,6 +110,7 @@ input {
 	height: 10%;
 	margin-top: 5%;
 	margin-left: 2%;
+	font-size: 1.5em;
 }
 
 .mobileInfo, .mobileGeneralInfo {
@@ -172,6 +169,7 @@ input {
 	margin-top: 5%;
 	height: 40%;
 	overflow: hidden;
+	padding: 0.5em;
 }
 
 .expandReview {
