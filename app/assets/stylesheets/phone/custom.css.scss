@@ -1,12 +1,12 @@
-@media (min-height: 280px) {
+@media screen and (min-height: 180px) {
      body {
-        font-size: 10px;
+        font-size: 14px;
     }
 }
 
-@media (min-height: 500px) {
+@media screen and (min-height: 614px) {
     body {
-        font-size: 10px;
+        font-size: 16px;
     }
 }
 
@@ -35,10 +35,9 @@ input {
   h3 {
   	font-size: 1em;
   }
-  font-size: 5em;
   width: 100%;
   img {
-  	margin-top: 15%;
+  	margin-top: 10%;
   	margin-bottom: 10%;
   	width: 50%;
   }
@@ -46,14 +45,14 @@ input {
 
 #homeFooter {
 	margin-top: 5%;
-	font-size: 0.5em;
+	font-size: 0.75em;
 }
 
 .mobileHeader {
-	height: 8.5%;
+	height: 3em;
 	background-color: #801336;
 	width: 100%;
-	font-size: 3em;
+	font-size: 1em;
 	.glyphicon {
 		font-size: 1em;
 	}
@@ -73,8 +72,7 @@ input {
 	float: left;
 	text-align: center;
 	.glyphicon {
-		margin-top: 15px;
-		margin-bottom: 10px;
+		margin-top: 5px;
 		display: block;
 	}
 }
@@ -83,7 +81,6 @@ input {
 	display: inline-block;
 	height: 90%;
 	width: 100%;
-	font-size: 2em;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;    
 }

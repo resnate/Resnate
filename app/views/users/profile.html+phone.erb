@@ -113,6 +113,9 @@
 
   $.get("<%= @user.id %>/userReviews", function(result){
   	$('#mobileMainBody').html(result);
+  	$('#mobileMainBody').css('overflow', 'hidden');
+		$('#mobileMainBody').scrollTop(0);
+		$('#mobileMainBody').css('overflow', 'scroll');
   });
 });
 
