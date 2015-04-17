@@ -1416,7 +1416,7 @@ tr {
   margin-bottom: 50px;
 }
 
-.setlistHeader, .photosHeader {
+.setlistHeader, .photosHeader, .reviewHeader {
   font-weight: bold;
   padding-left: 0px;
 }
@@ -1460,13 +1460,26 @@ tr {
   cursor: pointer;
 }
 
+.reviewT {
+ margin-bottom: 15px; 
+ font-size: 1.5em;
+}
+
+.reviewerInfo, .reviewLevelNameNPoints {
+  display: inline-block;
+}
+
+.reviewerBadge {
+  height: 2em;
+  display: inline-block;
+}
+
 .reviewHeader, .reviewContent {
   text-align: left;
 }
 
 .reviewContent {
   margin-bottom: 10px;
-  font-size: 1.1em;
   line-height: 2em;
   height: 100%;
 }
@@ -1505,7 +1518,6 @@ tr {
 .reviewTitle {
   display: inline-block;
   vertical-align: top;
-  font-size: 1.5em;
   margin-left: 10px;
   width: calc(100% - 265px);
 }

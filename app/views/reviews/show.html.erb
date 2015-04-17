@@ -16,7 +16,7 @@
 		<% end %>
 		
 		<div class="reviewTitle">
-			<div>
+			<div class="reviewT">
 			Review of
 			<% if @review.reviewable_type == "PastGig" %>
 			<div class="reviewGigName<%= @review.id %>"></div>
@@ -31,20 +31,22 @@
 			</div>
 			<div class="reviewerInfo">
 				<div class="profileName"><%= User.find(@review.user_id).name %></div>
-			<div class="hiddenID">
-  				<%= @review.user_id %>
-			</div>
-			<div class="reviewLevelNameNPoints">
-      			<%= User.find(@review.user_id).level_name %> <%= User.find(@review.user_id).points %> points
-      		</div>
-      		<div class="reviewFollowers">
+				<div class="hiddenID">
+  					<%= @review.user_id %>
+				</div>
+				<br>
+				<%= image_tag (User.find(@review.user_id).badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+				<div class="reviewLevelNameNPoints">
+      				<%= User.find(@review.user_id).level_name %> <%= User.find(@review.user_id).points %> points
+      			</div>
+      			<div class="reviewFollowers">
       			<% followerCount = User.find(@review.user_id).followers(User).count %>
       			<% if followerCount == 1 %>
       				<%= followerCount %> follower
       			<% elsif followerCount > 1 %>
       				<%= followerCount %> followers
       			<% end %>
-      		</div>
+      			</div>
 			</div>
 			
 		</div>
