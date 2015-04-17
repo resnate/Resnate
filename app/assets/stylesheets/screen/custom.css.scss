@@ -1897,17 +1897,15 @@ tr {
   height: 40px;
 }
 
-.feedReview, .feedDescription {
+.feedReview, .feedDescription, .profileReview {
   font-style: italic;
-  cursor: pointer;
-  margin-top: 15px;
+  cursor: pointer; 
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   position: relative;
-  height: 4.2em;
   &:hover {
     color: #E50049;
   }
@@ -1925,6 +1923,16 @@ tr {
 
   }
 }
+
+.feedReview {
+  margin-top: 15px;
+  height: 4.2em;
+}
+
+.profileReview {
+  height: 4em;
+}
+
 
 .msgReviewContent {
   cursor: pointer;

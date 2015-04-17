@@ -1021,7 +1021,7 @@ $(document).on('click', '.shareReview', function(){
         $('#messageURL').val('R#'+$(this).siblings('.hiddenReviewID').html());
   });
     
-    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg, .reviewSong, .reviewGigName, .reviewGigImgs', function(){
+    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg, .reviewSong, .reviewGigName, .reviewGigImgs, .profileReview', function(){
   
   
   $.get('/reviews/' + $(this).siblings('.hiddenReviewID').html(), function(result){

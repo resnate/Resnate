@@ -125,17 +125,30 @@
         <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="latestImg reviewGigImgs latest">
         <div class="hiddenReviewID"><%= review.id %></div>
           <div class="latestContent">
-            <%= @user.first_name %> wrote a review for <span class="reviewGigName activityName"></span>
+            <span class="reviewGigName activityName"></span>
             <div class="hiddenReviewID"><%= review.id %></div>
-          </div>
+          
       <% elsif review.reviewable_type == "Song" %>
        <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="playlistImg latestImg reviewSong latest">
         <div class="hiddenReviewID"><%= review.id %></div>
           <div class="latestContent">
-            <%= @user.first_name %> wrote a review for <span class="activityName reviewSong"><%= Song.find(review.reviewable_id).name %></span>
+            <span class="activityName reviewSong"><%= Song.find(review.reviewable_id).name %></span>
             <div class="hiddenReviewID"><%= review.id %></div>
-          </div>
       <% end %>
+      <div class="profileReview">
+      <%= review.content %>
+    </div>
+      <% likers = review.likers(User).count %>
+      <% unless likers == 0 %>
+        <div class="profileLikerNumber">
+              <% if likers == 1 %>
+                <%= likers %> like
+              <% else %>
+                <%= likers %> likes
+              <% end %>
+        </div>
+      <% end %>
+      </div>
     </div>
     <% end %>
 
