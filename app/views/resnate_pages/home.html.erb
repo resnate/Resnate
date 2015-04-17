@@ -731,35 +731,6 @@ function friendsLikeArtist(){
 
       $(function(){
 
-        var featuredUrls = [];
-
-  for(j=0; j<$('.featuredReview').length; j++){
-    featuredUrls.push($('.topReviews').eq(j).attr('src'));
-  }
-
-  for(j=0; j<$('.featuredReview').length; j++){
-    $.ajax({
-      url: featuredUrls[j],
-      indexValue: j,
-      async: false,
-      dataType: 'json',
-      success: function(json) {
-        
-        image_link(json , this.indexValue);
-
-                    function image_link(data, i) {
-                        
-                            $('.topReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
-
-                            $('.featuredReviewName').eq(i).html(data.resultsPage.results.event.displayName);
-                          
-                    }
-        
-      }
-    });
-    
-    
-  }
 
 
         $('.modal').on('shown.bs.modal', function () {

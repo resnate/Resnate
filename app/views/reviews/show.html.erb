@@ -107,7 +107,10 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
     $('.reviewGigs<%= @review.id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
                             $('.reviewGigName<%= @review.id %>').html(data.resultsPage.results.event.displayName);
+                            $('.reviewGigs<%= @review.id %>').removeClass('reviewGigs<%= @review.id %>');
   });
+
+
 
   
 
