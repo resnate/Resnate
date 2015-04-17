@@ -92,10 +92,9 @@ input {
 }
 
 .mobileReviewDivider {
-	height: 40%;
-	background-color: white;
-	color: black;
-	margin-bottom: 20%;
+	height: 20%;
+	font-size: 0.75em;
+	margin-bottom: 10%;
 }
 
 .mobileDivider, .mobileReviewDivider, .mobileInputDivider {
@@ -162,6 +161,15 @@ input {
 
 .mobileReviewImgNName {
 	height: 50%;
+	overflow: hidden;
+}
+
+.mobileProfileReview {
+	font-style: italic;
+}
+
+.mobileReviewSongName, .mobileProfileReview, .mobileProfileReview {
+	height: 3.8em;
 	overflow: hidden;
 }
 

@@ -4,10 +4,36 @@
 
 <% @reviews.each do |review| %>
 	<div class="mobileReviewDivider">
-    <% @review = Review.find(review[:id]) %>
-    <% @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first %>
-    <%= render file: "reviews/show/" %>
-    <div class="expandReview">Read and comment on review</div>
+    <div>
+      <% if review.reviewable_type == "PastGig" %>
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewGigImgs">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="mobileGeneralInfo">
+            <div class="mobileReviewGigName"></div>
+            <div class="hiddenReviewID"><%= review.id %></div>
+          
+      <% elsif review.reviewable_type == "Song" %>
+       <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg">
+        <div class="hiddenReviewID"><%= review.id %></div>
+          <div class="mobileGeneralInfo">
+            <div class="mobileReviewSongName"><%= Song.find(review.reviewable_id).name %></div>
+            <div class="hiddenReviewID"><%= review.id %></div>
+      <% end %>
+      <div class="mobileProfileReview">
+        <%= review.content %>
+      </div>
+      <% likers = review.likers(User).count %>
+      <% unless likers == 0 %>
+        <div class="profileLikerNumber">
+          <% if likers == 1 %>
+            <%= likers %> like
+          <% else %>
+            <%= likers %> likes
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+    </div>
 	</div>
 	
 	
@@ -15,6 +41,9 @@
 
 <script type="text/javascript">
 
+$('.mobileReviewSongName, .mobileProfileReview').succinct({
+            size: 60
+        });
 
 
   var reviewGigUrls = [];
@@ -40,22 +69,14 @@
                             $('.mobileReviewGigImgs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 
                             $('.mobileReviewGigName').eq(i).text(data.resultsPage.results.event.displayName);
+
+                            $('.mobileReviewGigName').succinct({
+            size: 70
+        });
                     }
       }
     });
   }
 
-  $('.expandReview').click(function(){
-  	var height = $(this).siblings('.mobileReviewImgNName').height();
-  	$(this).siblings('.mobileReviewContent').css({
-      'height': 'auto',
-      'overflow': 'visible'
-    });
-  $(this).parent().css({
-    'height': 'auto'
-  });
-  $(this).siblings('.mobileReviewImgNName').height(height);
-  $(this).remove();
-});
 
 </script>

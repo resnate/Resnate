@@ -104,7 +104,7 @@
         <h4>Badges</h4>
         <% @user.badges.reverse.take(3).each do |badge| %>
           <div class="badgesDiv">
-            <%= image_tag (badge.custom_fields[:image]), :float => "left", class: 'badgeImg' %>
+            <%= image_tag (badge.custom_fields[:image]), class: 'badgeImg' %>
             <div class="badgesName"><%= badge.name %></div>
           </div>
           
