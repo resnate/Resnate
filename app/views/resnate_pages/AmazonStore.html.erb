@@ -6,21 +6,17 @@
               <% params = {'SearchIndex' => 'Apparel', 'Keywords'    => @search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage'    => 1} %>
               <% res = @req.item_search(params) %>
               <% hash = res.to_h %>
-             <% current = hash["ItemSearchResponse"]["Items"]["Item"] %>
+             <% items = hash["ItemSearchResponse"]["Items"]["Item"] %>
              <% noOfItems = Integer(hash["ItemSearchResponse"]["Items"]["TotalResults"]) %>
-             <% if noOfItems == 1 %>
-             <%= link_to image_tag(current["LargeImage"]["URL"]), current["DetailPageURL"], target: "_blank", class: 'azImg' %>
-             <% elsif noOfItems < 4 %>
-             <% (0..(noOfItems-1)).each do |i| %>
-              <%= link_to image_tag(current[i]["LargeImage"]["URL"]), current[i]["DetailPageURL"], target: "_blank", class: 'azImg' %>
+             <% if noOfItems == 0 %>
+              <div id="noMerch">No Merch Available from Amazon</div>
+             <% else %>
+              <% items.take(3).each do |i| %>
+                <% if i["LargeImage"].nil? %>
+                  <% next %>
+                <% else %>
+                  <%= link_to image_tag(i["LargeImage"]["URL"]), i["DetailPageURL"], target: "_blank", class: 'azImg' %>
+                <% end %>
               <% end %>
-              <% else %>
-              <% (0..3).each do |i| %>
-              <% if current[i]["MediumImage"].nil? %>
-              <% next %>
-              <% else %>
-              <%= link_to image_tag(current[i]["LargeImage"]["URL"]), current[i]["DetailPageURL"], target: "_blank", class: 'azImg' %>
-              <% end %>
-              <% end %>
-              <% end %>
+            <% end %>
 </div>
