@@ -186,8 +186,18 @@ input {
 }
 
 
-.hiddenReviewID, .hiddenID, .editReview, .deleteReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo {
+.hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo {
 	display: none;
+}
+
+.editReview {
+	margin-left: 2%;
+	margin-top: 5%;
+}
+
+.editReview, .deleteReview {
+	display: inline-block;
+	margin-right: 5%;
 }
 
 .mobileReviewShowImgs {
@@ -201,4 +211,16 @@ input {
 
 .likesNcomments {
 	margin: 5% 2%;
+}
+
+.reviewButtons {
+	height: 22.5%;
+	text-align: center;
+	img {
+		height: 60%;
+	}
+}
+
+#fbShareImg {
+	margin: 10%;
 }

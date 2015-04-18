@@ -40,6 +40,13 @@
             <% end %>
             <span class="hiddenID"><%= @review.user_id %></span>
             <div class="hiddenReviewID"><%= @review.id -%></div>
+            <div class="reviewButtons">
+              <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "collapse", "href" => "#shareAccordion" %>
+              <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+              <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
+              <div class="hiddenReviewID"><%= @review.id %></div>
+              <span class="hiddenID"><%= @review.user_id %></span>
+            </div>
           </div>
         </div>
 </div>
