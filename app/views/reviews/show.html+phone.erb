@@ -13,8 +13,8 @@
           
       <% end %>
       	</div>
-      	<div class="mobileReviewContent">
-          <%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %>
+      	<div class="mobileReviewWrapper">
+          <div class="mobileReviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
           <div class="hiddenReviewID"><%= @review.id -%></div>
           
           <% if current_user.id == @review.user_id %>
@@ -24,7 +24,7 @@
             <div class="deleteReviewYes">Yes</div>
             <div class="deleteReviewNo">No</div>
           <% end %>
-          <div>
+          <div class="likesNcomments">
             <div class="likerNumber">
               <% likers = @review.likers(User).count %>
               <% if likers == 1 %>

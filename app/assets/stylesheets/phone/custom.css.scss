@@ -186,7 +186,7 @@ input {
 }
 
 
-.hiddenReviewID {
+.hiddenReviewID, .hiddenID, .editReview, .deleteReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo {
 	display: none;
 }
 
@@ -196,4 +196,9 @@ input {
 
 .mobileReviewShowGigName, .mobileReviewShowSongName {
 	margin-bottom: 5%;
+	margin-left: 2%;
+}
+
+.likesNcomments {
+	margin: 5% 2%;
 }
