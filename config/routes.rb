@@ -5,6 +5,7 @@ Resnate::Application.routes.draw do
   
   get "resnate_pages/AmazonStore"
   get "/leaderboard" => "resnate_pages#leaderboard"
+  get "/topReviews" => "resnate_pages#topReviews"
   get "/:id/profile" => "users#profile"
   match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
   match 'auth/failure', to: redirect('/'), via: [:get, :post]

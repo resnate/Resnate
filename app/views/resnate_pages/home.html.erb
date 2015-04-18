@@ -36,7 +36,7 @@
   
     
     <h4 id="homeFooter">Built using YouTube + Songkick + Amazon + Setlist.fm APIs. </h4>
-    <h4>*Requires a <a href="https://www.songkick.com" target="_blank">Songkick</a> account.</h4>
+    <h4>*Requires a <a href="https://www.songkick.com" target="_blank" id="skLink">Songkick account</a>.</h4>
   </div>
 
 <div id="container">
@@ -211,19 +211,7 @@
 
   <div class="featuredContent">
     <h1 class="featuredHeader">Trending Reviews</h1>
-    <% if @topReviews.nil? %>
-    <% else %>
-    <% @topReviews.first(5).each do |rankedReview| %>
-    <div>
-    <div class="featuredReview">
-    <% @review = Review.find(rankedReview[:id]) %>
-    <% @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first %>
-    <%= render file: "reviews/show/" %>
-    </div>
-    <div class="expandReview">Read and comment on review</div>
-  </div>
-    <% end %>
-    <% end %>
+    
   </div>
 
 
@@ -851,8 +839,30 @@ $('.expandReview').click(function(){
     } 
   });
 
+  $.get('/topReviews', function(result){
+    $('.featuredContent').append(result);
+  });
+  
 
 
+  $('#newStuff').on('scroll', function(){
+    if($('.mainInfinite-scrolling .pagination .next').length){
+      if(!$('.next').hasClass('disabled')) {
+        url = $('.mainInfinite-scrolling .next').find('a').attr('href');
+        if($('#newStuff').scrollTop() + $('#newStuff').innerHeight()>=$('#newStuff')[0].scrollHeight - 200){
+      
+          $('.mainInfinite-scrolling').remove();
+          $.get(url, function(response){
+            setTimeout(
+              function() {
+                $('.featuredContent').append(response); 
+                }, 200);
+                     });
+        }    
+      }
+          
+    } 
+  });
   
 
 

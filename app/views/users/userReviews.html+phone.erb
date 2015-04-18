@@ -35,6 +35,10 @@
 	
 <% end %>
 
+<div class="genericInfinite-scrolling">
+   <%= will_paginate @reviews, renderer: BootstrapPagination::Rails %>
+ </div>
+
 <script type="text/javascript">
 
 $('.mobileReviewSongName, .mobileProfileReview').succinct({

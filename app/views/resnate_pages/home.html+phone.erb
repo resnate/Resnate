@@ -48,14 +48,43 @@ $('.mobileHeaderDiv').click(function(){
 	$(this).css('color', '#E50049');
 });
 
-$('#mobileProfile').click(function(){
+function getProfile(){
 	$.get('/<%=current_user.id %>/profile', function(result){
 		$('#mobileMainBody').html(result);
 		$('#mobileMainBody').css('overflow', 'hidden');
 		$('#mobileMainBody').scrollTop(0);
 		$('#mobileMainBody').css('overflow', 'scroll');
 	});
+}
+
+$('#mobileProfile').click(function(){
+	getProfile();
 });
+
+$(document).on('click', '.deleteReviewYes', function(){
+  var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();
+  $.ajax({
+            url: reviewURL ,
+            type: 'DELETE'
+          });
+  getProfile();
+});
+
+$('#mobileMainBody').on('scroll', function(){
+    if($('.genericInfinite-scrolling .pagination .next').length){
+      if(!$('.next').hasClass('disabled')) {
+        url = $('.genericInfinite-scrolling .next').find('a').attr('href');
+        if($('#mobileMainBody').scrollTop() + $('#mobileMainBody').innerHeight()>=$('#mobileMainBody')[0].scrollHeight - 200){
+      
+          $('.genericInfinite-scrolling').remove();
+          $.get(url, function(response){
+                $('#mobileMainBody').append(response); 
+                     });
+        }    
+      }
+          
+    } 
+  });
 
 </script>
 <% end %>

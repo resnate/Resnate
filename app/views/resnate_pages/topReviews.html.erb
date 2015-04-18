@@ -1,0 +1,16 @@
+<% unless @topReviews.nil? %>
+    <% @topReviews.each do |rankedReview| %>
+        <div>
+            <div class="featuredReview">
+                <% @review = Review.find(rankedReview[:id]) %>
+                <% @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first %>
+                <%= render file: "reviews/show/" %>
+            </div>
+            <div class="expandReview">Read and comment on review</div>
+        </div>
+    <% end %>
+    <div class="mainInfinite-scrolling">
+      <%= will_paginate @topReviews, renderer: BootstrapPagination::Rails %>
+    </div>
+<% end %>
+    
