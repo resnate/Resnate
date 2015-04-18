@@ -162,6 +162,7 @@ input {
 .mobileReviewImgNName {
 	height: 50%;
 	overflow: hidden;
+	font-size: 1.25em;
 }
 
 .mobileProfileReview {
@@ -175,9 +176,9 @@ input {
 
 .mobileReviewContent {
 	margin-top: 5%;
-	height: 40%;
-	overflow: hidden;
 	padding: 0.5em;
+	background-color: white;
+	color: black;
 }
 
 .expandReview {
@@ -189,4 +190,12 @@ input {
 
 .hiddenReviewID {
 	display: none;
+}
+
+.mobileReviewShowImgs {
+	width: 100%;
+}
+
+.mobileReviewShowGigName, .mobileReviewShowSongName {
+	margin-bottom: 5%;
 }

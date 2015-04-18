@@ -1,19 +1,16 @@
 <div class="mobileReviewBody">
   <div class="mobileReviewImgNName">
 		<% if @review.reviewable_type == "PastGig" %>
-        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewGigImgs">
+      
+        <div class="mobileReviewShowGigName"></div>
+        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewShowGigImgs mobileReviewShowImgs">
         <div class="hiddenReviewID"><%= @review.id %></div>
-          <div class="mobileGeneralInfo">
-          	<span class="mobileReviewGigName"></span>
-            <div class="hiddenReviewID"><%= @review.id %></div>
-          </div>
+          
       <% elsif @review.reviewable_type == "Song" %>
-       <img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg">
+        <div class="mobileReviewShowSongName"><%= Song.find(@review.reviewable_id).name %></div>
+        <img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="mobileReviewShowImgs">
         <div class="hiddenReviewID"><%= @review.id %></div>
-          <div class="mobileGeneralInfo">
-          	<%= Song.find(@review.reviewable_id).name %>
-            <div class="hiddenReviewID"><%= @review.id %></div>
-          </div>
+          
       <% end %>
       	</div>
       	<div class="mobileReviewContent">
@@ -46,4 +43,36 @@
           </div>
         </div>
 </div>
+
+<script type="text/javascript">
+
+var reviewShowUrls = [];
+
+  for(j=0; j<$('.mobileReviewShowGigImgs').length; j++){
+    reviewShowUrls.push($('.mobileReviewShowGigImgs').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.mobileReviewShowGigImgs').length; j++){
+    $.ajax({
+      url: reviewShowUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.mobileReviewShowGigImgs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.mobileReviewShowGigName').eq(i).text(data.resultsPage.results.event.displayName);
+                    }
+      }
+    });
+  }
+
+</script>
         
