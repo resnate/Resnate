@@ -123,6 +123,7 @@
   	$.get("<%= @user.id %>/userReviews", function(result){
   		$('.mobileReviewDivider, .mobileReviewBody').remove();
   		$('#mobileReviewsHeader').after(result);
+  		$('#mobileMainBody').scrollTop(0);
   	});
   });
 
