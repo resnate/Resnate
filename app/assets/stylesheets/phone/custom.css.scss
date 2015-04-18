@@ -188,8 +188,12 @@ input {
 }
 
 
-.hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo {
+.hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo {
 	display: none;
+}
+
+.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo {
+	margin-left: 5%;
 }
 
 .editReview {
