@@ -172,11 +172,13 @@ input {
 	overflow: hidden;
 }
 
-.mobileReviewContent {
+.mobileReviewContent, .updateReview {
 	margin-top: 5%;
 	padding: 0.5em;
 	background-color: white;
 	color: black;
+	width: 100%;
+	resize:none;
 }
 
 .expandReview {
