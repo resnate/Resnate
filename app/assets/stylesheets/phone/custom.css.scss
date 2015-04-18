@@ -147,7 +147,7 @@ input {
 	}
 }
 
-#mobileSKIDSubmit, #mobileYTSubmit {
+#mobileSKIDSubmit, #mobileYTSubmit, .editReviewYes, .editReviewNo, .deleteReviewYes, .deleteReviewNo  {
 	margin-top: 2%;
 	background-color: #E50049;
 	color: white;
@@ -192,7 +192,7 @@ input {
 	display: none;
 }
 
-.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo {
+.deleteReviewYes, .deleteReviewNo, .editReviewYes, .editReviewNo {
 	margin-left: 5%;
 }
 
@@ -204,6 +204,7 @@ input {
 .editReview, .deleteReview {
 	display: inline-block;
 	margin-right: 5%;
+	margin-top: 10%;
 }
 
 .mobileReviewShowImgs {

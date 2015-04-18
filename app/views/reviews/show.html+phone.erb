@@ -45,8 +45,8 @@
             <div class="hiddenReviewID"><%= @review.id -%></div>
             <div class="reviewButtons">
               <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "collapse", "href" => "#shareAccordion" %>
-              <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
-              <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
+              <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl" target="_blank"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+              <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!" target="_blank"><%= image_tag "twitter.png", id: "twit" %></a>
               <div class="hiddenReviewID"><%= @review.id %></div>
               <span class="hiddenID"><%= @review.user_id %></span>
             </div>
@@ -87,6 +87,8 @@ var reviewShowUrls = [];
   $('.editReview').click(function(){
     var reviewContent = $(this).siblings('.mobileReviewContent').html();
     $(this).siblings('.mobileReviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
+    autosize($('textarea'));
+    $('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').hide();
     $('.editReviewPrompt, .editReviewYes, .editReviewNo').css('display', 'inline-block');
 
     $('.editReviewNo').click(function(){
