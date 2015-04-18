@@ -1,7 +1,3 @@
-<div class="mobilePageHeader">
-	<%= @user.first_name%>'s Reviews
-</div>
-
 <% @reviews.each do |review| %>
 	<div class="mobileReviewDivider">
     <div>
@@ -44,6 +40,14 @@
 $('.mobileReviewSongName, .mobileProfileReview').succinct({
             size: 60
         });
+
+$('.mobileReviewDivider').click(function(){
+  var reviewURL = '/reviews/' +$(this).find('.hiddenReviewID').html();
+  $.get(reviewURL, function(result){
+    $('.mobileReviewDivider, .mobileReviewBody').remove();
+    $('#mobileReviewsHeader').after(result);
+  });
+});
 
 
   var reviewGigUrls = [];

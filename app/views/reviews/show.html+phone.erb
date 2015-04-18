@@ -1,4 +1,5 @@
-<div class="mobileReviewImgNName">
+<div class="mobileReviewBody">
+  <div class="mobileReviewImgNName">
 		<% if @review.reviewable_type == "PastGig" %>
         <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewGigImgs">
         <div class="hiddenReviewID"><%= @review.id %></div>
@@ -44,4 +45,5 @@
             <div class="hiddenReviewID"><%= @review.id -%></div>
           </div>
         </div>
+</div>
         

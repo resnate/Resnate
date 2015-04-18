@@ -112,11 +112,18 @@
   $('#mobileReviews').click(function(){ 
 
   $.get("<%= @user.id %>/userReviews", function(result){
-  	$('#mobileMainBody').html(result);
+  	$('#mobileMainBody').html('<div class="mobilePageHeader" id="mobileReviewsHeader"><%= @user.first_name%>\'s Reviews</div>' + result);
   	$('#mobileMainBody').css('overflow', 'hidden');
 		$('#mobileMainBody').scrollTop(0);
 		$('#mobileMainBody').css('overflow', 'scroll');
   });
 });
+
+  $('#mobileMainBody').on('click', '#mobileReviewsHeader', function(){
+  	$.get("<%= @user.id %>/userReviews", function(result){
+  		$('.mobileReviewDivider, .mobileReviewBody').remove();
+  		$('#mobileReviewsHeader').after(result);
+  	});
+  });
 
 </script>
