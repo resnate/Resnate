@@ -1,1 +1,39 @@
-Test
+<div class="mobileInputDivider" id="mobileWriteSongReview">
+			<h3>Write about Your Life in Music.</h3>
+			<h4>Get points, gain followers.<br>Become the No. 1 Music Fan.</h4>
+      		<input placeholder="Paste YouTube link for a Song or Album" id="mobileYTPaste">
+      		<% unless current_user.past_gigs.count == 0 %>
+        		<div id="writeGig">Write reviews for concerts.</div>
+      		<% end %>
+</div>
+
+<% if current_user.followees(User).count == 0 %>
+
+	<h3> Follow friends to see their activity! </h3>
+
+	<% unless @user.friends.nil? || @user.friends.count == 0 %>
+
+
+		<% @user.friends.each do |friend| %>
+  			<% unless User.find_by_uid(friend).nil? %>
+    			<div class="followDiv">
+    			<img src="https://graph.facebook.com/<%= friend %>/picture?width=200&height=200" class="followImgs">
+    			<span class="hiddenID"><%= User.find_by_uid(friend).id %></span>
+    			<span class="followNames"><%= User.find_by_uid(friend).name %></span>
+    			</div>
+  			<% end %>
+		<% end %>
+	<% end %>
+
+
+<% else %>
+
+	<% @activities.each do |activity| %>
+		<% if activity.trackable %>
+			<div class="activity">
+				<%= render_activity activity %>
+			</div>
+		<% end %>
+	<% end %>
+
+<% end %>

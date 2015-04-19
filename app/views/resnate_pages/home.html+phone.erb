@@ -31,13 +31,7 @@
 		</div>
 	</div>
 	<div id="mobileMainBody">
-		<div class="mobileInputDivider" id="mobileWriteSongReview">
-			Write a Review for a Song or Album
-			<%= form_for(current_user.songs.create) do |f| %>
-        			<%= f.text_field :content, placeholder: "Paste YouTube Link Here", id: "mobileYTPaste" %>
-        			<%= f.submit "Submit Link", id: "mobileYTSubmit" %>
-      			<% end %>
-		</div>
+		
 	</div>
 
 	<script type="text/javascript">
@@ -69,7 +63,7 @@ $('#mobileProfile').click(function(){
 
 $('#mobileHome').click(function(){
 	$.get('/activities', function(result){
-		$('#mobileMainBody').append(result);
+		$('#mobileMainBody').html(result);
 	});
 });
 

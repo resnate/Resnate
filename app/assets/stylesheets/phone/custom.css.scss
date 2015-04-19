@@ -87,7 +87,7 @@ input {
 }
 
 .mobileInputDivider {
-	height: 30%;
+	height: 40%;
 	margin-top: 5%;
 }
 
@@ -141,13 +141,21 @@ input {
 	width: 90%;
 	margin-top: 2%;
 	text-align: center;
-	height: 30%;
+	height: 3.5em;
 	::-webkit-input-placeholder {
    		text-align: center;
 	}
 }
 
-#mobileSKIDSubmit, #mobileYTSubmit, .editReviewYes, .editReviewNo, .deleteReviewYes, .deleteReviewNo  {
+#writeGig {
+	width: 90%;
+	margin: 5%;
+	height: 3.5em;
+	background-color: #E50049;
+	padding-top: 1em;
+}
+
+#mobileSKIDSubmit, .editReviewYes, .editReviewNo, .deleteReviewYes, .deleteReviewNo  {
 	margin-top: 2%;
 	background-color: #E50049;
 	color: white;

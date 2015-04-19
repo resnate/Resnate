@@ -12,6 +12,8 @@ class ActivitiesController < ApplicationController
       		@gigArray.push(gig.songkick_id)
      	end
     	@activities = PublicActivity::Activity.where(owner_id: @users, owner_type: "User").order("created_at desc").paginate(page: params[:page], per_page: 5)
+
+      
     	render :layout => false
   end
 
