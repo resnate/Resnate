@@ -87,7 +87,6 @@ input {
 }
 
 .mobileInputDivider {
-	height: 40%;
 	margin-top: 5%;
 }
 
@@ -197,7 +196,7 @@ input {
 
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
-.genericInfinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default {
+.genericInfinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID {
 	display: none;
 }
 
@@ -246,7 +245,7 @@ input {
 	margin: 5%;
 }
 
-.feedPic, .feedYT {
+.feedPic, .feedYT, .feedReviewGigs, .feedGigs {
 	height: 8em;
 	display: inline-block;
 }
@@ -265,4 +264,8 @@ input {
 
 .activityInfo {
 	padding: 1em;
+}
+
+.shareReview, .feedCsImg {
+	height: 3em;
 }
