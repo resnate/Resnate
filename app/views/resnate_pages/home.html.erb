@@ -865,7 +865,7 @@ $(document).on('click', '#songReviewContent', function(){
   
 });
 
-$('.expandReview').click(function(){
+$(document).on('click', '.expandReview', function(){
   $(this).siblings('.featuredReview').css({
     'height': 'auto',
     'margin-bottom': '75px'
