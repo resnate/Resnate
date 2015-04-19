@@ -197,7 +197,7 @@ input {
 
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
-.genericInfinite-scrolling {
+.genericInfinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default {
 	display: none;
 }
 
@@ -240,4 +240,29 @@ input {
 
 #fbShareImg {
 	margin: 10%;
+}
+
+.feedPic {
+	margin: 5%;
+}
+
+.feedPic, .feedYT {
+	height: 8em;
+	display: inline-block;
+}
+
+.feedButtons {
+	text-align: center;
+}
+
+.profileName, .activityName, .verb {
+	display: inline-block;
+}
+
+.profileName, .activityName {
+	font-weight: bold;
+}
+
+.activityInfo {
+	padding: 1em;
 }
