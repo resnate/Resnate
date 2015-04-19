@@ -1910,26 +1910,8 @@ tr {
   font-style: italic;
   cursor: pointer; 
   overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-  position: relative;
   &:hover {
     color: #E50049;
-  }
-  &:after {
-
-      content: "";
-      text-align: right;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 70%;
-      height: 1.2em;
-      
-
-
   }
 }
 
