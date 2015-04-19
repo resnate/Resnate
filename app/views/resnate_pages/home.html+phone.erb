@@ -37,8 +37,11 @@
 	<script type="text/javascript">
 $(function(){
 
-	$.get('/activities', function(result){
-		$('#mobileMainBody').append(result);
+	$.get('/indexHeader', function(result){
+		$('#mobileMainBody').html(result);
+		$.get('/activities', function(result){
+			$('#mobileMainBody').append(result);
+		});
 	});
 	
 });
@@ -62,8 +65,11 @@ $('#mobileProfile').click(function(){
 });
 
 $('#mobileHome').click(function(){
-	$.get('/activities', function(result){
+	$.get('/indexHeader', function(result){
 		$('#mobileMainBody').html(result);
+		$.get('/activities', function(result){
+			$('#mobileMainBody').append(result);
+		});
 	});
 });
 
@@ -77,12 +83,12 @@ $(document).on('click', '.deleteReviewYes', function(){
 });
 
 $('#mobileMainBody').on('scroll', function(){
-    if($('.genericInfinite-scrolling .pagination .next').length){
+    if($('.infinite-scrolling .pagination .next').length){
       if(!$('.next').hasClass('disabled')) {
-        url = $('.genericInfinite-scrolling .next').find('a').attr('href');
+        url = $('.infinite-scrolling .next').find('a').attr('href');
         if($('#mobileMainBody').scrollTop() + $('#mobileMainBody').innerHeight()>=$('#mobileMainBody')[0].scrollHeight - 200){
       
-          $('.genericInfinite-scrolling').remove();
+          $('.infinite-scrolling').remove();
           $.get(url, function(response){
                 $('#mobileMainBody').append(response); 
                      });

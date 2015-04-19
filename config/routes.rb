@@ -50,6 +50,8 @@ Resnate::Application.routes.draw do
   get '/songs/:id/reviewTemplate' => 'songs#reviewTemplate'
   post '/:user/:content/like' => 'songs#like'
   post '/:user/:content/unlike' => 'songs#unlike'
+
+  get '/indexHeader' => 'activities#indexHeader'
   
   post '/:user/:songkick_id/gigs/like' => 'gigs#like'
   post '/:user/:songkick_id/gigs/unlike' => 'gigs#unlike'

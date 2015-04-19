@@ -17,6 +17,10 @@ class ActivitiesController < ApplicationController
     	render :layout => false
   end
 
+  def indexHeader
+    render :layout => false
+  end
+
   def show
     @activity =  PublicActivity::Activity.find(params[:id])
     @user = current_user

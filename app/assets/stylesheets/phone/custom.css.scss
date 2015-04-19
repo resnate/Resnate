@@ -23,7 +23,7 @@ body {
     }
 }
 
-input {
+input, textarea {
 	color: black;
 }
 
@@ -196,7 +196,7 @@ input {
 
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
-.genericInfinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID {
+.infinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID {
 	display: none;
 }
 

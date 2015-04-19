@@ -1,0 +1,8 @@
+<div class="mobileInputDivider" id="mobileWriteSongReview">
+			<h3>Write about Your Life in Music.</h3>
+			<h4>Get points, gain followers.<br>Become the No. 1 Music Fan.</h4>
+      		<input placeholder="Paste YouTube link for a Song or Album" id="mobileYTPaste">
+      		<% unless current_user.past_gigs.count == 0 %>
+        		<div id="writeGig">Write reviews for concerts.</div>
+      		<% end %>
+</div>
