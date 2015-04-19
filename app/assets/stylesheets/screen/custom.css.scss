@@ -111,6 +111,22 @@ textarea {
   height: calc(50% - 51px);
 }
 
+#mainWriteSongReview {
+  color: white;
+  text-align: center;
+  margin-bottom: 3em;
+}
+
+#mainYTPaste {
+  color: black;
+  width: 28em;
+  height: 3em;
+  text-align: center;
+}
+
+#newSongReview {
+  width: 100%;
+}
 
 .headerRow {
   font-weight: bold;
@@ -152,7 +168,7 @@ textarea {
   display: inline-block;
 }
 
-.hiddenSongName, .commentURL, .pgID {
+.hiddenSongName, .commentURL, .pgID, #hiddenSongID {
   display: none;
 }
 
@@ -740,7 +756,6 @@ body {
     margin: 15px 5px 0px 10px;
     font-size: 12px;
     width: 95%;
-    overflow: auto;
     height: 180px;
     display: none;
 }
@@ -1187,33 +1202,11 @@ tr {
   bottom: 2px;
 }
 
-#editJam {
-  position: absolute;
-  z-index: 99;
-  right: 5px; top: 43px;
-  display: none;
-}
-
-#myJamText, #userJamText {
-  width: 100%;
-  height: 3em;
-}
-
 #rsShare {
   position: absolute;
   z-index: 99;
   right: 5px; bottom: 5px;
   display: none;
-}
-
-#jamURL {
-  width: 90%;
-  color: black;
-}
-
-#jamInfo {
-  position: absolute;
-  top: 0px;
 }
 
 .myDates, .userDates {
@@ -1482,13 +1475,13 @@ tr {
   height: 100%;
 }
 
-.editReview, .deleteReview {
+.editReview, .deleteReview, .cancelReview {
   display: inline-block;
   margin: 20px 30px 20px 0px;
   cursor: pointer;
 }
 
-.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo {
+.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo {
   display: none;
   cursor: pointer;
   margin-right: 30px;

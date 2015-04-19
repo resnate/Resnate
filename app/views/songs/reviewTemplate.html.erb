@@ -1,0 +1,42 @@
+<div id="reviewBody" class="modal-body">
+	<div class="reviewHeader">
+		<img src="https://img.youtube.com/vi/<%= @song.content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
+		<p class="jamTitle"><%= @song.name %></p>
+		<div class="reviewTitle">
+			<div class="reviewT">
+				Review of
+				<div class="activityName songName" src="https://img.youtube.com/vi/<%= @song.content %>/hqdefault.jpg"><%= @song.name %></div>
+			</div>
+			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=200&height=200", class: "feedPic" %>
+			<div class="hiddenID">
+  				<%= current_user.id %>
+			</div>
+			<div class="reviewerInfo">
+				<div class="profileName"><%= current_user.name %></div>
+				<div class="hiddenID">
+  					<%= current_user.id %>
+				</div>
+				<br>
+				<%= image_tag (current_user.badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+				<div class="reviewLevelNameNPoints">
+      				<%= current_user.level_name %> <%= current_user.points %> points
+      			</div>
+      			<div class="reviewFollowers">
+      			<% followerCount = current_user.followers(User).count %>
+      			<% if followerCount == 1 %>
+      				<%= followerCount %> follower
+      			<% elsif followerCount > 1 %>
+      				<%= followerCount %> followers
+      			<% end %>
+      			</div>
+			</div>
+		</div>
+	</div>
+
+	<textarea id="newSongReview" placeholder="Write a review for this Song or Album."></textarea>
+	<div id="hiddenSongID"><%= @song.id %></div>
+	<div class="cancelReview">Cancel</div>
+	<div class="cancelReviewPrompt">Are you sure?</div>
+	<div class="cancelReviewYes">Yes</div>
+	<div class="cancelReviewNo">No</div>
+</div>

@@ -75,7 +75,7 @@ input {
 
 #mobileMainBody {
 	display: inline-block;
-	height: 90%;
+	height: calc(100% - 3em);
 	width: 100%;
 	overflow: scroll;
 	-webkit-overflow-scrolling: touch;    

@@ -12,13 +12,6 @@
           
         <% end %>
 		</div>
-		<div class="mobileInputDivider" id="mobileWriteSongReview">
-			Write a Review for a Song or Album
-			<%= form_for(@user.songs.create) do |f| %>
-        			<%= f.text_field :content, placeholder: "Paste YouTube Link Here", id: "mobileYTPaste" %>
-        			<%= f.submit "Submit Link", id: "mobileYTSubmit" %>
-      			<% end %>
-		</div>
 		<% unless @reviews.count == 0 %>
 		<div class="mobileDivider" id="mobileReviews">
 				<% if @review.reviewable_type == "PastGig" %>

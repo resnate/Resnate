@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :songs, dependent: :destroy
   has_many :like_songs, dependent: :destroy
   has_many :playlists, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :gigs, dependent: :destroy
   has_many :past_gigs, dependent: :destroy
   

@@ -7,6 +7,7 @@ class SongsController < ApplicationController
     @activity = PublicActivity::Activity.where(trackable_type: "Song", trackable_id: @song.id).first.id.to_s
     @message = @activity + ',' + current_user.uid.to_s
     Pusher.trigger('activities', 'feed', {:message => @message})
+    render :layout => false
   end
 
   def destroy
@@ -26,6 +27,11 @@ class SongsController < ApplicationController
   def lastSong
     @user = User.find(params[:user])
     @song = Song.where(content: (params[:content])).first
+    render :layout => false
+  end
+
+  def reviewTemplate
+    @song = Song.find(params[:id])
     render :layout => false
   end
 

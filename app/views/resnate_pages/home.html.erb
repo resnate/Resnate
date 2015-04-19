@@ -206,7 +206,11 @@
 
 <div id="newStuff">
 
-
+  <div id="mainWriteSongReview">
+      <h1>Write a Review for a Song or Album</h1>
+      <h4>Get points, gain followers, become the No. 1 Music Fan.</h4>
+      <input placeholder="Paste YouTube Link Here, Press Enter" id="mainYTPaste">
+    </div>
 
 
   <div class="featuredContent">
@@ -720,7 +724,41 @@ function friendsLikeArtist(){
 
       $(function(){
 
+        $('#mainYTPaste').keydown(function(e){
+          if(event.keyCode==13){
+            var url = $('#mainYTPaste').val();
+            var ytReg = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/;
+            
+            if(url.match(ytReg)){
+              var songReviewID = url.match(ytReg)[1];
+              $.getJSON('http://gdata.youtube.com/feeds/api/videos/' + songReviewID + '?v=2&alt=jsonc', function(json){
+                var songName = json["data"]["title"];
+                $.post('/songs', { song: { content: songReviewID, name: songName } }).done(function(data) {
+                  
+                    $.get('/songs/' + data + '/reviewTemplate', function(result){
+                      $('#box2').html('<div class="modal-body">'+result+'</div>');
+                      $('#container').animate({
+                         top: '-100%'
+                      });
+                  
+                  });
+                });
+              });
+            }
+          }
+        });
 
+  $(document).on('keydown', "#newSongReview", function(event){
+  
+    if(event.keyCode==13 && !event.shiftKey){
+    var contentText = $(this).val();
+    var ID = $(this).siblings('#hiddenSongID').html();
+  $.post('/reviews', { review: { reviewable_id: ID, reviewable_type: "Song", content: contentText } } ).done(function( data ) {
+    $.get('/reviews/' + data, function(result){
+      $('#box2').html('<div class="modal-body>'+result+'</div>');
+    });
+  });
+}});
 
         $('.modal').on('shown.bs.modal', function () {
     $(".modal-content").scrollTop(0);
@@ -731,9 +769,9 @@ function friendsLikeArtist(){
     if(event.keyCode==13 && !event.shiftKey){
   var contentText = $(this).val();
   var ID = $(this).siblings('.pgID').html();
-  $.post('/reviews', { reviewable_id: ID, reviewable_type: "PastGig", content: contentText, user_id: parseInt('<%=current_user.id %>') } ).done(function( data ) {
+  $.post('/reviews', { review: { reviewable_id: ID, reviewable_type: "PastGig", content: contentText } } ).done(function( data ) {
     $('#callbackID').html(data);
-  });;
+  });
   $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div><div>' + $('#callbackID').html() + '</div>')
 }
 });
@@ -780,6 +818,22 @@ $(document).on('click', '.deleteReviewYes', function(){
     });
 });
 
+$(document).on('click', '.cancelReview', function(){
+  $(this).siblings('.cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo').css('display', 'inline-block');
+});
+
+$(document).on('click', '.cancelReviewNo', function(){
+  $(this).hide();
+  $(this).siblings('.cancelReviewPrompt, .cancelReviewYes').hide();
+});
+
+$(document).on('click', '.cancelReviewYes', function(){
+    $('#box2').html('');
+    $('#container').animate({
+        top: '51px'
+    });
+});
+
 
 $(document).on('click', '.reviewContent', function(){
   if('<%=current_user.id %>' == $('.hiddenUserID').html()){
@@ -796,7 +850,7 @@ $(document).on('keydown', "#songReviewInput", function(event){
   var contentText = $(this).val();
   var songURL = '/<%= current_user.id %>/' + $('#infoID').val() + '/songs/lastSong';
   $.get(songURL, function(result){
-    $.post('/reviews', { reviewable_id: result, reviewable_type: "Song", content: contentText, user_id: parseInt('<%=current_user.id %>') } );
+    $.post('/reviews', { review: { reviewable_id: result, reviewable_type: "Song", content: contentText } } );
   });
   
   $(this).replaceWith('<div id="songReviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
