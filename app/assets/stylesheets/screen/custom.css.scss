@@ -117,11 +117,17 @@ textarea {
   margin-bottom: 3em;
 }
 
-#mainYTPaste {
-  color: black;
-  width: 28em;
+#mainYTPaste, #writeGig {
+  
+  width: 100%;
   height: 3em;
   text-align: center;
+}
+
+#writeGig {
+  background-color: #E50049;
+  padding-top: 0.8em;
+  cursor: pointer;
 }
 
 #newSongReview {
@@ -308,7 +314,7 @@ body {
 }
 
 
-  #user_songkickID {
+  #mainYTPaste {
     color: black;
   }
 

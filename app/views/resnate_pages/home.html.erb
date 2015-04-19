@@ -207,9 +207,12 @@
 <div id="newStuff">
 
   <div id="mainWriteSongReview">
-      <h1>Write a Review for a Song or Album</h1>
+      <h1>Write About Your Life in Music.</h1>
       <h4>Get points, gain followers, become the No. 1 Music Fan.</h4>
-      <input placeholder="Paste YouTube Link Here, Press Enter" id="mainYTPaste">
+      <input placeholder="Paste YouTube link for a Song or Album here and press Enter" id="mainYTPaste">
+      <% unless @user.past_gigs.count == 0 %>
+        <h6 id="writeGig" data-toggle="modal" data-target="#genericModal" class="seeAllpast">Write reviews for concerts you've attended.</h6>
+      <% end %>
     </div>
 
 
@@ -671,6 +674,16 @@ $('#shareCurrentImg').click(function(){
         top: '-100%'
     });
   });
+
+  $(document).on('click', '.seeAllpast', function(){
+  
+  $.get("<%= current_user.id %>/pastGigs", function(result){
+
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h4></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
+
+  
+});
+
 
   $(document).on('click', '.reviewerName', function(){
     $.get($(this).siblings('.hiddenReviewerID').html() + '/profile', function(result){
