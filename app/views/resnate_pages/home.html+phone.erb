@@ -46,6 +46,10 @@ $(function(){
 	
 });
 
+$('input, textarea').on('focus', function() {
+    document.body.scrollTop = $(this).offset().top;
+});
+
 $('.mobileHeaderDiv').click(function(){
 	$('.mobileHeaderDiv').css('color', 'white');
 	$(this).css('color', '#E50049');
