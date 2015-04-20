@@ -46,6 +46,7 @@ $('.mobileReviewSongName, .mobileProfileReview').succinct({
         });
 
 $('.mobileReviewDivider').click(function(){
+  $('.infinite-scrolling').remove();
   var reviewURL = '/reviews/' +$(this).find('.hiddenReviewID').html();
   $.get(reviewURL, function(result){
     $('.mobileReviewDivider, .mobileReviewBody').remove();

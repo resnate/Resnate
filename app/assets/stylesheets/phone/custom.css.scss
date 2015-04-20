@@ -226,7 +226,7 @@ input, textarea {
 }
 
 .likesNcomments {
-	margin: 5% 2%;
+	margin: 5% 0%;
 }
 
 .reviewButtons {
@@ -278,7 +278,7 @@ input, textarea {
 	}
 }
 
-.shareReview, .feedCsImg {
+.feedButtons .shareReview, .feedCsImg, .feedButtons .shareGig {
 	height: 1em;
 	vertical-align: top;
 }
@@ -290,4 +290,34 @@ input, textarea {
 
 .inputComment {
 	width: calc(96% - 3em);
+}
+
+.month {
+  background-color: red;
+  color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  width: 38px;
+}
+
+.month, .day{
+  float: left;
+}
+
+.date-wrap {
+  float: left;
+  width: 40px;
+}
+
+.day {
+  border: 1px solid #999;
+border-top: 0;
+width: 38px;
+padding-top: 2px;
+padding-bottom: 3px;
+font-size: 16px;
+text-align: center;
+color: black;
+background-color: white;
 }
