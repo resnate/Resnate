@@ -10,14 +10,4 @@ class Gig < ActiveRecord::Base
 
 	include PublicActivity::Common
 
-	def self.remove_old
-		Gig.all.each do |gig|
-			if gig.gig_date.to_date < Date.today
-				gig.destroy
-			else
-				puts "no old gigs"
-			end
-		end
-		
-	end
 end

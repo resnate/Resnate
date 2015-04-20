@@ -26,7 +26,6 @@ gem "socialization"
 gem 'public_activity'
 gem "select2-rails"
 gem 'mailboxer'
-gem 'whenever', :require => false
 gem 'merit'
 gem 'pusher'
 gem 'underscore-rails'
