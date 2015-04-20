@@ -4,7 +4,7 @@
     <% request = Net::HTTP.get_response(url) %>
 
     <% if request.body.include?("not found") || request.body.include?('"sets":""') %>
-      <li class="setlistList"> No setlist found </li>
+      
       
     <% else %>
       

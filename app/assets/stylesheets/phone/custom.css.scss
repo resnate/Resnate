@@ -200,7 +200,8 @@ li {
 
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
-.infinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID {
+.infinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID, .hiddenGigDate, .hiddenArtistName, .hiddenGigLocation,
+.setlistHeader, .setlist {
 	display: none;
 }
 
@@ -342,6 +343,7 @@ background-color: white;
 .uberdate {
 	width: 100%;
 	display: inline-block;
+	vertical-align: top;
 }
 
 .activityName, .createdAt {
@@ -369,7 +371,30 @@ background-color: white;
 }
 
 .pgImages {
-	height: 30%;
+	width: 30%;
 	display: inline-block;
+	vertical-align: top;
+	margin-right: 1%;
 }
 
+.nameNlocation {
+	width: calc(65% - 3em);
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 1%;
+}
+
+.pastGigDivider {
+	margin: 10% 0 30% 0;
+}
+
+.setlistDiv, .reviewDiv {
+	text-align: center;
+	background-color: #E50049;
+	height: 3em;
+	margin: 10% 0;
+}
+
+.setlistSetlist, .reviewReview {
+	font-size: 2em;
+}

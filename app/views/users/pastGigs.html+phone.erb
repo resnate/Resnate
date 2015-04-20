@@ -1,0 +1,91 @@
+<% @pastGigs.each do |pg| %>
+	<div class="pastGigDivider">
+    	<div class="uberdate myDates">
+    		<a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank">
+    			<img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="pgImages">
+    		</a>
+    		<div class="date-wrap">
+    			<% d = pg.gig_date.to_date %>
+            	<span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
+            	<span class= "day"><%= d.day %></span>
+        	</div> 
+        	<a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank" class="pgA">
+        		<div class="nameNlocation">
+        			<div class="gigName"></div>
+            		<div class="profileGigLocation"></div>
+            	</div>
+        	</a>
+    	</div> 
+    	<div class="setlistDiv">
+    		<div class="setlistSetlist">Setlist</div>
+    		<span class="hiddenGigDate"><%= pastGigDate = Date.parse(pg.gig_date).strftime("%d-%m-%Y") %></span>
+            <span class="hiddenArtistName"></span>
+            <span class="hiddenGigLocation"></span>
+    	</div>
+    	<% unless Review.where(reviewable_type: "PastGig", reviewable_id: pg.id).count == 0 %>
+    		<div class="reviewDiv">
+    			<div class="reviewReview">Review</div>
+    		</div>
+    	<% else %>
+    		<% if pg.user_id == current_user.id %>
+    		Y
+    		<% end %>
+    	<% end %>
+    </div>
+<% end %>
+
+
+ <script type="text/javascript">
+
+var gigUrls = [];
+
+ 
+
+    
+
+   for(j=0; j<$('.pgImages').length; j++){
+    gigUrls.push($('.pgImages').eq(j).attr('src'));
+  }
+
+
+
+  for(j=0; j<$('.pgImages').length; j++){
+    $.ajax({
+      url: gigUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            $('.pgImages').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+
+                            $('.gigName').eq(i).text(data.resultsPage.results.event.displayName);
+
+                            $('.profileGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
+
+                            $('.hiddenArtistName').eq(i).html(data.resultsPage.results.event.performance[0].artist.displayName);
+
+                            
+
+                            
+                            
+
+                            $.get('/' + $('.setlistDiv').eq(i).find('.hiddenArtistName').html() + ',' + $('.setlistDiv').eq(i).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $('.setlistDiv').eq(i).find('.hiddenGigDate').html() + '/setlist', function(re){
+                              $('.setlistDiv').eq(i).append(re);
+                            });
+                            
+
+                            
+
+
+                            
+                    }
+      }
+    });
+  }
+
+ </script>
