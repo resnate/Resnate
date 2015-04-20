@@ -81,8 +81,17 @@ $('#mobileHome').click(function(){
 $('#mobilePeople').click(function(){
 	$.get('/leaderboard', function(result){
 		$('#mobileMainBody').html(result);
+		$('#mobileMainBody').scrollTop(0);
 		});
 });
+
+$('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
+    
+  $.get($(this).siblings('.hiddenID').html() + '/profile', function(result){
+  $('#mobileMainBody').html(result);
+  $('#mobileMainBody').scrollTop(0);
+});
+  });
 
 $(document).on('click', '.deleteReviewYes', function(){
   var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();

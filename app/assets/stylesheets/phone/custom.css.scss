@@ -213,6 +213,10 @@ li {
 	margin-top: 5%;
 }
 
+.mobileReviewWrapper .likesNcomments {
+	margin-left: 2%;
+}
+
 .editReview, .deleteReview {
 	display: inline-block;
 	margin-right: 5%;
@@ -318,6 +322,7 @@ li {
 .gigName {
 	display: inline-block;
 	width: calc(100% - 3.5em);
+	vertical-align: top;
 }
 
 .day {
