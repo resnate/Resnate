@@ -28,6 +28,10 @@ input, textarea {
 	resize:none;
 }
 
+li {
+    list-style: none;
+}
+
 #Welcome {
   text-align: center;
   h2 {
@@ -303,6 +307,7 @@ input, textarea {
 
 .month, .day{
   float: left;
+  font-weight: bold;
 }
 
 .date-wrap {
@@ -320,4 +325,8 @@ font-size: 16px;
 text-align: center;
 color: black;
 background-color: white;
+}
+
+.uberdate {
+	width: 100%;
 }
