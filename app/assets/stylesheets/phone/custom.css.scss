@@ -299,10 +299,9 @@ li {
 .month {
   background-color: red;
   color: #fff;
-  font-size: 12px;
-  line-height: 20px;
+  line-height: 1.5em;
   text-align: center;
-  width: 38px;
+  width: 3em;
 }
 
 .month, .day{
@@ -311,17 +310,21 @@ li {
 }
 
 .date-wrap {
-  float: left;
-  width: 40px;
+  display: inline-block;
+  width: 3em;
+  vertical-align: top;
+}
+
+.gigName {
+	display: inline-block;
+	width: calc(100% - 3.5em);
 }
 
 .day {
   border: 1px solid #999;
 border-top: 0;
-width: 38px;
-padding-top: 2px;
-padding-bottom: 3px;
-font-size: 16px;
+width: 3em;
+padding: 0.5em 0;
 text-align: center;
 color: black;
 background-color: white;
