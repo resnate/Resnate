@@ -46,8 +46,8 @@ $(function(){
 	
 });
 
-$('input, textarea').on('focus', function() {
-    document.body.scrollTop = $(this).offset().top;
+$(document).on('focus', 'input, textarea', function() {
+    $('#mobileMainBody').scrollTop($(this).offset().top-60);
 });
 
 $('.mobileHeaderDiv').click(function(){
