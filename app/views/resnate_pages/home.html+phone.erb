@@ -78,6 +78,12 @@ $('#mobileHome').click(function(){
 	});
 });
 
+$('#mobilePeople').click(function(){
+	$.get('/leaderboard', function(result){
+		$('#mobileMainBody').html(result);
+		});
+});
+
 $(document).on('click', '.deleteReviewYes', function(){
   var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();
   $.ajax({
