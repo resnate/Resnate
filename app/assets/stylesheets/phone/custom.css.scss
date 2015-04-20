@@ -110,10 +110,10 @@ li {
 }
 
 .mobilePageHeader {
-	height: 10%;
-	margin-top: 5%;
-	margin-left: 2%;
+	height: 12%;
+	padding: 5%;
 	font-size: 1.5em;
+	background-color: #E50049;
 }
 
 .mobileInfo, .mobileGeneralInfo {
@@ -213,8 +213,12 @@ li {
 	margin-top: 5%;
 }
 
-.mobileReviewWrapper .likesNcomments {
-	margin-left: 2%;
+.numberNthumb {
+	text-align: center;
+	font-size: 2em;
+	.glyphicon {
+		margin-top: .5em;
+	}
 }
 
 .editReview, .deleteReview {

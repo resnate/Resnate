@@ -28,6 +28,7 @@
             <div class="editReviewNo">No</div>
           <% end %>
           <div class="likesNcomments">
+            <div class="numberNthumb">
             <div class="likerNumber">
               <% likers = @review.likers(User).count %>
               <% if likers == 1 %>
@@ -41,6 +42,7 @@
             <% elsif current_user.id != @review.user_id %>
               <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
             <% end %>
+            </div>
             <span class="hiddenID"><%= @review.user_id %></span>
             <div class="hiddenReviewID"><%= @review.id -%></div>
             <div class="reviewButtons">
