@@ -38,7 +38,7 @@
 			</div>
 		<% else %>
 			<% if @pastGigs.count > 0 %>
-			<div class="mobileDivider">
+			<div class="mobileDivider" id="pastGigs">
 				<% pg = @pastGigs.first %>
               	<img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileProfileSKImgs">
               	<div class="mobileInfo">
@@ -119,5 +119,14 @@
   		$('#mobileMainBody').scrollTop(0);
   	});
   });
+
+  $('#pastGigs').click(function(){
+  
+  $.get("<%= @user.id %>/pastGigs", function(result){
+  	$('#mobileMainBody').html(result);
+  });
+
+  
+});
 
 </script>

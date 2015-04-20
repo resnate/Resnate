@@ -261,7 +261,7 @@ li {
 	margin: 5%;
 }
 
-.feedPic, .feedYT, .feedReviewGigs, .feedGigs {
+.feedPic, .feedYT, .feedReviewGigs, .feedGigs, .feedPlaylist {
 	height: 8em;
 	display: inline-block;
 }
@@ -341,6 +341,7 @@ background-color: white;
 
 .uberdate {
 	width: 100%;
+	display: inline-block;
 }
 
 .activityName, .createdAt {
@@ -366,3 +367,9 @@ background-color: white;
 	float: left;
 	margin-right: 1em;
 }
+
+.pgImages {
+	height: 30%;
+	display: inline-block;
+}
+
