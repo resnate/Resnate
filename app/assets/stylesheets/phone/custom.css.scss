@@ -25,6 +25,7 @@ body {
 
 input, textarea {
 	color: black;
+	resize:none;
 }
 
 #Welcome {
@@ -185,7 +186,6 @@ input, textarea {
 	background-color: white;
 	color: black;
 	width: 100%;
-	resize:none;
 }
 
 .expandReview {
@@ -237,6 +237,10 @@ input, textarea {
 	}
 }
 
+.activity {
+	margin-bottom: 20%;
+}
+
 #fbShareImg {
 	margin: 10%;
 }
@@ -266,6 +270,24 @@ input, textarea {
 	padding: 1em;
 }
 
+.feedButtons {
+	font-size: 3em;
+	.glyphicon {
+		vertical-align: top;
+		margin-right: 10%;
+	}
+}
+
 .shareReview, .feedCsImg {
+	height: 1em;
+	vertical-align: top;
+}
+
+.userImg, .inputComment {
+	vertical-align: top;
 	height: 3em;
+}
+
+.inputComment {
+	width: calc(96% - 3em);
 }
