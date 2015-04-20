@@ -47,7 +47,8 @@ $(function(){
 });
 
 $(document).on('focus', 'input, textarea', function() {
-    $('#mobileMainBody').scrollTop($(this).offset().top-60);
+	console.log($(this).offset().top);
+    this.scrollIntoView();
 });
 
 $('.mobileHeaderDiv').click(function(){
