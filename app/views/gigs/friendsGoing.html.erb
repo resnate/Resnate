@@ -2,7 +2,7 @@
 <% unless @user.followees(User).count == 0 %>
     <% @user.followees(User).each do |friend| %>   
         <% if  Gig.where(user_id: friend.id, songkick_id: params[:songkick_id].to_s ).present?  %>
-            <img src="https://graph.facebook.com/<%= friend.uid %>/picture?width=100&height=100" class="userImg goingImg" title="<%= friend.name %>"></img><div class="hiddenID"><%= friend.id %></div>
+            <img src="https://graph.facebook.com/<%= friend.uid %>/picture?width=200&height=200" class="userImg goingImg" title="<%= friend.name %>"></img><div class="hiddenID"><%= friend.id %></div>
         <% end %>
     <% end %>
 <% end %>

@@ -112,7 +112,8 @@ function merchNgigsSearch(){
                                   success: function(html) {
                                     image_link(html , this.indexValue);
                                     function image_link(data, i) {
-                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
+                                      $("#gig"+i+"").append(data);
+                                      $("#gig"+i+"").after('<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
                                     }
                                   }});
                                 

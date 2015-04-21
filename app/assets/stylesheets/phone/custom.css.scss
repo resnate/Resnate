@@ -473,16 +473,31 @@ background-color: white;
 }
 
 .gigInfo {
-	width: calc(95% - 4em);
+	width: calc(95% - 8em);
 	display: inline-block;
 	margin-left: 1em;
 }
 
 .threeGigs {
 	margin: 2em 0;
+	height: 4em;
 }
 
 .shareNfriends {
 	text-align: center;
 	margin-bottom: 1em;
+}
+
+.goingImg {
+	height: 4em;
+	float: right;
+}
+
+#Gigs .shareGig {
+	height: 3em;
+	margin-left: calc(50% - 1.5em);
+}
+
+#moreGigs {
+	margin: .5em;
 }
