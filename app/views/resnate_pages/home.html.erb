@@ -466,7 +466,7 @@ function ytSearch()
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
                 script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
-              + userSearch + '&type=video&start-index='+$('.startIndex:last').html() +'&maxResults=50&callback=appendVideos&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+              + userSearch + '&type=video&maxResults=50&callback=showMyVideos&pageToken='+$('.startIndex:last').html() +'&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             
             document.documentElement.firstChild.appendChild(script);
               }
@@ -1748,11 +1748,6 @@ $(document).on('click', '#currentShare #csImg', function(){
         $('#messageURL').val('~`' + $('#infoID').val()+','+$('#infoTitle').html());
   });
 
-function appendVideos(data) {
-  console.log(data);
-}
-
-
 
 function showMyVideos(data)
         {
@@ -1764,7 +1759,8 @@ function showMyVideos(data)
 
               html.push('<li class="videoResultsDivLi">', ytThumbnail, '<span class="glyphicon glyphicon-remove"></span><p class="playlistSongP">', title.trim(), '</p></li><p class="thumbID">'+videoID+'</p>');
             });
-            html.push('</ul><div class="startIndex">51</div>');
+            pageToken = data.nextPageToken;
+            html.push('</ul><div class="startIndex">'+pageToken+'</div>');
 
             document.getElementById('videoResultsDiv').innerHTML = html.join('');
 
