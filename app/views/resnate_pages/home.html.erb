@@ -1778,49 +1778,7 @@ function appendVideos(data) {
 
 function showMyVideos(data)
         {
-            var feed = data.feed;
-            var entries = feed.entry || [];
-            var html = ['<ul>'];
-            for (var i = 0; i < entries.length; i++)
-            {
-                var entry = entries[i];
-                var title = entry.title.$t;
-                var lnk = entry.link[0].href;
-                var videoID = lnk.slice(32,-22);
-                var ytThumbnail = '<img src="https://img.youtube.com/vi/' + videoID + '/default.jpg" class="playlistYT" alt="thumbnail"/>';
-
-                html.push('<li class="videoResultsDivLi">', ytThumbnail, '<span class="glyphicon glyphicon-remove"></span><p class="playlistSongP">', title.trim(), '</p></li><p class="thumbID">'+videoID+'</p>');
-                
-            }
-            html.push('</ul><div class="startIndex">51</div>');
-
-            document.getElementById('videoResultsDiv').innerHTML = html.join('');
-
-            
-            $(function() {
-
-            
-  
-            
-
-              
-    $( "#videoResultsDiv li" ).draggable(draggable_opts);
-
-    
-
-    $("#videoResultsDiv").scrollTop(0);
-
-
-    $("#videoResultsDiv li").click(function(){
-
-        
-        videoID = $(this).find('img').attr("src").slice(27,38);
-        
-        <%= render "layouts/videoClick" %>
-
-            });
-
-    });}
+            console.log(data);}
 
 $('#footerPlayer').on('click', '.glyphicon-thumbs-up', function(){
   
