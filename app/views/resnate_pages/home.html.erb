@@ -451,7 +451,7 @@ function ytSearch()
                    'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             } else {
               script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
-              + userSearch + '&type=video&max-results=50&start-index=2&callback=showMyVideos&' + 
+              + userSearch + '&type=video&resultsPerPage50&start-index=2&callback=showMyVideos&' + 
                    'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             }
             
