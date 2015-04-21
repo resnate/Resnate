@@ -446,15 +446,15 @@ function ytSearch()
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
             if(songSearch.length > 0){
-              script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
+              script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&q='
               + userSearch.replace(/'/g, " ") + songSearch.replace(/'/g, " ") + '  ' + '&type=video&start-index=1&max-results=50&' + 
                    'alt=json-in-script&callback=showMyVideos&' + 
-                   'orderby=relevance&sortorder=descending&format=5');
+                   'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             } else {
-              script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
-              + userSearch + '&type=video&max-results=50&' + 
+              script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
+              + userSearch + '&type=video&max-results=50&start-index=2&' + 
                    'alt=json-in-script&callback=showMyVideos&' + 
-                   'orderby=relevance&sortorder=descending&format=5');
+                   'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             }
             
 
@@ -468,10 +468,10 @@ function ytSearch()
             var script = document.createElement('script');
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
-                script.setAttribute('src', 'https://gdata.youtube.com/feeds/api/videos?category=Music&q='
+                script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&q='
               + userSearch + '&type=video&start-index='+$('.startIndex:last').html() +'&max-results=50&' + 
                    'alt=json-in-script&callback=appendVideos&' + 
-                   'orderby=relevance&sortorder=descending&format=5');
+                   'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             
             document.documentElement.firstChild.appendChild(script);
               }

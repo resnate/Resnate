@@ -34,7 +34,6 @@ Resnate::Application.routes.draw do
   post "/:id/:content/form" => "playlists#form"
   get "/:id/userPlaylists" => "users#userPlaylists"
 
-  get "search" => "users#search"
   get "autocomplete" => "users#autocomplete"
 
   post 'follow' => 'users#follow'
@@ -52,6 +51,7 @@ Resnate::Application.routes.draw do
   post '/:user/:content/unlike' => 'songs#unlike'
 
   get '/indexHeader' => 'activities#indexHeader'
+  get '/peopleHeader' => 'users#peopleHeader'
   
   post '/:user/:songkick_id/gigs/like' => 'gigs#like'
   post '/:user/:songkick_id/gigs/unlike' => 'gigs#unlike'

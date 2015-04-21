@@ -1,16 +1,6 @@
 class UsersController < ApplicationController
 
-  def search
-    if params[:search]
-      @users = User.search(params[:search]).where.not(id: current_user.id)
-    else
-      @users = User.all.order('created_at DESC')
-    end
-    respond_to do |format|
-      format.html { render "users/search", :layout => false }
-      format.json
-    end
-  end
+ 
 
   def autocomplete
     @users = User.all
