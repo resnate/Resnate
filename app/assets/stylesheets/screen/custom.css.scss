@@ -590,6 +590,9 @@ body {
 #playlistName, #search_playlists, .dropdown-menu {
   color: black;
   width: 100%;
+  li a {
+  color: black !important;
+  }
 }
 
 .dropdown-menu {

@@ -1,0 +1,56 @@
+<li id="custom-templates"><input id="search_user" class="typeahead" placeholder="Search People" type="text" autocomplete="off" >
+            <input type="hidden" name="userId" id="userId" value="" />
+          <input id="userButton" type="submit" onclick="searchUser()"></li>
+
+ <script type="text/javascript">
+
+var users = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  limit: 10,
+  prefetch: {
+    ttl: 1,
+    url: '../autocomplete.json',
+
+  }
+});
+ 
+users.initialize();
+
+$('#search_user').typeahead(
+{
+  hint: false
+}
+  , {
+  name: 'users',
+  displayKey: 'name',
+  source: users.ttAdapter(),
+  templates: {
+    empty: [
+      '<div class="empty-message">',
+      'Unable to find any users',
+      '</div>'
+    ].join('\n'),
+    suggestion: Handlebars.compile('<p class="userSuggestions"><img src="https://graph.facebook.com/{{uid}}/picture?width=50&height=50" class="dropdownImg"></img><strong>{{name}}</strong></p>')
+  }
+});
+
+$("#search_user").on("typeahead:selected typeahead:autocompleted", function(e,datum) { 
+$('#userId').val(datum.id);
+$('#userButton').trigger('click');
+})
+
+$("#search_user").keydown(function(event){
+  if(event.keyCode==13){
+       $('#userButton').trigger('click');
+    }
+});
+
+function searchUser(){
+  var userSearch = "/" + $('#userId').val() + '/profile';
+  $.get(userSearch, function(result){
+  $('#mobileMainBody').html(result);
+});
+}
+
+ </script>

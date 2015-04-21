@@ -209,7 +209,7 @@ li {
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
 .infinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID, .hiddenGigDate, .hiddenArtistName, .hiddenGigLocation,
-.setlistHeader, .setlistList {
+.setlistHeader, .setlistList, #userButton {
 	display: none;
 }
 
@@ -439,4 +439,18 @@ background-color: white;
 
 .followDiv {
 	margin: 15% 0;
+}
+
+.twitter-typeahead, #search_user, .tt-dropdown-menu {
+	width: 100%;
+	height: 3em;
+}
+
+.tt-dataset-users {
+	background-color: #E50049;
+}
+
+.tt-suggestion {
+	border-bottom: 1px solid white;
+	height: 3em;
 }
