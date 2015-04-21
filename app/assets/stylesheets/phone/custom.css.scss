@@ -438,7 +438,7 @@ background-color: white;
 }
 
 .followDiv {
-	margin: 15% 0;
+	margin: 10% 0;
 }
 
 .twitter-typeahead, #search_user, .tt-dropdown-menu {
@@ -453,4 +453,7 @@ background-color: white;
 .tt-suggestion {
 	border-bottom: 1px solid white;
 	height: 3em;
+	img {
+		height: 3em;
+	}
 }

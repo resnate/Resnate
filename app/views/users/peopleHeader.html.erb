@@ -31,7 +31,7 @@ $('#search_user').typeahead(
       'Unable to find any users',
       '</div>'
     ].join('\n'),
-    suggestion: Handlebars.compile('<p class="userSuggestions"><img src="https://graph.facebook.com/{{uid}}/picture?width=50&height=50" class="dropdownImg"></img><strong>{{name}}</strong></p>')
+    suggestion: Handlebars.compile('<p class="userSuggestions"><img src="https://graph.facebook.com/{{uid}}/picture?width=100&height=100" class="dropdownImg"></img><strong>{{name}}</strong></p>')
   }
 });
 

@@ -169,7 +169,7 @@ textarea {
 }
 
 .leaderName {
-  width: 245px;
+  width: 225px;
   padding: 10px;
   display: inline-block;
 }
@@ -769,7 +769,7 @@ body {
     display: none;
 }
 
-#noGigs {
+#noGigs, .topUsersHeader {
   text-align: center;
 }
 
@@ -1472,6 +1472,7 @@ tr {
 
 .reviewerInfo, .reviewLevelNameNPoints {
   display: inline-block;
+  margin-left: 5px;
 }
 
 .reviewerBadge {
@@ -1694,7 +1695,8 @@ tr {
   position: relative;
   cursor: pointer;
   display: inline-block;
-  margin-right: 10px;
+  margin: 20px;
+  width: 30em;
 }
 
 #userMsg {

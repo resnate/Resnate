@@ -704,7 +704,7 @@ function getPoints(){
 
 function getLeaderboard(){
   $.get("/leaderboard", function(result){
-  $('.genericContent').html(result);});
+  $('.genericContent').html('<div class="modal-body leaderBody">'+result+'</div>');});
 }
 
       function feed(){
