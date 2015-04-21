@@ -3,10 +3,9 @@ task :remove_old => :environment do
 			if gig.gig_date.to_date < Date.today
 				skID = gig.songkick_id
 				uid = gig.user_id
-				date = gig.gig_date
-				pg = User.find(uid).past_gigs.build(past_gig: { songkick_id: skID, user_id: uid, gig_date: date })
-				pg.save!
-				gig.destroy
+				puts skID + "yes" + uid
+			else
+				puts skID + "no" + uid
 			end
 		end
 end
