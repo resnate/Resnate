@@ -12,6 +12,17 @@
           
         <% end %>
 		</div>
+		<div class="followersNfollowees">
+			<div id="follows">
+      <h4>Following</h4>
+      <h5> <%= @user.followees(User).count %></h5>
+    </div>
+
+    <div id="followers">
+      <h4>Followers</h4>
+      <h5><%= @user.followers(User).count %></h5>
+    </div>
+		</div>
 		<% unless @reviews.count == 0 %>
 		<div class="mobileDivider" id="mobileReviews">
 				<% if @review.reviewable_type == "PastGig" %>
@@ -74,6 +85,17 @@
 
 <script type="text/javascript">
 
+$('#followers').click(function(){  
+  $.get("<%= @user.id %>/followers", function(result){
+  	$('#mobileMainBody').html(result);
+  });
+});
+
+$('#follows').click(function(){  
+  $.get("<%= @user.id %>/followees", function(result){
+  	$('#mobileMainBody').html(result);
+  });
+});
 
 
   var gigUrls = [];

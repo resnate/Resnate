@@ -2,8 +2,30 @@
 
 <div class="followDiv">
   <%= image_tag "https://graph.facebook.com/#{f.uid}/picture?width=100&height=100", class: "followImgs" %>
-      
-      <div class="followNames"><%= f.name %></div>
-      <div class="hiddenID"><%= f.id %></div>
+    <div class="hiddenID">
+  					<%= f.id %>
+				</div>  
+
+      <div class="reviewerInfo">
+				<div class="profileName"><%= f.name %></div>
+				<div class="hiddenID">
+  					<%= f.id %>
+				</div>
+				<br>
+				<% unless f.badges.count == 0 %>
+				<%= image_tag (f.badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+				<% end %>
+				<div class="reviewLevelNameNPoints">
+      				<%= f.level_name %> <%= f.points %> points
+      			</div>
+      			<div class="reviewFollowers">
+      			<% followerCount = f.followers(User).count %>
+      			<% if followerCount == 1 %>
+      				<%= followerCount %> follower
+      			<% elsif followerCount > 1 %>
+      				<%= followerCount %> followers
+      			<% end %>
+      			</div>
+			</div>
 </div>
 <% end %>
