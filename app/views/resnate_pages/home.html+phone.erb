@@ -47,7 +47,6 @@ $(function(){
 });
 
 $(document).on('focus', 'input, textarea', function() {
-	console.log($(this).offset().top);
     this.scrollIntoView();
 });
 
@@ -85,6 +84,13 @@ $('#mobilePeople').click(function(){
 		$('#mobileMainBody').append(result);
 		$('#mobileMainBody').scrollTop(0);
 		});
+	});
+});
+
+
+$('#mobileArtists').click(function(){
+	$.get('/artistSearch', function(result){
+		$('#mobileMainBody').html(result);
 	});
 });
 

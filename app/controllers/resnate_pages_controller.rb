@@ -28,6 +28,10 @@ class ResnatePagesController < ApplicationController
     
   end
 
+  def artistSearch
+    render :layout => false
+  end
+
   def help
   end
 

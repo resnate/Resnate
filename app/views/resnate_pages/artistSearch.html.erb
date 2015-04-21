@@ -1,0 +1,128 @@
+<input id="search_query" class="search" name="search_query" placeholder="Search Artists" type="text" maxlength="128" class="navbar-form navbar-left" autocomplete="on">
+
+<div id="noResults">Get Music,<br>Gigs<br>& Merch.</div>
+
+<div id="Gigs"></div>
+<div id="moreGigs"></div>
+
+<script type="text/javascript">
+
+$("#search_query").keydown(function(event){
+       if(event.keyCode==13){
+       		merchNgigsSearch();
+       }
+   });
+
+function merchNgigsSearch(){
+			$('#noResults').remove();
+            var userSearch = $('#search_query').val();
+            
+            var key="Pxms4Lvfx5rcDIuR";
+            var url="https://api.songkick.com/api/3.0/search/artists.json?query=" + userSearch + "&apikey="
+            + key + "&jsoncallback=?"; 
+            
+            $.getJSON(url,function(json){ 
+            $.each(json.resultsPage.results.artist,function(i,result){
+            if(i==0){
+            localGigs = "https://api.songkick.com/api/3.0/events.json?apikey=" + key + "&artist_name=" + userSearch + "&location=clientip&jsoncallback=?";
+            artist_url="https://api.songkick.com/api/3.0/artists/" + result.id + "/calendar.json?apikey="
+            + key +"&jsoncallback=?";
+            $("#Gigs").html("<div id='gig0' class='uberdate threeGigs'></div><div id='shareNfriends0' class='shareNfriends'></div><div id='gig1' class='uberdate threeGigs'></div><div id='shareNfriends1' class='shareNfriends'></div><div id='gig2' class='uberdate threeGigs'></div><div id='shareNfriends2' class='shareNfriends'></div>");
+                    $.getJSON(localGigs,function(data){
+
+                        var events = data['resultsPage']['results']['event'];
+
+                        if(!events){
+                            $.getJSON(artist_url,function(data){
+
+                        var events = data['resultsPage']['results']['event'];
+                            if(!events){
+                                $("#Gigs").html("<h4 id='noGigs'>No Gigs Announced</h4>");
+                                $("#moreGigs").html('');
+
+                            };
+
+                                var urls = [];
+
+                              for(k=0; k<=2; k++ ){
+                                if(events[k] != null){
+                                urls.push('/<%= current_user.id %>/'+events[k]['id']+'/gigs/friendsGoing');
+                              }
+                              }
+
+                              for(k=0; k<=2; k++ ){
+                                $("#gig"+k+"").html('<div class="date-wrap"><a href="'
+                                +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
+                                +'</span><span class= "day">'
+                                + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
+                                +'<div class="gigInfo">' +events[k]['location']['city']+ '<br />' + '<a href="'
+                                +events[k]['uri']+'" target="_blank">'
+                                +events[k]['displayName']+'</a>');
+
+                                $.ajax({
+                                  url: urls[k],
+                                  indexValue: k,
+                                  async: false,
+      
+                                  success: function(html) {
+        
+                                  image_link(html , this.indexValue);
+
+                                  function image_link(data, i) {
+                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>');
+                                  }
+                                }
+                              });
+                                
+                                $("#moreGigs").html('<a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a>');
+
+                            
+                              }
+                        
+                            
+
+                            
+                            })}
+
+                            else {
+                              var urls = [];
+
+                              for(k=0; k<=2; k++ ){
+                                if(events[k] != null){
+                                urls.push('/'+<%= current_user.id %>+'/'+events[k]['id']+'/gigs/friendsGoing');
+                              }
+                              }
+
+                              for(k=0; k<=2; k++ ){
+                                $("#gig"+k+"").html('<div class="date-wrap"><a href="'
+                                +events[k]['uri']+'" target="_blank"><span class="month">' + moment(events[k]['start']['date']).format("MMM")
+                                +'</span><span class= "day">'
+                                + moment(events[k]['start']['date']).format("DD") +'</span></a></div>'
+                                +'<div class="gigInfo">' +events[k]['location']['city']+ '<br />' + '<a href="'
+                                +events[k]['uri']+'" target="_blank">'
+                                +events[k]['displayName']+'</a>');
+
+                                var gigID = events[k]['id'];
+
+                                $.ajax({
+                                  url: urls[k],
+                                  indexValue: k,
+                                  async: false,
+                                  success: function(html) {
+                                    image_link(html , this.indexValue);
+                                    function image_link(data, i) {
+                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
+                                    }
+                                  }});
+                                
+                                $("#moreGigs").html('<a href="https://www.songkick.com/artists/'
+                            + result.id + '" target="_blank">More Gigs at Songkick</a>');
+
+                            
+                              }
+                            }
+
+             });}});});}
+
+</script>

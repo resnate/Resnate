@@ -10,6 +10,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def peopleHeader
+    render :layout => false  
+  end
+
 def friendsWhoLike
   @user = User.find(params[:id])
   render :layout => false
