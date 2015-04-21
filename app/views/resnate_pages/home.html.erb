@@ -461,11 +461,12 @@ function ytSearch()
             $('#videoResultsDiv').on('scroll', function(){
               if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
                 var userSearch = document.getElementById('search_query').value;
+                var songSearch = document.getElementById('song_query').value;
             var script = document.createElement('script');
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
                 script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
-              + userSearch + '&type=video&maxResults=50&callback=showMyVideos&pageToken='+$('.startIndex:last').html() +'&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+              + userSearch + ' ' + songSearch + '&type=video&maxResults=50&callback=appendVideos&pageToken='+$('.startIndex:last').html() +'&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             
             document.documentElement.firstChild.appendChild(script);
               }
@@ -1748,7 +1749,7 @@ $(document).on('click', '#currentShare #csImg', function(){
   });
 
 
-function showMyVideos(data)
+function appendVideos(data)
         {
           var html = ['<ul>'];
           $.each(data.items, function(i, v){
@@ -1762,6 +1763,22 @@ function showMyVideos(data)
             html.push('</ul><div class="startIndex">'+pageToken+'</div>');
 
             $('#videoResultsDiv').append(html.join(''));
+          }
+
+function showMyVideos(data)
+        {
+          var html = ['<ul>'];
+          $.each(data.items, function(i, v){
+              var title = v.snippet.title;
+              var videoID = v.id.videoId;
+              var ytThumbnail = '<img src="https://img.youtube.com/vi/' + videoID + '/default.jpg" class="playlistYT" alt="thumbnail"/>';
+
+              html.push('<li class="videoResultsDivLi">', ytThumbnail, '<span class="glyphicon glyphicon-remove"></span><p class="playlistSongP">', title.trim(), '</p></li><p class="thumbID">'+videoID+'</p>');
+            });
+            pageToken = data.nextPageToken;
+            html.push('</ul><div class="startIndex">'+pageToken+'</div>');
+
+            $('#videoResultsDiv').html(html.join(''));
 
             
             $(function() {
