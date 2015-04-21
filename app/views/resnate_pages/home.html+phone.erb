@@ -79,10 +79,13 @@ $('#mobileHome').click(function(){
 });
 
 $('#mobilePeople').click(function(){
-	$.get('/leaderboard', function(result){
+	$.get('/peopleHeader', function(result){
 		$('#mobileMainBody').html(result);
+	$.get('/leaderboard', function(result){
+		$('#mobileMainBody').append(result);
 		$('#mobileMainBody').scrollTop(0);
 		});
+	});
 });
 
 $(document).on('click', '#writeGig, #pastGigs', function(){
