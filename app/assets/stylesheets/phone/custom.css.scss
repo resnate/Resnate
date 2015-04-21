@@ -201,7 +201,7 @@ li {
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
 .infinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID, .hiddenGigDate, .hiddenArtistName, .hiddenGigLocation,
-.setlistHeader, .setlist {
+.setlistHeader, .setlistList {
 	display: none;
 }
 
@@ -234,8 +234,7 @@ li {
 }
 
 .mobileReviewShowGigName, .mobileReviewShowSongName {
-	margin-bottom: 5%;
-	margin-left: 2%;
+	margin: 5% 2%;
 }
 
 .likesNcomments {
@@ -370,7 +369,7 @@ background-color: white;
 	margin-right: 1em;
 }
 
-.pgImages {
+.pgImages, .ugImages {
 	width: 30%;
 	display: inline-block;
 	vertical-align: top;
@@ -384,17 +383,33 @@ background-color: white;
 	margin-left: 1%;
 }
 
-.pastGigDivider {
+.pastGigDivider, .upcomingGigDivider {
 	margin: 10% 0 30% 0;
 }
 
 .setlistDiv, .reviewDiv {
 	text-align: center;
 	background-color: #E50049;
-	height: 3em;
 	margin: 10% 0;
+	ul {
+		padding: 0;
+	}
 }
 
 .setlistSetlist, .reviewReview {
 	font-size: 2em;
+}
+
+.pgWriteReview {
+	width: 100%;
+}
+
+.goingAndSharing {
+	text-align: center;
+	img {
+		display: block;
+		vertical-align: top;
+		height: 5em;
+		margin: 3em auto;
+	}
 }

@@ -24,11 +24,12 @@
     	</div>
     	<% unless Review.where(reviewable_type: "PastGig", reviewable_id: pg.id).count == 0 %>
     		<div class="reviewDiv">
-    			<div class="reviewReview">Review</div>
+    			<div class="hiddenReviewID"><%= Review.where(reviewable_type: "PastGig", reviewable_id: pg.id).first.id %></div>
+    			<div class="reviewReview reviewYes">Review</div>
     		</div>
     	<% else %>
     		<% if pg.user_id == current_user.id %>
-    		Y
+    			<textarea placeholder="Write a review" class="pgWriteReview"></textarea>
     		<% end %>
     	<% end %>
     </div>
@@ -36,6 +37,8 @@
 
 
  <script type="text/javascript">
+
+ autosize($('textarea'));
 
 var gigUrls = [];
 
@@ -87,5 +90,16 @@ var gigUrls = [];
       }
     });
   }
+
+  $('.setlistDiv').click(function(){
+  	$(this).find('.setlistList').toggle();
+  });
+
+  $('.reviewDiv').click(function(){
+  	var reviewURL = '/reviews/' + $(this).find('.hiddenReviewID').html();
+  	$.get(reviewURL, function(result){
+  		$('#mobileMainBody').html(result);
+  	});
+  });
 
  </script>

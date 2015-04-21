@@ -1,30 +1,24 @@
-<table class="gigUberTable">
+<div class="userUpcomingGigs">
 <% @gigs.each do |g| %>
-
-        <tr>
-          <td class="artistImageTd">
-            <a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
-              <img src="https://api.songkick.com/api/3.0/events/<%= g.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="artistImages latest">
+  <div class="upcomingGigDivider">
+      <div class="uberdate">
+        <a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
+          <img src="https://api.songkick.com/api/3.0/events/<%= g.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="ugImages artistImages">
+        </a>
+        <div class="date-wrap ugDates">
+          <% d = g.gig_date.to_date %>
+              <span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
+              <span class= "day"><%= d.day %></span>
+          </div> 
+          <div class="nameNlocation">
+            <a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank" class="pgA">
+              <div class="gigName"></div>
+              <div class="profileGigLocation"></div>
             </a>
-          </td>
-  
-          <td>
-            <% d = g.gig_date.to_date %>
-            <div class="hiddenGigID"><%= g.songkick_id %></div>
-            <div class="uberdate myDates">
-              <div class="date-wrap">
-                <span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
-                <span class= "day"><%= d.day %></span>
-              </div>
-
-              <li class="gigName">
-                <a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
-                </a>
-                <br>
-                <span class="profileGigLocation"></span>
-              </li>
-
-              <% unless @user.followees(User).count == 0 %>
+          </div>
+      </div>
+      <div class="goingAndSharing">
+          <% unless @user.followees(User).count == 0 %>
                 <% @user.followees(User).each do |friend| %>
                   <% unless  Gig.find_by(user_id: friend.id, songkick_id: g.songkick_id).nil? %>
                     <img src="https://graph.facebook.com/<%= friend.uid %>/picture?width=50&height=50" class="userImg goingImg" title="<%= friend.name %>"></img>
@@ -35,12 +29,13 @@
 
               <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
               <div class="hiddenGigID"><%= g.songkick_id %></div>
-            </div>
-          </td>
-        </tr>
+       </div>    
+    </div>
+
+
       <% end %>
 
-</table>
+</div>
 
 <div class="genericInfinite-scrolling">
    <%= will_paginate @gigs, renderer: BootstrapPagination::Rails %>
@@ -76,7 +71,7 @@
 
                             $('.day').eq(i).html(moment(data.resultsPage.results.event.start.date).format("DD"));
 
-                            $('.gigName a').eq(i).text(data.resultsPage.results.event.displayName);
+                            $('.gigName').eq(i).text(data.resultsPage.results.event.displayName);
 
                             $('.profileGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
                     }

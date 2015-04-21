@@ -85,6 +85,12 @@ $('#mobilePeople').click(function(){
 		});
 });
 
+$(document).on('click', '#writeGig, #pastGigs', function(){
+  $.get("<%= current_user.id %>/pastGigs", function(result){
+  	$('#mobileMainBody').html(result);
+  });
+ });
+
 $('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
     
   $.get($(this).siblings('.hiddenID').html() + '/profile', function(result){

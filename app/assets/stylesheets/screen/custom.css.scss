@@ -998,6 +998,7 @@ img {border:none;}
     background-repeat:no-repeat;
     background-size: 115px;
     background-position: 50% 50%;
+    float: left;
   }
 
 .gigBlocks, #noPastGigs, #noUpcomingGigs, #noSongkick, .profileActivity, #topFive {
@@ -1219,6 +1220,10 @@ tr {
   padding-bottom: 0px;
   padding-left: 5px;
 
+}
+
+.ugDates {
+  margin-left: 10px;
 }
 
 
