@@ -447,12 +447,12 @@ function ytSearch()
             script.setAttribute('type', 'text/javascript');
             if(songSearch.length > 0){
               script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&q='
-              + userSearch.replace(/'/g, " ") + songSearch.replace(/'/g, " ") + '  ' + '&type=video&start-index=1&max-results=50&callback=showMyVideos&' + 
+              + userSearch.replace(/'/g, " ") + songSearch.replace(/'/g, " ") + '  ' + '&type=video&start-index=1&max-results=50&' + 
+                   'alt=json-in-script&callback=showMyVideos&' + 
                    'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             } else {
               script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
-              + userSearch + '&type=video&maxResults=50&callback=showMyVideos&' + 
-                   'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+              + userSearch + '&type=video&maxResults=50&callback=showMyVideos&orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             }
             
 
@@ -467,7 +467,8 @@ function ytSearch()
             script.setAttribute('id', 'jsonScript');
             script.setAttribute('type', 'text/javascript');
                 script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&q='
-              + userSearch + '&type=video&start-index='+$('.startIndex:last').html() +'&max-results=50&&callback=appendVideos&' + 
+              + userSearch + '&type=video&start-index='+$('.startIndex:last').html() +'&max-results=50&' + 
+                   'alt=json-in-script&callback=appendVideos&' + 
                    'orderby=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             
             document.documentElement.firstChild.appendChild(script);
@@ -1775,7 +1776,10 @@ function appendVideos(data) {
 
 function showMyVideos(data)
         {
-            console.log(data);}
+            $(data.items).each(function(i){
+              console.log(i.videoId);
+            });
+            }
 
 $('#footerPlayer').on('click', '.glyphicon-thumbs-up', function(){
   
