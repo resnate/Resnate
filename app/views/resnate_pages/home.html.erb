@@ -447,8 +447,7 @@ function ytSearch()
             script.setAttribute('type', 'text/javascript');
             if(songSearch.length > 0){
               script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
-              + userSearch.replace(/'/g, " ") + '  ' + songSearch.replace(/'/g, " ") + '&type=vide&maxResults=50&&callback=showMyVideos&' + 
-                   'order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+              + userSearch.replace(/'/g, " ") + '  ' + songSearch.replace(/'/g, " ") + '&type=video&maxResults=50&callback=showMyVideos&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
             } else {
               script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
               + userSearch + '&type=video&maxResults=50&callback=showMyVideos&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
@@ -1762,7 +1761,7 @@ function showMyVideos(data)
             pageToken = data.nextPageToken;
             html.push('</ul><div class="startIndex">'+pageToken+'</div>');
 
-            document.getElementById('videoResultsDiv').innerHTML = html.join('');
+            $('#videoResultsDiv').append(html.join(''));
 
             
             $(function() {
