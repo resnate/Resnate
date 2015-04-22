@@ -30,6 +30,11 @@ $("#search_query").keydown(function(event){
        }
    });
 
+$(body).on('click', '.videoResultsDivLi', function(){
+	videoID = $(this).find('img').attr('src').slice(27,-12);
+	<%= render 'layouts/videoClick' %>
+});
+
 function ytSearch()
         {
             var userSearch = document.getElementById('search_query').value;

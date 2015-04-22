@@ -32,6 +32,10 @@ class ResnatePagesController < ApplicationController
     render :layout => false
   end
 
+  def test
+    render :layout => false
+  end
+
   def help
   end
 
