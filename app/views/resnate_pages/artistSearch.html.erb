@@ -30,7 +30,7 @@ $("#search_query").keydown(function(event){
        }
    });
 
-$(body).on('click', '.videoResultsDivLi', function(){
+$(document).on('click', '.videoResultsDivLi', function(){
 	videoID = $(this).find('img').attr('src').slice(27,-12);
 	<%= render 'layouts/videoClick' %>
 });
