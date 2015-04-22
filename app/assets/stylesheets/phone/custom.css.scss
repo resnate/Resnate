@@ -520,11 +520,14 @@ background-color: white;
 		li {
 			background-color: #E50049;
 			border-bottom: 3px solid white;
-			img, p {
+			img {
+				width: 3em;
 				display: inline-block;
 			}
 			p {
+				display: inline-block;
 				margin-left: 1em;
+				width: calc(100% - 3em);
 			}
 		}
 	}
