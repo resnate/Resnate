@@ -1,4 +1,4 @@
-<form>
+<form id="fakeSub">
 <input id="search_query" class="search" name="search_query" placeholder="Search Artists" type="text" maxlength="128" class="navbar-form navbar-left" autocomplete="on">
 <input type="submit" id="goSub">
 </form>
@@ -14,6 +14,10 @@
 <div id="videoResultsDiv"></div>
 
 <script type="text/javascript">
+
+$("#fakeSub").submit(function(e){
+    return false;
+});
 
 $("#search_query").keydown(function(event){
        if(event.keyCode==13){
