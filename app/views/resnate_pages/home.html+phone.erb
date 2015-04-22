@@ -48,6 +48,7 @@
         player = new YT.Player('footerPlayer', {
           height: '390',
           width: '100%',
+          playerVars: { html5: 1 },
           videoId: 'M7lc1UVf-VE',
           events: {
             'onReady': onPlayerReady,
