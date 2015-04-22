@@ -521,17 +521,18 @@ background-color: white;
 			background-color: #E50049;
 			border-bottom: 1px solid white;
 			height: 3.75em;
+			margin-bottom: 1em;
 			img {
 				width: 5em;
 				display: inline-block;
 				vertical-align: top;
-				height: calc(100% - 1em);
+				height: 100%;
 			}
 			p {
 				display: inline-block;
 				margin: .5em 0 0 1em;
 				width: calc(95% - 6em);
-				height: calc(100% - 1em);
+				height: 100%;
 				vertical-align: top;
 				overflow: hidden;
 			}
