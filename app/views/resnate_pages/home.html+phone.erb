@@ -33,47 +33,191 @@
 	<div id="mobileMainBody">
 		
 	</div>
-	<div id="footerPlayer"></div>
+	<div id="footerPlayer">
+  <iframe id="player" frameborder="0" title="YouTube video player"type="text/html"src="https://www.youtube.com/embed/tza3RLAfGzo?html5=1&enablejsapi=1&rel=0&showinfo=0&controls=0&iv_load_policy=3" webkitallowfullscreen mozallowfullscreen allowfullscreen name="player"></iframe>
+  <div id="navNslider">
+    <div id="navTitle"></div>
+    <div id="navButtons"></div>
+    
+    <div id="slider"></div>
+    <div id="currentTime"></div>
+    <span class="glyphicon glyphicon-fullscreen"></span>
+    <div id="duration"></div>
+  </div> 
 
 	<script type="text/javascript">
 
- 	  var tag = document.createElement('script');
-
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('footerPlayer', {
-          height: '390',
-          width: '100%',
-          playerVars: { html5: 1 },
-          videoId: 'M7lc1UVf-VE',
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
+ 	  function getFrameID(id){
+    var elem = document.getElementById(id);
+    if (elem) {
+        if(/^iframe$/i.test(elem.tagName)) return id; //Frame, OK
+        // else: Look for frame
+        var elems = elem.getElementsByTagName("iframe");
+        if (!elems.length) return null; //No iframe found, FAILURE
+        for (var i=0; i<elems.length; i++) {
+           if (/^https?:\/\/(?:www\.)?youtube(?:-nocookie)?\.com(\/|$)/i.test(elems[i].src)) break;
         }
-      }
-      function stopVideo() {
-        player.stopVideo();
+        elem = elems[i]; //The only, or the best iFrame
+        if (elem.id) return elem.id; //Existing ID, return it
+        // else: Create a new ID
+        do { //Keep postfixing `-frame` until the ID is unique
+            id += "-frame";
+        } while (document.getElementById(id));
+        elem.id = id;
+        return id;
+    }
+    // If no element, return null.
+    return null;
+}
+
+// Define YT_ready function.
+var YT_ready = (function() {
+    var onReady_funcs = [], api_isReady = false;
+    /* @param func function     Function to execute on ready
+     * @param func Boolean      If true, all qeued functions are executed
+     * @param b_before Boolean  If true, the func will added to the first
+                                 position in the queue*/
+    return function(func, b_before) {
+        if (func === true) {
+            api_isReady = true;
+            while (onReady_funcs.length) {
+                // Removes the first func from the array, and execute func
+                onReady_funcs.shift()();
+            }
+        } else if (typeof func == "function") {
+            if (api_isReady) func();
+            else onReady_funcs[b_before?"unshift":"push"](func); 
+        }
+    }
+})();
+// This function will be called when the API is fully loaded
+function onYouTubeIframeAPIReady() {YT_ready(true)}
+
+// Load YouTube Frame API
+(function() { // Closure, to not leak to the scope
+  var s = document.createElement("script");
+  s.src = (location.protocol == 'https:' ? 'https' : 'http') + "://www.youtube.com/iframe_api";
+  var before = document.getElementsByTagName("script")[0];
+  before.parentNode.insertBefore(s, before);
+})();
+var player; 
+YT_ready(function(){
+    var frameID = getFrameID("player");
+    if (frameID) { //If the frame exists
+        player = new YT.Player(frameID, {
+            events: {
+              'onReady': onPlayerReady,
+              'onStateChange': stopCycle
+            }
+        });
+
+
+        
+    }
+});
+
+ var playerReady = false;
+        function onPlayerReady(event) {
+            playerReady = true;
+            var $ = document.querySelector.bind(document);
+            iframe = $('#player');
+            $('.glyphicon-fullscreen').addEventListener('click', playFullscreen);
+            function playFullscreen() {
+  var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+  if (requestFullScreen) {
+    requestFullScreen.bind(iframe)();
+  }
+  
+}
+
+        }
+
+
+        function toHHMMSS(unformat){
+          var sec_num = unformat;
+
+          if(sec_num / 3600 <= 1) {
+            var minutes = Math.floor(sec_num / 60);
+    var seconds = Math.round(sec_num - (minutes * 60));
+
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = minutes+':'+seconds;
+  } else {
+          var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = Math.round(sec_num - (hours * 3600) - (minutes * 60));
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+':'+minutes+':'+seconds;
+  }
+    return time;
+
+        }
+
+function stopCycle(event) {
+
+  duration = player.getDuration();
+  $('#duration').html(toHHMMSS(duration));
+        totalBytes = player.getVideoBytesTotal();
+
+        $("#slider").slider({
+        range: "max",
+        min: 0,
+        max: duration,
+        value: 1,
+        slide: function( event, ui ) {player.seekTo(ui.value);}
+    });
+
+        function loop() {
+        var time = player.getCurrentTime(),
+            // make loaded a percentage
+            loaded = 100 - (player.getVideoBytesLoaded() / totalBytes) * 100;
+$('#currentTime').html(toHHMMSS(time));
+        // set limit - no one likes negative widths
+        if (loaded < 0) { loaded = 0; }
+
+        // update time on slider
+        $('#slider')
+            .slider('option', 'value', time)
+            .find('.ui-widget-header').css('width', loaded + '%');
+
+        // repeat loop as needed
+        if (loaded < 0 || time < duration) {
+            setTimeout(loop, 500);
+        }
+    }
+    loop(); 
+
+
+          if (event.data == YT.PlayerState.ENDED) {
+               var url = event.target.getVideoUrl();
+               var match = url.match(/[?&]v=([^&]+)/);
+               var videoId = match[1];
+               $('#stopID').html(videoId);
+               
+                if($('#stopID').html() == videoID){
+                  var thisVideo = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+videoID+'/default.jpg"]');
+                  nextVideo = $(thisVideo).parent().next().find('.playlistYT');
+                  nextVideo.click();
+                }
+               
+
+          }
+
+          else if (event.data == YT.PlayerState.PAUSED) {
+            
+            $('.glyphicon-pause').parent().css('display', 'none');
+            $('.glyphicon-play').parent().css('display', 'inline-block');
+          }
+
+          else if (event.data == YT.PlayerState.PLAYING) {
+            
+            $('.glyphicon-play').parent().css('display', 'none');
+            $('.glyphicon-pause').parent().css('display', 'inline-block');
+          }
       }
 
 
