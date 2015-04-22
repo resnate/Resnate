@@ -1,5 +1,3 @@
- <%= stylesheet_link_tag "amazon", media: "all",
-                                           "data-turbolinks-track" => true %>
 <div id="azDiv">
               <% @req.associate_tag = 'resnate-21' %>
               <% @req.configure(   aws_access_key_id:     'AKIAIK5DPVPX6A2SKBSQ',aws_secret_access_key: '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', associate_tag:         'resnate-21') %>
@@ -15,7 +13,7 @@
                 <% if i["LargeImage"].nil? %>
                   <% next %>
                 <% else %>
-                  <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1]), i["DetailPageURL"].insert(4, 'S'), target: "_blank", class: 'azImg' %>
+                  <%= link_to image_tag(i["LargeImage"]["URL"]), i["DetailPageURL"], target: "_blank", class: 'azImg' %>
                 <% end %>
               <% end %>
             <% end %>

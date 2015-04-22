@@ -1,14 +1,14 @@
-<form action="/resnate_pages/AmazonStore" method='GET' target="AmazonResults">
+
 <input id="search_query" class="search" name="search_query" placeholder="Search Artists" type="text" maxlength="128" class="navbar-form navbar-left" autocomplete="on">
 <input type="submit" id="goSub">
-</form>
+
 
 <div id="noResults">Get Music,<br>Gigs<br>& Merch.</div>
 
 <div id="Gigs"></div>
 <div id="moreGigs"></div>
 
-<iframe name="AmazonResults" id="iframeAmazon"></iframe>
+<div id="iframeAmazon"></div>
 <div id="moreMerch">More Merch at Amazon</div>
 
 <div id="videoResultsDiv"></div>
@@ -74,6 +74,10 @@ function showMyVideos(data)
 function merchNgigsSearch(){
 			
             var userSearch = $('#search_query').val();
+
+            $.get('/resnate_pages/AmazonStore?search_query=' + userSearch, function(result){
+            	$('#iframeAmazon').html(result);
+            });
             
             var key="Pxms4Lvfx5rcDIuR";
             var url="https://api.songkick.com/api/3.0/search/artists.json?query=" + userSearch + "&apikey="
