@@ -22,6 +22,7 @@ $("#fakeSub").submit(function(e){
 $("#search_query").keydown(function(event){
        if(event.keyCode==13){
        		$("input").blur();
+       		document.body.style.zoom="100%";
        		$('#noResults').remove();
 			$('#iframeAmazon, #moreMerch').show();
        		merchNgigsSearch();
