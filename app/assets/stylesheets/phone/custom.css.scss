@@ -520,7 +520,7 @@ background-color: white;
 		li {
 			background-color: #E50049;
 			border-bottom: 1px solid white;
-			height: 4.5em;
+			height: 3.75em;
 			img {
 				width: 5em;
 				display: inline-block;
@@ -528,9 +528,9 @@ background-color: white;
 			}
 			p {
 				display: inline-block;
-				margin-left: 1em;
+				margin: .5em 0 0 1em;
 				width: calc(95% - 6em);
-				height: 100%;
+				height: calc(100% - 1em);
 				vertical-align: top;
 				overflow: hidden;
 			}
