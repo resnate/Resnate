@@ -17,6 +17,8 @@
 
 $("#search_query").keydown(function(event){
        if(event.keyCode==13){
+       		$('#noResults').remove();
+			$('#iframeAmazon, #moreMerch').show();
        		merchNgigsSearch();
        		ytSearch();
        }
@@ -70,8 +72,7 @@ function showMyVideos(data)
         }
 
 function merchNgigsSearch(){
-			$('#noResults').remove();
-			$('#iframeAmazon, #moreMerch').show();
+			
             var userSearch = $('#search_query').val();
             
             var key="Pxms4Lvfx5rcDIuR";
