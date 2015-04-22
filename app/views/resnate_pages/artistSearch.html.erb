@@ -18,9 +18,47 @@
 $("#search_query").keydown(function(event){
        if(event.keyCode==13){
        		merchNgigsSearch();
-       		showMyVideos();
+       		ytSearch();
        }
    });
+
+function ytSearch()
+        {
+            var userSearch = document.getElementById('search_query').value;
+            var songSearch = document.getElementById('song_query').value;  
+            var script = document.createElement('script');
+            script.setAttribute('id', 'jsonScript');
+            script.setAttribute('type', 'text/javascript');
+            if(songSearch.length > 0){
+              script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
+              + userSearch.replace(/'/g, " ") + '  ' + songSearch.replace(/'/g, " ") + '&type=video&maxResults=50&callback=showMyVideos&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+            } else {
+              script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
+              + userSearch + '&type=video&maxResults=50&callback=showMyVideos&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+            }
+            
+
+            
+            
+            document.documentElement.firstChild.appendChild(script);
+
+            $('#videoResultsDiv').on('scroll', function(){
+              if($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight) {
+                var userSearch = document.getElementById('search_query').value;
+                var songSearch = document.getElementById('song_query').value;
+            var script = document.createElement('script');
+            script.setAttribute('id', 'jsonScript');
+            script.setAttribute('type', 'text/javascript');
+                script.setAttribute('src', 'https://www.googleapis.com/youtube/v3/search?part=snippet&videoCategoryId=10&q='
+              + userSearch + ' ' + songSearch + '&type=video&maxResults=50&callback=appendVideos&pageToken='+$('.startIndex:last').html() +'&order=relevance&sortorder=descending&key=AIzaSyCOXdvVcEfbZ1msV_tb4wfduQOl8wPuMis');
+            
+            document.documentElement.firstChild.appendChild(script);
+              }
+              
+            });
+
+
+        }
 
 function showMyVideos(data)
         {
