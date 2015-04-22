@@ -1,9 +1,17 @@
+<form action="/resnate_pages/AmazonStore" method='GET' target="AmazonResults">
 <input id="search_query" class="search" name="search_query" placeholder="Search Artists" type="text" maxlength="128" class="navbar-form navbar-left" autocomplete="on">
+<input type="submit" id="goSub">
+</form>
 
 <div id="noResults">Get Music,<br>Gigs<br>& Merch.</div>
 
 <div id="Gigs"></div>
 <div id="moreGigs"></div>
+
+<iframe name="AmazonResults" id="iframeAmazon"></iframe>
+<div id="moreMerch">More Merch at Amazon</div>
+
+<div id="videoResultsDiv"></div>
 
 <script type="text/javascript">
 
@@ -13,8 +21,25 @@ $("#search_query").keydown(function(event){
        }
    });
 
+function showMyVideos(data)
+        {
+          var html = ['<ul>'];
+          $.each(data.items, function(i, v){
+              var title = v.snippet.title;
+              var videoID = v.id.videoId;
+              var ytThumbnail = '<img src="https://img.youtube.com/vi/' + videoID + '/default.jpg" class="playlistYT" alt="thumbnail"/>';
+
+              html.push('<li class="videoResultsDivLi">'+ytThumbnail+'<span class="glyphicon glyphicon-remove"></span><p class="playlistSongP">'+title.trim());
+            });
+            pageToken = data.nextPageToken;
+            html.push('</ul><div class="startIndex">'+pageToken+'</div>');
+
+            $('#videoResultsDiv').html(html.join(''));
+        }
+
 function merchNgigsSearch(){
 			$('#noResults').remove();
+			$('#iframeAmazon, #moreMerch').show();
             var userSearch = $('#search_query').val();
             
             var key="Pxms4Lvfx5rcDIuR";
@@ -112,8 +137,7 @@ function merchNgigsSearch(){
                                   success: function(html) {
                                     image_link(html , this.indexValue);
                                     function image_link(data, i) {
-                                      $("#gig"+i+"").append(data);
-                                      $("#gig"+i+"").after('<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
+                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
                                     }
                                   }});
                                 

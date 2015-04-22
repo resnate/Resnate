@@ -209,7 +209,7 @@ li {
 
 .hiddenReviewID, .hiddenID, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .editReviewPrompt, .editReviewYes, .editReviewNo,
 .infinite-scrolling, .hiddenYTName, .commentURL, .jamID, .jamTitle, .btn-default, .hiddenGigID, .hiddenGigDate, .hiddenArtistName, .hiddenGigLocation,
-.setlistHeader, .setlistList, #userButton {
+.setlistHeader, .setlistList, #userButton, #iframeAmazon, #moreMerch {
 	display: none;
 }
 
@@ -472,32 +472,44 @@ background-color: white;
 	margin-left: 10%;
 }
 
+#Gigs {
+	font-size: .8em;
+}
+
 .gigInfo {
-	width: calc(95% - 8em);
 	display: inline-block;
 	margin-left: 1em;
+	width: calc(100% - 4em)
 }
 
 .threeGigs {
-	margin: 2em 0;
-	height: 4em;
-}
-
-.shareNfriends {
-	text-align: center;
-	margin-bottom: 1em;
-}
-
-.goingImg {
-	height: 4em;
-	float: right;
+	margin: .5em 0;
+	width: calc(95% - 10em);
 }
 
 #Gigs .shareGig {
 	height: 3em;
-	margin-left: calc(50% - 1.5em);
 }
 
-#moreGigs {
+#moreGigs, #moreMerch {
 	margin: .5em;
+}
+
+.shareNfriends {
+	margin-top: .5em;
+	display: inline-block;
+	float: right;
+}
+
+#goSub {
+	visibility: hidden;
+	height: 0;
+	width: 0;
+}
+
+#iframeAmazon {
+	width: 100%;
+	border: none;
+	height: 20%;
+	margin-top: 2em;
 }

@@ -8,6 +8,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 
 Rails.application.config.assets.precompile += %w( resnate_pages.css )
+Rails.application.config.assets.precompile += %w( amazon.css )
 
 
 Rails.application.config.assets.precompile += %w( application+phone.css )

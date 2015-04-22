@@ -89,7 +89,7 @@ var reviewShowUrls = [];
   $('.editReview').click(function(){
     var reviewContent = $(this).siblings('.mobileReviewContent').html();
     $(this).siblings('.mobileReviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
-    autosize($('textarea'));
+    autosize($('.updateReview'));
     $('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').hide();
     $('.editReviewPrompt, .editReviewYes, .editReviewNo').css('display', 'inline-block');
 
