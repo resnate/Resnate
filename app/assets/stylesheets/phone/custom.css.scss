@@ -513,3 +513,19 @@ background-color: white;
 	height: 20%;
 	margin-top: 2em;
 }
+
+#videoResultsDiv {
+	ul {
+		padding: 0;
+		li {
+			background-color: #E50049;
+			border-bottom: 3px solid white;
+			img, p {
+				display: inline-block;
+			}
+			p {
+				margin-left: 1em;
+			}
+		}
+	}
+}
