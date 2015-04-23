@@ -90,6 +90,16 @@ li {
 	-webkit-overflow-scrolling: touch;    
 }
 
+#footerPlayer {
+  height: 150px;
+    position: fixed;
+    background-color: #801336;
+    bottom: -150px;
+    right: 0px;
+    width: 100%;
+  color: white;
+}
+
 .mobileDivider {
 	height: 20%;
 	margin-top: 5%;
