@@ -142,6 +142,12 @@ $('#follows').click(function(){
   	});
   });
 
+  $('#pastGigs').click(function(){
+  $.get("<%= @user.id %>/pastGigs", function(result){
+    $('#mobileMainBody').html(result);
+  });
+ });
+
 $('#upcomingGigs').click(function(){
   $.get("<%= @user.id %>/upcomingGigs", function(result){
   	$('#mobileMainBody').html(result);

@@ -100,7 +100,7 @@ $('#mobileInbox').click(function(){
 	});
 });
 
-$(document).on('click', '#writeGig, #pastGigs', function(){
+$(document).on('click', '#writeGig', function(){
   $.get("<%= current_user.id %>/pastGigs", function(result){
   	$('#mobileMainBody').html(result);
   });
