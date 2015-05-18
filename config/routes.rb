@@ -87,9 +87,9 @@ Resnate::Application.routes.draw do
   resources :activities
 
   namespace :api, :path => "", :constraints => {:subdomain => "api"}, :defaults => {:format => :json} do
-    namespace :v1 do
+    
       resources :users
-    end
+ 
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
