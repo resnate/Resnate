@@ -86,7 +86,7 @@ Resnate::Application.routes.draw do
 
   resources :activities
 
-  namespace :api, :path => "", :constraints => {:subdomain => "api"}, :defaults => {:format => :json} do
+  namespace :api, :constraints => {:subdomain => "api"}, :defaults => {:format => :json} do
     
       resources :users
       get "/userSearch/:oauth"  => "users#userSearch"
