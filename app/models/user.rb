@@ -36,12 +36,14 @@ reverse_geocoded_by :latitude, :longitude do |obj,results|
 after_validation :reverse_geocode
 
 def self.remote_ip
+  unless $request.nil?
     if $request.remote_ip == '127.0.0.1'
       # Hard coded remote address
       '50.78.167.161'
     else
       $request.remote_ip
     end
+  end
   end  
 
   def level_name
@@ -87,6 +89,7 @@ def self.remote_ip
   def update_music_image_etc(auth)
     
       self.uid = auth.uid
+      self.email = auth.info.email
       self.oauth_token = auth.credentials.token
       self.oauth_expires_at = Time.at(auth.credentials.expires_at)
       self.info = Net::HTTP.get(URI("https://graph.facebook.com/" + auth.uid + "/music?access_token=" + self.oauth_token + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], self.oauth_token) + '&limit=1000'))
@@ -117,7 +120,7 @@ def self.remote_ip
       user.uid = auth.uid
       user.name = auth.info.name
       user.first_name = auth.info.first_name
-      #user.email = auth.info.email
+      user.email = auth.info.email
       user.image = auth.info.image
       user.ip_address = remote_ip
       user.location = user.country 
