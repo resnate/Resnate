@@ -1,2 +1,3 @@
 object @profile
 
+attributes :id
