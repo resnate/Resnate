@@ -10,7 +10,7 @@ class API::UsersController < ApplicationController
 
   def userSearch
     me = Net::HTTP.get(URI("https://graph.facebook.com/me?access_token=" + params[:oauth] + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], params[:oauth])))
-    @profile = JSON.parse(me.body)
+    @profile = JSON.parse(me)
   end
 
 end
