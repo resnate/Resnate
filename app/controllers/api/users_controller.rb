@@ -1,6 +1,6 @@
 class API::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-before_filter :restrict_access
+before_filter :restrict_access, :except => :userSearch
   def index
     @users = User.all
   end
