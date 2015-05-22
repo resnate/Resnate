@@ -14,7 +14,6 @@ gem 'normalize-rails'
 gem 'momentjs-rails'
 gem 'turbolinks'
 gem 'omniauth-facebook'
-gem "koala", "~> 2.0"
 gem 'vacuum'
 gem 'pry'
 gem 'httparty'
@@ -25,7 +24,7 @@ gem 'handlebars_assets'
 gem "socialization"
 gem 'public_activity'
 gem "select2-rails"
-gem 'mailboxer'
+gem 'mailboxer', :git => 'git://github.com/div/mailboxer.git', :branch => 'rails42-foreigner'
 gem 'merit'
 gem 'pusher'
 gem 'underscore-rails'
@@ -35,6 +34,7 @@ gem 'browser'
 gem 'pg'
 gem 'bulk_data_methods'
 gem 'newrelic_rpm'
+gem 'has_secure_token'
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'

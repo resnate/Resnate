@@ -4,6 +4,15 @@ GIT
   specs:
     database_cleaner (1.4.1)
 
+GIT
+  remote: git://github.com/div/mailboxer.git
+  revision: 41c9d8de2e0ad4dc511718074228d40a1ba96ebe
+  branch: rails42-foreigner
+  specs:
+    mailboxer (0.12.4)
+      carrierwave (>= 0.5.8)
+      rails (>= 3.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -46,7 +55,6 @@ GEM
       activerecord (>= 4.0)
       activesupport (>= 4.0)
       awesome_nested_set (>= 3.0)
-    addressable (2.3.8)
     ambry (0.3.1)
     arel (6.0.0)
     autoprefixer-rails (5.1.8)
@@ -85,8 +93,6 @@ GEM
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.8)
-    foreigner (1.7.2)
-      activerecord (>= 3.0.0)
     geocoder (1.2.8)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
@@ -95,6 +101,8 @@ GEM
       multi_json (~> 1.0)
       sprockets (~> 2.0)
       tilt (~> 1.2)
+    has_secure_token (1.0.0)
+      activerecord (>= 3.0)
     hashie (3.4.0)
     hike (1.2.3)
     httparty (0.13.3)
@@ -112,18 +120,10 @@ GEM
       railties (>= 3.2.16)
     json (1.8.2)
     jwt (1.4.1)
-    koala (2.0.0)
-      addressable
-      faraday
-      multi_json
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mailboxer (0.12.5)
-      carrierwave (>= 0.5.8)
-      foreigner (>= 0.9.1)
-      rails (>= 3.2.0)
     merit (2.3.1)
       ambry (~> 0.3.0)
     method_source (0.8.2)
@@ -276,11 +276,11 @@ DEPENDENCIES
   database_cleaner!
   geocoder
   handlebars_assets
+  has_secure_token
   httparty
   jquery-rails
   jquery-ui-rails
-  koala (~> 2.0)
-  mailboxer
+  mailboxer!
   merit
   momentjs-rails
   newrelic_rpm

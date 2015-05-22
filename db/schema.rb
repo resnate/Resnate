@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309130010) do
+ActiveRecord::Schema.define(version: 20150522093521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20150309130010) do
   add_index "activities", ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type", using: :btree
   add_index "activities", ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type", using: :btree
   add_index "activities", ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type", using: :btree
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "access_token"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "api_keys", ["user_id"], name: "index_api_keys_on_user_id", using: :btree
 
   create_table "badges_sashes", force: :cascade do |t|
     t.integer  "badge_id"
@@ -274,4 +283,5 @@ ActiveRecord::Schema.define(version: 20150309130010) do
     t.integer  "level",                        default: 0
   end
 
+  add_foreign_key "api_keys", "users"
 end
