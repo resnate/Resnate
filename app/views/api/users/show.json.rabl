@@ -1,3 +1,3 @@
-object @user, :object_root => false
+object @user
 
 attributes :id
