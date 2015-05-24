@@ -20,7 +20,7 @@ before_filter :restrict_access, :except => :userSearch
     else
       id = User.find_by_uid(@profile).id
       @access_token = APIKey.find_by_user_id(id).access_token
-      @name = User.find(id).name
+      @name = id
     end
   end
 
