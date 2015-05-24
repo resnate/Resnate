@@ -23,6 +23,14 @@ before_filter :restrict_access, :except => :userSearch
     end
   end
 
+  def level
+    user = User.find(params[:id])
+    @points = user.points
+    @level = user.level
+    @level_name = user.level_name
+    @badges = user.badges
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|

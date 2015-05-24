@@ -90,6 +90,7 @@ Resnate::Application.routes.draw do
     
       resources :users
       get "/userSearch/:oauth"  => "users#userSearch"
+      get "/users/:id/level"  => "users#level"
  
   end
   
