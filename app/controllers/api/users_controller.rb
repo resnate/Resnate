@@ -29,7 +29,10 @@ before_filter :restrict_access, :except => :userSearch
     @points = user.points
     @level = user.level
     @level_name = user.level_name
-    @badges = user.badges
+    @badges = []
+    user.badges.each do |badge|
+      @badges.push(badge)
+    end
   end
 
 private
