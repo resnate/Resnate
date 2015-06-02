@@ -1,8 +1,13 @@
-require 'json'
-[Object, Array, Hash].each do |klass|
-  klass.class_eval <<-RUBY, __FILE__, __LINE__
-    def jsonize(options = nil)
-      ::JSON.generate self, :quirks_mode => true
+module ActiveSupport::JSON::Encoding
+  class << self
+    def escape(string)
+      if string.respond_to?(:force_encoding)
+        string = string.encode(::Encoding::UTF_8, :undef => :replace).force_encoding(::Encoding::BINARY)
+      end
+      json = string.gsub(escape_regex) { |s| ESCAPED_CHARS[s] }
+      json = %("#{json}")
+      json.force_encoding(::Encoding::UTF_8) if json.respond_to?(:force_encoding)
+      json
     end
-  RUBY
+  end
 end
