@@ -31,7 +31,7 @@ before_filter :restrict_access, :except => :userSearch
     @level_name = user.level_name
     @badges = []
     user.badges.each do |badge|
-      @badges.push("#{badge.name}")
+      @badges.push(badge.name)
     end
   end
 
