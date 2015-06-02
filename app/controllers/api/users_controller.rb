@@ -33,6 +33,7 @@ before_filter :restrict_access, :except => :userSearch
     user.badges.each do |badge|
       @badges.push(badge.name)
     end
+    @badges = @badges.to_json.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U")
   end
 
 private
