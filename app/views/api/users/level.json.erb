@@ -1,1 +1,1 @@
-{ "level": "<%= @level %>", "level_name": "<%= @level_name %>", "points": "<%= @points %>", "badges": <%= raw @badges.to_json.html_safe %> }
+{ "level": "<%= @level %>", "level_name": "<%= @level_name %>", "points": "<%= @points %>", "badges": <%= raw @badges.to_json.gsub!(/\\u([0-9a-z]{4})/) {|s| [$1.to_i(16)].pack("U") %> }
