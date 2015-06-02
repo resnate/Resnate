@@ -1,1 +1,2 @@
-{ "level": "<%= @level %>", "level_name": "<%= @level_name %>", "points": "<%= @points %>", "badges": <%= escape(@badges.to_json) %> }
+{ "level": "<%= @level %>", "level_name": "<%= @level_name %>", "points": "<%= @points %>", "badges": <%= JSON.generate(@badges, :ascii_only => true)
+%> }
