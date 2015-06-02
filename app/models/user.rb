@@ -53,7 +53,7 @@ def self.remote_ip
     elsif self.points < 10
       level_name = "Hipster"
     elsif self.points < 25
-      level_name = "ÜberHipster"
+      level_name = "UberHipster"
     elsif self.points < 50
       level_name = "Groupie"
     elsif self.points < 100

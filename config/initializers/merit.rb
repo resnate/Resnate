@@ -21,7 +21,7 @@ Merit::Badge.create!(
 )
 
 Merit::Badge.create!(id: 2,
-   name: 'ÜberHipster',
+   name: 'UberHipster',
    level: 2,
    custom_fields: { image: "UberHipsterTache.png"})
 
