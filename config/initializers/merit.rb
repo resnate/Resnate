@@ -20,7 +20,7 @@ Merit::Badge.create!(
    custom_fields: { image: "HipsterGlasses.png"}
 )
 
-Merit::Badge.create!(id: 2,
+Merit::Badge.update!(id: 2,
    name: 'UberHipster',
    level: 2,
    custom_fields: { image: "UberHipsterTache.png"})
