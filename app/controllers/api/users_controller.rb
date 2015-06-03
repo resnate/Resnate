@@ -29,6 +29,8 @@ before_filter :restrict_access, :except => :userSearch
     @points = user.points
     @level = user.level
     @level_name = user.level_name
+    @followers = user.followers(User).count
+    @following = user.followees(User).count
     @badges = []
     user.badges.each do |badge|
       @badges.push(badge.name)
