@@ -44,9 +44,9 @@ before_filter :restrict_access, :except => :userSearch
     else
       review = user.reviews.last
       if review.reviewable_type == "PastGig"
-        @review = "https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
+        @review = "https://api.songkick.com/api/3.0/events/#{PastGig.find(review.reviewable_id).songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
       else
-        @review = "https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg"
+        @review = "https://img.youtube.com/vi/#{Song.find(review.reviewable_id).content}/hqdefault.jpg"
       end
     end
     @songkickID = user.songkickID
@@ -58,13 +58,13 @@ before_filter :restrict_access, :except => :userSearch
         @pastGig = nil
       else
         pg = user.past_gigs.first
-        @pastGig = "https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
+        @pastGig = "https://api.songkick.com/api/3.0/events/#{pg.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
       end
       if user.gigs.count == 0
         @upcomingGig = nil
       else
         g = user.gigs.first
-        @upcomingGig = "https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
+        @upcomingGig = "https://api.songkick.com/api/3.0/events/#{g.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
       end
     end
     if user.playlists.count == 0 || user.playlists.first.content.nil?
@@ -75,7 +75,7 @@ before_filter :restrict_access, :except => :userSearch
       JSON.parse(playlist.content)[0].each do |k, v|
         img1 = v
       end
-      @playlist = "https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg"
+      @playlist = "https://img.youtube.com/vi/#{img1} %>/hqdefault.jpg"
     end
   end
 
