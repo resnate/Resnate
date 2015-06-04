@@ -44,7 +44,7 @@ before_filter :restrict_access, :except => :userSearch
     else
       review = user.reviews.last
       if review.reviewable_type == "PastGig"
-        @review = "https://api.songkick.com/api/3.0/events/#{PastGig.find(review.reviewable_id).songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
+        @review = "https://api.songkick.com/api/3.0/events/#{PastGig.find(review.reviewable_id).songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"
       else
         @review = "https://img.youtube.com/vi/#{Song.find(review.reviewable_id).content}/hqdefault.jpg"
       end
