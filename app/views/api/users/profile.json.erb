@@ -1,1 +1,1 @@
-{ "review": "<%= @review %>", "songkickID": "<%= @songkickID %>", "pastGig": "<%= @pastGig %>", "upcomingGig": "<%= @upcomingGig%>", "playlist": "<%= @playlist %>" }
+{ "review": "<%= raw @review.to_json %>", "songkickID": "<%= raw @songkickID.to_json %>", "pastGig": "<%= @pastGig %>", "upcomingGig": "<%= @upcomingGig%>", "playlist": "<%= @playlist %>" }
