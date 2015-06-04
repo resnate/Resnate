@@ -54,13 +54,13 @@ before_filter :restrict_access, :except => :userSearch
       @pastGig = nil
       @upcomingGig = nil
     else
-      if @user.past_gigs.count == 0
+      if user.past_gigs.count == 0
         @pastGig = nil
       else
         pg = user.past_gigs.first
         @pastGig = "https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
       end
-      if @user.gigs.count == 0
+      if user.gigs.count == 0
         @upcomingGig = nil
       else
         g = user.gigs.first
