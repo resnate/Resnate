@@ -21,6 +21,7 @@ before_filter :restrict_access, :except => :userSearch
       id = User.find_by_uid(@profile).id
       @access_token = APIKey.find_by_user_id(id).access_token
       @name = User.find(id).name
+      @first_name = User.find(id).first_name
     end
   end
 
@@ -58,13 +59,13 @@ before_filter :restrict_access, :except => :userSearch
         @pastGig = nil
       else
         pg = user.past_gigs.first
-        @pastGig = "https://api.songkick.com/api/3.0/events/#{pg.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
+        @pastGig = "https://api.songkick.com/api/3.0/events/#{pg.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"
       end
       if user.gigs.count == 0
         @upcomingGig = nil
       else
         g = user.gigs.first
-        @upcomingGig = "https://api.songkick.com/api/3.0/events/#{g.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?"
+        @upcomingGig = "https://api.songkick.com/api/3.0/events/#{g.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"
       end
     end
     if user.playlists.count == 0 || user.playlists.first.content.nil?
