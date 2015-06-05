@@ -1,8 +1,9 @@
 <% pgArray = [] %>
 <% @pastGigs.each do |pg| %>
-	
-	<% hash = { user_id: params[:user], songkick_id: pg["songkick_id"], gig_date: pg["gig_date"] } %>
-	<% pgArray.push(hash) %>
+	<% if User.find(params[:user]).past_gigs.find_by_songkick_id(pg["songkick_id"]).nil? %>
+		<% hash = { user_id: params[:user], songkick_id: pg["songkick_id"], gig_date: pg["gig_date"] } %>
+		<% pgArray.push(hash) %>
+	<% end %>
 	
 <% end %>
 <%= PastGig.create_many(pgArray) %>
