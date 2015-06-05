@@ -42,11 +42,14 @@ before_filter :restrict_access, :except => :userSearch
     user = User.find(params[:id])
     if user.reviews.count == 0
       @review = nil
+      @reviewable_type = nil
     else
       review = user.reviews.last
       if review.reviewable_type == "PastGig"
+        @reviewable_type = "PastGig"
         @review = "https://api.songkick.com/api/3.0/events/#{PastGig.find(review.reviewable_id).songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"
       else
+        @reviewable_type = "Song"
         @review = "https://img.youtube.com/vi/#{Song.find(review.reviewable_id).content}/hqdefault.jpg"
       end
     end
