@@ -7,7 +7,7 @@ class PastGig < ActiveRecord::Base
 
 	default_scope -> { order('gig_date DESC') }
 	
-	validates :songkick_id, presence: true, length: { maximum: 8 }, uniqueness: true
+	validates :songkick_id, presence: true, length: { maximum: 8 }
 	validates :gig_date, presence: true
 	validates :user_id, presence: true
 	

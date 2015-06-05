@@ -4,7 +4,7 @@ class Gig < ActiveRecord::Base
 	belongs_to :user
 	acts_as_likeable
 	default_scope -> { order('gig_date ASC') }
-	validates :songkick_id, presence: true, length: { maximum: 8 }, uniqueness: true
+	validates :songkick_id, presence: true, length: { maximum: 8 }
 	validates :gig_date, presence: true
 	validates :user_id, presence: true
 
