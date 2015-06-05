@@ -40,6 +40,10 @@ before_filter :restrict_access, :except => :userSearch
 
   def profile
     user = User.find(params[:id])
+    @id = params[:id]
+    @userID = user.uid
+    @name = user.name
+    @first_name = user.first_name
     if user.reviews.count == 0
       @review = nil
       @reviewable_type = nil
