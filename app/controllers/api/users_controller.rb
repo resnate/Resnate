@@ -79,7 +79,7 @@ before_filter :restrict_access, :except => :userSearch
       JSON.parse(playlist.content)[0].each do |k, v|
         img1 = v
       end
-      @playlist = "https://img.youtube.com/vi/#{img1} %>/hqdefault.jpg"
+      @playlist = "https://img.youtube.com/vi/#{img1}/hqdefault.jpg"
     end
   end
 
