@@ -56,6 +56,7 @@ GEM
       activesupport (>= 4.0)
       awesome_nested_set (>= 3.0)
     ambry (0.3.1)
+    api-pagination (4.1.1)
     arel (6.0.0)
     autoprefixer-rails (5.1.8)
       execjs
@@ -269,6 +270,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable_with_threading
+  api-pagination
   bootstrap-sass
   browser
   bulk_data_methods

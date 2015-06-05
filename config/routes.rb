@@ -88,11 +88,11 @@ Resnate::Application.routes.draw do
 
   namespace :api, :defaults => {:format => :json} do
     
-      resources :users
+      resources :users, except: :destroy
       get "/userSearch/:oauth"  => "users#userSearch"
       get "/users/:id/level"  => "users#level"
       get "/users/:id/profile"  => "users#profile"
- 
+      get "/users/:id/reviews"  => "users#reviews"
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

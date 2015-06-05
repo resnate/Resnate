@@ -83,6 +83,12 @@ before_filter :restrict_access, :except => :userSearch
     end
   end
 
+  def reviews
+    user = User.find(params[:id])
+    @reviews = Review.where(user_id: params[:id]).order("created_at desc"))
+    paginate json: @reviews, per_page: 10
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
