@@ -90,7 +90,6 @@ before_filter :restrict_access, :except => :userSearch
   def reviews
     user = User.find(params[:id])
     @reviews = Review.where(user_id: params[:id]).order("created_at desc")
-    paginate json: @reviews, per_page: 10
   end
 
 private
