@@ -93,6 +93,10 @@ Resnate::Application.routes.draw do
       get "/users/:id/level"  => "users#level"
       get "/users/:id/profile"  => "users#profile"
       get "/users/:id/reviews"  => "users#reviews"
+
+      resources :past_gigs
+
+      resources :reviews
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
