@@ -1,3 +1,3 @@
 object @review
 
-attributes :id
+attributes @reviewableLink
