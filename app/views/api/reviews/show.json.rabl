@@ -1,3 +1,3 @@
 object @review
 
-attributes @reviewableLink
+attributes *Review.column_names

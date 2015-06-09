@@ -96,6 +96,8 @@ Resnate::Application.routes.draw do
 
       resources :past_gigs
 
+      resources :songs
+
       resources :reviews
   end
   

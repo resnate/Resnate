@@ -1,9 +1,9 @@
-class API::ReviewsController < ApplicationController
+class API::SongsController < ApplicationController
   	include ActionController::HttpAuthentication::Token::ControllerMethods
 	before_filter :restrict_access, :except => :userSearch
 
 	def show
-		@review = Review.find(params[:id])
+		@song = Song.find(params[:id])
 	end
 
 	private
