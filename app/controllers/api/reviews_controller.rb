@@ -4,6 +4,11 @@ class API::ReviewsController < ApplicationController
 
 	def show
 		@review = Review.find(params[:id])
+    if @review.reviewable_type == "PastGig"
+      @reviewableLink = PastGig.find(review.reviewable_id).songkick_id
+    else
+      @reviewableLink = Song.find(review.reviewable_id).content
+    end
 	end
 
 	private

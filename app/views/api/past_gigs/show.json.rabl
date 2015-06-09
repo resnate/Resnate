@@ -1,3 +1,3 @@
 object @past_gig
 
-attributes :id
+attributes @reviewableLink
