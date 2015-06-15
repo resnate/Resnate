@@ -93,6 +93,13 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @reviews, per_page: 10
   end
 
+
+  def past_gigs
+    user = User.find(params[:id])
+    @past_gigs = PastGig.where(user_id: params[:id]).order("created_at desc")
+    paginate json: @past_gigs, per_page: 10
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
