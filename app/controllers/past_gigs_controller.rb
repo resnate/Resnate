@@ -34,6 +34,7 @@ class PastGigsController < ApplicationController
       render :layout => false
     end
 
+
   	private
 
     def past_gig_params

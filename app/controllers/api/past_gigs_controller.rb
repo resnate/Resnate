@@ -6,6 +6,11 @@ class API::PastGigsController < ApplicationController
 		@past_gig = PastGig.find(params[:id])
 	end
 
+  def review
+      @review = Review.where(reviewable_type: "PastGig", reviewable_id: params[:id]).first
+      
+    end
+
 	private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
