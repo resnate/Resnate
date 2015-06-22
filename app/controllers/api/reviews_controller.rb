@@ -7,6 +7,14 @@ class API::ReviewsController < ApplicationController
 	end
 
   def create
+    if params[:reviewable_type] == "PastGig"
+      reviewable = PastGig.find(params[:reviewable_id])
+    elsif params[:reviewable_type] == "Song"
+      reviewable = Song.find(params[:reviewable_id])
+    end
+    if User.find(reviewable.user_id) == params[:user_id]
+      current_user = User.find(params[:user_id])
+    end
     @review = current_user.reviews.build(review_params)
     @review.save
     @review.create_activity :create, owner: current_user
