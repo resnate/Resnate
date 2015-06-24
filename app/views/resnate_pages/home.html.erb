@@ -804,6 +804,9 @@ $(document).on('click', '.editReview', function(){
   var height = $(this).siblings('.reviewContent').height();
   $(this).siblings('.reviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
   $('.updateReview').height(height);
+
+  $(this).hide();
+  $('.saveReview, .cancelGigReview').css('display', 'inline-block');
 });
 
 $(document).on('click', '.deleteReview', function(){
