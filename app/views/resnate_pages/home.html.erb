@@ -796,7 +796,8 @@ function friendsLikeArtist(){
   data: { content : contentText }
 });
   $(reviewContent).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
-  
+  $(this).css('display', 'none');
+  $(this).siblings('.cancelGigReview').css('display', 'none');
 });
 
         $(document).on('click', ".cancelGigReview", function(event){
