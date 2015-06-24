@@ -801,7 +801,7 @@ function friendsLikeArtist(){
 
 $(document).on('click', '.editReview', function(){
   var reviewContent = $(this).siblings('.reviewContent').html();
-  var height = $(reviewContent).height();
+  var height = $(this).siblings('.reviewContent').height();
   $(this).siblings('.reviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
   $('.updateReview').height(height);
 });
