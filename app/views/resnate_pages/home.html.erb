@@ -816,7 +816,7 @@ $(document).on('click', '.editReview', function(){
   $('.updateReview').height(height);
 
   $(this).hide();
-  $('.saveReview, .cancelGigReview').css('display', 'inline-block');
+  $(this).siblings('.saveReview, .cancelGigReview').css('display', 'inline-block');
 });
 
 $(document).on('click', '.deleteReview', function(){
