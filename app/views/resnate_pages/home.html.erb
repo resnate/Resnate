@@ -784,10 +784,10 @@ function friendsLikeArtist(){
 }
 });
 
-        $(document).on('keydown', ".updateReview", function(event){
+        $(document).on('click', ".saveReview", function(event){
   
-    if(event.keyCode==13 && !event.shiftKey){
-  var contentText = $(this).val();
+    var reviewContent = $(this).siblings('.updateReview')
+  var contentText = $(reviewContent).val();
   var ID = $(this).siblings('.hiddenReviewID').html();
   var updateURL = "/reviews/" + ID;
   $.ajax({
@@ -795,9 +795,15 @@ function friendsLikeArtist(){
   method: "PUT",
   data: { content : contentText }
 });
-  $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
-  }
+  $(reviewContent).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
+  
 });
+
+        $(document).on('click', ".cancelGigReview", function(event){
+          $(this).css('display', 'none');
+          $(this).siblings('.saveReview').css('display', 'none');
+          $(this).siblings('.editReview').css('display', 'inline-block');
+        });
 
 $(document).on('click', '.editReview', function(){
   var reviewContent = $(this).siblings('.reviewContent').html();
