@@ -1504,6 +1504,10 @@ tr {
   color: white;
 }
 
+.saveReview, .cancelGigReview {
+  display: none;
+}
+
 .deleteReviewPrompt {
   margin-right: 20px;
 }
