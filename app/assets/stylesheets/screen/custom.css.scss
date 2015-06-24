@@ -1494,14 +1494,19 @@ tr {
 
 .editReview, .deleteReview, .cancelReview {
   display: inline-block;
-  margin: 20px 30px 20px 0px;
   cursor: pointer;
+}
+
+.editDeleteBkgd {
+  padding: 10px 20px;
+  background-color: #E50049;
+  margin: 10px 10px 20px 0px;
 }
 
 .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo {
   display: none;
   cursor: pointer;
-  margin-right: 30px;
+  
 }
 
 .inlinePrompt {
