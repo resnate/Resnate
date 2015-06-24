@@ -800,6 +800,9 @@ function friendsLikeArtist(){
 });
 
         $(document).on('click', ".cancelGigReview", function(event){
+          var reviewContent = $(this).siblings('.updateReview')
+          var contentText = $(reviewContent).val();
+          $(reviewContent).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
           $(this).css('display', 'none');
           $(this).siblings('.saveReview').css('display', 'none');
           $(this).siblings('.editReview').css('display', 'inline-block');
