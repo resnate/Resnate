@@ -858,14 +858,6 @@ $(document).on('click', '.cancelReviewYes', function(){
 });
 
 
-$(document).on('click', '.reviewContent', function(){
-  if('<%=current_user.id %>' == $('.hiddenUserID').html()){
-    var content = $(this).html();
-  $(this).replaceWith('<textarea class="pastGigreviewInput updateReview">' + content.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>')
-  }
-  
-});
-
 
 $(document).on('keydown', "#songReviewInput", function(event){
   
