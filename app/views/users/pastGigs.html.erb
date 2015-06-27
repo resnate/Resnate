@@ -40,7 +40,7 @@
         <div class="reviewButton writeReview">Write a Review</div>
         <% elsif pg.review.present?%>
         <div class="pgReviewID"><%= pg.review.id %></div>
-        <div class="reviewButton reviewPresent">Review</div>
+        <div class="reviewButton reviewPresent" data-toggle="modal" data-target="#reviewModal">Review</div>
         <% end %>
 
 </div>
