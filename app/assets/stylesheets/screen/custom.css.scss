@@ -17,6 +17,10 @@ body {
     font-size: 12px;
 }
 
+input, textarea {
+  color: black;
+}
+
 #skLink {
   font-weight: bold;
 }
@@ -1227,10 +1231,6 @@ tr {
 
 }
 
-.ugDates {
-  margin-left: 10px;
-}
-
 
 .msgDates {
   width: 300px;
@@ -1396,7 +1396,7 @@ tr {
 .genericContent {
   text-align: left;
   a {
-    color: black;
+    color: white;
   }
 }
 
@@ -1419,13 +1419,14 @@ tr {
   width: 100%;
 }
 
-.setlistList {
-  margin-bottom: 50px;
+.setlistBody {
+  padding: 2em;
+  font-size: 2em;
 }
 
-.setlistHeader, .photosHeader, .reviewHeader {
+
+.photosHeader, .reviewButton, .setlistButton {
   font-weight: bold;
-  padding-left: 0px;
 }
 
 .featuredHeader {
@@ -1482,7 +1483,7 @@ tr {
   display: inline-block;
 }
 
-.reviewHeader, .reviewContent {
+.reviewContent {
   text-align: left;
 }
 
@@ -1523,8 +1524,20 @@ tr {
   display: inline-block;
 }
 
-.reviewHeader {
-  margin-bottom: 20px;
+.pastGigsRows, .upcomingGigDivider {
+  margin-bottom: 10em;
+}
+
+.reviewButton, .setlistButton {
+  font-size: 1.5em;
+  height: 2em;
+  background-color: #E50049;
+  color: white;
+  padding-top: .3em;
+  width: 10em;
+  text-align: center;
+  margin-top: 2em;
+  cursor: pointer;
 }
 
 .reviewImg {
@@ -1555,38 +1568,44 @@ tr {
   vertical-align: top;
 }
 
-.updateReview {
+.artistImageDiv, .pgInfo {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.pgInfo {
+  margin-left: 20px;
+  width: calc(100% - 325px);
+}
+
+.pastGigreviewInput, .updateReview {
   width: 95%;
 }
 
-.setlistDiv, .review, .photos {
-  display: inline-block;
-  
-  vertical-align: top;
-  
+.pastGigreviewInput {
+  height: 10em;
 }
 
 .csImgReview {
   height: 40px;
 }
 
-.setlistDiv {
-  width: 20%;
-}
-
-.review {
-  width: 500px;
-  margin-bottom: 40px;
-  margin-left: 30px;
-}
 
 .photos {
   width: 35%;
 }
 
 .setlist {
-  clear: both;
-  padding-left: 1px;
+  margin-bottom: 1em;
+}
+
+.close {
+  opacity: 1;
+  color: white;
+}
+
+.goingAndSharing {
+  margin-top: 5em;
 }
 
 
@@ -2037,6 +2056,8 @@ tr {
   border-radius: 0px;
   overflow: auto;
   height: 100%;
+  background-color: #801336;
+  color: white;
 }
 
 .modal-dialog {

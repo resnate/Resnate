@@ -1,10 +1,11 @@
+     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <% setlistURL = "http://api.setlist.fm/rest/0.1/search/setlists.json?artistName=" + @artistName + "&cityName=" + @cityName + "&date=" + @pastGigDate +"&apikey=ece37fb8-74e5-40e1-b04a-a0c4f23b732d" %>
 
     <% url = URI.parse(setlistURL.gsub(" ", "+")) %>
     <% request = Net::HTTP.get_response(url) %>
 
     <% if request.body.include?("not found") || request.body.include?('"sets":""') %>
-      <li class="setlistList"> No setlist found </li>
+      <div class="setlistList"> No setlist found </div>
       
     <% else %>
       
@@ -13,8 +14,8 @@
       <% if isArray == false %>
       <% result = JSON.parse(request.body)["setlists"]["setlist"]["sets"]["set"] %>
       
-      <li class="setlistList">
-        <ul class="setlistHeader">Setlist</ul>
+      <div class="setlistList">
+
       <% setsLength = result.length-1 %>
       <% for i in 0..setsLength %>
         <% if setsLength == 0 %>
@@ -26,20 +27,20 @@
         
         <% for j in 0..setLength %>
           <% if allSets[j].nil? %>
-            <ul class="setlist"><li><%= allSets["@name"] %></li></ul>
+            <div class="setlist"><div><%= allSets["@name"] %></div></div>
             <% break %>
           <% else %>
-            <ul class="setlist"><li><%= allSets[j]["@name"] %></li></ul>
+            <div class="setlist"><div><%= allSets[j]["@name"] %></div></div>
           <% end %>
         <% end %>
 
       <% end %>
-      </li>
+      </div>
       <% else %>
         <% JSON.parse(request.body)["setlists"]["setlist"].each do |show| %>
         
-          <li class="setlistList">
-        <ul class="setlistHeader">Setlist</ul>
+          <div class="setlistList">
+        <div class="setlistHeader">Setlist</div>
           <% setsLength = show["sets"]["set"].length-1 %>
           <% for i in 0..setsLength %>
         <% if setsLength == 0 %>
@@ -51,15 +52,15 @@
         
         <% for j in 0..setLength %>
           <% if allSets[j].nil? %>
-            <ul class="setlist"><li><%= allSets["@name"] %></li></ul>
+            <div class="setlist"><div><%= allSets["@name"] %></div></div>
             <% break %>
           <% else %>
-            <ul class="setlist"><li><%= allSets[j]["@name"] %></li></ul>
+            <div class="setlist"><div><%= allSets[j]["@name"] %></div></div>
           <% end %>
         <% end %>
 
       <% end %>
-        </li><br>
+        </div><br>
         <% end %>
       <% end %>
 

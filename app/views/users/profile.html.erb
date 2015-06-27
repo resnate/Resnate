@@ -535,7 +535,7 @@ $('#getLikes').click(function(){
    
   
   $.get("<%= @user.id %>/artistLikes", function(result){
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Artists <%=@user.first_name%> Likes</h4></div><div class="modal-body" id="getLikesBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Artists <%=@user.first_name%> Likes</h3></div><div class="modal-body" id="getLikesBody">'+result+'</div>');});
 });
 
 $(document).on('click', '.ml, .alMl', function(){
@@ -550,7 +550,7 @@ $(document).on('click', '.ml, .alMl', function(){
   
   $.get("<%= @user.id %>/pastGigs", function(result){
 
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h4></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
 
   
 });
@@ -561,7 +561,7 @@ $('#seeAll').click(function(){
   
   $.get("<%= @user.id %>/upcomingGigs", function(result){
 
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Upcoming Gigs</h4></div><div class="modal-body" id="upcomingGigsBody">'+result+'</div>');
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Upcoming Gigs</h3></div><div class="modal-body" id="upcomingGigsBody">'+result+'</div>');
 });
     
   
@@ -571,7 +571,7 @@ $('#seeAllActivity').click(function(){
 
   $.get("<%= @user.id %>/userActivities", function(result){
 
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Activity</h4></div><div class="modal-body" id="userActivityBody">'+result+'</div>');
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Activity</h3></div><div class="modal-body" id="userActivityBody">'+result+'</div>');
 });
 
 });
@@ -580,7 +580,7 @@ $('#seeAllReviews').click(function(){
 
   $.get("<%= @user.id %>/userReviews", function(result){
 
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Reviews</h4></div><div class="modal-body" id="userReviewsBody">'+result+'</div>');
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Reviews</h3></div><div class="modal-body" id="userReviewsBody">'+result+'</div>');
 });
 
 });
@@ -599,20 +599,20 @@ $('#follows').click(function(){
   
   
   $.get("<%= @user.id %>/followees", function(result){
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Following</h4></div><div class="modal-body" id="FolloweesBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Following</h3></div><div class="modal-body" id="FolloweesBody">'+result+'</div>');});
 });
 
 $('#followers').click(function(){
   
   
   $.get("<%= @user.id %>/followers", function(result){
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Following</h4></div><div class="modal-body" id="FollowersBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Following</h3></div><div class="modal-body" id="FollowersBody">'+result+'</div>');});
 });
 
 $('#seePlaylists').click(function(){
   
   $.get("<%= @user.id %>/userPlaylists", function(result){
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Playlists</h4></div><div class="modal-body" id="playlistsBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Playlists</h3></div><div class="modal-body" id="playlistsBody">'+result+'</div>');});
 });
 
 

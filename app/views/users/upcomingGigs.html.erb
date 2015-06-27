@@ -1,11 +1,16 @@
 <div class="userUpcomingGigs">
 <% @gigs.each do |g| %>
   <div class="upcomingGigDivider">
+
+    <div class="artistImageDiv">
+      <a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
+        <img src="https://api.songkick.com/api/3.0/events/<%= g.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="hugeArtistImages">
+      </a>
+    </div>
+
+    <div class="pgInfo">
       <div class="uberdate">
-        <a href="https://www.songkick.com/concerts/<%= g.songkick_id %>" target="_blank">
-          <img src="https://api.songkick.com/api/3.0/events/<%= g.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="ugImages artistImages">
-        </a>
-        <div class="date-wrap ugDates">
+        <div class="date-wrap">
           <% d = g.gig_date.to_date %>
               <span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
               <span class= "day"><%= d.day %></span>
@@ -29,7 +34,10 @@
 
               <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
               <div class="hiddenGigID"><%= g.songkick_id %></div>
-       </div>    
+       </div>  
+      </div> 
+
+
     </div>
 
 
@@ -47,13 +55,13 @@
 
  var gigUrls = [];
 
-  for(j=0; j<$('.artistImages').length; j++){
-    gigUrls.push($('.artistImages').eq(j).attr('src'));
+  for(j=0; j<$('.hugeArtistImages').length; j++){
+    gigUrls.push($('.hugeArtistImages').eq(j).attr('src'));
   }
 
 
 
-  for(j=0; j<$('.artistImages').length; j++){
+  for(j=0; j<$('.hugeArtistImages').length; j++){
     $.ajax({
       url: gigUrls[j],
       indexValue: j,
@@ -65,7 +73,7 @@
 
                     function image_link(data, i) {
                         
-                            $('.artistImages').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+                            $('.hugeArtistImages').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
                             $('.month').eq(i).html(moment(data.resultsPage.results.event.start.date).format("MMM"));
 

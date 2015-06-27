@@ -1,147 +1,56 @@
 <div class="hiddenUserID"><%= @user.id %></div>
 <div class="callbackID"></div>
-<table class="gigUberTable">
+
 <% @pastGigs.each do |pg| %>
 
-        <tr class="pastGigsRows">
-          <td class="artistImageTd">
+        <div class="pastGigsRows">
+          <div class="artistImageDiv">
             <a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank">
-              <img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="artistImages latest">
+              <img src="https://api.songkick.com/api/3.0/events/<%= pg.songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="hugeArtistImages">
             </a>
-          </td>
+          </div>
           
-          <td class="gigDetailsTd">
+          
             <% d = pg.gig_date.to_date %>
-            <div class="uberdate myDates">
+            <div class="pgInfo">
+            <div class="uberdate">
               <div class="date-wrap">
                 <span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
                 <span class= "day"><%= d.day %></span>
               </div> 
 
-              <li class="gigName">
+              <div class="gigName">
                 <a href="https://www.songkick.com/concerts/<%= pg.songkick_id %>" target="_blank" class="pgA">
                 </a>
                 <br>
                 <span class="profileGigLocation"></span>
-              </li>
+              </div>
     
             </div>
+            
+     
+            <div class="setlistButton" data-toggle="modal" data-target="#setlistModal" >Setlist</div>
 
-            <br>
-
-            <div class="setlistDiv">
-              
-                
-
-                <span class="hiddenGigDate"><%= pastGigDate = Date.parse(pg.gig_date).strftime("%d-%m-%Y") %></span>
-                <span class="hiddenArtistName"></span>
-                <span class="hiddenGigLocation"></span>
-              
-            </div>
-
-      <div class="review">
+            <span class="hiddenGigDate"><%= pastGigDate = Date.parse(pg.gig_date).strftime("%d-%m-%Y") %></span>
+            <span class="hiddenArtistName"></span>
+            <span class="hiddenGigLocation"></span>     
         
         <div class="pgID"><%= pg.id %></div>
         <% if pg.review.nil? && current_user.id == @user.id %>
-        <div class="reviewHeader">Review</div>
-        <textarea class="noReview" placeholder="Write a review of the show to your heart's extent (as long as your heart's extent is less than 5000 characters)!"></textarea>
+        <div class="reviewButton writeReview">Write a Review</div>
         <% elsif pg.review.present?%>
-        <div class="reviewHeader">Review</div>
-          <div class="reviewContent"><%= sanitize pg.review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
-          <div class="hiddenReviewID"><%= pg.review.id %></div>
-
-
-          <div class="likesNcomments">
-            <div class="reviewButtons">
-              <% if current_user.id != @user.id %>
-              <% if current_user.likes?(pg.review) %>
-                <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb liked"></span>
-              <% else %>
-                <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs reviewThumb"></span>
-              <% end %>
-            <% end %>
-            <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-            <div class="hiddenReviewID"><%= pg.review.id %></div>
-            <div class="hiddenID"><%= @user.id %></div>
-            <div class="editReview editDeleteBkgd">Edit</div>
-      <div class="saveReview editDeleteBkgd">Save</div>
-      <div class="cancelGigReview editDeleteBkgd">Cancel</div>
-      <div class="deleteReview editDeleteBkgd">Delete</div>
-      <div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
-      <div class="deleteReviewYes editDeleteBkgd">Yes</div>
-      <div class="deleteReviewNo editDeleteBkgd">No</div>
-          </div>
-    <div class="likers">
-      <% likeTotal = 0 %>
-        <% likerNames = [] %>
-        <% likeTotal += pg.review.likers(User).count %>
-        <% pg.review.likers(User). each do |liker| %>
-            <% if liker == current_user %>
-              <% likerNames.unshift("You") %>
-            <% else %>
-              <% likerNames.push(liker.name) %>
-            <% end %>
+        <div class="reviewButton reviewPresent">Review</div>
         <% end %>
-        <% if likeTotal == 1 %>
-            <% if likerNames[0] == "You" %>
-              <%= likerNames[0] %> like this.
-            <% else %>
-              <%= likerNames[0] %> likes this.
-            <% end%>
-          <% elsif likeTotal == 2 %>
-            <%= likerNames[0] %> and <%= likerNames[1] %> like this.
-          <% elsif likeTotal == 3 %>
-            <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likerNames[2] %> like this.
-          <% elsif likeTotal > 3 %>
-            <%= likerNames[0] %>, <%= likerNames[1] %> and <%= likeTotal -2 %> others like this.
-          <% end %>
-    </div>
 
-   <% activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: pg.review.id).first %> 
-   <% unless  activity.nil? %> 
-   
-    <div class="comments activity<%=activity.id%>comments">
-        <% activity.comment_threads.each do |comment| %>
-          <div class="comment">
-            <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
-            <span class="hiddenID"><%= comment.user_id %></span>
-            <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
-            </div>
-            <div class="hiddenCommentID"><%= comment.id %></div>
-            <% if comment.user_id == current_user.id %>
-            <span class="glyphicon glyphicon-remove commentDelete"></span>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="commentURL">
-        /activity/<%=activity.id%>/comments/
-      </div>
-
-    <% end %>
-
-    <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
-
-    <textarea class="inputComment"></textarea>
-  </div>
+</div>
           
-          
-
-
-        <% end %>
-
-        
-      </div>
-
-          </td>
-        </tr>
+        </div>
 <% end %> 
 
+</div>
 
 
 
-</table>
 <div class="genericInfinite-scrolling">
    <%= will_paginate @pastGigs, renderer: BootstrapPagination::Rails %>
  </div>
@@ -154,13 +63,13 @@ var gigUrls = [];
 
     
 
-   for(j=0; j<$('.artistImages').length; j++){
-    gigUrls.push($('.artistImages').eq(j).attr('src'));
+   for(j=0; j<$('.hugeArtistImages').length; j++){
+    gigUrls.push($('.hugeArtistImages').eq(j).attr('src'));
   }
 
 
 
-  for(j=0; j<$('.artistImages').length; j++){
+  for(j=0; j<$('.hugeArtistImages').length; j++){
     $.ajax({
       url: gigUrls[j],
       indexValue: j,
@@ -172,7 +81,7 @@ var gigUrls = [];
 
                     function image_link(data, i) {
                         
-                            $('.artistImages').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
+                            $('.hugeArtistImages').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
                             $('.gigName a').eq(i).text(data.resultsPage.results.event.displayName);
 
@@ -185,9 +94,7 @@ var gigUrls = [];
                             
                             
 
-                            $.get('/' + $('.setlistDiv').eq(i).find('.hiddenArtistName').html() + ',' + $('.setlistDiv').eq(i).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $('.setlistDiv').eq(i).find('.hiddenGigDate').html() + '/setlist', function(re){
-                              $('.setlistDiv').eq(i).append(re);
-                            });
+                            
                             
 
                             
@@ -198,5 +105,19 @@ var gigUrls = [];
       }
     });
   }
+
+  $('.setlistButton').click(function(){
+    $.get('/' + $(this).siblings('.hiddenArtistName').html() + ',' + $(this).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $(this).siblings('.hiddenGigDate').html() + '/setlist', function(re){
+
+                              $('.setlistBody').html(re);
+
+                            });
+  });
+
+  $('.reviewPresent').click(function(){
+    $.get('/reviews/' + $(this).siblings('.pgID').html(), function(review){
+      $('.reviewModalBody').html(review);
+    });
+  });
 
  </script>

@@ -124,6 +124,23 @@
 </div>
 
 
+<div class="modal fade" id="setlistModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content setlistBody">
+        
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content reviewModalBody">
+        
+    </div>
+  </div>
+</div>
+
+
 
       <div id="YTtest">
         
@@ -674,7 +691,7 @@ $('#shareCurrentImg').click(function(){
   
   $.get("<%= @user.id %>/pastGigs", function(result){
 
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h4></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
 
   
 });
@@ -692,13 +709,13 @@ $('#shareCurrentImg').click(function(){
 
       function getConvos(){
   $.get("<%= current_user.id %>/conversations", function(result){
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Messages</h4></div><div class="modal-body" id="convosBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Messages</h3></div><div class="modal-body" id="convosBody">'+result+'</div>');});
   $('#recCount').html(0);
 }
 
 function getPoints(){
   $.get("<%= current_user.id %>/notifications", function(result){
-  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel">Notifications</h4></div><div class="modal-body" id="ntBody">'+result+'</div>');});
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Notifications</h3></div><div class="modal-body" id="ntBody">'+result+'</div>');});
   $('#pointCount').html(0);
 }
 
@@ -771,6 +788,7 @@ function friendsLikeArtist(){
         $('.modal').on('shown.bs.modal', function () {
     $(".modal-content").scrollTop(0);
 });
+
 
         $(document).on('keydown', ".noReview", function(event){
   
@@ -1333,7 +1351,7 @@ $("#navTitle").mouseout(function() {
 });
  
 $('.modal').on('hidden.bs.modal', function () {
-  if($(this).attr('id') != 'shareModal'){
+  if($(this).attr('id') == 'genericModal'){
     $('.genericContent').html('');  
   }
   
