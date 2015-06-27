@@ -790,17 +790,21 @@ function friendsLikeArtist(){
 });
 
 
-        $(document).on('keydown', ".noReview", function(event){
+        $(document).on('click', ".saveReviewButton", function(event){
   
-    if(event.keyCode==13 && !event.shiftKey){
-  var contentText = $(this).val();
+    
+  var contentText = $(this).siblings('.noReview').val();
   var ID = $(this).siblings('.pgID').html();
   $.post('/reviews', { review: { reviewable_id: ID, reviewable_type: "PastGig", content: contentText } } ).done(function( data ) {
     $('#callbackID').html(data);
   });
-  $(this).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div><div>' + $('#callbackID').html() + '</div>')
-}
+  $(this).siblings('.noReview').replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div><div>' + $('#callbackID').html() + '</div>')
+
 });
+
+        $(document).on('click', ".cancelReviewButton", function(event){
+          $('.reviewModal').modal('hide');
+        });
 
         $(document).on('click', ".saveReview", function(event){
   
@@ -816,6 +820,7 @@ function friendsLikeArtist(){
   $(reviewContent).replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
   $(this).css('display', 'none');
   $(this).siblings('.cancelGigReview').css('display', 'none');
+  $(this).siblings('.editReview').css('display', 'inline-block');
 });
 
         $(document).on('click', ".cancelGigReview", function(event){
