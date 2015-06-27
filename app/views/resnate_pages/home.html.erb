@@ -796,9 +796,11 @@ function friendsLikeArtist(){
   var contentText = $(this).siblings('.noReview').val();
   var ID = $(this).siblings('.pgID').html();
   $.post('/reviews', { review: { reviewable_id: ID, reviewable_type: "PastGig", content: contentText } } ).done(function( data ) {
-    $('#callbackID').html(data);
+    $.get('/reviews/' + data, function(review){
+      $('.reviewModalBody').html(review);
+    });
+
   });
-  $(this).siblings('.noReview').replaceWith('<div class="reviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div><div>' + $('#callbackID').html() + '</div>')
 
 });
 
