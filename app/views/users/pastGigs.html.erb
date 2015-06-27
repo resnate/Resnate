@@ -39,7 +39,7 @@
         <% if pg.review.nil? && current_user.id == @user.id %>
         <div class="reviewButton writeReview">Write a Review</div>
         <% elsif pg.review.present?%>
-        <div class="pgReviewID"><%= pg.review.id %><</div>
+        <div class="pgReviewID"><%= pg.review.id %></div>
         <div class="reviewButton reviewPresent">Review</div>
         <% end %>
 
