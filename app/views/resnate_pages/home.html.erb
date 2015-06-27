@@ -799,9 +799,10 @@ function friendsLikeArtist(){
     $.get('/reviews/' + data, function(review){
       $('.reviewModalBody').html(review);
     });
-
   });
+  $.get("<%= @user.id %>/pastGigs", function(result){
 
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
 });
 
         $(document).on('click', ".cancelReviewButton", function(event){
