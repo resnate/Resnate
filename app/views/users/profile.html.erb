@@ -284,18 +284,23 @@
                 <span class="profileGigLocation"></span>
               </li>
 
+              
+            </div>
+
+            <div class="upcomingGoingAndShare">
               <% unless @user.followees(User).count == 0 %>
+              
                 <% @user.followees(User).each do |friend| %>
                   <% unless  Gig.find_by(user_id: friend.id, songkick_id: g.songkick_id).nil? %>
                     <img src="https://graph.facebook.com/<%= friend.uid %>/picture?width=50&height=50" class="userImg goingImg" title="<%= friend.name %>"></img>
                     <div class="hiddenID"><%= friend.id %></div>
                   <% end %>
                 <% end %>
+                
               <% end %>
-<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-  <div class="hiddenGigID"><%= g.songkick_id %></div>            
-
-            </div>
+              <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+              <div class="hiddenGigID"><%= g.songkick_id %></div>            
+              </div>
           </td>
         </tr>
       <% end %>
