@@ -18,6 +18,12 @@ class API::ReviewsController < ApplicationController
     Pusher.trigger('activities', 'feed', {:message => @message})
   end
 
+  def likes
+    @likers = Review.find(params[:id]).likers(User)
+    @count = @likers.count
+    
+  end
+
 	private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
