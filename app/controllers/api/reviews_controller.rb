@@ -18,10 +18,16 @@ class API::ReviewsController < ApplicationController
     Pusher.trigger('activities', 'feed', {:message => @message})
   end
 
+  def update
+    @review = Review.find(params[:id])
+    @content = params[:content]
+    @review.update_attributes(content: @content)
+  end
+
   def likes
     @likers = Review.find(params[:id]).likers(User)
     @count = @likers.count
-    
+
   end
 
 	private
