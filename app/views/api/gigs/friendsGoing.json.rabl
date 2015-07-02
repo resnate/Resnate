@@ -1,1 +1,1 @@
-object @friendsArray
+collection @friendsArray
