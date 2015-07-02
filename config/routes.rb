@@ -104,7 +104,7 @@ Resnate::Application.routes.draw do
 
       resources :gigs
 
-      get "/gigs/:id/friendsGoing"  => "gigs#friendsGoing"
+      get "/gigs/:user/:songkick_id/friendsGoing"  => "gigs#friendsGoing"
 
       resources :songs
 
