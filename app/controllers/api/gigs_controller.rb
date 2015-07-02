@@ -12,7 +12,7 @@ class API::GigsController < ApplicationController
     unless user.followees(User).count == 0
     user.followees(User).each do |friend|
         if  Gig.where(user_id: friend.id, songkick_id: params[:songkick_id].to_s ).present?
-          @friendsArray.push( { "user": friend.id } )
+          @friendsArray.push( { "user" => friend.id } )
         end
       end
     end
