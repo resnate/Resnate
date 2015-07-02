@@ -100,6 +100,12 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @past_gigs, per_page: 10
   end
 
+  def upcoming_gigs
+    user = User.find(params[:id])
+    @upcoming_gigs = Gig.where(user_id: params[:id]).order("created_at desc")
+    paginate json: @upcoming_gigs, per_page: 10
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
