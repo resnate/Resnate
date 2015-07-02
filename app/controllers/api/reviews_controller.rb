@@ -24,6 +24,13 @@ class API::ReviewsController < ApplicationController
     @review.update_attributes(content: @content)
   end
 
+  def destroy
+    @review = Review.find(params[:id])
+    @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first
+    @review.destroy
+    @activity.destroy
+  end
+
   def likes
     @likers = Review.find(params[:id]).likers(User)
     @count = @likers.count
