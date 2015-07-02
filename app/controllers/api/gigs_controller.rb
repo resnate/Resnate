@@ -16,6 +16,7 @@ class API::GigsController < ApplicationController
         end
       end
     end
+    render :json => @friendsArray.to_json
   end
 
   private
