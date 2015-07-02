@@ -16,7 +16,6 @@ class API::GigsController < ApplicationController
         end
       end
     end
-    render :json => @friendsArray.to_json(:only => [:id, :name]), :callback => params[:callback]
   end
 
   private
