@@ -98,6 +98,9 @@ Resnate::Application.routes.draw do
       get "/users/:id/reviews"  => "users#reviews"
       get "/users/:id/past_gigs"  => "users#past_gigs"
       get "/users/:id/upcoming_gigs"  => "users#upcoming_gigs"
+      get "/users/:id/playlists"  => "users#playlists"
+
+
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
       resources :past_gigs
