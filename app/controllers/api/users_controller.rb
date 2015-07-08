@@ -112,6 +112,16 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @playlists, per_page: 10
   end
 
+  def likes
+    user = User.find(params[:id])
+    if Like.where(liker_id: user.id, likeable_type: "Song").count === 0
+      @songs = nil
+    else
+      @songs = Like.where(liker_id: user.id, likeable_type: "Song")
+    end
+    paginate json: @songs, per_page: 10
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
