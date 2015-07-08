@@ -117,7 +117,10 @@ before_filter :restrict_access, :except => :userSearch
     if Like.where(liker_id: user.id, likeable_type: "Song").count === 0
       @songs = nil
     else
-      @songs = Like.where(liker_id: user.id, likeable_type: "Song")
+      @songs = []
+      Like.where(liker_id: user.id, likeable_type: "Song").each do |song|
+        @songs.push(Song.find(song.likeable_id))
+      end
     end
     paginate json: @songs, per_page: 10
   end
