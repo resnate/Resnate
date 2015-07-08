@@ -125,6 +125,18 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @songs, per_page: 10
   end
 
+  def followers
+      @user = User.find(params[:id])
+      @followers = @user.followers(User)
+      paginate json: @followers, per_page: 10
+  end
+
+  def followees
+      @user = User.find(params[:id])
+      @followees = @user.followees(User)
+      paginate json: @followees, per_page: 10
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
