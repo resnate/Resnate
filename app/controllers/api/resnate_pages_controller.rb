@@ -1,4 +1,4 @@
-class API::UsersController < ApplicationController
+class API::ResnatePagesController < ApplicationController
   	include ActionController::HttpAuthentication::Token::ControllerMethods
 	before_filter :restrict_access, :except => :userSearch
 
