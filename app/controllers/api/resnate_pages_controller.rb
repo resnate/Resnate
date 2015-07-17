@@ -3,7 +3,8 @@ class API::ResnatePagesController < ApplicationController
 	before_filter :restrict_access, :except => :userSearch
 
 	def AmazonStore
-    	if current_user.country == "United Kingdom"
+		@user = User.find(params[:id])
+    	if @user.country == "United Kingdom"
       		req = Vacuum.new('GB', true)
     	elsif current_user.country == "France"
       		req = Vacuum.new('FR', true)
