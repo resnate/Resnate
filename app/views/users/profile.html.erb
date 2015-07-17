@@ -117,7 +117,7 @@
 <div class="profileActivity" id="userReviews">
   <h4 id="seeAllReviews" data-toggle="modal" data-target="#genericModal"><%= @user.first_name %>'s Reviews</h4>
   <% if @reviews.count == 0 %>
-  <%= @user.first_name %> hasn't written any reviews, share them a song or ask them to write a review for one of their past gigs.
+  <%= @user.first_name %> hasn't written any reviews, share a song with them or ask them to write a review for one of their past gigs.
   <% else %>
     <% @reviews.take(3).each do |review| %>
     <div>
