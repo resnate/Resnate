@@ -31,6 +31,7 @@ class API::ResnatePagesController < ApplicationController
 					
                 end
             end
+            paginate json: @results, per_page: 3
         end
   	end
 
