@@ -26,7 +26,7 @@ class API::UsersController < ApplicationController
                 if i["LargeImage"].nil?
                   next
                 else
-                  @results.push :image => 'https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1]), :link => i["DetailPageURL"].insert(4, 'S')
+                  @results.push :image => 'https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1], :link => i["DetailPageURL"].insert(4, 'S')
 					
                 end
             end
