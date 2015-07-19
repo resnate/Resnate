@@ -11,8 +11,14 @@
              <% if noOfItems == 0 %>
               <div id="noMerch">No Merch Available from Amazon</div>
              <% else %>
-              <% items.each do |i| %>
-                <%= i %>
+              <% items.take(3).each do |i| %>
+              <% while i.present? %>
+                <% if i["LargeImage"].nil? %>
+                  <% next %>
+                <% else %>
+                  <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1]), i["DetailPageURL"].insert(4, 'S'), target: "_blank", class: 'azImg' %>
+                <% end %>
               <% end %>
+            <% end %>
             <% end %>
 </div>
