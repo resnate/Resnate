@@ -12,7 +12,7 @@
               <div id="noMerch">No Merch Available from Amazon</div>
              <% else %>
               <% items.first(3).each do |i| %>
-                <% if i.empty?  %>
+                <% if i.empty? || i["LargeImage"].size? %>
                   <% next %>
                 <% else %>
                   <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1]), i["DetailPageURL"].insert(4, 'S'), target: "_blank", class: 'azImg' %>
