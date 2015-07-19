@@ -23,7 +23,7 @@ class API::ResnatePagesController < ApplicationController
               @results = nil
              else
              	@results = []
-              items.take(3).each do |i|
+              items.first(3).each do |i|
                 if i["LargeImage"].nil?
                   next
                 else

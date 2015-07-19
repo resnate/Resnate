@@ -11,7 +11,7 @@
              <% if noOfItems == 0 %>
               <div id="noMerch">No Merch Available from Amazon</div>
              <% else %>
-              <% items.take(3).each do |i| %>
+              <% items.first(3).each do |i| %>
                 <% if i["LargeImage"].nil? %>
                   <% next %>
                 <% else %>
