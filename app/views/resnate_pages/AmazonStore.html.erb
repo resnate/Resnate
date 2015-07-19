@@ -12,7 +12,7 @@
               <div id="noMerch">No Merch Available from Amazon</div>
              <% else %>
               <% if noOfItems >= 3 %>
-              <% j = noOfItems %>
+              <% j = noOfItems.to_i %>
               <% else %>
               <% j = 3 %>
               <% end %>
