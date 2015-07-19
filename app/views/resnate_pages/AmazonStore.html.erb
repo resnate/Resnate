@@ -1,4 +1,4 @@
- <%= stylesheet_link_tag "resnate_pages", media: "all",
+<%= stylesheet_link_tag "resnate_pages", media: "screen",
                                            "data-turbolinks-track" => true %>
 <div id="azDiv">
               <% @req.associate_tag = 'resnate-21' %>
@@ -11,13 +11,13 @@
              <% if noOfItems == 0 %>
               <div id="noMerch">No Merch Available from Amazon</div>
             <% elsif noOfItems == 1 %>
-            <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + items["LargeImage"]["URL"][38..-1]), items["DetailPageURL"].insert(4, 'S'), target: "_blank", class: 'azImg' %>
+            <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + items["LargeImage"]["URL"][38..-1]), items["DetailPageURL"].insert(4, 's'), target: "_blank", class: 'azImg' %>
              <% else %>
               <% items.take(3).each do |i| %>
                 <% if i["LargeImage"].nil? %>
                   <% next %>
                 <% else %>
-                  <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1]), i["DetailPageURL"].insert(4, 'S'), target: "_blank", class: 'azImg' %>
+                  <%= link_to image_tag('https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1]), i["DetailPageURL"].insert(4, 's'), target: "_blank", class: 'azImg' %>
                 <% end %>
               <% end %>
             <% end %>

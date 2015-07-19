@@ -19,18 +19,21 @@ class API::ResnatePagesController < ApplicationController
              hash = res.to_h
              items = hash["ItemSearchResponse"]["Items"]["Item"]
              noOfItems = Integer(hash["ItemSearchResponse"]["Items"]["TotalResults"])
-             if noOfItems == 0
-              @results = nil
-             else
-             	@results = []
-              items.first(3).each do |i|
-                if i["LargeImage"].nil?
-                  next
-                else
-                  @results.push :image => 'https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1], :link => i["DetailPageURL"].insert(4, 'S')
+              if noOfItems == 0
+                @results = nil
+              elsif noOfItems == 1
+                @results = []
+              @results.push :image => 'https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + items["LargeImage"]["URL"][38..-1], :link => items["DetailPageURL"].insert(4, 's')
+              else
+             	  @results = []
+                items.first(3).each do |i|
+                  if i["LargeImage"].nil?
+                    next
+                  else
+                    @results.push :image => 'https://d1ge0kk1l5kms0.cloudfront.net/images/I/' + i["LargeImage"]["URL"][38..-1], :link => i["DetailPageURL"].insert(4, 'S')
 					
-                end
-            end
+                  end
+              end
             paginate json: @results, per_page: 3
         end
   	end
