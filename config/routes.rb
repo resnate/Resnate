@@ -119,6 +119,8 @@ Resnate::Application.routes.draw do
 
       get "/reviews/:id/likes"  => "reviews#likes"
 
+      resources :playlists
+
       resources :messages do
         member do
           post :new
