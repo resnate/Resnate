@@ -11,7 +11,6 @@ class API::PlaylistsController < ApplicationController
       @content = params[:content]
       @name = params[:name]
       @description = params[:description]
-      unless current_user.id != @playlist.user_id
         if @name.present?
           @playlist.update_attributes(name: @name)
         elsif @description.present?
@@ -19,7 +18,6 @@ class API::PlaylistsController < ApplicationController
         elsif @content.present?
           @playlist.update_attributes(content: @content)
         end
-      end
     end
   
 private
