@@ -5,6 +5,22 @@ class API::PlaylistsController < ApplicationController
   def show
     @playlist = Playlist.find(params[:id])
   end
+
+  def update
+      @playlist = Playlist.find(params[:id])
+      @content = params[:content]
+      @name = params[:name]
+      @description = params[:description]
+      unless current_user.id != @playlist.user_id
+        if @name.present?
+          @playlist.update_attributes(name: @name)
+        elsif @description.present?
+          @playlist.update_attributes(description: @description)
+        elsif @content.present?
+          @playlist.update_attributes(content: @content)
+        end
+      end
+    end
   
 private
       def restrict_access
