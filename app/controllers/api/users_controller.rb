@@ -5,6 +5,14 @@ before_filter :restrict_access, :except => :userSearch
     @users = User.all
   end
 
+  def search
+    if params[:search]
+      @users = User.search(params[:search]).where.not(id: current_user.id)
+    else
+      @users = User.all.order('created_at DESC')
+    end
+  end
+
   def show
     unless User.find_by_uid(params[:id]).nil?
   	 @user = User.find_by_uid(params[:id])
