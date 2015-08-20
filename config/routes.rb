@@ -93,7 +93,7 @@ Resnate::Application.routes.draw do
     
       resources :users, except: :destroy
       get "/userSearch/:oauth"  => "users#userSearch"
-      get "search" => "users#search"
+      get "search/:id/" => "users#search"
       get "/users/:id/level"  => "users#level"
       get "/users/:id/profile"  => "users#profile"
       get "/users/:id/reviews"  => "users#reviews"

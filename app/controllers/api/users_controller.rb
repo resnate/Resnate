@@ -7,7 +7,7 @@ before_filter :restrict_access, :except => :userSearch
 
   def search
     if params[:search]
-      @users = User.search(params[:search]).where.not(id: current_user.id)
+      @users = User.search(params[:search]).where.not(id: params[:id])
     else
       @users = User.all.order('created_at DESC')
     end
