@@ -24,7 +24,7 @@ gem 'handlebars_assets'
 gem "socialization"
 gem 'public_activity'
 gem "select2-rails"
-gem 'mailboxer', :git => 'git://github.com/div/mailboxer.git', :branch => 'rails42-foreigner'
+gem 'mailboxer', github: 'lacco/mailboxer'
 gem 'merit'
 gem 'pusher'
 gem 'underscore-rails'
