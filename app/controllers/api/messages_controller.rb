@@ -12,9 +12,9 @@ class API::MessagesController < ApplicationController
   		@recipients.push(User.find(attri))
   	end
 
-    @sender = current_user.id
+    @sender = params["sender_id"]
     
-    current_user.send_message(@recipients, params[:body], params[:subject])
+    User.find(@sender).send_message(@recipients, params[:body], params[:subject])
     @recipients.each do |recipient|
       Pusher.trigger('messages', 'inbox', {:message => recipient.id})
     end
