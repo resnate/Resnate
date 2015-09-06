@@ -1202,9 +1202,9 @@ $(document).on('click', '.shareReview', function(){
       if(lastMessageSubject.charAt(1) != '|'){
         $('#recCount').html(parseInt($('#recCount').html()) + 1);
         $('#recCount').removeClass('invisCount');
-        if(lastMessageSubject.charAt(1) == '`') {
+        if(lastMessageSubject.charAt(0) == 'S') {
           lastMessageSubjectType = 'song';
-        } else if(lastMessageSubject.charAt(0) == '~') {
+        } else if(lastMessageSubject.charAt(0) == 'P') {
           lastMessageSubjectType = 'playlist';
         } else if(lastMessageSubject == 'G#') {
           lastMessageSubjectType = 'gig';
@@ -1367,7 +1367,7 @@ $('.modal').on('hidden.bs.modal', function () {
 });
 
 $(document).on('click', '.feedCsImgFollow', function(){
-     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).siblings('.activityInfo').find('.activityName').html());
+     $('#messageURL').val('P#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).siblings('.activityInfo').find('.activityName').html());
   });
 
 
@@ -1775,11 +1775,11 @@ $(".editPlaylistInput").keydown(function(event){
   });
 
 $('.sideShare').click(function(){
-        $('#messageURL').val('~#' + $(this).parent().siblings('.hiddenPlaylistID').html()+','+$(this).parent().siblings('.sidePlaylistName').html());
+        $('#messageURL').val('P#' + $(this).parent().siblings('.hiddenPlaylistID').html()+','+$(this).parent().siblings('.sidePlaylistName').html());
   });
 
 $(document).on('click', '#currentShare #csImg', function(){
-        $('#messageURL').val('~`' + $('#infoID').val()+','+$('#infoTitle').html());
+        $('#messageURL').val('S#' + $('#infoID').val()+','+$('#infoTitle').html());
   });
 
 

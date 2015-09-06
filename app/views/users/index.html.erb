@@ -654,11 +654,11 @@ $(function(){
   
 
   $('.feedCsImg').click(function(){
-     $('#messageURL').val('~`' + $(this).parent().siblings('.activityInfo').find('.hiddenYTID').html()+','+$(this).parent().siblings('.activityInfo').find('.activityName').html());
+     $('#messageURL').val('S#' + $(this).parent().siblings('.activityInfo').find('.hiddenYTID').html()+','+$(this).parent().siblings('.activityInfo').find('.activityName').html());
   });
 
   $('.feedCsImgFollow').click(function(){
-     $('#messageURL').val('~#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).parent().parent().find('.activityName').html());
+     $('#messageURL').val('P#' + $(this).siblings('.sharePlaylistID').html()+','+$(this).parent().parent().find('.activityName').html());
   });
 
 
