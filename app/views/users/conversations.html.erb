@@ -23,9 +23,9 @@
         <% end %>
         </div>
 
-        <!-- Song -->
+      <% if message.subject[1] == '#'  %>
 
-        <% if message.subject[1] == '`' %>
+        <% if message.subject[0] == 'S' %>
         <% imgAndTitle = message.subject[2..-1].split(',') %>
         
         <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="inboxSong" >
@@ -68,12 +68,8 @@
             <li class="messageIcons csImgMsg" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
           <% end %>
         </div>     
-        
-      
 
-      <% elsif message.subject[1] == '#'  %>
-
-        <% if message.subject[0] == '~' %>
+        <% elsif message.subject[0] == 'P' %>
           <% imgAndTitle = message.subject[2..-1].split(',') %>
 
           <% unless Playlist.find_by_id(imgAndTitle[0]).nil? %>
