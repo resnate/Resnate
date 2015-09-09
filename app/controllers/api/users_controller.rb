@@ -14,6 +14,10 @@ before_filter :restrict_access, :except => :userSearch
   end
 
   def show
+    @user = User.find(params[:id])
+  end
+
+  def login
     unless User.find_by_uid(params[:id]).nil?
   	 @user = User.find_by_uid(params[:id])
     else 

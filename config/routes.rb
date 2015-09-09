@@ -96,6 +96,7 @@ Resnate::Application.routes.draw do
       get "search/:id/" => "users#search"
       get "/users/:id/level"  => "users#level"
       get "/users/:id/profile"  => "users#profile"
+      get "/users/:id/login"  => "users#login"
       get "/users/:id/reviews"  => "users#reviews"
       get "/users/:id/past_gigs"  => "users#past_gigs"
       get "/users/:id/upcoming_gigs"  => "users#upcoming_gigs"
