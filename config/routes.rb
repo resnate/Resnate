@@ -103,6 +103,7 @@ Resnate::Application.routes.draw do
       get "/users/:id/likes"  => "users#likes"
       get "/users/:id/followees" => "users#followees"
       get "/users/:id/followers" => "users#followers"
+      get "/:id/userActivities" => "users#userActivities"
 
       get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
 

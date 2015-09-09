@@ -145,6 +145,12 @@ before_filter :restrict_access, :except => :userSearch
       paginate json: @followees, per_page: 10
   end
 
+  def userActivities
+    @user = User.find(params[:id])
+    @activities = PublicActivity::Activity.where(owner_id: @user, owner_type: "User").order("created_at desc")
+    paginate json: @followees, per_page: 5
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
