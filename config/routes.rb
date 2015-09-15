@@ -108,6 +108,10 @@ Resnate::Application.routes.draw do
 
       get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
 
+      get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
+      post "/:commentable_type/:commentable_id/comments/create" => "comments#create"
+      post "/comments/:id/destroy" => "comments#destroy"
+
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
       resources :past_gigs

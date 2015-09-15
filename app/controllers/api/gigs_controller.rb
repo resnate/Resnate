@@ -1,6 +1,6 @@
 class API::GigsController < ApplicationController
     include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access, :except => :userSearch
+  before_filter :restrict_access
 
   def show
     @gig = Gig.find(params[:id])
