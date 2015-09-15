@@ -105,12 +105,13 @@ Resnate::Application.routes.draw do
       get "/users/:id/followees" => "users#followees"
       get "/users/:id/followers" => "users#followers"
       get "/:id/userActivities" => "users#userActivities"
-
-      get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
-
       get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
       post "/:commentable_type/:commentable_id/comments/create" => "comments#create"
       post "/comments/:id/destroy" => "comments#destroy"
+
+      get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
+
+      
 
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
