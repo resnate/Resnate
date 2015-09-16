@@ -17,10 +17,25 @@ class API::CommentsController < ApplicationController
   def index
   	if params[:commentable_type] == "activity"
   		@comments = PublicActivity::Activity.find(params[:commentable_id]).comment_threads
-      @count = @comments.count
   	elsif params[:commentable_type] == "review"
   		@comments = Review.find(params[:commentable_id]).comment_threads
   	end
+  end
+
+  def count
+    if params[:commentable_type] == "activity"
+      activity = PublicActivity::Activity.find(params[:commentable_id])
+      @comments = activity.comment_threads
+      @commentsCount = @comments.count
+
+      if activity.trackable_type == "Song"
+        @likesCount = Like.where((likeable_type: "Song", likeable_id: activity.trackable_id ).count
+      end
+
+    elsif params[:commentable_type] == "review"
+      @comments = Review.find(params[:commentable_id]).comment_threads
+      @commentsCount = @comments.count
+    end
   end
 
   def destroy
