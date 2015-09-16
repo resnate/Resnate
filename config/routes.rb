@@ -106,6 +106,7 @@ Resnate::Application.routes.draw do
       get "/users/:id/followers" => "users#followers"
       get "/:id/userActivities" => "users#userActivities"
       get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
+      get "/:commentable_type/:commentable_id/comments/count" => "comments#count"
       post "/:commentable_type/:commentable_id/comments/create" => "comments#create"
       post "/comments/:id/destroy" => "comments#destroy"
 
