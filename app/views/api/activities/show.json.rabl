@@ -1,3 +1,3 @@
 object @activity
 
-attributes *Activity.column_names
+attributes *PublicActivity::Activity.column_names
