@@ -13,6 +13,10 @@ class API::ActivitiesController < ApplicationController
       paginate json: @activities, per_page: 5
   end
 
+  def show
+    @activity =  PublicActivity::Activity.find(params[:id])
+  end
+
   private
     def restrict_access
       authenticate_or_request_with_http_token do |token, options|
