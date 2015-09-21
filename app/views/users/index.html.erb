@@ -582,7 +582,7 @@ $(function(){
   $(".inputComment").keydown(function(event){
     if(event.keyCode==13 && !event.shiftKey){
       event.preventDefault();
-      var text = $(this).val();
+      var text = $(this).val().replace(/\r\n|\r|\n/g,"%0A");
       var url = $(this).siblings('.commentURL').html().trim() + "create/" + text;
       
       

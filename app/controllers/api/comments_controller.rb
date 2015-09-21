@@ -3,13 +3,14 @@ class API::CommentsController < ApplicationController
   before_filter :restrict_access
 
   def create
+    userID = APIKey.find_by_access_token(params[:access_token]).user_id
   	if params[:commentable_type] == "activity"
       @commentable = PublicActivity::Activity.find(params[:commentable_id])       
     elsif params[:commentable_type] == "review"
   		@commentable = Review.find(params[:commentable_id])
   	end
     @get = "/activity/" + params[:commentable_id] + "/comments/"
-    @comment = Comment.build_from( @commentable, current_user.id, params[:body] )
+    @comment = Comment.build_from( @commentable, userID, params[:body] )
     @comment.save
     Pusher.trigger('comments', 'comment', {:message => @get})
   end
