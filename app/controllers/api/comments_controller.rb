@@ -3,7 +3,7 @@ class API::CommentsController < ApplicationController
   before_filter :restrict_access
 
   def create
-    userID = APIKey.find_by_access_token(params[:access_token]).user_id
+    userID = APIKey.find_by_access_token(params[:token]).user_id
   	if params[:commentable_type] == "activity"
       @commentable = PublicActivity::Activity.find(params[:commentable_id])       
     elsif params[:commentable_type] == "review"
