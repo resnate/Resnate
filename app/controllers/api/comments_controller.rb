@@ -10,6 +10,7 @@ class API::CommentsController < ApplicationController
   		@commentable = Review.find(params[:commentable_id])
   	end
     @get = "/activity/" + params[:commentable_id] + "/comments/"
+    @body = params[:body] 
     @comment = Comment.build_from( @commentable, userID, params[:body] )
     @comment.save
     Pusher.trigger('comments', 'comment', {:message => @get})
