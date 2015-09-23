@@ -25,10 +25,16 @@ class API::ReviewsController < ApplicationController
   end
 
   def destroy
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @review = Review.find(params[:id])
-    @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first
-    @review.destroy
-    @activity.destroy
+
+    if current_user.id == @review.user_id
+      @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first
+      @review.destroy
+      @activity.destroy
+    end
+
+    
   end
 
   def likes
