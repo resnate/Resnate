@@ -8,7 +8,7 @@ class API::ReviewsController < ApplicationController
 
   def create
     
-      current_user = User.find(params[:review][:user_id])
+      current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     
     @review = current_user.reviews.build(review_params)
     @review.save
