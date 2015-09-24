@@ -28,6 +28,15 @@ class API::ReviewsController < ApplicationController
     end
   end
 
+  def updateRating
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @review = Review.find(params[:id])
+    if current_user.id == @review.user_id
+      @rating = params[:rating]
+      @review.update_attributes(rating: @rating)
+    end
+  end
+
   def destroy
     current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @review = Review.find(params[:id])
