@@ -89,7 +89,7 @@ Resnate::Application.routes.draw do
 
   resources :activities
 
-  get "/:trackable_type/:trackable_id/findActivityComments" => "activity#findActivityComments"
+  get "/:trackable_type/:trackable_id/findActivityComments" => "activities#findActivityComments"
 
   namespace :api, :defaults => {:format => :json} do
     
