@@ -89,6 +89,8 @@ Resnate::Application.routes.draw do
 
   resources :activities
 
+  get "/:trackable_type/:trackable_id/findActivityComments" => "activity#findActivityComments"
+
   namespace :api, :defaults => {:format => :json} do
     
       resources :users, except: :destroy

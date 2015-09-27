@@ -17,6 +17,11 @@ class API::ActivitiesController < ApplicationController
     @activity =  PublicActivity::Activity.find(params[:id])
   end
 
+  def findActivityComments
+    @activity =  PublicActivity::Activity.where(trackable_type: params[:trackable_type], trackable_id: params[:trackable_id]).first
+    @comments = @activity.comment_threads
+  end
+
   private
     def restrict_access
       authenticate_or_request_with_http_token do |token, options|

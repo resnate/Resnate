@@ -19,8 +19,6 @@ class API::CommentsController < ApplicationController
   def index
   	if params[:commentable_type] == "activity"
   		@comments = PublicActivity::Activity.find(params[:commentable_id]).comment_threads
-  	elsif params[:commentable_type] == "review"
-  		@comments = Review.find(params[:commentable_id]).comment_threads
   	end
   end
 
