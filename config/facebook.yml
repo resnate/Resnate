@@ -1,0 +1,11 @@
+development:
+  app_id: 397688387002984
+  secret: <%= ENV['FB_SECRET'] %>
+
+test:
+  app_id: 397688387002984
+  secret: <%= ENV['FB_SECRET'] %>
+
+production:
+  app_id: 397688387002984
+  secret: <%= ENV['FB_SECRET'] %>
