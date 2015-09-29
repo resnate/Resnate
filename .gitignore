@@ -15,15 +15,3 @@
 /log/*.log
 /tmp
 .env
-
-# Ignore AWS
-/app/controllers/api/resnate_pages_controller.rb
-/app/views/resnate_pages/AmazonStore.html+phone.erb
-/app/views/resnate_pages/AmazonStore.html.erb
-
-# Ignore Pusher
-/config/environments/production.rb
-
-# Ignore Facebook
-/config/facebook.yml
-/config/secrets.yml
