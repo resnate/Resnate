@@ -5,7 +5,7 @@ Rails.application.configure do
   Pusher.encrypted = true
   Pusher.app_id = '111191'
   Pusher.key    = '18f25224620c76b2aa21'
-  Pusher.secret = '1e8c716123a77760c0c4'
+  Pusher.secret = ENV['PUSHER_SECRET']
   # Code is not reloaded between requests.
   config.cache_classes = true
 
