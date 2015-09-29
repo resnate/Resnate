@@ -1,1 +1,1 @@
-FACEBOOK_CONFIG = YAML.load_file("#{::Rails.root}/config/facebook.yml")[::Rails.env]
+FACEBOOK_CONFIG = YAML.load(ERB.new(File.read("#{Rails.root}/config/facebook.yml")).result)[Rails.env]
