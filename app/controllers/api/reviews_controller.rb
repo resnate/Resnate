@@ -4,6 +4,7 @@ class API::ReviewsController < ApplicationController
 
 	def show
 		@review = Review.find(params[:id])
+    @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first.id
 	end
 
   def create
