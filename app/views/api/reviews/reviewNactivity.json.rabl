@@ -1,3 +1,3 @@
 node :review do
-  { :review => partial("reviews/show", :object => @address), :activity => @activity }
+  { :review => partial("app/views/api/reviews/show", :object => @address), :activity => @activity }
 end
