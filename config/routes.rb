@@ -110,6 +110,7 @@ Resnate::Application.routes.draw do
       get "/activities/:id/index" => "activities#index"
       get "/:id/activities/" => "activities#show"
       get "/:trackable_type/:trackable_id/findActivityComments" => "activities#findActivityComments"
+      get "/:trackable_type/:trackable_id/findActivity" => "activities#findActivity"
 
       get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
       get "/:commentable_type/:commentable_id/comments/count" => "comments#count"
@@ -133,8 +134,6 @@ Resnate::Application.routes.draw do
       resources :reviews
 
       get "/reviews/:id/likes"  => "reviews#likes"
-
-      get "/reviews/:id/reviewNactivity"  => "reviews#reviewNactivity"
 
       put "/reviews/:id/updateRating/"  => "reviews#updateRating"
 
