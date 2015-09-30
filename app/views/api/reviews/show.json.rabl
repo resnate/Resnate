@@ -1,3 +1,3 @@
-node :review do
-  { :review => @review, :activity => @activity }
-end
+object @review
+
+attributes *Review.column_names
