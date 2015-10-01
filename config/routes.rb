@@ -46,7 +46,6 @@ Resnate::Application.routes.draw do
   get 'playlists/:id/playlistLi' => 'playlists#playlistLi'
 
   get '/:user/likes' => 'likes#show'
-  get '/likes/ifLike' => 'likes#ifLike'
 
   get '/:user/:content/songs/show' => 'songs#show'
   get '/:user/:content/songs/lastSong' => 'songs#lastSong'
@@ -122,6 +121,7 @@ Resnate::Application.routes.draw do
       get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
 
       get 'likes/:id/' => 'likes#show'
+      get '/likes/ifLike' => 'likes#ifLike'
 
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
