@@ -6,6 +6,10 @@ class API::LikesController < ApplicationController
     @like =  Like.find(params[:id])
   end
 
+  def ifLike
+    @count = Like.where(likeable_type: params[:likeable_type], liker_id: params[:liker_id], likeable_id: params[:likeable_id]).count
+  end
+
   private
     def restrict_access
       authenticate_or_request_with_http_token do |token, options|

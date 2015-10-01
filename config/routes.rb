@@ -44,7 +44,9 @@ Resnate::Application.routes.draw do
   post 'playlists/follow' => 'playlists#follow'
   post 'playlists/unfollow' => 'playlists#unfollow'
   get 'playlists/:id/playlistLi' => 'playlists#playlistLi'
+
   get '/:user/likes' => 'likes#show'
+  get '/likes/ifLike' => 'likes#ifLike'
 
   get '/:user/:content/songs/show' => 'songs#show'
   get '/:user/:content/songs/lastSong' => 'songs#lastSong'
