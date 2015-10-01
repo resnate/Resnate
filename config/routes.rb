@@ -119,7 +119,7 @@ Resnate::Application.routes.draw do
 
       get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
 
-      
+      get '/:id/likes' => 'likes#show'
 
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
