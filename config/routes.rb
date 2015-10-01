@@ -121,7 +121,7 @@ Resnate::Application.routes.draw do
       get "/AmazonStore/:id/:search_query" => "resnate_pages#AmazonStore"
 
       get 'likes/:id/' => 'likes#show'
-      get '/likes/ifLike' => 'likes#ifLike'
+      get '/likes/ifLike/:likeable_type/:liker_id/:likeable_id' => 'likes#ifLike'
 
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
