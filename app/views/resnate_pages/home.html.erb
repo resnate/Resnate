@@ -1333,16 +1333,47 @@ $("#navTitle").mouseout(function() {
   var pastGigsArray = [];
 
   $.getJSON(pGurl,function(json){ 
+
+    if(json.resultsPage.totalEntries > 50) {
+
+      var totalEntries = json.resultsPage.totalEntries;
+
+      var totalPages = totalEntries % 50;
+
+      for (i = 1; i <= totalPages; i++) { 
+
+        var pageUrl = "https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/gigography.json?apikey=Pxms4Lvfx5rcDIuR&page=" + i + "&jsoncallback=?";
+
+        $.getJSON(pageUrl,function(json){
+
+          $.each(json.resultsPage.results.event,function(j,e){
+        if($('#hiddenPastGigsIDs').html().indexOf(e.id) == -1){
+          
+          pastGigsArray.push({songkick_id: e.id , gig_date: e.start.date });
+          
+        }
+            });
+   $.post( '/<%= current_user.id %>/pastMultipleCreate', { multiGigs: JSON.stringify(pastGigsArray) });
+
+        });
+      }
+
+
+
+    } else {
+
       $.each(json.resultsPage.results.event,function(j,e){
         if($('#hiddenPastGigsIDs').html().indexOf(e.id) == -1){
           
           pastGigsArray.push({songkick_id: e.id , gig_date: e.start.date });
           
         }
-         
-          
             });
     $.post( '/<%= current_user.id %>/pastMultipleCreate', { multiGigs: JSON.stringify(pastGigsArray) });
+
+    }
+
+      
       
           });
 
