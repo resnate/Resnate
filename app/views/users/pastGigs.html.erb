@@ -108,7 +108,7 @@ var gigUrls = [];
   }
 
   $('.setlistButton').click(function(){
-    $.get('/' + $(this).siblings('.hiddenArtistName').html() + ',' + $(this).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $(this).siblings('.hiddenGigDate').html() + '/setlist', function(re){
+    $.get('/' + $(this).siblings('.hiddenArtistName').html().replace("/", "\/") + ',' + $(this).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $(this).siblings('.hiddenGigDate').html() + '/setlist', function(re){
 
                               $('.setlistBody').html(re);
 
