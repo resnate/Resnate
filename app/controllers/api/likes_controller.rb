@@ -9,6 +9,11 @@ class API::LikesController < ApplicationController
     if @likeable_type = "Song"
       @song = Song.find(@likeable_id)
       @user.like!(@song)
+      @like = Like.where(liker_id: @user.id, likeable_type: "Song").find_by_likeable_id(@song.id)
+      @like.create_activity :create, owner: @user
+      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
+      @message = @activity.to_s + ',' + @user.uid.to_s
+      Pusher.trigger('activities', 'feed', {:message => @message})
     end
   end
 
