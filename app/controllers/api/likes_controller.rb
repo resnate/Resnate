@@ -2,6 +2,16 @@ class API::LikesController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
   before_filter :restrict_access
 
+  def create
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @likeable_type = params[:likeable_type]
+    @likeable_id = params[:likeable_id]
+    if @likeable_type = "Song"
+      @song = Song.find(@likeable_id)
+      @user.like!(@song)
+    end
+  end
+
   def show
     @like =  Like.find(params[:id])
   end
