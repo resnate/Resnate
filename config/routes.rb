@@ -133,7 +133,7 @@ Resnate::Application.routes.draw do
 
       get "/gigs/:user/:songkick_id/friendsGoing"  => "gigs#friendsGoing"
 
-      resources :songs
+      resources :songs, only: [:create, :destroy]
 
       resources :reviews
 
