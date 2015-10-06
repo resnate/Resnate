@@ -6,11 +6,10 @@ class API::SongsController < ApplicationController
     current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @song = current_user.songs.build(song_params)
     @song.save
+    @songID = @song.id
     @song.create_activity :create, owner: current_user
-    @activityInt = PublicActivity::Activity.where(trackable_type: "Song", trackable_id: @song.id).first.id
-    @activity = @activityInt.to_s
+    @activity = PublicActivity::Activity.where(trackable_type: "Song", trackable_id: @song.id).first.id.to_s
     @message = @activity + ',' + current_user.uid.to_s
-
     Pusher.trigger('activities', 'feed', {:message => @message})
   end
 
