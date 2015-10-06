@@ -122,6 +122,7 @@ Resnate::Application.routes.draw do
 
       get '/likes/:id/' => 'likes#show'
       post '/likes' => 'likes#create'
+      delete '/likes' => 'likes#destroy'
       get '/likes/ifLike/:likeable_type/:liker_id/:likeable_id' => 'likes#ifLike'
 
       get "/past_gigs/:id/review"  => "past_gigs#review"
