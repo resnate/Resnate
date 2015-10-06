@@ -42,16 +42,12 @@ class API::LikesController < ApplicationController
   end
 
   def ifLike
-    if likeable_type == "Song"
-      content = Song.find(params[:likeable_id])
-      songs = Song.where(content: params[:content])
-      songs.each do |song|
-        if @user.likes?(song)
-          @count = 1
-        end
+    content = Song.find(params[:likeable_id])
+    songs = Song.where(content: params[:content])
+    songs.each do |song|
+      if @user.likes?(song)
+        @count = 1
       end
-    else
-      @count = Like.where(likeable_type: params[:likeable_type], liker_id: params[:liker_id], likeable_id: params[:likeable_id]).count
     end
   end
 
