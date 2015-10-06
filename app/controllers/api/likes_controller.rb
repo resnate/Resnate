@@ -42,8 +42,8 @@ class API::LikesController < ApplicationController
   end
 
   def ifLike
-    content = Song.find(params[:likeable_id])
-    songs = Song.where(content: params[:content])
+    content = Song.find(params[:likeable_id]).content
+    songs = Song.where(content: content)
     @count = 0
     songs.each do |song|
       if @user.likes?(song)
