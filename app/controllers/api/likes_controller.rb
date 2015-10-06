@@ -21,13 +21,19 @@ class API::LikesController < ApplicationController
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @likeable_type = params[:likeable_type]
     if @likeable_type = "Song"
-      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first
-      @activity.destroy
+
       @content = Song.find(params[:likeable_id]).content
       @songs = Song.where(content: (@content))
+
       @songs.each do |song|
-        @user.unlike!(song)
+        if @user.likes?(song)
+          @like = Like.where(likeable_type: "Song", likeable_id: song.id).first
+          @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first
+          @activity.destroy
+          @user.unlike!(song)
+        end
       end
+
     end
   end
 
