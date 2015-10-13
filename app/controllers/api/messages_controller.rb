@@ -27,9 +27,7 @@ class API::MessagesController < ApplicationController
     if current_user.mailbox.conversations.count == 0
     else
       conversations = current_user.mailbox.conversations
-      conversations.each do |convo|
-        @messages.push(convo.subject)
-      end
+      render :json => conversations.to_json
     end
   end
 
