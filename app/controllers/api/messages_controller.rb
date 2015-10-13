@@ -20,6 +20,18 @@ class API::MessagesController < ApplicationController
     end
   end
 
+  def index
+    userID = APIKey.find_by_access_token(params[:token]).user_id
+    current_user = User.find(userID)
+    if current_user.mailbox.conversations.count == 0
+    else
+      conversations = current_user.mailbox.conversations
+      conversations.each do |conversation|
+        @receipts = conversation.receipts_for current_user
+      end
+    end
+  end
+
   private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
