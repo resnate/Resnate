@@ -28,14 +28,16 @@ class API::MessagesController < ApplicationController
       @messages = nil
     else
       conversations = current_user.mailbox.conversations
-      receipts = conversation.receipts_for current_user
-      receipts.each do |receipt|
-        unless receipt.message.subject[1] == "|"
-          message = receipt.message
-          @messages.push(message)
+      conversations.each do |conversation|
+        receipts = conversation.receipts_for current_user
+        receipts.each do |receipt|
+          unless receipt.message.subject[1] == "|"
+            message = receipt.message
+            @messages.push(message)
+          end
         end
+        render :json => @messages.to_json
       end
-      render :json => @messages.to_json
     end
   end
 
