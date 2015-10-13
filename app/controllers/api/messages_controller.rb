@@ -33,7 +33,7 @@ class API::MessagesController < ApplicationController
         receipts.each do |receipt|
           unless receipt.message.subject[1] == "|"
             message = receipt.message
-            @messages.push(message: message, senders: conversation.participants)
+            @messages.push(message: message, participants: conversation.participants)
           end
         end
       end
