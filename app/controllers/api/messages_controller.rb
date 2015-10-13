@@ -25,9 +25,17 @@ class API::MessagesController < ApplicationController
     current_user = User.find(userID)
     @messages = []
     if current_user.mailbox.conversations.count == 0
+      @messages = nil
     else
       conversations = current_user.mailbox.conversations
-      render :json => conversations.to_json
+      receipts = conversation.receipts_for current_user
+      receipts.each do |receipt|
+        unless receipt.message.subject[1] == "|"
+          message = receipt.message
+          @messages.push(message)
+        end
+      end
+      render :json => @messages.to_json
     end
   end
 
