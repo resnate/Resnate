@@ -25,10 +25,7 @@ class API::MessagesController < ApplicationController
     current_user = User.find(userID)
     if current_user.mailbox.conversations.count == 0
     else
-      conversations = current_user.mailbox.conversations
-      conversations.each do |conversation|
-        @receipts = conversation.receipts_for current_user
-      end
+      @conversations = current_user.mailbox.conversations
     end
   end
 
