@@ -29,6 +29,7 @@ class API::MessagesController < ApplicationController
       conversations = current_user.mailbox.conversations
       conversations.each do |conversation|
         receipts = conversation.receipts_for current_user
+        render :json => receipts.to_json
       end
     end
   end
