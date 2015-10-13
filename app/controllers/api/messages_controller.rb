@@ -28,7 +28,7 @@ class API::MessagesController < ApplicationController
     else
       conversations = current_user.mailbox.conversations
       conversations.each do |convo|
-        @messages.push({message: { subject: convo.subject, created_at: convo.created_at }})
+        @messages.push(message: { subject: convo.subject, created_at: convo.created_at })
       end
     end
   end

@@ -1,3 +1,3 @@
-collection @messages, :object_root => false
+collection @messages, :object_root => true
 
 attributes :message
