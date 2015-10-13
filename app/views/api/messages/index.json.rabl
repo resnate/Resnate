@@ -1,3 +1,3 @@
-collection @conversations, :object_root => false
+collection @messages, :object_root => false
 
-attributes *Mailboxer::Conversation.column_names
+attributes :message
