@@ -37,6 +37,7 @@ class API::MessagesController < ApplicationController
           end
         end
       end
+      render :json => @messages.to_json
     end
   end
 
