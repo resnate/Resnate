@@ -102,8 +102,8 @@
         <input type="textbox" name="user" id="shareCurrentID">
         <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
         <%= text_field_tag :subject, nil, id: "messageURL" %>
-        <br><br>
-        <%= text_area_tag :body,  "Check this out!", rows: 4, maxlength: 256, placeholder: "Add a message!", class: "shareTextarea" %>
+        <div class="messageAlert">140 characters max.</div>
+        <%= text_area_tag :body,  "Check this out!", rows: 4, maxlength: 140, placeholder: "Add a message! 140 characters max.", class: "shareTextarea" %>
         <%= submit_tag 'Send message', id: "shareSubmit" %>
         <% end %>
         
@@ -643,16 +643,29 @@ function userFormatResult(user) {
 
 $('#shareCurrentImg').click(function(){
   var inputIDs = [];
+
   $('.shareCurrentID').each(function(){
     inputIDs.push($(this).html());
   });
+
   $('#shareCurrentID').val(inputIDs);
-  if ($('.shareTextarea').val() == '') {
-    $('.shareTextarea').val('Check this out!');
+
+  if ($('.shareTextarea').val().length > 140) {
+
+
+
+  } else {
+
+    if ($('.shareTextarea').val() == '') {
+      $('.shareTextarea').val('Check this out!');
+    }
+
+    $('#shareSubmit').click();
+    $('.modal').modal('hide');
+
   }
 
-  $('#shareSubmit').click();
-  $('.modal').modal('hide');
+  
 });
 
       
