@@ -166,26 +166,31 @@
               </div>
             </div>
 
-          <% elsif message.subject[0] == 'R' && Review.where(id: message.subject[2..-1]).count == 1 %>
-            <% review = Review.find(message.subject[2..-1]) %>
-            <% if review.reviewable_type == "PastGig" %>
-              <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
-              <div class="messageDetails">
-                <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
-                <div class="reviewerName"><%= User.find(PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).user_id).name %></div>'s review of
-            <% elsif  review.reviewable_type == "Song" %>
-              <img src="https://api.songkick.com/api/3.0/events/<%= Song.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
-              <div class="messageDetails">
-                <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
-                <div class="reviewerName"><%= User.find(Song.find(Review.find(message.subject[2..-1]).reviewable_id).user_id).name %></div>'s review of
-            <% end %>
-              <span class="msgReviewName" ></span>
-              <div class="msgReviewContent">
-                <%= Review.find(message.subject[2..-1]).content %>
+          <% elsif message.subject[0] == 'R' %>
+            <% if Review.where(id: message.subject[2..-1]).count == 1 %>
+              <% review = Review.find(message.subject[2..-1]) %>
+              <% if review.reviewable_type == "PastGig" %>
+                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+                <div class="messageDetails">
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+                  <div class="reviewerName"><%= User.find(PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).user_id).name %></div>'s review of
+              <% elsif  review.reviewable_type == "Song" %>
+                <img src="https://api.songkick.com/api/3.0/events/<%= Song.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+                <div class="messageDetails">
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
+                  <div class="reviewerName"><%= User.find(Song.find(Review.find(message.subject[2..-1]).reviewable_id).user_id).name %></div>'s review of
+              <% end %>
+                <span class="msgReviewName" ></span>
+                <div class="msgReviewContent">
+                  <%= Review.find(message.subject[2..-1]).content %>
+                </div>
+                <div class="hiddenReviewID"><%= message.subject[2..-1] %></div>
               </div>
-              <div class="hiddenReviewID"><%= message.subject[2..-1] %></div>
-            </div>
-          <% end %>
+            <% else %>
+              <div class="messageDetails">
+                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared a review but has since deleted it.
+              </div>
+            <% end %>
         
         <% end %>
 
