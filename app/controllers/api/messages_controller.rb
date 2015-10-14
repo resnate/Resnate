@@ -33,7 +33,9 @@ class API::MessagesController < ApplicationController
         receipts.each do |receipt|
           unless receipt.message.subject[1] == "|"
             message = receipt.message
-            @messages.push(message: message, participants: conversation.participants)
+            unless message.subject[0] == 'R' && Review.where(id: message.subject[2..-1]).count == 0
+              @messages.push(message: message, participants: conversation.participants)
+            end
           end
         end
       end
