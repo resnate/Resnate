@@ -10,7 +10,6 @@
     <% receipts.each do |receipt|%>
       <% unless receipt.message.subject[1] == "|" %>
         <div class="message">
-          <%= conversation.id %>
         <% conversation.mark_as_read(current_user) %>
         <% message = receipt.message %>
 
