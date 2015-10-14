@@ -166,7 +166,7 @@
               </div>
             </div>
 
-          <% elsif message.subject[0] == 'R' && !Review.find(message.subject[2..-1]).nil? %>
+          <% elsif message.subject[0] == 'R' && Review.where(id: message.subject[2..-1]).count == 1 %>
             <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
             <div class="messageDetails">
               <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
