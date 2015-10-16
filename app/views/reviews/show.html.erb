@@ -55,7 +55,7 @@
 		
 	</div>
 	
-	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
+	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<"), tags: %w(br) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
 	<% unless current_user.nil? %>

@@ -102,7 +102,7 @@
         <input type="textbox" name="user" id="shareCurrentID">
         <%= text_field_tag :content, nil, tabindex: '-1', class: 'lol' %>
         <%= text_field_tag :subject, nil, id: "messageURL" %>
-        <div class="messageAlert">140 characters max.</div>
+        <div class="messageAlert"></div>
         <%= text_area_tag :body,  "Check this out!", rows: 4, maxlength: 140, placeholder: "Add a message! 140 characters max.", class: "shareTextarea" %>
         <%= submit_tag 'Send message', id: "shareSubmit" %>
         <% end %>
