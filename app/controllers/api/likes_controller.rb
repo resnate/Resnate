@@ -6,7 +6,7 @@ class API::LikesController < ApplicationController
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @likeable_type = params[:likeable_type]
     @likeable_id = params[:likeable_id]
-    if @likeable_type = "Song"
+    if @likeable_type == "Song"
       @song = Song.find(@likeable_id)
       @user.like!(@song)
       @like = Like.where(liker_id: @user.id, likeable_type: "Song").find_by_likeable_id(@song.id)
@@ -20,7 +20,7 @@ class API::LikesController < ApplicationController
   def destroy
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @likeable_type = params[:likeable_type]
-    if @likeable_type = "Song"
+    if @likeable_type == "Song"
 
       @content = Song.find(params[:likeable_id]).content
       @songs = Song.where(content: (@content))
