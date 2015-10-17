@@ -1,12 +1,12 @@
-<% if @conversations.count == 0 %>
+<% if @notifications.count == 0 %>
         <div id="noMessages">No notifications.<br>Share some music with your friends!</div>
 <% else %>
-	<% @conversations.each do |conversation| %>
+	<% @notifications.each do |notification| %>
          
       
-    <% receipts = conversation.receipts_for current_user %>
+    <% receipts = notification.receipts_for current_user %>
       <% receipts.each do |receipt|%>
-      		<% conversation.mark_as_read(current_user) %>
+      		<% notification.mark_as_read(current_user) %>
           <% unless receipt.message.sender_id == current_user.id %>
       		<% message = receipt.message %>
           <div class="notification">
