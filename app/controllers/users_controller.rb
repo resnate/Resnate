@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+require 'will_paginate/array'
 
  def search
     if params[:search]
@@ -76,7 +77,14 @@ def userPlaylists
 
 def conversations
   @user = User.find(params[:id])
-  @conversations = @user.mailbox.conversations.paginate(page: params[:page], per_page: 15)
+  @convos = []
+  conversations = @user.mailbox.conversations
+  conversations.each do |convo|
+    if convo.subject[1] == "|"
+      @convos.push(convo)
+    end
+  end
+  @convos.paginate(page: params[:page], per_page: 15)
   render :layout => false
 end
 

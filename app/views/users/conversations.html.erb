@@ -4,11 +4,10 @@
 
 
        
-  <% @conversations.each do |conversation| %>
+  <% @convos.each do |conversation| %>
       
     <% receipts = conversation.receipts_for current_user %>
     <% receipts.each do |receipt|%>
-      <% unless receipt.message.subject[1] == "|" %>
         <div class="message">
         <% conversation.mark_as_read(current_user) %>
         <% message = receipt.message %>
@@ -22,8 +21,6 @@
           <% end %>
         <% end %>
         </div>
-
-      <% if message.subject[1] == '#'  %>
 
         <% if message.subject[0] == 'S' %>
         <% imgAndTitle = message.subject[2..-1].split(',') %>
@@ -192,13 +189,9 @@
               </div>
             <% end %>
           <% end %>
-        <% end %>
-
 
         </div>
 
-
-        <% end %> <!-- unless -->
 
         <% end %> <!-- receipts -->
 
