@@ -157,7 +157,6 @@
               <div class="msgButtons">
                 <% unless message.sender_id == current_user.id %>
                   <li class="messageIcons messageThumbsLi">
-                    <%= @likedGigs %>
                   <% if @likedGigs.include?(message.subject[2..-1]) %>
                     <span class="glyphicon glyphicon-thumbs-up msgGigThumb liked"></span>
                   <% else %>
