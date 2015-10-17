@@ -80,7 +80,7 @@ def conversations
   @likedGigs = []
   likedGigs = Like.where(likeable_type: "Gig", liker_id: params[:id])
   likedGigs.each do |like|
-    @likedGigs.push(Gig.find(like.likeable_id).id)
+    @likedGigs.push(like.likeable_id)
   end
   @convos = []
   conversations = @user.mailbox.conversations
