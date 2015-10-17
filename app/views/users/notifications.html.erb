@@ -6,7 +6,6 @@
       
     <% receipts = conversation.receipts_for current_user %>
       <% receipts.each do |receipt|%>
-        <% unless receipt.message.subject[1] != "|" %>
       		<% conversation.mark_as_read(current_user) %>
           <% unless receipt.message.sender_id == current_user.id %>
       		<% message = receipt.message %>
@@ -159,11 +158,6 @@
                 
           </div>
 
-
-              
-      
-        
-          <% end %>
       	
         <% end %>
       
@@ -171,7 +165,7 @@
     <% end %>
 <% end %>
 <div class="genericInfinite-scrolling">
-   <%= will_paginate @conversations, renderer: BootstrapPagination::Rails %>
+   <%= will_paginate @notifications, renderer: BootstrapPagination::Rails %>
  </div>
 
 <script type="text/javascript">

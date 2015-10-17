@@ -80,7 +80,7 @@ def conversations
   @convos = []
   conversations = @user.mailbox.conversations
   conversations.each do |convo|
-    if convo.subject[1] == "|"
+    if convo.subject[1] == "#"
       @convos.push(convo)
     end
   end
@@ -102,7 +102,14 @@ end
 
 def notifications
   @user = User.find(params[:id])
-  @conversations = @user.mailbox.conversations.paginate(page: params[:page], per_page: 15)
+  @notifications = []
+  conversations = @user.mailbox.conversations
+  conversations.each do |convo|
+    if convo.subject[1] == "|"
+      @notifications.push(convo)
+    end
+  end
+  @notifications = @notifications.paginate(page: params[:page], per_page: 15)
   render :layout => false
 end
 
