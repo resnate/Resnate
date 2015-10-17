@@ -84,7 +84,7 @@ def conversations
       @convos.push(convo)
     end
   end
-  @convos.paginate(page: params[:page], per_page: 15)
+  @convos = @convos.paginate(page: params[:page], per_page: 15)
   render :layout => false
 end
 
