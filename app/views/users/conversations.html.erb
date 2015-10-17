@@ -156,7 +156,13 @@
               <br>
               <div class="msgButtons">
                 <% unless message.sender_id == current_user.id %>
-                  <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up msgGigThumb"></span><div class="hiddenGigID"> <%= message.subject[2..-1] %></div><div class="hiddenID"> <%= message.sender_id %></div></li>
+                  <li class="messageIcons messageThumbsLi">
+                  <% if @likedGigs.include?(message.subject[2..-1]) %>
+                    <span class="glyphicon glyphicon-thumbs-up msgGigThumb liked"></span>
+                  <% else %>
+                    <span class="glyphicon glyphicon-thumbs-up msgGigThumb"></span>
+                  <% end %>
+                  <div class="hiddenGigID"> <%= message.subject[2..-1] %></div><div class="hiddenID"> <%= message.sender_id %></div></li>
                   <li class="messageIcons csImgMsgPlaylist" id="csImgLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"> <%= message.subject[2..-1] %></div></li>
                   
                 <% end %>

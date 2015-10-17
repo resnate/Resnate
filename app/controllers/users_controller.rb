@@ -77,6 +77,11 @@ def userPlaylists
 
 def conversations
   @user = User.find(params[:id])
+  @likedGigs = []
+  likedGigs = Like.where(likeable_type: "Gig", liker_id: params[:id])
+  likedGigs.each do |gig|
+    @likedGigs.push(id)
+  end
   @convos = []
   conversations = @user.mailbox.conversations
   conversations.each do |convo|
