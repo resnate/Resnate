@@ -1,4 +1,4 @@
-<% if current_user.mailbox.conversations.count == 0 %>
+<% if @convos.count == 0 %>
        <div id="noMessages">No messages.<br>Share some music with your friends!</div>
 <% else %>
 
@@ -201,7 +201,7 @@
 
 
 <div class="genericInfinite-scrolling">
-   <%= will_paginate @conversations, renderer: BootstrapPagination::Rails %>
+   <%= will_paginate @convos, renderer: BootstrapPagination::Rails %>
  </div>
         
         <script type="text/javascript">
