@@ -14,7 +14,7 @@ class GigsController < ApplicationController
   end
 
   def like
-      @gig = Gig.find(id)
+      @gig = Gig.find(params[:id])
       current_user.like!(@gig)
       @like = Like.where(liker_id: current_user.id, likeable_type: "Gig", likeable_id: id).first
       @like.create_activity :create, owner: current_user

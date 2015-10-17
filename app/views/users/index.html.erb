@@ -699,16 +699,12 @@ $('.activity').on('click', '.songThumb', function(){
 $('.activity').on('click', '.gigThumb', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.get("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike", function(result){
-        
-      });
+ $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
  }
 
   else {
   $(this).addClass('liked');
-  $.get("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like", function(result){
-        
-      });
+  $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
   $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/point5");
 
   $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
