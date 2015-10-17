@@ -8,7 +8,7 @@
 <% if @gigArray.include?(Gig.find(activity.trackable_id).songkick_id) %>
 <div class="feedButtons">
 	<%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-	<div class="hiddenGigID"><%= Gig.find(activity.trackable_id).songkick_id %></div>
+	<div class="hiddenGigID"><%= activity.trackable_id%></div>
 </div>
 
 <% else %>
@@ -16,7 +16,7 @@
 	<div class="feedButtons">
   		<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
   		<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-  		<div class="hiddenGigID"><%= Gig.find(activity.trackable_id).songkick_id %></div>
+  		<div class="hiddenGigID"><%= activity.trackable_id %></div>
   	</div>
 
 <% end %>
@@ -37,7 +37,7 @@
         	
 
       	</div>
-      	<div class="hiddenGigID"><%= activity.trackable.songkick_id %></div>
+      	<div class="hiddenGigID"><%= activity.trackable_id %></div>
     </div>
 <br>
     <% unless @user.friends.count == 0 %>

@@ -57,8 +57,8 @@ Resnate::Application.routes.draw do
   get '/indexHeader' => 'activities#indexHeader'
   get '/peopleHeader' => 'users#peopleHeader'
   
-  post '/:user/:songkick_id/gigs/like' => 'gigs#like'
-  post '/:user/:songkick_id/gigs/unlike' => 'gigs#unlike'
+  post '/:user/:id/gigs/like' => 'gigs#like'
+  post '/:user/:id/gigs/unlike' => 'gigs#unlike'
   get '/:user/:songkick_id/gigs/friendsGoing' => 'gigs#friendsGoing'
   post '/gigUndo/:songkick_id' => 'gigs#gigUndo'
   

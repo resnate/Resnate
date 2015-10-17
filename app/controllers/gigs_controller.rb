@@ -14,9 +14,9 @@ class GigsController < ApplicationController
   end
 
   def like
-      @gig = Gig.find_by_songkick_id(params[:songkick_id])
+      @gig = Gig.find(id)
       current_user.like!(@gig)
-      @like = Like.where(liker_id: current_user.id, likeable_type: "Gig").find_by_likeable_id(@gig.id)
+      @like = Like.where(liker_id: current_user.id, likeable_type: "Gig", likeable_id: id).first
       @like.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
       @message = @activity.to_s + ',' + current_user.uid.to_s
@@ -26,7 +26,7 @@ class GigsController < ApplicationController
 
     def unlike
       @user = User.find(params[:user])
-      @gigs = Gig.where(songkick_id: (params[:songkick_id]))
+      @gigs = Gig.where(songkick_id: Gig.find(params[:id]).songkick_id)
       @gigs.each do |gig|
         current_user.unlike!(gig)
       end

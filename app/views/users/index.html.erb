@@ -239,12 +239,12 @@
 
     <% if @gigArray.include?(Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id) || Like.find(activity.trackable_id).liker_id == current_user.id  %>
      
-  <%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+  <%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
      <% else %>
 
       <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
 
-  <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+  <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
      <% end %>
 
   
@@ -254,12 +254,12 @@
 
    <% if @gigArray.include?(Gig.find(activity.trackable_id).songkick_id) %>
      
-  <%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= Gig.find(activity.trackable_id).songkick_id %></div>
+  <%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= activity.trackable_id %></div>
      <% else %>
 
   <div class="feedButtons">
   <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs"></span>
-  <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= Gig.find(activity.trackable_id).songkick_id %></div>
+  <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"><%= activity.trackable_id %></div>
   </div>
 
   <% end %>
@@ -429,7 +429,7 @@
     <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
 
 
-      </div><div class="hiddenGigID"><%= activity.trackable.songkick_id %></div>
+      </div><div class="hiddenGigID"><%= activity.trackable_id %></div>
 
       
 

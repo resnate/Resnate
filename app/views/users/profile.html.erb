@@ -274,7 +274,7 @@
   
           <td>
             <% d = g.gig_date.to_date %>
-            <div class="hiddenGigID"><%= g.songkick_id %></div>
+            <div class="hiddenGigID"><%= g.id %></div>
             <div class="uberdate myDates">
               <div class="date-wrap">
                 <span class="month"><%= Date::ABBR_MONTHNAMES[d.mon] %></span>
@@ -295,7 +295,7 @@
               <% unless @user.followees(User).count == 0 %>
               
                 <% @user.followees(User).each do |friend| %>
-                  <% unless  Gig.find_by(user_id: friend.id, songkick_id: g.songkick_id).nil? %>
+                  <% unless  Gig.where(user_id: friend.id, songkick_id: g.songkick_id).count == 0 %>
                     <img src="https://graph.facebook.com/<%= friend.uid %>/picture?width=50&height=50" class="userImg goingImg" title="<%= friend.name %>"></img>
                     <div class="hiddenID"><%= friend.id %></div>
                   <% end %>
@@ -303,7 +303,7 @@
                 
               <% end %>
               <%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-              <div class="hiddenGigID"><%= g.songkick_id %></div>            
+              <div class="hiddenGigID"><%= g.id %></div>            
               </div>
           </td>
         </tr>

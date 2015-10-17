@@ -91,11 +91,11 @@
 	<div class="feedButtons">
   		<% if @gigArray.include?(Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id) || Like.find(activity.trackable_id).liker_id == current_user.id  %>
   			<%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-  			<div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+  			<div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
   		<% else %>
   			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
   			<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
-  			<div class="hiddenGigID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %></div>
+  			<div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
  		<% end %>
 	</div>
 

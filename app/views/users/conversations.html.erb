@@ -136,15 +136,15 @@
 
           <% elsif message.subject[0] == 'G' %>
 
-            <a href="https://www.songkick.com/concerts/<%= message.subject[2..-1] %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..-1] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs"></a>
+            <a href="https://www.songkick.com/concerts/<%= Gig.find(message.subject[2..-1]).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(message.subject[2..-1]).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs"></a>
 
             <div class="messageDetails">
               <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
               <div class="uberdate myDates msgDates">
                 <li class="datewrapLi"><div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div></li> 
-                <li class="gigName"><a href="https://www.songkick.com/concerts/<%= message.subject[2..-1] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
+                <li class="gigName"><a href="https://www.songkick.com/concerts/<%= Gig.find(message.subject[2..-1]).songkick_id %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
                 <br>
-                <span class="msgGigLocation"></span></li><div class="hiddenGigID"> <%= message.subject[2..-1] %></div>
+                <span class="msgGigLocation"></span></li><div class="hiddenGigID"> <%= Gig.find(message.subject[2..-1]).songkick_id %></div>
               </div>
               <div>with 
               <% conversation.participants.each do |participant| %>

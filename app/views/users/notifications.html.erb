@@ -76,19 +76,19 @@
                       </div>
                     </li> 
                     <li class="gigName">
-                      <a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span>
+                      <a href="https://www.songkick.com/concerts/<%= Gig.find(message.subject[2..-1]).songkick_id %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span>
                       </a>
                       <br>
                       <span class="msgGigLocation"></span>
                     </li>
-                    <div class="hiddenGigID"> <%= message.subject[2..-1] %></div>
+                    <div class="hiddenGigID"> <%= Gig.find(message.subject[2..-1]).songkick_id %></div>
                   </div>
                   <br>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
                 <span class="msgGigImgSpan">
-                    <a href="https://www.songkick.com/concerts/<%= message.subject[2..9] %>" target="_blank">
-                      <img src="https://api.songkick.com/api/3.0/events/<%= message.subject[2..9] %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs">
+                    <a href="https://www.songkick.com/concerts/<%= Gig.find(message.subject[2..-1]).songkick_id %>" target="_blank">
+                      <img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(message.subject[2..-1]).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs">
                     </a>
               </span>
               </div>
