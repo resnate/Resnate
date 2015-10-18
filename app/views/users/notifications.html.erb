@@ -28,18 +28,21 @@
 
               
             <% elsif message.subject[0..1] == 'S|' %>
+              <% songID = message.subject[2..-1] %>
+              <% songName = Song.find(songID).name %>
+              <% songContent = Song.find(songID).content %>
               <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
               <div class="notificationMsg">
                 <div class="notificationDetails">
                   <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span class=""><%= message.body[0..4] %></span>
-                  <div class="activityName songName" src="https://img.youtube.com/vi/<%= message.subject[2..-1] %>/hqdefault.jpg"><%= message.body[6..-1] %></div>
+                  <span> liked </span>
+                  <div class="activityName songName" src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg"><%= songName %></div>
                   <br>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
-                <img src="https://img.youtube.com/vi/<%= message.subject[2..-1] %>/hqdefault.jpg" class="inboxSong">
-                <p class="jamTitle"><%= message.body[6..-1] %></p>
+                <img src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg" class="inboxSong">
+                <p class="jamTitle"><%= songName %></p>
 
               </div>
 
