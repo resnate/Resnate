@@ -7,17 +7,24 @@ class API::LikesController < ApplicationController
     @likeable_type = params[:likeable_type]
     @likeable_id = params[:likeable_id]
     if @likeable_type == "Song"
-      @song = Song.find(@likeable_id)
-      @user.like!(@song)
-      @like = Like.where(liker_id: @user.id, likeable_type: "Song").find_by_likeable_id(@song.id)
+      @liked = Song.find(@likeable_id)
+    elsif @likeable_type == "Gig"
+      @liked = Gig.find(@likeable_id)
+    end
+      @user.like!(@liked)
+      @like = Like.where(liker_id: @user.id, likeable_type: @likeable_type).find_by_likeable_id(@liked.id)
       @like.create_activity :create, owner: @user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
       @message = @activity.to_s + ',' + @user.uid.to_s
       Pusher.trigger('activities', 'feed', {:message => @message})
-      listener = User.find(@song.user_id)
+      listener = User.find(@liked.user_id)
       if @user != listener
         lv1 = listener.level
-        listener.add_points(1)
+        if @likeable_type == "Song"
+          listener.add_points(1)
+        elsif @likeable_type == "Gig"
+          listener.add_points(5)
+        end 
         lv2 = listener.level
         if lv1 != lv2
           listener.create_activity key: 'badge.create', parameters: {level: listener.level}, owner: listener
@@ -28,7 +35,7 @@ class API::LikesController < ApplicationController
           Pusher.trigger('activities', 'feed', {:message => badgeMessage})
         end
       end
-    end
+    
   end
 
   def destroy
@@ -66,14 +73,26 @@ class API::LikesController < ApplicationController
   end
 
   def ifLike
-    content = Song.find(params[:likeable_id]).content
-    @user = User.find(params[:liker_id])
-    songs = Song.where(content: content)
-    @count = 0
-    songs.each do |song|
-      if @user.likes?(song)
-        @count += 1
+    if params[:likeable_type] == "Song"
+      content = Song.find(params[:likeable_id]).content
+      @user = User.find(params[:liker_id])
+      songs = Song.where(content: content)
+      @count = 0
+      songs.each do |song|
+        if @user.likes?(song)
+          @count += 1
+        end
       end
+    elsif params[:likeable_type] == "Gig"
+      songkickID = Gig.find(params[:likeable_id]).songkick_id
+      @user = User.find(params[:liker_id])
+      gigs = Gig.where(songkick_id: content)
+      @count = 0
+      gigs.each do |gig|
+        if @user.likes?(gig)
+          @count += 1
+        end
+      end 
     end
   end
 
