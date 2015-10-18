@@ -14,6 +14,20 @@ class API::LikesController < ApplicationController
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
       @message = @activity.to_s + ',' + @user.uid.to_s
       Pusher.trigger('activities', 'feed', {:message => @message})
+      listener = User.find(@song.user_id)
+      if @user != listener
+        lv1 = listener.level
+        listener.add_points(1)
+        lv2 = listener.level
+        if lv1 != lv2
+          listener.create_activity key: 'badge.create', parameters: {level: listener.level}, owner: listener
+          User.find(3).send_message(listener, "New level: "+ listener.level_name, "B|"+ listener.level_name)
+          listener.add_badge(listener.level)
+          badgeActivity = PublicActivity::Activity.where(key: "badge.create", owner: listener).last.id
+          badgeMessage = badgeActivity + ',' + @user.uid.to_s
+          Pusher.trigger('activities', 'feed', {:message => badgeMessage})
+        end
+      end
     end
   end
 
@@ -24,6 +38,16 @@ class API::LikesController < ApplicationController
 
       @content = Song.find(params[:likeable_id]).content
       @songs = Song.where(content: (@content))
+      likee = User.find(Song.find(params[:likeable_id]).user_id)
+
+      if likee != @user
+        lv1 = likee.level
+        likee.subtract_points(1)
+        lv2 = likee.level
+        if lv1 != lv2
+          likee.rm_badge(lv1)
+        end
+      end
 
       @songs.each do |song|
         if @user.likes?(song)
