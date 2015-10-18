@@ -132,7 +132,7 @@
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
                   <span>commented on </span>
                   <% if  message.subject[2] == 'S' %>
-                    <div class="activityName commentActivity"><%= Song.find_by_content(message.subject[3..-1]).name %></div>
+                    <div class="activityName commentActivity"><%= Song.find(message.subject[3..-1]).name %></div>
                     
                   <% elsif  message.subject[2] == 'P' %>
                     <div class="activityName commentActivity"><%= Playlist.find(message.subject[3..-1]).name %></div>

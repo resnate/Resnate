@@ -1147,7 +1147,7 @@ $(document).on('click', '.shareReview', function(){
          else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
           $('#messageURL').val('C|P' + $(this).parents('.activityInfo').siblings('.playlistInfo').find('.hiddenPlaylistID').html().trim());
         } else {
-          $('#messageURL').val('C|S' + $(this).parents('.activityInfo').find('.activityDetails').find('.hiddenYTID').html().trim());
+          $('#messageURL').val('C|S' + $(this).parents('.activityInfo').siblings('.feedButtons').find('.hiddenSongID').html().trim());
         }
         
         $('.shareTextarea').val('Check this out!');
