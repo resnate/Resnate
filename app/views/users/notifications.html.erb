@@ -144,7 +144,7 @@
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
                 <% if  message.subject[2] == 'S' %>
-                  <img src="https://img.youtube.com/vi/<%= message.subject[3..-1] %>/hqdefault.jpg" class="inboxSong">
+                  <img src="https://img.youtube.com/vi/<%= Song.find(message.subject[3..-1]).content %>/hqdefault.jpg" class="inboxSong">
                 <% elsif  message.subject[2] == 'P' %>
                   <% unless Playlist.find(message.subject[3..-1]).content.nil? %>
                     <% img1 = "v" %>

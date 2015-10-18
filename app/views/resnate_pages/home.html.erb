@@ -1241,6 +1241,9 @@ $(document).on('click', '.shareReview', function(){
             lastMessageSubjectType = '5 points';
           }
           messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>You got '+lastMessageSubjectType+'!</p></div>';
+           else if(lastMessageSubject == 'C|') {
+            messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>'+lastMessageSenderName+' commented on your activity!</p></div>';
+          }
         } 
 
         <% unless current_user.badges.last.nil? %>
