@@ -86,7 +86,7 @@ class API::LikesController < ApplicationController
     elsif params[:likeable_type] == "Gig"
       songkickID = Gig.find(params[:likeable_id]).songkick_id
       @user = User.find(params[:liker_id])
-      gigs = Gig.where(songkick_id: content)
+      gigs = Gig.where(songkick_id: songkickID)
       @count = 0
       gigs.each do |gig|
         if @user.likes?(gig)
