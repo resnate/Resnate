@@ -32,6 +32,8 @@ class API::CommentsController < ApplicationController
         @likesCount = Like.where(likeable_type: "Song", likeable_id: activity.trackable_id ).count
       elsif activity.trackable_type == "Gig"
         @likesCount = Like.where(likeable_type: "Gig", likeable_id: activity.trackable_id ).count
+      elsif activity.trackable_type == "User"
+        @likesCount = 0
       end
 
     elsif params[:commentable_type] == "review"
