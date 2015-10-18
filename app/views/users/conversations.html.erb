@@ -23,17 +23,19 @@
         </div>
 
         <% if message.subject[0] == 'S' %>
-        <% imgAndTitle = message.subject[2..-1].split(',') %>
+        <% songID = message.subject[2..-1] %>
+        <% songName = Song.find(songID).name %>
+        <% songContent = Song.find(songID).content %>
         
-        <img src="https://img.youtube.com/vi/<%= img = imgAndTitle[0] %>/hqdefault.jpg" class="inboxSong" >
-        <p class="jamTitle"><%= title = imgAndTitle[1] %></p>
+        <img src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg" class="inboxSong" >
+        <p class="jamTitle"><%= songName %></p>
         
         <div class="messageDetails">
         <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
                     
         
           
-          <div class="messageSong songTitle"><%= title = imgAndTitle[1] %></div>
+          <div class="messageSong songTitle"><%= songName %></div>
           <div>with 
           <% conversation.participants.each do |participant| %>
             <% if participant != User.find(message.sender_id) %>
@@ -49,17 +51,17 @@
           <% unless message.sender_id == current_user.id %>
             <li class="messageIcons"><span class="glyphicon glyphicon-plus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div></li>
             <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up messageThumbs"></span></li>
-            <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= img = imgAndTitle[0] %></div>
-             
+            <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= Song.find(songID).content %></div>
+            <div class="hiddenSongID"><%= songID %></div> 
               
-            <% songs = Song.where(content: img) %>
+            <% songs = Song.where(content: songContent) %>
             <% songs.each do |song| %>
               <% song.liked_by?(@user) %>
               <% if song.liked_by?(@user) == true %>
                 <div class="likeTrue">true</div>
               <% end %>
             <% end %>
-            <div class="jamTitle"><%= title = imgAndTitle[1] %></div>
+            <div class="jamTitle"><%= songName %></div>
             </li>
 
             <li class="messageIcons csImgMsg" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
@@ -298,7 +300,7 @@
         $('#recCount').addClass('invisCount');
 
         $('.csImgMsg').click(function(){
-        $('#messageURL').val('S#' + $(this).siblings('#makeJamLi').find('.jamID').html()+','+$(this).siblings('#makeJamLi').find('.jamTitle').html());
+        $('#messageURL').val('S#' + $(this).siblings('#makeJamLi').find('.hiddenSongID').html());
   });
 
         $('.profileImg, .profileNameMsg').click(function(){
@@ -327,12 +329,11 @@
 
  } else {
   $(this).addClass('liked');
-  $.post("/<%= current_user.id %>/"+$(this).parent().siblings('#makeJamLi').find('.jamID').html().trim()+"/like");
+  $.post("/"+$(this).parent().siblings('.hiddenSongID').find('.jamID').html().trim()+"/like");
   $.post("/"+$(this).parent().siblings('.hiddenID').html().trim()+"/point1");
 
   $('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim());
-  $('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.jamID').html().trim());
-  $('.shareTextarea').val('liked '+$(this).parent().siblings('.songTitle').html() + '!');
+  $('#messageURL').val('S|'+$(this).parent().siblings('.hiddenSongID').find('.jamID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
@@ -343,17 +344,16 @@
       $('.message').on('click', '.msgGigThumb', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
+ $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
  }
 
   else {
   $(this).addClass('liked');
-  $.post("/<%= current_user.id %>/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
+  $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
   $.post("/"+$(this).siblings('.hiddenID').html().trim()+"/point5");
 
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
   $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html().trim());
-  $('.shareTextarea').val('liked '+$(this).parents('.msgButtons').siblings('.uberdate').find('.msgGigName').text() + '!');
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');

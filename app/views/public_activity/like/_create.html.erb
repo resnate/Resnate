@@ -18,7 +18,7 @@
     <% else %>
       <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb"></span>
     <% end %>
-  		
+  		<div class="hiddenSongID"><%= Like.find(activity.trackable_id).likeable_id %></div>
   		<div class="jamID"><%= Song.find(Like.find(activity.trackable_id).likeable_id).content %></div>
   		<div class="jamTitle"><%= Song.find(Like.find(activity.trackable_id).likeable_id).name %></div>
   		<%= image_tag "ResnateShareIcon.png", class: "feedCsImg feedShares", "data-toggle" => "modal", "data-target" => "#shareModal" %>

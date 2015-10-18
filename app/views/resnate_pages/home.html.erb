@@ -903,7 +903,7 @@ $(document).on('keydown', "#songReviewInput", function(event){
   
     if(event.keyCode==13 && !event.shiftKey){
   var contentText = $(this).val();
-  var songURL = '/<%= current_user.id %>/' + $('#infoID').val() + '/songs/lastSong';
+  var songURL = '/' + $('#infoID').val() + '/songs/lastSong';
   $.get(songURL, function(result){
     $.post('/reviews', { review: { reviewable_id: result, reviewable_type: "Song", content: contentText } } );
   });
@@ -1032,19 +1032,18 @@ $(document).on('click', '.expandReview', function(){
           $('body').on('click', '#container #feedBox .activity .songThumb', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.post("/<%= current_user.id %>/"+$(this).siblings('.jamID').html()+"/unlike");
+ $.post("/"+$(this).siblings('.hiddenSongID').html()+"/unlike");
 
  $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/pointMinus1");
  } else {
   $(this).addClass('liked');
-  $.post("/<%= current_user.id %>/"+$(this).siblings('.jamID').html()+"/like");
+  $.post("/"+$(this).siblings('.hiddenSongID').html()+"/like");
 
   if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() != "<%= current_user.id %>"){
     $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/point1");
 
     $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
-  $('#messageURL').val('S|'+$(this).siblings('.jamID').html());
-  $('.shareTextarea').val('liked '+$(this).siblings('.jamTitle').html().trim() + '!');
+  $('#messageURL').val('S|'+$(this).siblings('.hiddenSongID').html());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');

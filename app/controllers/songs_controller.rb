@@ -19,14 +19,13 @@ class SongsController < ApplicationController
 
   def show
       @user = User.find(params[:user])
-      @songs = Song.where(content: (params[:content]))
+      @songs = Song.where(content: params[:content])
       
       render :layout => false
     end
 
   def lastSong
-    @user = User.find(params[:user])
-    @song = Song.where(content: (params[:content])).first
+    @song = Song.where(content: params[:content], user_id: current_user.id).first
     render :layout => false
   end
 
@@ -43,9 +42,9 @@ class SongsController < ApplicationController
     end
 
   def like
-      @song = Song.find_by_content(params[:content])
+      @song = Song.find(params[:id])
       current_user.like!(@song)
-      @like = Like.where(liker_id: current_user.id, likeable_type: "Song").find_by_likeable_id(@song.id)
+      @like = Like.where(likeable_type: "Song", likeable_id: params[:id])
       @like.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
       @message = @activity.to_s + ',' + current_user.uid.to_s
@@ -54,8 +53,8 @@ class SongsController < ApplicationController
     end
 
     def unlike
-      @user = User.find(params[:user])
-      @songs = Song.where(content: (params[:content]))
+      content = Song.find(params[:id]).content
+      @songs = Song.where(content: (content))
       @songs.each do |song|
         current_user.unlike!(song)
       end
