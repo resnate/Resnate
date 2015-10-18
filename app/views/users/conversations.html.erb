@@ -322,18 +322,18 @@
       $('.message').on('click', '.messageThumbs', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.post("/<%= current_user.id %>/"+$(this).parent().siblings('.hiddenID').html().trim()+"/unlike");
+ $.post("/"+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim()+"/unlike");
 
  $.post("/"+$(this).parent().siblings('.hiddenID').html().trim()+"/pointMinus5");
 
 
  } else {
   $(this).addClass('liked');
-  $.post("/"+$(this).parent().siblings('.hiddenSongID').find('.jamID').html().trim()+"/like");
+  $.post("/"+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim()+"/like");
   $.post("/"+$(this).parent().siblings('.hiddenID').html().trim()+"/point1");
 
   $('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim());
-  $('#messageURL').val('S|'+$(this).parent().siblings('.hiddenSongID').find('.jamID').html().trim());
+  $('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');

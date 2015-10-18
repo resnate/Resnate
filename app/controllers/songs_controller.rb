@@ -44,7 +44,7 @@ class SongsController < ApplicationController
   def like
       @song = Song.find(params[:id])
       current_user.like!(@song)
-      @like = Like.where(likeable_type: "Song", likeable_id: params[:id])
+      @like = Like.where(likeable_type: "Song", likeable_id: params[:id], liker_id: current_user.id)
       @like.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
       @message = @activity.to_s + ',' + current_user.uid.to_s
