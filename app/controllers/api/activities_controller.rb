@@ -10,7 +10,7 @@ class API::ActivitiesController < ApplicationController
       	@users.push(user.id)
     	end
     	@activities = PublicActivity::Activity.where(owner_id: @users, owner_type: "User").order("created_at desc")
-      paginate json: @activities, per_page: 5
+      paginate json: @activities, per_page: 3
   end
 
   def show
