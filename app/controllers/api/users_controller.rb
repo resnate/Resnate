@@ -188,11 +188,11 @@ before_filter :restrict_access, :except => :userSearch
     conversations.each do |convo|
       if params[:type] == "message"
         if convo.subject[1] == "#"
-          convo.mark_as_read(current_user)
+          convo.mark_as_read(@user)
         end
       elsif params[:type] == "notification"
         if convo.subject[1] == "|"
-          convo.mark_as_read(current_user)
+          convo.mark_as_read(@user)
         end
       end
     end
