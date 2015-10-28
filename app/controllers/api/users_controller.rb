@@ -157,7 +157,8 @@ before_filter :restrict_access, :except => :userSearch
 
   def lastMsg
     @user = User.find(params[:id])
-    @receipts = @user.mailbox.conversations.first.receipts_for(@user)
+    @conversation = @user.mailbox.conversations.first
+    @receipts = @conversation.receipts_for(@user)
     @receipts.each do |receipt|
       unless receipt.message.body.include?(@user.name)
         @message = receipt.message
