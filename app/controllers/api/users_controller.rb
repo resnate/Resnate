@@ -162,7 +162,7 @@ before_filter :restrict_access, :except => :userSearch
     @receipts = @conversation.receipts_for(@user)
     @receipts.each do |receipt|
       message = receipt.message
-      @messages.push(message: message, participants: conversation.participants)
+      @messages.push(message: message, participants: @conversation.participants)
     end
     paginate json: @messages, per_page: 1
   end
