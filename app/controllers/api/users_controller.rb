@@ -155,6 +155,21 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @activities, per_page: 5
   end
 
+  def unread
+    @unreadMessages = 0
+    @newPoints = 0
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    unless @user.mailbox.receipts.where(is_read:false ).count == 0
+      current_user.mailbox.receipts.where(is_read:false, ).each do |receipt|
+        if receipt.message.subject[1] == "|"
+          @newPoints += 1
+        else
+          @unreadMessages += 1
+        end
+      end
+    end
+  end
+
   def lastMsg
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @messages = []
