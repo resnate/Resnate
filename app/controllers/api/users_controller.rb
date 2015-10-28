@@ -157,17 +157,14 @@ before_filter :restrict_access, :except => :userSearch
 
   def lastMsg
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @messages = []
     @conversation = @user.mailbox.conversations.first
     @receipts = @conversation.receipts_for(@user)
     @receipts.each do |receipt|
-      unless receipt.message.body.include?(@user.name)
-        @message = receipt.message
-        @lastMessageSenderID = @message.sender_id
-        @lastMessageSenderUID = User.find(@message.sender_id).uid
-        @lastMessageSenderName = User.find(@message.sender_id).name
-        @lastMessageSubject = @message.subject[0..1]
-      end
+      message = receipt.message
+      @messages.push(message: message, participants: conversation.participants)
     end
+    paginate json: @messages, per_page: 1
   end
 
 private
