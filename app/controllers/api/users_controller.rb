@@ -155,6 +155,20 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @activities, per_page: 5
   end
 
+  def lastMsg
+    @user = User.find(params[:id])
+    @receipts = @user.mailbox.conversations.first.receipts_for(@user)
+    @receipts.each do |receipt|
+      unless receipt.message.body.include?(@user.name)
+        @message = receipt.message
+        @lastMessageSenderID = @message.sender_id
+        @lastMessageSenderUID = User.find(@message.sender_id).uid
+        @lastMessageSenderName = User.find(@message.sender_id).name
+        @lastMessageSubject = @message.subject[0..1]
+      end
+    end
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
