@@ -14,7 +14,7 @@ class MessagesController < ApplicationController
     
     current_user.send_message(@recipients, params[:body], params[:subject])
     @recipients.each do |recipient|
-      Pusher.trigger('messages', 'inbox', {:message => recipient.id})
+      Pusher.trigger('messages', 'inbox', { message: recipient.id, sender: @sender.id})
     end
   end
 end
