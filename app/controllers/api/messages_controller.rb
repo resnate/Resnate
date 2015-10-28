@@ -39,7 +39,7 @@ class API::MessagesController < ApplicationController
           end
         end
       end
-      paginate json: @messages, per_page: 5
+      paginate json: @messages, per_page: 4
     end
   end
 
