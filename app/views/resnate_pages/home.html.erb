@@ -902,14 +902,11 @@ $(document).on('click', '.cancelReviewYes', function(){
 $(document).on('keydown', "#songReviewInput", function(event){
   
     if(event.keyCode==13 && !event.shiftKey){
-  var contentText = $(this).val();
-  var songURL = '/' + $('#infoID').val() + '/songs/lastSong';
-  $.get(songURL, function(result){
-    $.post('/reviews', { review: { reviewable_id: result, reviewable_type: "Song", content: contentText } } );
-  });
-  
-  $(this).replaceWith('<div id="songReviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
-}
+      var contentText = $(this).val();
+      var songURL = $('#currentShare .hiddenSongID').html();
+      $.post('/reviews', { review: { reviewable_id: result, reviewable_type: "Song", content: contentText } } );
+      $(this).replaceWith('<div id="songReviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
+    }
 });
 
 $(document).on('click', '#songReviewContent', function(){
@@ -1826,7 +1823,7 @@ $('.sideShare').click(function(){
   });
 
 $(document).on('click', '#currentShare #csImg', function(){
-        $('#messageURL').val('S#' + $('#infoID').val()+','+$('#infoTitle').html());
+        $('#messageURL').val('S#' + $(this).siblings('.hiddenSongID').html());
   });
 
 

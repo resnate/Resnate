@@ -35,17 +35,16 @@ $('#infoID').val(videoID);
               var tweetVideo = songName.slice(0,96).replace(/\"|\#|\&/g, '');
               $('#infoTitle').html(songName);
               $('#navTitle').html(songName);
-    $('#footerPlayer').find('#currentShare').html('<span class="glyphicon glyphicon-plus csIcons"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div><span class="glyphicon glyphicon-thumbs-up csIcons"></span><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal", class: "csIcons" %><a id="fbShare" class="twitter popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u='+shareURL+'"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a><a class="twitter popup csIcons" href="https://twitter.com/share?url=resnate.com&text=Listening%20to%20'+tweetVideo+' '+shareURL+' @resnate"><%= image_tag "twitter.png", id: "twit" %></a>');
+    $('#footerPlayer').find('#currentShare').html('<span class="glyphicon glyphicon-plus csIcons"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div><span class="glyphicon glyphicon-thumbs-up csIcons"></span><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal", class: "csIcons" %><div class="hiddenSongID"><a id="fbShare" class="twitter popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u='+shareURL+'"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a><a class="twitter popup csIcons" href="https://twitter.com/share?url=resnate.com&text=Listening%20to%20'+tweetVideo+' '+shareURL+' @resnate"><%= image_tag "twitter.png", id: "twit" %></a>');
     
     $.get("/<%= current_user.id %>/"+$('#infoID').val()+"/songs/show", function(result){
         $('#likeOrNot').html(result);
-        if($('#likeOrNot').html() == '') {
-          
-        } else {
+        if($('#likeOrNot').html() != '') {
           $('#currentShare .glyphicon-thumbs-up').addClass('liked');
         }
       });
 
-     
-
-
+     var songURL = '/' + $('#infoID').val() + '/songs/lastSong';
+    $.get(songURL, function(result){
+      $('#currentShare .hiddenSongID').html(result);
+    });

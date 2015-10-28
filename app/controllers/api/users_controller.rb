@@ -102,26 +102,26 @@ before_filter :restrict_access, :except => :userSearch
   def reviews
     user = User.find(params[:id])
     @reviews = Review.where(user_id: params[:id]).order("created_at desc")
-    paginate json: @reviews, per_page: 10
+    paginate json: @reviews, per_page: 5
   end
 
 
   def past_gigs
     user = User.find(params[:id])
     @past_gigs = PastGig.where(user_id: params[:id]).order("created_at desc")
-    paginate json: @past_gigs, per_page: 10
+    paginate json: @past_gigs, per_page: 5
   end
 
   def upcoming_gigs
     user = User.find(params[:id])
     @upcoming_gigs = Gig.where(user_id: params[:id]).order("created_at desc")
-    paginate json: @upcoming_gigs, per_page: 10
+    paginate json: @upcoming_gigs, per_page: 5
   end
 
   def playlists
     user = User.find(params[:id])
     @playlists = Playlist.where(user_id: params[:id]).order("created_at desc")
-    paginate json: @playlists, per_page: 10
+    paginate json: @playlists, per_page: 5
   end
 
   def likes
@@ -134,7 +134,7 @@ before_filter :restrict_access, :except => :userSearch
         @songs.push(Song.find(song.likeable_id))
       end
     end
-    paginate json: @songs, per_page: 10
+    paginate json: @songs, per_page: 5
   end
 
   def followers
