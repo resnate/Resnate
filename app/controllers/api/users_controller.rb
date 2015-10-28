@@ -182,6 +182,22 @@ before_filter :restrict_access, :except => :userSearch
     paginate json: @messages, per_page: 1
   end
 
+  def markAsRead
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    conversations = @user.mailbox.conversations
+    conversations.each do |convo|
+      if params[:type] == "message"
+        if convo.subject[1] == "#"
+          convo.mark_as_read(current_user)
+        end
+      elsif params[:type] == "notification"
+        if convo.subject[1] == "|"
+          convo.mark_as_read(current_user)
+        end
+      end
+    end
+  end
+
 private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
