@@ -156,7 +156,7 @@ before_filter :restrict_access, :except => :userSearch
   end
 
   def lastMsg
-    @user = User.find(params[:id])
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @conversation = @user.mailbox.conversations.first
     @receipts = @conversation.receipts_for(@user)
     @receipts.each do |receipt|
