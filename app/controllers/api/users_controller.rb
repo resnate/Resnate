@@ -160,7 +160,7 @@ before_filter :restrict_access, :except => :userSearch
     @newPoints = 0
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     unless @user.mailbox.receipts.where(is_read:false ).count == 0
-      current_user.mailbox.receipts.where(is_read:false, ).each do |receipt|
+      @user.mailbox.receipts.where(is_read:false, ).each do |receipt|
         if receipt.message.subject[1] == "|"
           @newPoints += 1
         else
