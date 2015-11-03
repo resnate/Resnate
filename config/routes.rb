@@ -111,7 +111,7 @@ Resnate::Application.routes.draw do
       get "/:token/unread" => "users#unread"
       post "/markAsRead" => "users#markAsRead"
 
-      get "/activities/:id/index" => "activities#index"
+      get "/activities/:id/index/:page" => "activities#index"
       get "/:id/activities/" => "activities#show"
       get "/:trackable_type/:trackable_id/findActivityComments" => "activities#findActivityComments"
       get "/:trackable_type/:trackable_id/findActivity" => "activities#findActivity"
