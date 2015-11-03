@@ -152,7 +152,7 @@ Resnate::Application.routes.draw do
         end
       end
 
-      get "/messages/:token/index"  => "messages#index"
+      get "/messages/:token/index/:page"  => "messages#index"
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
