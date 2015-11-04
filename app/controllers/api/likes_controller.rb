@@ -27,6 +27,7 @@ class API::LikesController < ApplicationController
         elsif @likeable_type == "Gig"
           listener.add_points(5)
           User.find(3).send_message(listener, "test", "G|"+ @likeable_id.to_s)
+          Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
         end 
         lv2 = listener.level
         if lv1 != lv2
@@ -36,6 +37,7 @@ class API::LikesController < ApplicationController
           badgeActivity = PublicActivity::Activity.where(key: "badge.create", owner: listener).last.id
           badgeMessage = badgeActivity + ',' + @user.uid.to_s
           Pusher.trigger('activities', 'feed', {:message => badgeMessage})
+          Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
         end
       end
     
