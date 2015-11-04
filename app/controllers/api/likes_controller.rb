@@ -23,6 +23,7 @@ class API::LikesController < ApplicationController
         if @likeable_type == "Song"
           listener.add_points(1)
           User.find(3).send_message(listener, "test", "S|"+ @likeable_id.to_s)
+          Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
         elsif @likeable_type == "Gig"
           listener.add_points(5)
           User.find(3).send_message(listener, "test", "G|"+ @likeable_id.to_s)
