@@ -1207,6 +1207,7 @@ $(document).on('click', '.shareReview', function(){
       var lastMessageSenderUID = $('#lastMessageSenderUID').html();
       var lastMessageSenderName = $('#lastMessageSenderName').html();
       var lastMessageSubject = $('#lastMessageSubject').html();
+      var lastMessageBadge = $('#lastMessageBadge').html();
 
       if(lastMessageSubject.charAt(1) != '|'){
         $('#recCount').html(parseInt($('#recCount').html()) + 1);
@@ -1247,7 +1248,7 @@ $(document).on('click', '.shareReview', function(){
         <% unless current_user.badges.last.nil? %>
 
         else if(lastMessageSubject == 'B|') {
-          messageRT = '<div class="ns-thumb pointsNotification"><img src="/assets/<%= current_user.badges.last.name %>" class="notificationImg"></div><div class="ns-content pointsNotification"><p>New level: <%= current_user.badges.last.custom_fields[:image]%>!</p></div>';
+          messageRT = '<div class="ns-thumb pointsNotification"><img src="/assets/'+lastMessageBadge+'" class="notificationImg"></div><div class="ns-content pointsNotification"><p>New level: '+lastMessageBadge+'!</p></div>';
         }
 
         <% end %>
