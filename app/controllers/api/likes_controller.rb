@@ -22,10 +22,10 @@ class API::LikesController < ApplicationController
         lv1 = listener.level
         if @likeable_type == "Song"
           listener.add_points(1)
-          User.find(3).send_message(listener, "", "S|"+ @likeable_id.to_s)
+          User.find(3).send_message(listener, "test", "S|"+ @likeable_id.to_s)
         elsif @likeable_type == "Gig"
           listener.add_points(5)
-          User.find(3).send_message(listener, "", "G|"+ @likeable_id.to_s)
+          User.find(3).send_message(listener, "test", "G|"+ @likeable_id.to_s)
         end 
         lv2 = listener.level
         if lv1 != lv2
