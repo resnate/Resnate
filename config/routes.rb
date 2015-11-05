@@ -110,8 +110,8 @@ Resnate::Application.routes.draw do
       get "/:token/lastMsg" => "users#lastMsg"
       get "/:token/unread" => "users#unread"
       post "/markAsRead" => "users#markAsRead"
-      post 'follow' => 'users#follow'
-      post 'unfollow' => 'users#unfollow'
+      post '/users/follow' => 'users#follow'
+      post '/users/unfollow' => 'users#unfollow'
 
       get "/activities/:id/index/:page" => "activities#index"
       get "/:id/activities/" => "activities#show"
