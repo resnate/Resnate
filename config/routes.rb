@@ -131,6 +131,10 @@ Resnate::Application.routes.draw do
       delete '/likes' => 'likes#destroy'
       get '/likes/ifLike/:likeable_type/:liker_id/:likeable_id' => 'likes#ifLike'
 
+      get '/follows/:id/' => 'follows#show'
+      post '/follows' => 'follows#create'
+      delete '/follows' => 'follows#destroy'
+
       get "/past_gigs/:id/review"  => "past_gigs#review"
 
       resources :past_gigs
