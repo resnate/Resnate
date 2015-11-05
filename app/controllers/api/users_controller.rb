@@ -149,6 +149,26 @@ before_filter :restrict_access, :except => :userSearch
       paginate json: @followees, per_page: 10
   end
 
+  def follow
+    @user = User.find(params[:user])
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    current_user.follow!(@user)
+    @follow = Follow.where(follower_id: current_user.id, followable_type: "User").find_by_followable_id(@user.id)
+    @follow.create_activity :create, owner: current_user
+    @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id.to_s
+    @message = @activity + ',' + current_user.uid.to_s
+    Pusher.trigger('activities', 'feed', {:message => @message})
+  end
+
+  def unfollow
+    @user = User.find(params[:user])
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    current_user.unfollow!(@user)
+    @follow = Follow.where(follower_id: current_user.id, followable_type: "User").find_by_followable_id(@user.id)
+    @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
+    @activity.destroy
+  end
+
   def userActivities
     @user = User.find(params[:id])
     @activities = PublicActivity::Activity.where(owner_id: @user, owner_type: "User").order("created_at desc")
