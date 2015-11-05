@@ -140,13 +140,24 @@ before_filter :restrict_access, :except => :userSearch
   def followers
       @user = User.find(params[:id])
       @followers = @user.followers(User)
-      paginate json: @followers, per_page: 10
+      paginate json: @followers, page: params[:page], per_page: 10
   end
 
   def followees
       @user = User.find(params[:id])
       @followees = @user.followees(User)
-      paginate json: @followees, per_page: 10
+      paginate json: @followees, page: params[:page], per_page: 10
+  end
+
+  def followeeIDs
+    user = User.find(params[:id])
+    @IDsArray = []
+    unless user.followees(User).count == 0
+      user.followees(User).each do |followee|
+        @IDsArray.push( { "id" => followee.id } )
+      end
+    end
+    render :json => @IDsArray.to_json
   end
 
   def follow
