@@ -160,6 +160,8 @@ Resnate::Application.routes.draw do
       end
 
       get "/messages/:token/index/:page"  => "messages#index"
+      get "/messages/:token/notifications/:page"  => "messages#notifications"
+      get "/messages/:token/notificationCount"  => "messages#notificationCount"
   end
   
   # The priority is based upon order of creation: first created -> highest priority.
