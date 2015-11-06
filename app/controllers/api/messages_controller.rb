@@ -73,7 +73,7 @@ class API::MessagesController < ApplicationController
       conversations.each do |conversation|
         receipts = conversation.receipts_for current_user
         receipts.each do |receipt|
-          if receipt.message.subject[1] == "|"
+          if receipt.message.subject[1] == "|" && receipt.is_unread?
             @count += 1
           end
         end
