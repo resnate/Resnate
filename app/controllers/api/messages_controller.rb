@@ -43,6 +43,44 @@ class API::MessagesController < ApplicationController
     end
   end
 
+  def notifications
+    userID = APIKey.find_by_access_token(params[:token]).user_id
+    current_user = User.find(userID)
+    @messages = []
+    if current_user.mailbox.conversations.count == 0
+      @messages = nil
+    else
+      conversations = current_user.mailbox.conversations
+      conversations.each do |conversation|
+        receipts = conversation.receipts_for current_user
+        receipts.each do |receipt|
+          if receipt.message.subject[1] == "|"
+            message = receipt.message
+            @messages.push(message: message, participants: conversation.participants)
+          end
+        end
+      end
+      paginate json: @messages, page: params[:page], per_page: 5
+    end
+  end
+
+  def notificationCount
+    userID = APIKey.find_by_access_token(params[:token]).user_id
+    current_user = User.find(userID)
+    @count = 0
+    if current_user.mailbox.conversations.count > 0
+      conversations = current_user.mailbox.conversations
+      conversations.each do |conversation|
+        receipts = conversation.receipts_for current_user
+        receipts.each do |receipt|
+          if receipt.message.subject[1] == "|"
+            @count += 1
+          end
+        end
+      end
+    end
+  end
+
   private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
