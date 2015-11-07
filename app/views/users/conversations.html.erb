@@ -336,9 +336,8 @@
 
   $('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim());
   $('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim());
-  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
+  $('.shareTextarea').val($(this).parent().siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
-  alert('asd');
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
  }
@@ -358,7 +357,7 @@
 
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
   $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html().trim());
-  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
+  $('.shareTextarea').val($(this).parent().siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
