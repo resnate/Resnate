@@ -687,6 +687,7 @@ $('.activity').on('click', '.songThumb', function(){
 
     $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
   $('#messageURL').val('S|'+$(this).siblings('.hiddenSongID').html());
+  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
@@ -707,6 +708,7 @@ $('.activity').on('click', '.gigThumb', function(){
 
   $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
   $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html());
+  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');

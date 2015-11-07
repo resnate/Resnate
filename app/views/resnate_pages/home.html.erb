@@ -1087,7 +1087,7 @@ if($(this).siblings('.hiddenID').html().trim() != "<%= current_user.id %>"){
   $.post("/"+$(this).siblings('.hiddenID').html().trim()+"/point5");
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
   $('#messageURL').val('R|'+$(this).siblings('.hiddenReviewID').html());
-  $('.shareTextarea').val('liked your');
+  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
