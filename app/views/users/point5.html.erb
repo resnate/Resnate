@@ -7,7 +7,7 @@
 		<% @user.create_activity key: 'badge.create', parameters: {level: @user.level}, owner: @user %>
 		<% @user.add_badge(@user.level) %>
 		<% activity = PublicActivity::Activity.where(key: "badge.create", owner: @user).last.id %>
-		<% @message = activity + ',' + current_user.uid.to_s %>
+		<% @message = activity.to_s + ',' + current_user.uid.to_s %>
     	<% Pusher.trigger('activities', 'feed', {:message => @message}) %>
 	<% end %>
 <% end %>
