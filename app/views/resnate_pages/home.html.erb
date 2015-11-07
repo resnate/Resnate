@@ -1151,7 +1151,7 @@ $(document).on('click', '.shareReview', function(){
       } else if($(this).siblings('.hiddenReviewID').length > 0) {
           $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
         }
-        $('.shareTextarea').val($(this).siblings('.commentURL').html().trim());
+        $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
         $('#shareSubmit').click();
         $('#messageURL').val('');
       

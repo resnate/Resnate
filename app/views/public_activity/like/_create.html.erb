@@ -267,7 +267,7 @@
           <div class="comment">
             <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
             <span class="hiddenID"><%= comment.user_id %></span>
-            <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+            <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body.gsub("%0A", "\n")) %>
             </div>
             <div class="hiddenCommentID"><%= comment.id %></div>
             <% if comment.user_id == current_user.id %>
@@ -285,6 +285,8 @@
     <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 
     <textarea class="inputComment"></textarea>
+
+    <div class="hiddenActivityID"><%=activity.id%></div>
 <% end %>
 
   </div>
