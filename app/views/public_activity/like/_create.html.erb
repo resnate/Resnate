@@ -215,12 +215,14 @@
       <div class="profileName"><%= activity.owner.name if activity.owner %></div>
       <div class="hiddenID"><%= activity.owner.id %></div>
       <div class="verb">liked</div>
-      <div class="hiddenReviewerID"><%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
-      <div class="reviewerName"><%= User.find(PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id).name %></div>'s review of
 
       <% if Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "PastGig" %>
+      <div class="hiddenReviewerID"><%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
+      <div class="reviewerName"><%= User.find(PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id).name %></div>'s review of
       <span class="feedReviewLikeGigName feedReviewLikeGigName<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>"></span>
       <% elsif Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "Song" %>
+      <div class="hiddenReviewerID"><%= Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id %></div>
+      <div class="reviewerName"><%= User.find(Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).user_id).name %></div>'s review of
       <div class="activityName"><%= Song.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).name %></div>
       <% end %>
 
