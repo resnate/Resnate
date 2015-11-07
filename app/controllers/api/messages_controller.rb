@@ -60,24 +60,7 @@ class API::MessagesController < ApplicationController
           end
         end
       end
-      paginate json: @messages, page: params[:page], per_page: 5
-    end
-  end
-
-  def notificationCount
-    userID = APIKey.find_by_access_token(params[:token]).user_id
-    current_user = User.find(userID)
-    @count = 0
-    if current_user.mailbox.conversations.count > 0
-      conversations = current_user.mailbox.conversations
-      conversations.each do |conversation|
-        receipts = conversation.receipts_for current_user
-        receipts.each do |receipt|
-          if receipt.message.subject[1] == "|" && receipt.is_unread?
-            @count += 1
-          end
-        end
-      end
+      paginate json: @messages, page: params[:page], per_page: 10
     end
   end
 
