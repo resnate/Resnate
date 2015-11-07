@@ -51,6 +51,7 @@
           <% unless message.sender_id == current_user.id %>
             <li class="messageIcons"><span class="glyphicon glyphicon-plus"></span><div class="btn-group"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"></button><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"></ul></div></li>
             <li class="messageIcons messageThumbsLi"><span class="glyphicon glyphicon-thumbs-up messageThumbs"></span></li>
+            <div class="hiddenActivityID"><%= PublicActivity::Activity.where(trackable_type: "Song", trackable_id: message.subject[2..-1] ).first %></div>
             <li class="messageIcons" id="makeJamLi"><div class="jamID"><%= Song.find(songID).content %></div>
             <div class="hiddenSongID"><%= songID %></div> 
               
@@ -164,6 +165,7 @@
                   <% else %>
                     <span class="glyphicon glyphicon-thumbs-up msgGigThumb"></span>
                   <% end %>
+                  <div class="hiddenActivityID"><%= PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: message.subject[2..-1] ).first %></div>
                   <div class="hiddenGigID"> <%= message.subject[2..-1] %></div><div class="hiddenID"> <%= message.sender_id %></div></li>
                   <li class="messageIcons csImgMsgPlaylist" id="csImgLi"><%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID"> <%= message.subject[2..-1] %></div></li>
                   
@@ -334,6 +336,7 @@
 
   $('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim());
   $('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim());
+  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
@@ -354,6 +357,7 @@
 
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
   $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html().trim());
+  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
