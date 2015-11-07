@@ -338,6 +338,9 @@
   $('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim());
   $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   $('#shareSubmit').click();
+  alert($('#shareCurrentID').val($(this).parent().siblings('.hiddenID').html().trim()));
+  alert($('#messageURL').val('S|'+$(this).parent().siblings('#makeJamLi').find('.hiddenSongID').html().trim()););
+  alert($('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim()));
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
  }
