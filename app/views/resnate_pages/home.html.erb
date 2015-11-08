@@ -1134,7 +1134,7 @@ $(document).on('click', '.shareReview', function(){
       
       
       $(this).val('');
-      alert('test');
+      alert($(this).parents('.likesNcomments').siblings('.hiddenID').length);
       if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) {
         $('#shareCurrentID').val($(this).parents('.likesNcomments').siblings('.hiddenID').html().trim());
         
