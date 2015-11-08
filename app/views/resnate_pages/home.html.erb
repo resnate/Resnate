@@ -1144,7 +1144,9 @@ $(document).on('click', '.shareReview', function(){
          else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
           $('#messageURL').val('C|P' + $(this).parents('.activityInfo').siblings('.playlistInfo').find('.hiddenPlaylistID').html().trim());
         } else {
+          alert('a');
           $('#messageURL').val('C|S' + $(this).parents('.activityInfo').siblings('.feedButtons').find('.hiddenSongID').html().trim());
+          alert($('#messageURL').val());
         }
         
         $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
