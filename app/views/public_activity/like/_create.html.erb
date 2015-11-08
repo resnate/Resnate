@@ -4,7 +4,7 @@
 </div>
 
 <% if Like.find(activity.trackable_id).likeable_type == "Song" %>
-123
+
   <img src='https://img.youtube.com/vi/<%= Song.find(Like.find(activity.trackable_id).likeable_id).content %>/hqdefault.jpg' class="feedYT" >
   <p class="hiddenYTName">
     <%=Song.find(Like.find(activity.trackable_id).likeable_id).name %>
@@ -81,6 +81,7 @@
   			</div>
 			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
+      <div class="hiddenActivityID"><%=activity.id%></div>
 		</div>
  	</div>
 
@@ -180,6 +181,7 @@
   			</div>
 			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
+      <div class="hiddenActivityID"><%=activity.id%></div>
     		</div>
     	</div>
     </div>
@@ -287,12 +289,8 @@
     <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 
     <textarea class="inputComment"></textarea>
-
-    <% if Like.find(activity.trackable_id).likeable_type  != "Review" %>
-      <div class="hiddenActivityID"><%=activity.id%></div>=
-    <% else %>
+      
       <div class="hiddenReviewID"><%=activity.trackable_id%></div>
-    <% end %>
 <% end %>
 
   </div>
