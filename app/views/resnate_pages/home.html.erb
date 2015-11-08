@@ -1147,11 +1147,12 @@ $(document).on('click', '.shareReview', function(){
           $('#messageURL').val('C|S' + $(this).parents('.activityInfo').siblings('.feedButtons').find('.hiddenSongID').html().trim());
         }
         
-        $('.shareTextarea').val('Check this out!');
-      } else if($(this).siblings('.hiddenReviewID').length > 0) {
-          $('#messageURL').val('C|R' + $(this).siblings('.hiddenActivityID').html().trim());
-        }
         $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
+      } else if($(this).siblings('.hiddenReviewID').length > 0) {
+          $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
+          $('.shareTextarea').val($(this).siblings('.hiddenReviewID').html().trim());
+        }
+        
         $('#shareSubmit').click();
         $('.shareTextarea').val('Check this out!')
         $('#messageURL').val('');

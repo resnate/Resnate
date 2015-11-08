@@ -565,8 +565,12 @@
 <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 
 <textarea class="inputComment"></textarea>
-
-  <div class="hiddenActivityID"><%=activity.id%></div>
+  <% if activity.trackable_type == "Review" %>
+    <div class="hiddenReviewID"><%=activity.trackable_id%></div>
+  <% else %>
+    <div class="hiddenActivityID"><%=activity.id%></div>
+  <% end %>
+  
 
 </div>
 
