@@ -288,7 +288,11 @@
 
     <textarea class="inputComment"></textarea>
 
-    <div class="hiddenActivityID"><%=activity.id%></div>
+    <% if activity.trackable_type != "Review" %>
+      <div class="hiddenActivityID"><%=activity.id%></div>
+    <% else %>
+      <div class="hiddenReviewID"><%=activity.trackable_id%></div>
+    <% end %>
 <% end %>
 
   </div>
