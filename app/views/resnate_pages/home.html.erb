@@ -1134,7 +1134,7 @@ $(document).on('click', '.shareReview', function(){
       
       
       $(this).val('');
-
+      alert('test');
       if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) {
         $('#shareCurrentID').val($(this).parents('.likesNcomments').siblings('.hiddenID').html().trim());
         
@@ -1144,9 +1144,7 @@ $(document).on('click', '.shareReview', function(){
          else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
           $('#messageURL').val('C|P' + $(this).parents('.activityInfo').siblings('.playlistInfo').find('.hiddenPlaylistID').html().trim());
         } else {
-          alert('a');
           $('#messageURL').val('C|S' + $(this).parents('.activityInfo').siblings('.feedButtons').find('.hiddenSongID').html().trim());
-          alert($('#messageURL').val());
         }
         
         $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
