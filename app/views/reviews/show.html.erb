@@ -114,7 +114,7 @@
   		</div>
   			<img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
-			
+			<span class="hiddenID"><%= @review.user_id %></span>
 
     <div class="hiddenReviewID"><%=@activity.trackable_id%></div>
 	</div>

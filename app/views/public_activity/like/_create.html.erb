@@ -4,7 +4,7 @@
 </div>
 
 <% if Like.find(activity.trackable_id).likeable_type == "Song" %>
-<div class="hiddenLikerID"><%= Song.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
+
   <img src='https://img.youtube.com/vi/<%= Song.find(Like.find(activity.trackable_id).likeable_id).content %>/hqdefault.jpg' class="feedYT" >
   <p class="hiddenYTName">
     <%=Song.find(Like.find(activity.trackable_id).likeable_id).name %>
@@ -82,11 +82,12 @@
 			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
       <div class="hiddenActivityID"><%=activity.id%></div>
+      <div class="hiddenLikerID"><%= Song.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
 		</div>
  	</div>
 
 <% elsif Like.find(activity.trackable_id).likeable_type == "Gig" %>
-<div class="hiddenLikerID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
+
   <a href="https://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs feedGigs<%= activity.trackable_id %>"></a>
 
 	<div class="feedButtons">
@@ -182,12 +183,13 @@
 			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 			<textarea class="inputComment"></textarea>
       <div class="hiddenActivityID"><%=activity.id%></div>
+      <div class="hiddenLikerID"><%= Gig.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
     		</div>
     	</div>
     </div>
 
 <% elsif Like.find(activity.trackable_id).likeable_type == "Review" %>
-  <div class="hiddenLikerID"><%= Review.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
+  
   <% if Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_type == "PastGig" %>
 
 	<img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedReviewLikeGigs feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>">
@@ -289,7 +291,7 @@
     <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
 
     <textarea class="inputComment"></textarea>
-      
+      <div class="hiddenLikerID"><%= Review.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
       <div class="hiddenReviewID"><%=Like.find(activity.trackable_id).likeable_id %></div>
 <% end %>
 
