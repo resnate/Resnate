@@ -1137,18 +1137,10 @@ $(document).on('click', '.shareReview', function(){
 
       
       
-      if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) || if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0) && '<%=current_user.id %>' != ($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0) {
+      if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) {
 
-
-        if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0) {
-
-          $('#shareCurrentID').val($(this).parents('.activityInfo').siblings('.hiddenLikerID').html().trim());
-
-        } else {
 
           $('#shareCurrentID').val($(this).parents('.likesNcomments').siblings('.hiddenID').html().trim());
-          
-        }
         
 
         if($(this).parent().siblings('.activityDetails').children('.feedReviewGigName').length > 0) {
@@ -1164,6 +1156,25 @@ $(document).on('click', '.shareReview', function(){
         $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
 
         $('#shareSubmit').click();
+
+      } else if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0)  && '<%=current_user.id %>' != $(this).parents('.activityInfo').siblings('.hiddenLikerID').html().trim() {
+
+        $('#shareCurrentID').val($(this).parents('.activityInfo').siblings('.hiddenLikerID').html().trim());
+
+        if($(this).parent().siblings('.activityDetails').children('.feedReviewGigName').length > 0) {
+          $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
+        } 
+         else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
+          $('#messageURL').val('C|P' + $(this).siblings('.hiddenActivityID').html().trim());
+        } else {
+
+          $('#messageURL').val('C|S' + $(this).siblings('.hiddenActivityID').html().trim());
+        }
+        
+        $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
+
+        $('#shareSubmit').click();
+
 
       } else if($(this).siblings('.hiddenReviewID').length > 0 ) {
 
