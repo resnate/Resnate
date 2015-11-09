@@ -347,12 +347,12 @@
       $('.message').on('click', '.msgGigThumb', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
+ $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/unlike");
  }
 
   else {
   $(this).addClass('liked');
-  $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
+  $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/like");
   $.post("/"+$(this).siblings('.hiddenID').html().trim()+"/point5");
 
   $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
