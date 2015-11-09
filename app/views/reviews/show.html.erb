@@ -31,9 +31,7 @@
 			</div>
 			<div class="reviewerInfo">
 				<div class="profileName"><%= User.find(@review.user_id).name %></div>
-				<div class="hiddenID">
-  					<%= @review.user_id %>
-				</div>
+				<div class="hiddenID"><%= @review.user_id %></div>
 				<br>
 				<% unless User.find(@review.user_id).badges.count == 0 %>
 				<%= image_tag (User.find(@review.user_id).badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
