@@ -25,7 +25,6 @@ class GigsController < ApplicationController
     end
 
     def unlike
-      @user = User.find(params[:user])
       @gigs = Gig.where(songkick_id: Gig.find(params[:id]).songkick_id)
       @gigs.each do |gig|
         current_user.unlike!(gig)
