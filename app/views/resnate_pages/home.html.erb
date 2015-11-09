@@ -1152,7 +1152,7 @@ $(document).on('click', '.shareReview', function(){
         
 
         if($(this).parent().siblings('.activityDetails').children('.feedReviewGigName').length > 0) {
-          $('#messageURL').val('C|R' + $(this).('.hiddenReviewID').html().trim());
+          $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
         } 
          else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
           $('#messageURL').val('C|P' + $(this).siblings('.hiddenActivityID').html().trim());
