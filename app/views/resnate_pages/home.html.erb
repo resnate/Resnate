@@ -1157,7 +1157,7 @@ $(document).on('click', '.shareReview', function(){
 
         $('#shareSubmit').click();
 
-      } else if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0)  && '<%=current_user.id %>' != $(this).parents('.activityInfo').siblings('.hiddenLikerID').html().trim() {
+      } else if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0  && '<%=current_user.id %>' != $(this).parents('.activityInfo').siblings('.hiddenLikerID').html().trim()) {
 
         $('#shareCurrentID').val($(this).parents('.activityInfo').siblings('.hiddenLikerID').html().trim());
 
