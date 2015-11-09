@@ -290,7 +290,7 @@
 
     <textarea class="inputComment"></textarea>
       
-      <div class="hiddenReviewID"><%=activity.trackable_id%></div>
+      <div class="hiddenReviewID"><%=Like.find(activity.trackable_id).likeable_id %></div>
 <% end %>
 
   </div>
