@@ -1137,7 +1137,7 @@ $(document).on('click', '.shareReview', function(){
 
       
       
-      if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) {
+      if($(this).parents('.likesNcomments').siblings('.hiddenID').length > 0 && '<%=current_user.id %>' != $(this).parents('.likesNcomments').siblings('.hiddenID').html().trim()) || if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0) && '<%=current_user.id %>' != ($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0) {
 
 
         if($(this).parents('.activityInfo').siblings('.hiddenLikerID').length > 0) {
