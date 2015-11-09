@@ -1140,13 +1140,13 @@ $(document).on('click', '.shareReview', function(){
         
           if($(this).siblings('.hiddenReviewID').length > 0) {
             $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
-          } else if ($(this).siblings('.hiddenActivityType').html() == "Song") {
-            $('#messageURL').val('C|S' + $(this).siblings('.hiddenActivityID').html().trim());
+          } else if ($(this).siblings('.hiddenSongID').length > 0) {
+            $('#messageURL').val('C|S' + $(this).siblings('.hiddenSongID').html().trim());
             
-          } else if ($(this).siblings('.hiddenActivityType').html() == "Gig") {
-            $('#messageURL').val('C|G' + $(this).siblings('.hiddenActivityID').html().trim());
-          }  else if ($(this).siblings('.hiddenActivityType').html() == "Playlist") {
-            $('#messageURL').val('C|P' + $(this).siblings('.hiddenActivityID').html().trim());
+          } else if ($(this).siblings('.hiddenGigID').length > 0) {
+            $('#messageURL').val('C|G' + $(this).siblings('.hiddenGigID').html().trim());
+          }  else if ($(this).siblings('.hiddenPlaylistID').length > 0) {
+            $('#messageURL').val('C|P' + $(this).siblings('.hiddenPlaylistID').html().trim());
           }
           
           if($(this).siblings('.hiddenReviewID').length > 0) {
