@@ -1152,13 +1152,13 @@ $(document).on('click', '.shareReview', function(){
         
 
         if($(this).parent().siblings('.activityDetails').children('.feedReviewGigName').length > 0) {
-          $('#messageURL').val('C|R' + $(this).parent().siblings('.activityDetails').find('.hiddenReviewID').html().trim());
+          $('#messageURL').val('C|R' + $(this).('.hiddenReviewID').html().trim());
         } 
          else if($(this).parent().siblings('.verb').html().indexOf('playlist') != -1){
-          $('#messageURL').val('C|P' + $(this).parents('.activityInfo').siblings('.playlistInfo').find('.hiddenPlaylistID').html().trim());
+          $('#messageURL').val('C|P' + $(this).siblings('.hiddenActivityID').html().trim());
         } else {
 
-          $('#messageURL').val('C|S' + $(this).parents('.activityInfo').siblings('.feedButtons').find('.hiddenActivityID').html().trim());
+          $('#messageURL').val('C|S' + $(this).siblings('.hiddenActivityID').html().trim());
         }
         
         $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
