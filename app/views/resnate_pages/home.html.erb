@@ -1052,12 +1052,12 @@ $(document).on('click', '.expandReview', function(){
           $('body').on('click', '#container #feedBox .activity .gigThumb', function(){
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/unlike");
+ $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/unlike");
  }
 
   else {
   $(this).addClass('liked');
-  $.post("/"+$(this).siblings('.hiddenGigID').html()+"/gigs/like");
+  $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/like");
 
 if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() != "<%= current_user.id %>"){
   $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/point5");
@@ -1262,7 +1262,7 @@ $(document).on('click', '.shareReview', function(){
             messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>You got '+lastMessageSubjectType+'!</p></div>';
           } else if(lastMessageSubject == 'C|') {
             messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>'+lastMessageSenderName+' commented on your activity!</p></div>';
-          } else if(lastMessageSubject == 'G|' || lastMessageSubject == 'P|' || lastMessageSubject == 'R|') {
+          } else if(lastMessageSubject == 'G|' || lastMessageSubject == 'P|' || lastMessageSubject == 'R|' || lastMessageSubject == 'U|') {
             lastMessageSubjectType = '5 points';
             messageRT = '<div class="ns-thumb pointsNotification"><span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span></div><div class="ns-content pointsNotification"><p>You got '+lastMessageSubjectType+'!</p></div>';
           }
