@@ -186,17 +186,19 @@
                     <div class="reviewerName"><%= User.find(Review.find(message.subject[2..-1]).user_id).name %>'s </div>
                   <% end %>
                   review of
+                  <span class="activityName msgReviewName"></span>
               <% elsif  review.reviewable_type == "Song" %>
                 <img src="https://img.youtube.com/vi/<%= Song.find(Review.find(message.subject[2..-1]).reviewable_id).content %>/hqdefault.jpg" class="inboxSong" >
                 <div class="messageDetails">
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
                   <% if message.sender_id == Review.find(message.subject[2..-1]).user_id %>
-                    <div class="reviewerName">their </div>
+                    <div class="reviewerName">their review of </div>
                   <% else %>
-                    <div class="reviewerName"><%= User.find(Review.find(message.subject[2..-1]).user_id).name %>'s </div>
+                    <div class="reviewerName"><%= User.find(Review.find(message.subject[2..-1]).user_id).name %>'s review of </div>
                   <% end %>
+                  <span class="activityName reviewSong"><%= Song.find(Review.find(message.subject[2..-1]).reviewable_id).name %></span>
               <% end %>
-                <span class="msgReviewName" ></span>
+              <div class="hiddenReviewerID"><%= Review.find(message.subject[2..-1]).user_id %></div>
                 <div class="msgReviewContent">
                   <%= Review.find(message.subject[2..-1]).content %>
                 </div>
