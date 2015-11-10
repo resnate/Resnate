@@ -111,18 +111,28 @@
               </div>
 
               <% elsif  message.subject[0..1] == 'R|' %>
+              <% review = Review.find(message.subject[2..-1])  %>
+              <% reviewable_type = review.reviewable_type %>
               <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
               <div class="notificationMsg">
                 <div class="notificationDetails">
                   <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
                   <span><%= message.body[0..-1] %> review of</span> 
-                  <span class="activityName msgReviewName"></span>!
+                  <% if reviewable_type == "PastGig" %>
+                    <span class="activityName msgReviewName msgReviewGigName"></span>!
+                  <% elsif reviewable_type == "Song" %>
+                    <span class="activityName msgReviewName"><%= Song.find(review.reviewable_id).name %></span>!
+                  <% end %>
                   <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
                   <br>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
-                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(Review.find(message.subject[2..-1]).reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+                <% if reviewable_type == "PastGig" %>
+                  <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+                <% elsif reviewable_type == "Song" %>
+                  <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="inboxSong">
+                <% end %>
                 <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
 
               </div>
@@ -147,10 +157,11 @@
                     <% reviewable_type = review.reviewable_type %>
                     <% reviewable_id = review.reviewable_id %>
                     <% if reviewable_type == "Song" %>
-                      <div class="activityName commentActivity"><%= Song.find(reviewable_id).name %></div>
+                      <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
                     <% elsif reviewable_type == "PastGig" %>
-                      <div class="activityName commentActivity"><%= Song.find(reviewable_id).name %></div>
+                      <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
                     <% end %>
+                    <span class="hiddenReviewID"><%= activityID %></span>
                   <% end %>
                   <br>
                   <% if  message.subject[2] != 'R' %>
@@ -271,7 +282,7 @@ var urls = [];
                         
                             $('.msgReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 
-                            $('.msgReviewName').eq(i).html(data.resultsPage.results.event.displayName);
+                            $('.msgReviewGigName').eq(i).html(data.resultsPage.results.event.displayName);
 
                           
                     }
