@@ -904,7 +904,7 @@ $(document).on('keydown', "#songReviewInput", function(event){
     if(event.keyCode==13 && !event.shiftKey){
       var contentText = $(this).val();
       var songURL = $('#currentShare .hiddenSongID').html();
-      $.post('/reviews', { review: { reviewable_id: result, reviewable_type: "Song", content: contentText } } );
+      $.post('/reviews', { review: { reviewable_id: songURL, reviewable_type: "Song", content: contentText } } );
       $(this).replaceWith('<div id="songReviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>')
     }
 });

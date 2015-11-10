@@ -28,7 +28,8 @@
 
               
             <% elsif message.subject[0..1] == 'S|' %>
-              <% songID = message.subject[2..-1] %>
+              <% activityID = message.subject[2..-1] %>
+              <% songID = PublicActivity::Activity.find(activityID).trackable_id %>
               <% songName = Song.find(songID).name %>
               <% songContent = Song.find(songID).content %>
               <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
@@ -65,6 +66,8 @@
               </div>
 
             <% elsif  message.subject[0..1] == 'G|' %>
+              <% activityID = message.subject[2..-1] %>
+              <% gigID = PublicActivity::Activity.find(activityID).trackable_id %>
               <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
               <div class="notificationMsg">
                 <div class="notificationDetails">
@@ -77,19 +80,19 @@
                       </div>
                     </li> 
                     <li class="gigName">
-                      <a href="https://www.songkick.com/concerts/<%= Gig.find(message.subject[2..-1]).songkick_id %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span>
+                      <a href="https://www.songkick.com/concerts/<%= Gig.find(gigID).songkick_id %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span>
                       </a>
                       <br>
                       <span class="msgGigLocation"></span>
                     </li>
-                    <div class="hiddenGigID"> <%= Gig.find(message.subject[2..-1]).songkick_id %></div>
+                    <div class="hiddenGigID"> <%= Gig.find(gigID).songkick_id %></div>
                   </div>
                   <br>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
                 <span class="msgGigImgSpan">
-                    <a href="https://www.songkick.com/concerts/<%= Gig.find(message.subject[2..-1]).songkick_id %>" target="_blank">
-                      <img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(message.subject[2..-1]).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs">
+                    <a href="https://www.songkick.com/concerts/<%= Gig.find(gigID).songkick_id %>" target="_blank">
+                      <img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(gigID).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs">
                     </a>
               </span>
               </div>
