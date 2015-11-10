@@ -143,7 +143,7 @@
                     <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
                     
                   <% elsif  message.subject[2] == 'R' %>
-                    <% review = Review.find(trackable_id) %>
+                    <% review = Review.find(activityID) %>
                     <% reviewable_type = review.reviewable_type %>
                     <% reviewable_id = review.reviewable_id %>
                     <% if reviewable_type == "Song" %>
