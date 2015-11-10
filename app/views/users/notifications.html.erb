@@ -134,16 +134,28 @@
                   <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
                   <span>commented on </span>
+                  <% activityID = message.subject[3..-1] %>
+                  <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
                   <% if  message.subject[2] == 'S' %>
-                    <div class="activityName commentActivity"><%= Song.find(message.subject[3..-1]).name %></div>
+                    <div class="activityName commentActivity"><%= Song.find(trackable_id).name %></div>
                     
                   <% elsif  message.subject[2] == 'P' %>
-                    <div class="activityName commentActivity"><%= Playlist.find(message.subject[3..-1]).name %></div>
+                    <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
                     
                   <% elsif  message.subject[2] == 'R' %>
+                    <% review = Review.find(trackable_id) %>
+                    <% reviewable_type = review.reviewable_type %>
+                    <% reviewable_id = review.reviewable_id %>
+                    <% if reviewable_type == "Song" %>
+                      <div class="activityName commentActivity"><%= Song.find(reviewable_id).name %></div>
+                    <% elsif reviewable_type == "PastGig" %>
+                      <div class="activityName commentActivity"><%= Song.find(reviewable_id).name %></div>
+                    <% end %>
                   <% end %>
                   <br>
+                  <% if  message.subject[2] != 'R' %>
                   <div class="activityLink">/activities/<%= message.body.split('/')[2] %></div>
+                  <% end %>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
                 <% if  message.subject[2] == 'S' %>
