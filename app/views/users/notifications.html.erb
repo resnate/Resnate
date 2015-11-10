@@ -162,6 +162,12 @@
                       <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
                     <% end %>
                     <span class="hiddenReviewID"><%= activityID %></span>
+                    <% if reviewable_type == "PastGig" %>
+                      <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+                    <% elsif reviewable_type == "Song" %>
+                      <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="inboxSong">
+                    <% end %>
+                <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
                   <% end %>
                   <br>
                   <% if  message.subject[2] != 'R' %>
