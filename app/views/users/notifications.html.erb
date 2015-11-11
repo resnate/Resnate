@@ -122,7 +122,7 @@
 <script type="text/javascript">
 
 $('.commentActivity').click(function(){
-  $.get( '/activites/' + $(this).siblings('.activityLink').html(), function(result){
+  $.get( '/activities/' + $(this).siblings('.activityLink').html(), function(result){
   $('.modal').modal('hide');
   $('#box2').html('<div class="modal-body">'+result+'</div>');});
   $('#container').animate({
