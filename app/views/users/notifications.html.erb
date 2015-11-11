@@ -46,7 +46,7 @@
                     <div class="activityName playlistInfo"><%= Playlist.find(message.subject[2..-1]).name %><div class="hiddenPlaylistID"><%= message.subject[2..-1] -%></div></div>
 
                   <% elsif  message.subject[0..1] == 'G|' %>
-                    <% activityID = message.body] %>
+                    <% activityID = message.body %>
                     <% gigID = message.subject[2..-1] %>
                     <span> liked </span>
                     <div class="uberdate">
