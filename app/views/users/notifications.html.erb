@@ -26,181 +26,96 @@
                   <% end %>
                 </div>
 
-              
-            <% elsif message.subject[0..1] == 'S|' %>
-              <% activityID = message.subject[2..-1] %>
-              <% songID = PublicActivity::Activity.find(activityID).trackable_id %>
-              <% songName = Song.find(songID).name %>
-              <% songContent = Song.find(songID).content %>
-              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
+            <% else %>
+            <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
               <div class="notificationMsg">
                 <div class="notificationDetails">
                   <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span> liked </span>
-                  <div class="activityName songName" src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg"><%= songName %></div>
-                  <br>
-                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-                </div>
-                <img src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg" class="inboxSong">
-                <p class="jamTitle"><%= songName %></p>
 
-              </div>
+                  <% if message.subject[0..1] == 'S|' %>
+                    <% activityID = message.subject[2..-1] %>
+                    <% songID = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <% songName = Song.find(songID).name %>
+                    <% songContent = Song.find(songID).content %>
+                    <span> liked </span>
+                    <div class="activityName songName" src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg"><%= songName %></div>
 
-            <% elsif message.subject[0..1] == 'P|' %>
-              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
-              <div class="notificationMsg">
-                <div class="notificationDetails">
-                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
-                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span class=""><%= message.body[0..16] %></span>
-                  <div class="activityName playlistInfo"><%= message.body[18..-1] %><div class="hiddenPlaylistID"><%= message.subject[2..-1] -%></div></div>
-                  <br>
-                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-                </div>
-                <% img1 = "v" %>
-                <% JSON.parse(Playlist.find(message.subject[2..-1]).content)[0].each do |k, v| %>
-                  <% img1 = v %>
-                <% end %>
-                <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="notificationYTimg">
-              </div>
+                  <% elsif message.subject[0..1] == 'P|' %>
+                    <span> is now following </span>
+                    <div class="activityName playlistInfo"><%= Playlist.find(message.subject[2..-1]).name %><div class="hiddenPlaylistID"><%= message.subject[2..-1] -%></div></div>
 
-            <% elsif  message.subject[0..1] == 'G|' %>
-              <% activityID = message.subject[2..-1] %>
-              <% gigID = PublicActivity::Activity.find(activityID).trackable_id %>
-              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
-              <div class="notificationMsg">
-                <div class="notificationDetails">
-                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
-                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span> liked </span>
-                  <div class="uberdate">
-                    <li class="datewrapLi">
-                      <div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span>
-                      </div>
-                    </li> 
-                    <li class="gigName">
-                      <a href="https://www.songkick.com/concerts/<%= Gig.find(gigID).songkick_id %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span>
-                      </a>
-                      <br>
-                      <span class="msgGigLocation"></span>
-                    </li>
-                    <div class="hiddenGigID"> <%= Gig.find(gigID).songkick_id %></div>
-                  </div>
-                  <br>
-                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-                </div>
-                <span class="msgGigImgSpan">
-                    <a href="https://www.songkick.com/concerts/<%= Gig.find(gigID).songkick_id %>" target="_blank">
-                      <img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(gigID).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgGigs">
-                    </a>
-              </span>
-              </div>
+                  <% elsif  message.subject[0..1] == 'G|' %>
+                    <% activityID = message.subject[2..-1] %>
+                    <% gigID = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <span> liked </span>
+                    <div class="uberdate">
+                      <li class="datewrapLi">
+                        <div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div>
+                      </li> 
+                      <li class="gigName">
+                        <a href="https://www.songkick.com/concerts/<%= Gig.find(gigID).songkick_id %>" target="_blank" class="msgGigLink"><span class="msgGigName"></span></a>
+                        <br>
+                        <span class="msgGigLocation"></span>
+                      </li>
+                      <div class="hiddenGigID"> <%= Gig.find(gigID).songkick_id %></div>
+                    </div>
 
-              <% elsif  message.subject[0..1] == 'U|' %>
-              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
-              <div class="notificationMsg">
-                <div class="notificationDetails">
-                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
-                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span><%= message.body[0..-1] %></span>
-                  <br>
-                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-                </div>
+                  <% elsif  message.subject[0..1] == 'U|' %>
+                    <span> is now followng you.</span>
 
-              </div>
-
-              <% elsif  message.subject[0..1] == 'R|' %>
-              <% review = Review.find(message.subject[2..-1])  %>
-              <% reviewable_type = review.reviewable_type %>
-              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
-              <div class="notificationMsg">
-                <div class="notificationDetails">
-                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
-                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span><%= message.body[0..-1] %> review of</span> 
-                  <% if reviewable_type == "PastGig" %>
-                    <span class="activityName msgReviewName msgReviewGigName"></span>!
-                  <% elsif reviewable_type == "Song" %>
-                    <span class="activityName msgReviewName"><%= Song.find(review.reviewable_id).name %></span>!
-                  <% end %>
-                  <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
-                  <br>
-                  <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-                </div>
-                <% if reviewable_type == "PastGig" %>
-                  <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
-                <% elsif reviewable_type == "Song" %>
-                  <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="inboxSong">
-                <% end %>
-                <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
-
-              </div>
-
-            <% elsif  message.subject[0..1] == 'C|' %>
-              <img src="https://graph.facebook.com/<%= message.sender.uid %>/picture?width=200&height=200" class="profileImg">
-              <div class="notificationMsg">
-                <div class="notificationDetails">
-                  <div class="hiddenID" style="display:none"><%= message.sender_id %></div>
-                  <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
-                  <span>commented on </span>
-                  <% activityID = message.subject[3..-1] %>
-                  <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
-                  <% if  message.subject[2] == 'S' %>
-                    <div class="activityName commentActivity"><%= Song.find(trackable_id).name %></div>
-                    
-                  <% elsif  message.subject[2] == 'P' %>
-                    <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
-                    
-                  <% elsif  message.subject[2] == 'R' %>
-                    <% review = Review.find(activityID) %>
+                  <% elsif  message.subject[0..1] == 'R|' %>
+                    <% review = Review.find(message.subject[2..-1])  %>
                     <% reviewable_type = review.reviewable_type %>
-                    <% reviewable_id = review.reviewable_id %>
-                    <% if reviewable_type == "Song" %>
-                      <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
-                    <% elsif reviewable_type == "PastGig" %>
-                      <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
-                    <% end %>
-                    <span class="hiddenReviewID"><%= activityID %></span>
+                    <span> liked your review of </span>
                     <% if reviewable_type == "PastGig" %>
-                      <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="msgReviews">
+                      <span class="activityName msgReviewName msgReviewGigName"></span>!
                     <% elsif reviewable_type == "Song" %>
-                      <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="inboxSong">
+                      <span class="activityName msgReviewName"><%= Song.find(review.reviewable_id).name %></span>!
                     <% end %>
-                <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
+                    <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
+
+
+                  <% elsif  message.subject[0..1] == 'C|' %>
+                    <% if  message.subject[2] == 'R' %>
+                      <span>commented on your review of </span>
+                    <% else %>
+                      <span>commented on </span>
+                    <% end %>
+                    <% activityID = message.subject[3..-1] %>
+                    <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <% if  message.subject[2] == 'S' %>
+                      <div class="activityName commentActivity"><%= Song.find(trackable_id).name %></div>
+                    <% elsif  message.subject[2] == 'P' %>
+                      <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
+                    <% elsif  message.subject[2] == 'R' %>
+                      <% review = Review.find(activityID) %>
+                      <% reviewable_type = review.reviewable_type %>
+                      <% reviewable_id = review.reviewable_id %>
+                      <% if reviewable_type == "Song" %>
+                        <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
+                      <% elsif reviewable_type == "PastGig" %>
+                        <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
+                      <% end %>
+                      <span class="hiddenReviewID"><%= activityID %></span>
+                    <% end %>
+
+
+
                   <% end %>
                   <br>
-                  <% if  message.subject[2] != 'R' %>
-                  <div class="activityLink">/activities/<%= message.body.split('/')[2] %></div>
-                  <% end %>
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                 </div>
-                <% if  message.subject[2] == 'S' %>
-                  <img src="https://img.youtube.com/vi/<%= Song.find(message.subject[3..-1]).content %>/hqdefault.jpg" class="inboxSong">
-                <% elsif  message.subject[2] == 'P' %>
-                  <% unless Playlist.find(message.subject[3..-1]).content.nil? %>
-                    <% img1 = "v" %>
-                    <% JSON.parse(Playlist.find(message.subject[3..-1]).content)[0].each do |k, v| %>
-                      <% img1 = v %>
-                    <% end %>
-                    <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="notificationYTimg">
-                  <% end %>
-                <% end %>
               </div>
-
-            <% end %>
-                
-          </div>
-
-      	
+            </div>
         <% end %>
-      
-      <% end %>
     <% end %>
+  <% end %>
 <% end %>
+
 <div class="genericInfinite-scrolling">
-   <%= will_paginate @notifications, renderer: BootstrapPagination::Rails %>
- </div>
+  <%= will_paginate @notifications, renderer: BootstrapPagination::Rails %>
+</div>
 
 <script type="text/javascript">
 
