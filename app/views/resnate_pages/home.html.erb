@@ -1054,7 +1054,9 @@ $(document).on('click', '.expandReview', function(){
             $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
- $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/unlike");
+    $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/unlike");
+    $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/pointMinus5");
+
  }
 
   else {

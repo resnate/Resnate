@@ -101,6 +101,7 @@
   			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
   			<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
   			<div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
+        <div class="hiddenActivityID"><%= activity.id %></div>
  		<% end %>
 	</div>
 
