@@ -82,7 +82,7 @@
                     <% else %>
                       <span>commented on </span>
                     <% end %>
-                    <% activityID = message.subject[3..-1] %>
+                    <% activityID = message.body %>
                     <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
                     <div class="activityLink"><%= activityID %></div>
                     <% if  message.subject[2] == 'S' %>
