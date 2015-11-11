@@ -50,7 +50,7 @@
                     <% activityID = message.body %>
                     <% gigID = message.subject[2..-1] %>
                     <span> liked </span>
-                    <div class="uberdate msgGigs" src="https://api.songkick.com/api/3.0/events/<%= Gig.find(gigID).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
+                    <div class="uberdate ntfGigs" src="https://api.songkick.com/api/3.0/events/<%= Gig.find(gigID).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
                       <li class="datewrapLi">
                         <div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div>
                       </li> 
@@ -147,13 +147,13 @@ $('#pointCount').addClass('invisCount');
 
 var urls = [];
 
-  for(j=0; j<$('.msgGigs').length; j++){
-    urls.push($('.msgGigs').eq(j).attr('src'));
+  for(j=0; j<$('.ntfGigs').length; j++){
+    urls.push($('.ntfGigs').eq(j).attr('src'));
   }
 
 
 
-  for(j=0; j<$('.msgGigs').length; j++){
+  for(j=0; j<$('.ntfGigs').length; j++){
     $.ajax({
       url: urls[j],
       indexValue: j,
