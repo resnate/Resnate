@@ -34,8 +34,8 @@
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div>
 
                   <% if message.subject[0..1] == 'S|' %>
-                    <% activityID = message.subject[2..-1] %>
-                    <% songID = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <% activityID = message.body %>
+                    <% songID = message.subject[2..-1] %>
                     <% songName = Song.find(songID).name %>
                     <% songContent = Song.find(songID).content %>
                     <span> liked </span>
@@ -46,8 +46,8 @@
                     <div class="activityName playlistInfo"><%= Playlist.find(message.subject[2..-1]).name %><div class="hiddenPlaylistID"><%= message.subject[2..-1] -%></div></div>
 
                   <% elsif  message.subject[0..1] == 'G|' %>
-                    <% activityID = message.subject[2..-1] %>
-                    <% gigID = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <% activityID = message.body] %>
+                    <% gigID = message.subject[2..-1] %>
                     <span> liked </span>
                     <div class="uberdate">
                       <li class="datewrapLi">
