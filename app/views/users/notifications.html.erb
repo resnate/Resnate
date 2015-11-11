@@ -50,7 +50,7 @@
                     <% activityID = message.body %>
                     <% gigID = message.subject[2..-1] %>
                     <span> liked </span>
-                    <div class="uberdate">
+                    <div class="uberdate msgGigs" src="https://api.songkick.com/api/3.0/events/<%= Gig.find(gigID).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
                       <li class="datewrapLi">
                         <div class="date-wrap"><span class="month msgMonth"></span><span class="day msgDay"></span></div>
                       </li> 
@@ -164,8 +164,6 @@ var urls = [];
         image_link(json , this.indexValue);
 
                     function image_link(data, i) {
-                        
-                            $('.msgGigs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 
                             $('.msgMonth').eq(i).html(moment(data.resultsPage.results.event.start.date).format("MMM"));
 
