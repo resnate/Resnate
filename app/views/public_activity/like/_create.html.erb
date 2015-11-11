@@ -98,7 +98,11 @@
   			<%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %>
   			<div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
   		<% else %>
-  			<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
+        <% if current_user.likes?(Gig.find(Like.find(activity.trackable_id).likeable_id)) %>
+          <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb liked"></span>
+        <% else %>
+  			 <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
+        <% end %>
   			<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
   			<div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>
         <div class="hiddenActivityID"><%= activity.id %></div>
