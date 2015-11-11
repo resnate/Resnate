@@ -93,6 +93,7 @@
   <a href="https://www.songkick.com/concerts/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="feedGigs feedGigs<%= activity.trackable_id %>"></a>
 
 	<div class="feedButtons">
+      <div class="hiddenActivityID"><%= activity.id %></div>
   		<% if @gigArray.include?(Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id) || Like.find(activity.trackable_id).liker_id == current_user.id  %>
   			<%= image_tag "ResnateShareIcon.png", class: "shareGig shareGigNoLike", "data-toggle" => "modal", "data-target" => "#shareModal" %>
   			<div class="hiddenGigID"><%= Like.find(activity.trackable_id).likeable_id %></div>

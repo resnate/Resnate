@@ -39,7 +39,8 @@
                     <% songName = Song.find(songID).name %>
                     <% songContent = Song.find(songID).content %>
                     <span> liked </span>
-                    <div class="activityName songName" src="https://img.youtube.com/vi/<%= songContent %>/hqdefault.jpg"><%= songName %></div>
+                    <div class="activityLink"><%= activityID %></div>
+                    <div class="activityName commentActivity"><%= songName %></div>
 
                   <% elsif message.subject[0..1] == 'P|' %>
                     <span> is now following </span>
