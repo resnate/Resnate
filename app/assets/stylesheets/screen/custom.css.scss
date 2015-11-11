@@ -2008,7 +2008,7 @@ tr {
   margin-right: 10px;
 }
 
-.inboxYT, .msgGigs, .msgReviews {
+.inboxYT, .msgGigs {
   display: inline-block;
   margin-left: 10px;
 }
@@ -2183,21 +2183,6 @@ height: 90%;
 
 .playlistFollower, .multipleName {
   vertical-align: middle;
-}
-
-.notificationYTimg {
-  height: 90px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.notificationYTimg {
-  vertical-align: top;
-}
-
-.msgGigs, .msgReviews {
-  width: 90px;
-  vertical-align: top;
 }
 
 .glyphicon-arrow-up {

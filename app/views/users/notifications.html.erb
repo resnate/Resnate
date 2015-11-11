@@ -84,6 +84,7 @@
                     <% end %>
                     <% activityID = message.subject[3..-1] %>
                     <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <div class="activityLink"><%= trackable_id %></div>
                     <% if  message.subject[2] == 'S' %>
                       <div class="activityName commentActivity"><%= Song.find(trackable_id).name %></div>
                     <% elsif  message.subject[2] == 'P' %>
@@ -121,7 +122,7 @@
 <script type="text/javascript">
 
 $('.commentActivity').click(function(){
-  $.get($(this).siblings('.activityLink').html(), function(result){
+  $.get( '/activites/' + $(this).siblings('.activityLink').html(), function(result){
   $('.modal').modal('hide');
   $('#box2').html('<div class="modal-body">'+result+'</div>');});
   $('#container').animate({
