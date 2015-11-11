@@ -1027,6 +1027,7 @@ $(document).on('click', '.expandReview', function(){
           });
 
           $('body').on('click', '#container #feedBox .activity .songThumb', function(){
+            $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
  $.post("/"+$(this).siblings('.hiddenSongID').html()+"/unlike");
@@ -1050,6 +1051,7 @@ $(document).on('click', '.expandReview', function(){
 });
 
           $('body').on('click', '#container #feedBox .activity .gigThumb', function(){
+            $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
   if($(this).hasClass('liked')){
     $(this).removeClass('liked');
  $.post("/"+$(this).siblings('.hiddenGigID').html().trim()+"/gigs/unlike");

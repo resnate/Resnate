@@ -14,6 +14,7 @@
 <% else %>
 
 	<div class="feedButtons">
+      <div class="hiddenActivityID"><%= activity.id %></div>
   		<span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs gigThumb"></span>
   		<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>
   		<div class="hiddenGigID"><%= activity.trackable_id %></div>

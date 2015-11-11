@@ -22,6 +22,7 @@
     <% else %>
       <span class="glyphicon glyphicon-thumbs-up feedShares feedThumbs songThumb liked"></span>
     <% end %>
+    <div class="hiddenActivityID"><%= activity.id %></div>
   <div class="hiddenSongID"><%= activity.trackable_id %></div>
 	<div class="jamID"><%= Song.find(activity.trackable_id).content %></div>
 	<div class="jamTitle"><%= Song.find(activity.trackable_id).name %></div>
