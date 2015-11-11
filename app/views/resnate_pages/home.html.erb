@@ -1065,7 +1065,7 @@ if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() !=
   $.post("/"+$(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim()+"/point5");
   $('#shareCurrentID').val($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim());
   $('#messageURL').val('G|'+$(this).siblings('.hiddenGigID').html());
-  $('.shareTextarea').val('liked '+$(this).parent().siblings('.activityInfo').find('.feedGigName').text() + '!');
+  $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html()));
   $('#shareSubmit').click();
   $('#messageURL').val('');
   $('.shareTextarea').val('Check this out!');
