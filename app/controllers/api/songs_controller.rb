@@ -24,7 +24,7 @@ class API::SongsController < ApplicationController
 	end
 
   def findSong
-    @songID = Song.where(content: params[:content], user_id: params[:user]).id
+    @songID = Song.where(content: params[:content], user_id: params[:user]).first.id
   end
 
 	private
