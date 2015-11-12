@@ -145,7 +145,7 @@ Resnate::Application.routes.draw do
 
       resources :songs
 
-      get "/songs/:content/findSong" => "songs#findSong"
+      get "/songs/:content/:user/findSong" => "songs#findSong"
 
       resources :reviews
 
