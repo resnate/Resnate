@@ -145,6 +145,8 @@ Resnate::Application.routes.draw do
 
       resources :songs
 
+      get "/songs/:content/findSong" => "songs#findSong"
+
       resources :reviews
 
       get "/reviews/:id/likes"  => "reviews#likes"
@@ -161,7 +163,7 @@ Resnate::Application.routes.draw do
 
       get "/messages/:token/index/:page"  => "messages#index"
       get "/messages/:token/notifications/:page"  => "messages#notifications"
-      
+
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

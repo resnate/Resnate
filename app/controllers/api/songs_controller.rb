@@ -23,6 +23,10 @@ class API::SongsController < ApplicationController
 		@song = Song.find(params[:id])
 	end
 
+  def findSong
+    @songID = Song.find_by_content(content: params[:content]).id
+  end
+
 	private
 
     def song_params
