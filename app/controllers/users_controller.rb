@@ -143,7 +143,7 @@ end
       @songs = @user.songs
       @pastGigs = @user.past_gigs
       @gigs = @user.gigs
-      @reviews = Review.where(user_id: @user.id).reverse
+      @reviews = @user.reviews
       @review = Review.where(user_id: @user.id).last
       render :layout => false
     end

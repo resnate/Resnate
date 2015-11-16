@@ -360,6 +360,10 @@ body {
   display: none;
 }
 
+.sideUnfollowButton, sideFollowButton {
+  color: white;
+}
+
 #videoResultsDiv li, .sidePlaylist, .sideNewPlaylist, .sideLiked, .sideFollowed {
   width: 100%;
   max-width: 238px;
