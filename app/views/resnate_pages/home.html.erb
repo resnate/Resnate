@@ -1341,8 +1341,41 @@ $("#navTitle").mouseout(function() {
 
       allPreviousGigs = allPreviousGigs.split(',').map(function(x){return parseInt(x)});
 
-    
-      $.each(json.resultsPage.results.calendarEntry,function(j,e){
+
+      if(json.resultsPage.totalEntries > 50) {
+
+      var totalEntries = json.resultsPage.totalEntries;
+
+      var totalPages = totalEntries % 50;
+
+      for (i = 1; i <= totalPages; i++) { 
+
+        var pageUrl = "https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/calendar.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&page=" + i + "&jsoncallback=?";
+
+        $.getJSON(pageUrl,function(pageJson){
+
+          $.each(pageJson.resultsPage.results.calendarEntry,function(j,e){
+
+            allGigs.push(e.event.id);
+
+            if($('#hiddenGigsIDs').html().indexOf(e.event.id) == -1){
+          
+              gigsArray.push({songkick_id: e.event.id , gig_date: e.event.start.date });
+          
+            }
+          });
+
+          $.each(allPreviousGigs, function(i, gigID){
+            if(allGigs.indexOf(gigID) == -1){
+              deleteURL = '/gigUndo/'+gigID;
+              $.post(deleteURL);
+            }
+          });
+        });
+      }
+    } else {
+
+        $.each(json.resultsPage.results.calendarEntry,function(j,e){
 
         allGigs.push(e.event.id);
 
@@ -1351,18 +1384,17 @@ $("#navTitle").mouseout(function() {
           gigsArray.push({songkick_id: e.event.id , gig_date: e.event.start.date });
           
         }
-         
-          
-            });
+      });
 
 
       $.each(allPreviousGigs, function(i, gigID){
          if(allGigs.indexOf(gigID) == -1){
           deleteURL = '/gigUndo/'+gigID;
           $.post(deleteURL);
-      }
+        }
       });
 
+    }
      
 
     $.post( '/<%= current_user.id %>/multipleCreate', { multiGigs: JSON.stringify(gigsArray) });

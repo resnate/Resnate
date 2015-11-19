@@ -7,9 +7,21 @@ class API::PastGigsController < ApplicationController
 	end
 
   def review
-      @review = Review.where(reviewable_type: "PastGig", reviewable_id: params[:id]).first
-      
+    @review = Review.where(reviewable_type: "PastGig", reviewable_id: params[:id]).first
+  end
+
+  def pastMultipleCreate
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @pastGigs = JSON.parse(params[:multiGigs])
+    pgArray = []
+    @pastGigs.each do |pg|
+      if @user.past_gigs.find_by_songkick_id(pg["songkick_id"]).nil?
+        hash = { user_id: @user.id, songkick_id: pg["songkick_id"], gig_date: pg["gig_date"] }
+        pgArray.push(hash)
+      end
     end
+    PastGig.create_many(pgArray)
+  end
 
 	private
       def restrict_access

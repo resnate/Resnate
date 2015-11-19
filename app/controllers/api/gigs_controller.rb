@@ -19,6 +19,42 @@ class API::GigsController < ApplicationController
     render :json => @friendsArray.to_json
   end
 
+  def multipleCreate
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+
+    current_gigs = @user.gigs
+    currentArray = []
+    current_gigs.each do |c|
+      currentArray.push(c["songkick_id"])
+    end
+
+    new_gigs = JSON.parse(params[:multiGigs])
+    gArray = []
+    new_gigs.each do |g|
+      unless currentArray.include?(g["songkick_id"])
+        hash = { user_id: @user.id, songkick_id: g["songkick_id"], gig_date: g["gig_date"]}
+        gArray.push(hash)
+      end
+    end
+
+    currentArray.each do |c|
+      unless gArray.include?(c["songkick_id"])
+        Gig.where(songkick_id: c["songkick_id"], user_id: @user.id).first.destroy
+      end
+    end
+
+
+
+    Gig.create_many(gArray)
+    gArray.each do |gA|
+      gA = Gig.find_by_songkick_id(gA[:songkick_id])
+      gA.create_activity :create, owner: @user
+      activity = PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: gA.id).first.id
+      @message = activity.to_s + ',' + @user.uid.to_s
+      Pusher.trigger('activities', 'feed', {:message => @message})
+    end
+  end
+
   private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|

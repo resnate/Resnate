@@ -229,15 +229,24 @@ before_filter :restrict_access, :except => :userSearch
     end
   end
 
-private
-      def restrict_access
-        authenticate_or_request_with_http_token do |token, options|
-          APIKey.exists?(access_token: token)
-        end
+  def update
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @user.update_attributes(user_params)
+  end
 
-        def request_http_token_authentication(realm = "Application")  
-          self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
-          self.__send__ :render, :json => { :error => "HTTP Token: Access denied. You did not provide an valid API key." }.to_json, :status => :unauthorized
-        end
+private
+    def restrict_access
+      authenticate_or_request_with_http_token do |token, options|
+        APIKey.exists?(access_token: token)
       end
+
+      def request_http_token_authentication(realm = "Application")  
+        self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
+        self.__send__ :render, :json => { :error => "HTTP Token: Access denied. You did not provide an valid API key." }.to_json, :status => :unauthorized
+      end
+    end
+
+    def user_params
+      params.require(:user).permit(:songkickID, :jamID, :jamName)
+    end
 end
