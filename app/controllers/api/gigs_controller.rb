@@ -19,7 +19,7 @@ class API::GigsController < ApplicationController
     render :json => @friendsArray.to_json
   end
 
-  def multipleCreate
+  def apiMultipleCreate
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
 
     current_gigs = @user.gigs

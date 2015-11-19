@@ -10,7 +10,7 @@ class API::PastGigsController < ApplicationController
     @review = Review.where(reviewable_type: "PastGig", reviewable_id: params[:id]).first
   end
 
-  def pastMultipleCreate
+  def apiPastMultipleCreate
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @pastGigs = JSON.parse(params[:multiGigs])
     pgArray = []

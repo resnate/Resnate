@@ -139,12 +139,12 @@ Resnate::Application.routes.draw do
 
       resources :past_gigs
 
-      post "/pastMultipleCreate" => "past_gigs#pastMultipleCreate"
+      post "/apiPastMultipleCreate" => "past_gigs#apiPastMultipleCreate"
 
       resources :gigs
 
       get "/gigs/:user/:songkick_id/friendsGoing"  => "gigs#friendsGoing"
-      post "/multipleCreate" => "gigs#multipleCreate"
+      post "/apiMultipleCreate" => "gigs#apiMultipleCreate"
 
       resources :songs
 
