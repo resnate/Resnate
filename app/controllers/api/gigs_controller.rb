@@ -37,9 +37,9 @@ class API::GigsController < ApplicationController
       end
     end
 
-    currentArray.each do |c|
-      unless gArray.include?(Integer(c["songkick_id"]))
-        Gig.where(songkick_id: c["songkick_id"], user_id: @user.id).first.destroy
+    currentArray.each do |songkickID|
+      unless gArray.include?(songkickID)
+        Gig.where(songkick_id: songkickID, user_id: @user.id).first.destroy
       end
     end
 
