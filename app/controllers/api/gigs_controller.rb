@@ -37,12 +37,6 @@ class API::GigsController < ApplicationController
       end
     end
 
-    currentArray.each do |songkickID|
-      unless gArray.include?(songkickID)
-        Gig.where(songkick_id: songkickID, user_id: @user.id).first.destroy
-      end
-    end
-
 
 
     Gig.create_many(gArray)
