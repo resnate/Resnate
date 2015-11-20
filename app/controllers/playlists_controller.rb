@@ -56,7 +56,6 @@ class PlaylistsController < ApplicationController
 
   def follow
     @playlist = Playlist.find(params[:playlist])
-    @user = User.find(@playlist.user_id)
     current_user.follow!(@playlist)
       
     @follow = Follow.where(follower_id: current_user.id, followable_type: "Playlist").find_by_followable_id(@playlist.id)
@@ -69,8 +68,7 @@ class PlaylistsController < ApplicationController
 
     def unfollow
       @playlist = Playlist.find(params[:playlist])
-      @user = User.find(@playlist.user_id)
-      @follow = Follow.where(followable_id: @playlist.id, followable_type: "Playlist").first
+      @follow = Follow.where(followable_id: @playlist.id, followable_type: "Playlist", follower_id: current_user.id).first
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
       @activity.destroy
       current_user.unfollow!(@playlist)
