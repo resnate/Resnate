@@ -158,6 +158,9 @@ Resnate::Application.routes.draw do
 
       resources :playlists
 
+      get "/:token/firstFollowedPlaylist"  => "playlists#firstFollowedPlaylist"
+      get "/:token/followedPlaylists"  => "playlists#followedPlaylists"
+
       resources :messages do
         member do
           post :new
