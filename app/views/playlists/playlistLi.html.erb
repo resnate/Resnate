@@ -12,12 +12,17 @@
                 <span class="hiddenPlaylistID"><%= @playlist.id %></span>
                 <h5 class="sidePlaylistName"><%= @playlist.name %> by <%= User.find(@playlist.user_id).name %></h5>
                 <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= @playlist.id %>">
+
                   <% if current_user.follows?(@playlist) %>
-                    <div class="sideFollow"><%= button_to "Follow", playlists_follow_path(playlist: @playlist) , remote: true, method: :post, class: "sideFollowButton" %></div>
-                    <div class="sideUnfollow" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: @playlist) , remote: true, method: :post, class: "sideUnfollowButton" %></div>
-                  <% else %>
+
                     <div class="sideFollow" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: @playlist) , remote: true, method: :post, class: "sideFollowButton" %></div>
                     <div class="sideUnfollow"><%= button_to "Unfollow", playlists_unfollow_path(playlist: @playlist) , remote: true, method: :post, class: "sideUnfollowButton" %></div>
+
+                  <% else %>
+
+                    <div class="sideFollow"><%= button_to "Follow", playlists_follow_path(playlist: @playlist) , remote: true, method: :post, class: "sideFollowButton" %></div>
+                    <div class="sideUnfollow" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: @playlist) , remote: true, method: :post, class: "sideUnfollowButton" %></div>
+                    
                   <% end %>
                   <div class="sideShare" data-toggle="modal" data-target="#shareModal">Share</div>
 
