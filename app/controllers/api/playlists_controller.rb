@@ -60,6 +60,27 @@ class API::PlaylistsController < ApplicationController
       @follows = false
     end
   end
+
+  def follow
+    @playlist = Playlist.find(params[:playlist])
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    current_user.follow!(@playlist)
+      
+    @follow = Follow.where(follower_id: current_user.id, followable_type: "Playlist").find_by_followable_id(@playlist.id)
+    @follow.create_activity :create, owner: current_user
+    @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id
+    @message = @activity.to_s + ',' + current_user.uid.to_s
+    Pusher.trigger('activities', 'feed', {:message => @message})
+  end
+
+  def unfollow
+    @playlist = Playlist.find(params[:playlist])
+    @user = User.find(@playlist.user_id)
+    @follow = Follow.where(followable_id: @playlist.id, followable_type: "Playlist").first
+    @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
+    @activity.destroy
+    current_user.unfollow!(@playlist)
+  end
   
   private
     def restrict_access
