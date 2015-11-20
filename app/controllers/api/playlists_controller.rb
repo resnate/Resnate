@@ -33,8 +33,26 @@ class API::PlaylistsController < ApplicationController
       end
     end
   end
+
+  def firstFollowedPlaylist
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    unless Follow.where(follower_id: current_user.id, followable_type: "Playlist").count == 0
+      @firstFollowedPlaylist = Playlist.find(Follow.where(follower_id: current_user.id, followable_type: "Playlist").first.followable_id)
+    end
+  end
+
+  def followedPlaylists
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @followedPlaylists = []
+    unless Follow.where(follower_id: current_user.id, followable_type: "Playlist").count == 0
+      Follow.where(follower_id: current_user.id, followable_type: "Playlist").each do |fP|
+        playlist = Playlist.find(fP.followable_id)
+        @followedPlaylists.push(playlist)
+      end
+    end
+  end
   
-private
+  private
     def restrict_access
       authenticate_or_request_with_http_token do |token, options|
         APIKey.exists?(access_token: token)
