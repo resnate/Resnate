@@ -78,7 +78,9 @@ class API::PlaylistsController < ApplicationController
     current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @follow = Follow.where(followable_id: @playlist.id, followable_type: "Playlist", follower_id: current_user.id).first
     @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
-    @activity.destroy
+    unless @activity.nil?
+      @activity.destroy
+    end
     current_user.unfollow!(@playlist)
   end
   

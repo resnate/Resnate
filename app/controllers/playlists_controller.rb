@@ -70,7 +70,9 @@ class PlaylistsController < ApplicationController
       @playlist = Playlist.find(params[:playlist])
       @follow = Follow.where(followable_id: @playlist.id, followable_type: "Playlist", follower_id: current_user.id).first
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
-      @activity.destroy
+      unless @activity.nil?
+        @activity.destroy
+      end
       current_user.unfollow!(@playlist)
       
       render :layout => false
