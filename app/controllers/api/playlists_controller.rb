@@ -51,6 +51,15 @@ class API::PlaylistsController < ApplicationController
       end
     end
   end
+
+  def ifFollow
+    current_user = User.find(params[:user_id])
+    if current_user.follows?(Playlist.find(params[:playlist_id]))
+      @follows = true
+    else
+      @follows = false
+    end
+  end
   
   private
     def restrict_access

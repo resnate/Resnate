@@ -160,6 +160,7 @@ Resnate::Application.routes.draw do
 
       get "/:id/firstFollowedPlaylist"  => "playlists#firstFollowedPlaylist"
       get "/:id/followedPlaylists"  => "playlists#followedPlaylists"
+      get "/:user_id/:playlist_id/ifFollow"  => "playlists#ifFollow"
 
       resources :messages do
         member do
