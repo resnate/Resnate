@@ -31,7 +31,7 @@ class API::GigsController < ApplicationController
     new_gigs = JSON.parse(params[:multiGigs])
     gArray = []
     new_gigs.each do |g|
-      unless currentArray.include?(g["songkick_id"])
+      if @user.gigs.find_by_songkick_id(g["songkick_id"]).nil?
         hash = { user_id: @user.id, songkick_id: g["songkick_id"], gig_date: g["gig_date"]}
         gArray.push(hash)
       end
