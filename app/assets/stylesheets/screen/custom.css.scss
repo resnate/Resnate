@@ -361,7 +361,7 @@ body {
 }
 
 .sideUnfollowButton, sideFollowButton {
-  color: white;
+  color: white !important;
 }
 
 #videoResultsDiv li, .sidePlaylist, .sideNewPlaylist, .sideLiked, .sideFollowed {
