@@ -46,7 +46,7 @@ before_filter :restrict_access, :except => :userSearch
     @following = @user.followees(User).count
     @badges = []
     @user.badges.each do |badge|
-      @badges.push(badge.name)
+      @badges.push({ "name": badge.name, "description": badge.description })
     end
   end
 
