@@ -2,7 +2,7 @@
         <div id="noMessages">No notifications.<br>Share some music with your friends!</div>
 <% else %>
 	<% @notifications.each do |notification| %>
-         
+         <%= notification %>
       
     <% receipts = notification.receipts_for current_user %>
       <% receipts.each do |receipt|%>
