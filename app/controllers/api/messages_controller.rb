@@ -54,7 +54,7 @@ class API::MessagesController < ApplicationController
       conversations.each do |conversation|
         receipts = conversation.receipts_for current_user
         receipts.each do |receipt|
-          if receipt.message.subject[1] == "|"
+          if receipt.message.subject[1] == "|" && receipt.message.sender_id != current_user.id
             message = receipt.message
             @messages.push(message: message, participants: conversation.participants)
           end

@@ -7,6 +7,7 @@
     <% receipts = notification.receipts_for current_user %>
       <% receipts.each do |receipt|%>
       		<% notification.mark_as_read(current_user) %>
+          <% unless receipt.message.sender_id == current_user.id %>
       		<% message = receipt.message %>
           <div class="notification">
 
@@ -112,6 +113,7 @@
             </div>
         <% end %>
     <% end %>
+  <% end %>
 <% end %>
 
 <div class="genericInfinite-scrolling">
