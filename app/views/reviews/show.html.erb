@@ -53,7 +53,7 @@
 		
 	</div>
 	<% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
-	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:youtube.com.+v[=\/]|youtu.be\/)/, 'test'), tags: %w(br) %></div>
+	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub("(?:youtube.com.+v[=\/]|youtu.be\/)", 'test'), tags: %w(br) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
 	<% unless current_user.nil? %>
