@@ -52,7 +52,7 @@
 		</div>
 		
 	</div>
-	<div class="reviewContent"><%= @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/, '<img src="#{[$1]}">') do    %>
+	<div class="reviewContent"><%= @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do    %>
     <% link_to(image_tag($1), $1, :target => '_blank') %>
   <% end %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
