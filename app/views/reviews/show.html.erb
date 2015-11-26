@@ -53,8 +53,8 @@
 		
 	</div>
 	<% sanitizedContent = sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<"), tags: %w(br) %>
-	<% addYouTubeImages = sanitizedContent.gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  %>
-	<% link_to(image_tag($1), $1, :target => '_blank') %>
+	<% addYouTubeImages = sanitizedContent.gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
+	<% "<a href='#{url}' target='_blank'><img src='#{url}' /></a>" %>
 	<% end %>
 	<div class="reviewContent"><%= addYouTubeImages %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
