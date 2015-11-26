@@ -52,7 +52,7 @@
 		</div>
 		
 	</div>
-	<% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
+	<% matchYoutubeUrl = /(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/ %>
 	<% jamID = sanitize @review.content.match(matchYoutubeUrl)[1] %>
 	<div class="reviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/, '<img src="#{jamID}">'), tags: %w(br) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
