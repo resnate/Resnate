@@ -56,7 +56,7 @@
 	<% addYouTubeImages = sanitizedContent.gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
 	<% "<img src='#{url}' />" %>
 	<% end %>
-	<div class="reviewContent"><%= addYouTubeImages %></div>
+	<div class="reviewContent"><%= addYouTubeImages.gsub("<", "\<"), tags: %w(br, img) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
 	<% unless current_user.nil? %>
