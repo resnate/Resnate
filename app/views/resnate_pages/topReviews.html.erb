@@ -13,10 +13,10 @@
             <% end %>
             <div class="reviewT">
             Review of
-            <% if @review.reviewable_type == "PastGig" %>
+            <% if review.reviewable_type == "PastGig" %>
                 <div class="reviewGigName<%= review.id %>"></div>
-            <% elsif @review.reviewable_type == "Song" %>
-                <div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(review.reviewable_id).name %></div>
+            <% elsif review.reviewable_type == "Song" %>
+                <div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(review.reviewable_id).name %></div>
             <% end %>
             </div>
             <div class="likerNumber">
