@@ -17,7 +17,7 @@
             <% elsif review.reviewable_type == "Song" %>
                 <%= Song.find(review.reviewable_id).name %>
             <% end %>
-            <%= image_tag "https://graph.facebook.com/#{User.find(@review.user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
+            <%= image_tag "https://graph.facebook.com/#{User.find(review.user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
             <div class="hiddenID">
                 <%= @review.user_id %>
             </div>
