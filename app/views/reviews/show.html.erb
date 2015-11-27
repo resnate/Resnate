@@ -155,15 +155,16 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
                     function image_link(data, i) {
                         
                             $('.hiddenSongName').eq(i).text(data.items);
-                            console.log(data.items)
+                            $.each(data.items, function(i, v){
+              					$('.hiddenSongName').eq(i).text(v.snippet.title)
                           
-                    }
-        
-      }
-    });
+                    });
+    	}
+	}
     
     
-  }
+  });
+}
   
 
 </script>
