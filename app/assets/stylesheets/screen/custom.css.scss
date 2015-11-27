@@ -1463,6 +1463,7 @@ tr {
   height: 130px;
   cursor: pointer;
   color: white;
+  position: relative;
 }
 
 .reviewT {
@@ -1583,7 +1584,8 @@ tr {
 
 .reviewerPic {
   height: 60px;
-  margin-top: 10px;
+  position: absolute;
+  bottom: 15px;
   cursor: pointer;
 }
 

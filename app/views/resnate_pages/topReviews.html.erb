@@ -11,13 +11,13 @@
             <% elsif type == "PastGig" %>
                 <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="featuredImg featuredGigs">
             <% end %>
-            <div class="reviewT"><div class="featuredReviewTitle">Review of
+            <div class="featuredReviewT"><div class="featuredReviewTitle">Review of
             <% if review.reviewable_type == "PastGig" %>
                 <span class="featuredGigName"></span>
             <% elsif review.reviewable_type == "Song" %>
                 <%= Song.find(review.reviewable_id).name %>
             <% end %></div>
-            <%= image_tag "https://graph.facebook.com/#{User.find(review.user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
+            <%= image_tag "https://graph.facebook.com/#{User.find(review.user_id).uid}/picture?width=200&height=200", class: "reviewerPic" %>
             <div class="hiddenID">
                 <%= review.user_id %>
             </div>
