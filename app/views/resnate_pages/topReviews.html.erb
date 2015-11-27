@@ -19,20 +19,20 @@
             <% end %>
             <%= image_tag "https://graph.facebook.com/#{User.find(review.user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
             <div class="hiddenID">
-                <%= @review.user_id %>
+                <%= review.user_id %>
             </div>
             <div class="reviewerInfo">
-                <div class="profileName"><%= User.find(@review.user_id).name %></div>
-                <div class="hiddenID"><%= @review.user_id %></div>
+                <div class="profileName"><%= User.find(review.user_id).name %></div>
+                <div class="hiddenID"><%= review.user_id %></div>
                 <br>
-                <% unless User.find(@review.user_id).badges.count == 0 %>
-                <%= image_tag (User.find(@review.user_id).badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+                <% unless User.find(review.user_id).badges.count == 0 %>
+                <%= image_tag (User.find(review.user_id).badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
                 <% end %>
                 <div class="reviewLevelNameNPoints">
-                    <%= User.find(@review.user_id).level_name %> <%= User.find(@review.user_id).points %> points
+                    <%= User.find(review.user_id).level_name %> <%= User.find(review.user_id).points %> points
                 </div>
                 <div class="reviewFollowers">
-                <% followerCount = User.find(@review.user_id).followers(User).count %>
+                <% followerCount = User.find(@eview.user_id).followers(User).count %>
                 <% if followerCount == 1 %>
                     <%= followerCount %> follower
                 <% elsif followerCount > 1 %>
