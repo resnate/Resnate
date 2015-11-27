@@ -11,7 +11,7 @@
                 <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
                 <p class="jamTitle"><%= Song.find(review.reviewable_id).name %></p>
             <% elsif type == "PastGig" %>
-                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= @review.id %>">
+                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= review.id %>">
             <% end %>
             </div>
             <div class="likerNumber">
