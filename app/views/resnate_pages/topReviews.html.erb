@@ -5,13 +5,18 @@
             <% review = Review.find(reviewID) %>
             <% activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: review.id).first %>
             <% type = review.reviewable_type %>
-            <div class="reviewT">
-            Review of
             <% if type == "Song" %>
                 <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
                 <p class="jamTitle"><%= Song.find(review.reviewable_id).name %></p>
             <% elsif type == "PastGig" %>
                 <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= review.id %>">
+            <% end %>
+            <div class="reviewT">
+            Review of
+            <% if @review.reviewable_type == "PastGig" %>
+                <div class="reviewGigName<%= review.id %>"></div>
+            <% elsif @review.reviewable_type == "Song" %>
+                <div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(review.reviewable_id).name %></div>
             <% end %>
             </div>
             <div class="likerNumber">
@@ -20,6 +25,16 @@
                     <%= likers %> like
                 <% else %>
                     <%= likers %> likes
+                <% end %>
+            </div>
+            <div class="commentsCount">
+                <% commentCount = activity.comment_threads.count %>
+                <% if commentCount > 0 %>
+                    <% if commentCount == 1 %>
+                        <%= commentCount %> comment
+                    <% elsif commentCount >= 2 %>
+                        <%= commentCount %> comments
+                    <% end %>
                 <% end %>
             </div>
         </div>
