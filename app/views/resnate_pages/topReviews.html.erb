@@ -32,7 +32,7 @@
                     <%= User.find(review.user_id).level_name %> <%= User.find(review.user_id).points %> points
                 </div>
                 <div class="reviewFollowers">
-                <% followerCount = User.find(@eview.user_id).followers(User).count %>
+                <% followerCount = User.find(review.user_id).followers(User).count %>
                 <% if followerCount == 1 %>
                     <%= followerCount %> follower
                 <% elsif followerCount > 1 %>
