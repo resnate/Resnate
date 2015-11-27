@@ -47,7 +47,7 @@
     						<% gigs = Gig.where(user_id: User.find_by_uid(friend).id) %>
     						<% gigs.each do |gig| %>
     							<% if gig.songkick_id == activity.trackable.songkick_id %>
-    								<div class="followerDiv"><img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="hiddenID"><%= User.find_by_uid(friend).id %></div></div>
+    								<div class="followerDiv"><img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg commentImg" title="<%= User.find_by_uid(friend).name %>"></img><div class="hiddenID"><%= User.find_by_uid(friend).id %></div></div>
     							<% end %>
     						<% end %>
     				<% end %>
@@ -104,7 +104,7 @@
     <div class="hiddenActivityID"><%=activity.id%></div>
 
 
-		<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+		<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg commentImg">
 
 		<textarea class="inputComment"></textarea>
     <div class="hiddenActivityID"><%=activity.id%></div>

@@ -117,7 +117,7 @@
   			<div class="commentURL">
     		/activity/<%=@activity.id%>/comments/
   		</div>
-  			<img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+  			<img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg commentImg">
 			<textarea class="inputComment"></textarea>
 			<span class="hiddenID"><%= @review.user_id %></span>
 
@@ -155,7 +155,6 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
                     function image_link(data, i) {
                         
                             $('.hiddenSongName').eq(i).text(data.items[0].snippet.title);
-                            console.log(data.items[0].snippet.title)
                           
                     }
         

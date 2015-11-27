@@ -80,7 +80,7 @@
 			<div class="commentURL">
     			/activity/<%=PublicActivity::Activity.where(trackable_type: "Song", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id%>/comments/
   			</div>
-			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg commentImg">
 			<textarea class="inputComment"></textarea>
       <div class="hiddenActivityType">Song</div>
       <div class="hiddenActivityID"><%=activity.id%></div>
@@ -135,7 +135,7 @@
     							<% gigs.each do |gig| %>
     								<% if gig.songkick_id == Gig.find(Like.find(activity.trackable_id).likeable_id).songkick_id %>
     									<div class="followerDiv">
-    										<img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg goingImg" title="<%= User.find_by_uid(friend).name %>"></img>
+    										<img src="https://graph.facebook.com/<%= friend %>/picture?width=50&height=50" class="userImg commentImg" title="<%= User.find_by_uid(friend).name %>"></img>
     										<div class="hiddenID"><%= User.find_by_uid(friend).id %></div>
     									</div>
     								<% end %>
@@ -188,7 +188,7 @@
 			<div class="commentURL">
     			/activity/<%=PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: Like.find(activity.trackable_id).likeable_id).first.id%>/comments/
   			</div>
-			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+			<img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg commentImg">
 			<textarea class="inputComment"></textarea>
       <div class="hiddenActivityType">Gig</div>
       <div class="hiddenActivityID"><%=activity.id%></div>
@@ -297,7 +297,7 @@
       </div>
 
 
-    <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg goingImg">
+    <img src="https://graph.facebook.com/<%= @user.uid %>/picture?width=50&height=50" class="userImg commentImg">
 
     <textarea class="inputComment"></textarea>
       <div class="hiddenLikerID"><%= Review.find(Like.find(activity.trackable_id).likeable_id).user_id %></div>
