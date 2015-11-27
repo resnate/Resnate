@@ -6,13 +6,12 @@ class ResnatePagesController < ApplicationController
 
   def topReviews
     topReviewArray = []
-    
-      Review.all.each do |r|
-        h = { id: r.id, likers: r.likers(User).count, likersAndAge: r.likers(User).count * 10 + r.created_at.to_i/50000 }
-        topReviewArray.push(h)
-      end
-      @topReviews = topReviewArray.sort_by { |review| review[:likersAndAge]}.reverse.uniq.paginate(page: params[:page], per_page: 5)
-      render :layout => false
+    Review.all.each do |r|
+      h = { id: r.id, likers: r.likers(User).count, likersAndAge: r.likers(User).count * 10 + r.created_at.to_i/50000 }
+      topReviewArray.push(h)
+    end
+    @topReviews = topReviewArray.sort_by { |review| review[:likersAndAge]}.reverse.uniq.paginate(page: params[:page], per_page: 5)
+    render :layout => false
   end
 
   def leaderboard

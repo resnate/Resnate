@@ -1,16 +1,30 @@
 <% unless @topReviews.nil? %>
     <% @topReviews.each do |rankedReview| %>
-        <div>
-            <div class="featuredReview">
-                <% @review = Review.find(rankedReview[:id]) %>
-                <% @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first %>
-                <%= render file: "reviews/show/" %>
+        <div class="featuredReview">
+            <% reviewID = rankedReview[:id] %>
+            <% review = Review.find(reviewID) %>
+            <% activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: review.id).first %>
+            <% type = review.reviewable_type %>
+            <div class="reviewT">
+            Review of
+            <% if type == "Song" %>
+                <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
+                <p class="jamTitle"><%= Song.find(review.reviewable_id).name %></p>
+            <% elsif type == "PastGig" %>
+                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= @review.id %>">
+            <% end %>
             </div>
-            <div class="expandReview">Read and comment on review</div>
+            <div class="likerNumber">
+                <% likers = @review.likers(User).count %>
+                <% if likers == 1 %>
+                    <%= likers %> like
+                <% else %>
+                    <%= likers %> likes
+                <% end %>
+            </div>
         </div>
     <% end %>
     <div class="mainInfinite-scrolling">
       <%= will_paginate @topReviews, renderer: BootstrapPagination::Rails %>
     </div>
 <% end %>
-    
