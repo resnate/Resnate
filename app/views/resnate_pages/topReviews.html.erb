@@ -11,31 +11,32 @@
             <% elsif type == "PastGig" %>
                 <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="featuredImg reviewGigs<%= review.id %>">
             <% end %>
-            <div class="reviewT">
-            Review of
+            <div class="reviewT">Review of
             <% if review.reviewable_type == "PastGig" %>
-                <div class="reviewGigName<%= review.id %>"></div>
+                <span class="reviewGigName<%= review.id %>"></span>
             <% elsif review.reviewable_type == "Song" %>
-                <div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(review.reviewable_id).name %></div>
+                <%= Song.find(review.reviewable_id).name %>
             <% end %>
             </div>
-            <div class="likerNumber">
-                <% likers = review.likers(User).count %>
-                <% if likers == 1 %>
-                    <%= likers %> like
-                <% else %>
-                    <%= likers %> likes
-                <% end %>
-            </div>
-            <div class="commentsCount">
-                <% commentCount = activity.comment_threads.count %>
-                <% if commentCount > 0 %>
-                    <% if commentCount == 1 %>
-                        <%= commentCount %> comment
-                    <% elsif commentCount >= 2 %>
-                        <%= commentCount %> comments
+            <div class="featuredLikesNComments">
+                <div class="likerNumber">
+                    <% likers = review.likers(User).count %>
+                    <% if likers == 1 %>
+                        <%= likers %> like
+                    <% elsif likers > 1 %>
+                        <%= likers %> likes
                     <% end %>
-                <% end %>
+                </div>
+                <div class="commentsCount">
+                    <% commentCount = activity.comment_threads.count %>
+                    <% if commentCount > 0 %>
+                        <% if commentCount == 1 %>
+                            <%= commentCount %> comment
+                        <% elsif commentCount >= 2 %>
+                            <%= commentCount %> comments
+                        <% end %>
+                    <% end %>
+                </div>
             </div>
         </div>
     <% end %>
