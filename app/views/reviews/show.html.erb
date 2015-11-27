@@ -56,9 +56,8 @@
 	<% addYouTubeImages = @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
 	<% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
 	<% youTubeID = url.match(matchYoutubeUrl)[1] %>
-	<% "<img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' />" %>
+	<% "<img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewGigImgs' /><p class='hiddenSongName'></p><div class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</div>" %>
 	<% end %>
-	<%= addYouTubeImages %>
 	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
@@ -137,8 +136,33 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
                             $('.reviewGigs<%= @review.id %>').removeClass('reviewGigs<%= @review.id %>');
   });
 
+var imgUrls = [];
 
+for(j=0; j<$('.hiddenYouTubeURLs').length; j++){
+   imgUrls.push($('.hiddenYouTubeURLs').eq(j).attr('src'));
+ }
 
+for(j=0; j<$('.reviewGigImgs').length; j++){
+    $.ajax({
+      url: imgUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
+
+                    function image_link(data, i) {
+                        
+                            console.log(data);
+                          
+                    }
+        
+      }
+    });
+    
+    
+  }
   
 
 </script>

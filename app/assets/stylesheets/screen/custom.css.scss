@@ -185,7 +185,7 @@ textarea {
   display: inline-block;
 }
 
-.hiddenSongName, .commentURL, .pgID, #hiddenSongID, .hiddenSongID, .hiddenActivityID, .hiddenLikerID, .pgReviewID {
+.hiddenSongName, .commentURL, .pgID, #hiddenSongID, .hiddenSongID, .hiddenActivityID, .hiddenLikerID, .pgReviewID, .hiddenYouTubeURLs {
   display: none;
 }
 
@@ -1508,6 +1508,13 @@ tr {
   margin: 10px 0px;
   line-height: 2em;
   height: 100%;
+}
+
+.reviewGigImgs {
+
+  padding: 10px;
+  margin-left: calc(50% - 260px);
+
 }
 
 .editReview, .deleteReview, .cancelReview, .saveReviewButton, .cancelReviewButton {
