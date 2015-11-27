@@ -1467,16 +1467,23 @@ tr {
 
 .reviewT {
  margin-bottom: 15px; 
- font-size: 1.5em;
  display: inline-block;
  vertical-align: top;
  margin-left: 10px;
+}
+
+.featuredReviewTitle {
+ font-size: 1.5em;
 }
 
 .featuredLikesNComments {
   display: inline-block;
   vertical-align: top;
   margin-left: 20px;
+  
+}
+
+.commentsCount {
   font-size: 1.5em;
 }
 
