@@ -26,7 +26,10 @@ class ReviewsController < ApplicationController
   def show
     @review = Review.find(params[:id])
     @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first
-    render :layout => false
+    respond_to do |format|
+      format.html { render :layout => false }
+      format.json
+    end
   end
 
   def pl
