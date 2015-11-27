@@ -842,7 +842,7 @@ function friendsLikeArtist(){
         $(document).on('click', ".cancelGigReview", function(event){
           var reviewContent = $(this).siblings('.updateReview')
           var contentText = $(reviewContent).val().replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
-            console.log($0);
+            return ($0);
           }) ;
           $(reviewContent).replaceWith('<div class="reviewContent">' + contentText + '</div>');
           $(this).css('display', 'none');
