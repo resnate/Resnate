@@ -11,7 +11,9 @@
             <% elsif type == "PastGig" %>
                 <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="featuredImg featuredGigs">
             <% end %>
-            <div class="featuredReviewT"><div class="featuredReviewTitle">Review of
+            <div class="featuredReviewT">
+                <div class="hiddenReviewID"><%= reviewID %></div>
+                <div class="featuredReviewTitle">Review of
             <% if review.reviewable_type == "PastGig" %>
                 <span class="featuredGigName"></span>
             <% elsif review.reviewable_type == "Song" %>

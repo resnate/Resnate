@@ -1461,7 +1461,7 @@ tr {
   padding: 15px;
   margin-bottom: 15px;
   height: 130px;
-  cursor: pointer;
+  
   color: white;
   position: relative;
 }
@@ -1483,6 +1483,7 @@ tr {
  font-size: 1.2em;
  height: 2.4em;
  overflow: hidden;
+ cursor: pointer;
 }
 
 .featuredLikesNComments {
