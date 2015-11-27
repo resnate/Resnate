@@ -842,7 +842,7 @@ function friendsLikeArtist(){
         $(document).on('click', ".cancelGigReview", function(event){
           var reviewContent = $(this).siblings('.updateReview')
           var contentText = $(reviewContent).val().replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
-            return ($0);
+            return ("<img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p>");
           }) ;
           $(reviewContent).replaceWith('<div class="reviewContent">' + contentText + '</div>');
           $(this).css('display', 'none');
