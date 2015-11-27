@@ -52,11 +52,11 @@
 		</div>
 		
 	</div>
-	<% sanitizedContent = sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<"), tags: %w(br) %>
-	<% addYouTubeImages = sanitizedContent.gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
+	
+	<% addYouTubeImages = @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
 	<% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
 	<% youTubeID = url.match(matchYoutubeUrl)[1] %>
-	<% "<img src='#{youTubeID}' />" %>
+	<% "<img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' />" %>
 	<% end %>
 	<div class="reviewContent"><%= sanitize addYouTubeImages.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<"), tags: %w(br, img) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
