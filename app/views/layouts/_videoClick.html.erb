@@ -19,7 +19,7 @@ $('#infoID').val(videoID);
       } else if($(this).hasClass('songName')) {
         var songName = $(this).html().trim();
       } else if($(this).hasClass('reviewYouTubeImgs')) {
-        var songName = $(this).siblings('.hiddenSongName').text().trim();
+        var songName = $(this).nextSibling.innerHTML;
       }
        else {
       var songName = $(this).siblings('p').text().trim();
