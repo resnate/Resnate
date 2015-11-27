@@ -1480,7 +1480,9 @@ tr {
 }
 
 .featuredReviewTitle {
- font-size: 1.3em;
+ font-size: 1.2em;
+ height: 2.4em;
+ overflow: hidden;
 }
 
 .featuredLikesNComments {
@@ -1490,15 +1492,19 @@ tr {
   
 }
 
-.reviewLevelNameNPoints {
+.reviewerInfo {
   display: inline-block;
   margin-left: 5px;
 }
 
-.reviewerInfo {
+.reviewLevelNameNPoints {
+  display: inline-block;
+}
+
+.featuredReviewerInfo {
   position: absolute;
-  bottom: 30px;
-  left: 200px;
+  bottom: 25px;
+  left: 190px;
 }
 
 .reviewerBadge {
@@ -1595,7 +1601,7 @@ tr {
 }
 
 .reviewerPic {
-  height: 60px;
+  height: 50px;
   position: absolute;
   bottom: 15px;
   cursor: pointer;
