@@ -18,6 +18,8 @@ $('#infoID').val(videoID);
         var songName = $(this).find('.latestSongName').text().trim();
       } else if($(this).hasClass('songName')) {
         var songName = $(this).html().trim();
+      } else if($(this).hasClass('reviewGigImgs')) {
+        var songName = $(this).siblings('.hiddenSongName').text().trim();
       }
        else {
       var songName = $(this).siblings('p').text().trim();
