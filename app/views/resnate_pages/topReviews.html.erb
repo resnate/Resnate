@@ -15,7 +15,7 @@
             <% end %>
             </div>
             <div class="likerNumber">
-                <% likers = @review.likers(User).count %>
+                <% likers = review.likers(User).count %>
                 <% if likers == 1 %>
                     <%= likers %> like
                 <% else %>
