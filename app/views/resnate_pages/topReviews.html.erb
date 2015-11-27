@@ -9,11 +9,11 @@
                 <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="featuredImg reviewSongImg" >
                 <p class="jamTitle"><%= Song.find(review.reviewable_id).name %></p>
             <% elsif type == "PastGig" %>
-                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="featuredImg reviewGigs<%= review.id %>">
+                <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="featuredImg featuredGigs reviewGigs<%= review.id %>">
             <% end %>
             <div class="reviewT">Review of
             <% if review.reviewable_type == "PastGig" %>
-                <span class="reviewGigName<%= review.id %>"></span>
+                <span class="featuredGigName%>"></span>
             <% elsif review.reviewable_type == "Song" %>
                 <%= Song.find(review.reviewable_id).name %>
             <% end %>
@@ -72,10 +72,9 @@
 
 var url = $('.reviewGigs<%= review.id %>').attr('src');
   $.getJSON(url, function(data){
-    $('.reviewGigs<%= review.id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
+    $('.featuredGigs').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
-                            $('.reviewGigName<%= review.id %>').html(data.resultsPage.results.event.displayName);
-                            $('.reviewGigs<%= review.id %>').removeClass('reviewGigs<%= review.id %>');
+                            $('.featuredGigName').html(data.resultsPage.results.event.displayName);
   });
 
 </script>
