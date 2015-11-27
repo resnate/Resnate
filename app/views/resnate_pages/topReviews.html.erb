@@ -13,7 +13,7 @@
             <% end %>
             <div class="reviewT"><div class="featuredReviewTitle">Review of
             <% if review.reviewable_type == "PastGig" %>
-                <span class="featuredGigName%>"></span>
+                <span class="featuredGigName"></span>
             <% elsif review.reviewable_type == "Song" %>
                 <%= Song.find(review.reviewable_id).name %>
             <% end %></div>
@@ -70,15 +70,34 @@
 
 <script type="text/javascript">
 
-var url = $('.featuredGigs').attr('src');
+var imgUrls = [];
 
-  $.getJSON(url, function(data){
+for(j=0; j<$('.featuredGigs').length; j++){
+   imgUrls.push($('.featuredGigs').eq(j).attr('src'));
+ }
 
-    $('.featuredGigs').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
+ for(j=0; j<$('.featuredGigs').length; j++){
+    $.ajax({
+      url: imgUrls[j],
+      indexValue: j,
+      async: false,
+      dataType: 'json',
+      success: function(json) {
+        
+        image_link(json , this.indexValue);
 
-    $('.featuredGigName').html(data.resultsPage.results.event.displayName);
+                    function image_link(data, i) {
+                        
+                            $('.featuredGigs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
-  });
+                            $('.featuredGigName').eq(i).html(data.resultsPage.results.event.displayName);
+                          
+                    }
+                }
+        });
+    
+    
+  }
 
 </script>
 <% end %>
