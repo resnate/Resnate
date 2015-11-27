@@ -59,7 +59,7 @@
 	<% "<img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' />" %>
 	<% end %>
 	<%= addYouTubeImages %>
-	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br) %></div>
+	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br, img) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
 	<% unless current_user.nil? %>
