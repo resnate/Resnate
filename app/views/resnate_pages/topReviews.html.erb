@@ -66,7 +66,7 @@
     <div class="mainInfinite-scrolling">
       <%= will_paginate @topReviews, renderer: BootstrapPagination::Rails %>
     </div>
-<% end %>
+
 
 <script type="text/javascript">
 
@@ -79,3 +79,4 @@ var url = $('.reviewGigs<%= review.id %>').attr('src');
   });
 
 </script>
+<% end %>
