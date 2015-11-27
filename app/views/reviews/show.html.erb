@@ -139,7 +139,7 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
 var imgUrls = [];
 
 for(j=0; j<$('.hiddenYouTubeURLs').length; j++){
-   imgUrls.push($('.hiddenYouTubeURLs').text());
+   imgUrls.push($('.hiddenYouTubeURLs').eq(j).text());
  }
 
 for(j=0; j<$('.reviewGigImgs').length; j++){
