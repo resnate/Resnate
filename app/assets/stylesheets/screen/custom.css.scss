@@ -1476,6 +1476,7 @@ tr {
  display: inline-block;
  vertical-align: top;
  margin-left: 10px;
+ width: calc(100% - 300px);
 }
 
 .featuredReviewTitle {
@@ -1489,9 +1490,15 @@ tr {
   
 }
 
-.reviewerInfo, .reviewLevelNameNPoints {
+.reviewLevelNameNPoints {
   display: inline-block;
   margin-left: 5px;
+}
+
+.reviewerInfo {
+  position: absolute;
+  bottom: 30px;
+  left: 200px;
 }
 
 .reviewerBadge {
