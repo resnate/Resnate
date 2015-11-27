@@ -1460,7 +1460,7 @@ tr {
   background-color: #801336;
   padding: 15px;
   margin-bottom: 15px;
-  height: 200px;
+  height: 130px;
   cursor: pointer;
   color: white;
 }
@@ -1473,7 +1473,7 @@ tr {
 }
 
 .featuredReviewTitle {
- font-size: 1.5em;
+ font-size: 1.3em;
 }
 
 .featuredLikesNComments {
@@ -1481,10 +1481,6 @@ tr {
   vertical-align: top;
   margin-left: 20px;
   
-}
-
-.commentsCount {
-  font-size: 1.5em;
 }
 
 .reviewerInfo, .reviewLevelNameNPoints {
@@ -1567,7 +1563,8 @@ tr {
 }
 
 .featuredImg {
-  height: 170px;
+  height: 100px;
+  width: 100px;
   display: inline-block;
 }
 

@@ -31,14 +31,6 @@
                 <div class="reviewLevelNameNPoints">
                     <%= User.find(review.user_id).level_name %> <%= User.find(review.user_id).points %> points
                 </div>
-                <div class="reviewFollowers">
-                <% followerCount = User.find(review.user_id).followers(User).count %>
-                <% if followerCount == 1 %>
-                    <%= followerCount %> follower
-                <% elsif followerCount > 1 %>
-                    <%= followerCount %> followers
-                <% end %>
-                </div>
             </div>
             </div>
             <div class="featuredLikesNComments">
@@ -48,16 +40,6 @@
                         <%= likers %> like
                     <% elsif likers > 1 %>
                         <%= likers %> likes
-                    <% end %>
-                </div>
-                <div class="commentsCount">
-                    <% commentCount = activity.comment_threads.count %>
-                    <% if commentCount > 0 %>
-                        <% if commentCount == 1 %>
-                            <%= commentCount %> comment
-                        <% elsif commentCount >= 2 %>
-                            <%= commentCount %> comments
-                        <% end %>
                     <% end %>
                 </div>
             </div>
