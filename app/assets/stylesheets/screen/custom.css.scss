@@ -1457,29 +1457,11 @@ tr {
 }
 
 .featuredReview {
-  background-color: white;
+  background-color: #E50049;
   padding: 15px;
-  border: 1px solid #d7d7d7;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 7;
-  -webkit-box-orient: vertical;
-  position: relative;
-  height: 375px;
-  &:after {
-
-      content: "";
-      text-align: right;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 70%;
-      height: 1.2em;
-      background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 90%);
-
-
-  }
+  height: 200px;
+  cursor: pointer;
+  color: white;
 }
 
 .reviewT {
@@ -1564,6 +1546,10 @@ tr {
 .reviewImg {
   width: 250px;
   cursor: pointer;
+}
+
+.featuredImg {
+  width: 200px;
 }
 
 .likerNumber {
