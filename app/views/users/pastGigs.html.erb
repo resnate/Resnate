@@ -127,7 +127,7 @@ var gigUrls = [];
   });
 
   $('.writeSongReview').click(function(){
-    $.get( '/Song/' + $(this).siblings('.pgID').html() + '/writeReview/', function(review){
+    $.get( '/Song/' + $('#csImg').siblings('.hiddenSongID').html() + '/writeReview/', function(review){
       $('.reviewModalBody').html(review);
     });
   });

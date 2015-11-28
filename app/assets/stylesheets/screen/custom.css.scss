@@ -1528,7 +1528,8 @@ tr {
 }
 
 .writeSongReview {
-  margin-left: 20px;
+  margin-left: calc(50% - 500px);
+  vertical-align: top;
 }
 
 .editDeleteBkgd {
