@@ -2117,5 +2117,12 @@ $('#topPhoto').click(function(){
 });
 
 
+  $('.writeSongReview').click(function(){
+    $.get( '/Song/' + $('#csImg').siblings('.hiddenSongID').html() + '/writeReview/', function(review){
+      $('.reviewModalBody').html(review);
+    });
+  });
+
+
 <% end %>
 </script>
