@@ -1522,9 +1522,13 @@ tr {
 
 }
 
-.editReview, .deleteReview, .cancelReview, .saveReviewButton, .cancelReviewButton {
+.editReview, .deleteReview, .cancelReview, .saveReviewButton, .cancelReviewButton, .editDeleteBkgd, .writeSongReview {
   display: inline-block;
   cursor: pointer;
+}
+
+.writeSongReview {
+  margin-left: 20px;
 }
 
 .editDeleteBkgd {
@@ -1537,6 +1541,10 @@ tr {
 .saveReview, .cancelGigReview {
   display: none;
   cursor: pointer;
+}
+
+.reviewableID {
+  display: none;
 }
 
 .deleteReviewPrompt {
