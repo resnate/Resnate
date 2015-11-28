@@ -16,6 +16,12 @@ class ReviewsController < ApplicationController
     @activity.destroy
   end
 
+  def writeReview
+    @type = params[:type]
+    @reviewableID = params[:id]
+    render :layout => false
+  end
+
   def update
     @review = Review.find(params[:id])
     @content = params[:content]

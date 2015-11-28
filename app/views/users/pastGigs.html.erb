@@ -36,7 +36,7 @@
         
         <div class="pgID"><%= pg.id %></div>
         <% if pg.review.nil? && current_user.id == @user.id %>
-        <div class="reviewButton writeReview" data-toggle="modal" data-target="#reviewModal">Write a Review</div>
+        <div class="reviewButton writeGigReview" data-toggle="modal" data-target="#reviewModal">Write a Review</div>
         <% elsif pg.review.present?%>
         <div class="pgReviewID"><%= pg.review.id %></div>
         <div class="reviewButton reviewPresent" data-toggle="modal" data-target="#reviewModal">Review</div>
@@ -120,8 +120,14 @@ var gigUrls = [];
     });
   });
 
-  $('.writeReview').click(function(){
-    $.get( $(this).siblings('.pgID').html() + '/writeGigReview/', function(review){
+  $('.writeGigReview').click(function(){
+    $.get( '/PastGig/' + $(this).siblings('.pgID').html() + '/writeReview/', function(review){
+      $('.reviewModalBody').html(review);
+    });
+  });
+
+  $('.writeSongReview').click(function(){
+    $.get( '/Song/' + $(this).siblings('.pgID').html() + '/writeReview/', function(review){
       $('.reviewModalBody').html(review);
     });
   });

@@ -515,15 +515,6 @@ body {
   margin-top: 15px;
 }
 
-#songReviewInput {
-  display: inline-block;
-  vertical-align: top;
-  min-width: 300px;
-  width: calc(100% - 760px);
-  height: 140px;
-  margin: 5px 0px 0px 10px;
-  color: black;
-}
 
 #songReviewContent {
   display: inline-block;
@@ -1411,7 +1402,7 @@ tr {
 .hiddenPlaylistID, .hiddenYTName, .sharePlaylistID, #shareSubmit, #messageURL,
 #infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrentID, #stopID, .btn-default, .invisCount,
 #hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #hiddenPastGigsIDs, #pastSongkickGigID, .reviewGigID, #pastGigIDsSubmit, #new_gig, .lol, .hiddenUserID, .hiddenGigLocation, .hiddenArtistName, .hiddenGigDate, .hiddenReviewID, .infinite-scrolling .pagination, #hiddenFolloweesIDs,
-#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID, #callbackID, .hiddenActivityType, .mainInfinite-scrolling {
+#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID, .hiddenActivityType, .mainInfinite-scrolling {
   display: none;
 }
 
@@ -1481,7 +1472,7 @@ tr {
 
 .featuredReviewTitle {
  font-size: 1.2em;
- height: 2.4em;
+ height: 2.6em;
  overflow: hidden;
  cursor: pointer;
 }
@@ -1511,6 +1502,7 @@ tr {
 .reviewerBadge {
   height: 2em;
   display: inline-block;
+  margin-right: 5px;
 }
 
 .reviewContent {
@@ -1622,11 +1614,11 @@ tr {
   width: calc(100% - 325px);
 }
 
-.pastGigreviewInput, .updateReview {
+.newReviewInput, .updateReview {
   width: 100%;
 }
 
-.pastGigreviewInput {
+.newReviewInput {
   height: 20em;
 }
 

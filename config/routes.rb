@@ -66,11 +66,11 @@ Resnate::Application.routes.draw do
 
   get "/:setlistURL/setlist" => "past_gigs#setlist"
   post "/:user/pastMultipleCreate" => "past_gigs#pastMultipleCreate"
-  get "/:id/writeGigReview" => "past_gigs#writeGigReview"
 
   post "/reviews/:id/reviewLike" => "reviews#like"
   post "/reviews/:id/reviewUnlike" => "reviews#unlike"
   get "/reviews/:id/pl" => "reviews#pl"
+  get "/:type/:id/writeReview" => "reviews#writeReview"
   
   get "/:commentable_type/:commentable_id/comments/index" => "comments#index"
   post "/:commentable_type/:commentable_id/comments/create" => "comments#create"

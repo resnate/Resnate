@@ -266,7 +266,7 @@
   
   
   
-  <textarea id="songReviewInput" placeholder="Write a review for this song, album or concert."></textarea>
+  <div class="reviewButton writeSongReview" data-toggle="modal" data-target="#reviewModal">Write a Review</div>
   
 
   <span class="glyphicon glyphicon-chevron-down"></span>
@@ -803,11 +803,11 @@ function friendsLikeArtist(){
 });
 
 
-        $(document).on('click', ".saveReviewButton", function(event){
+        $(document).on('click', ".saveGigReviewButton", function(event){
   
     
   var contentText = $(this).siblings('.noReview').val();
-  var ID = $(this).siblings('.pgID').html();
+  var ID = $(this).siblings('.reviewableID').html();
   $.post('/reviews', { review: { reviewable_id: ID, reviewable_type: "PastGig", content: contentText } } ).done(function( data ) {
     $.get('/reviews/' + data, function(review){
       $('.reviewModalBody').html(review);
@@ -816,6 +816,19 @@ function friendsLikeArtist(){
   $.get("<%= @user.id %>/pastGigs", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
+});
+
+        $(document).on('click', ".saveSongReviewButton", function(event){
+  
+    
+  var contentText = $(this).siblings('.noReview').val();
+  var ID = $(this).siblings('.reviewableID').html();
+  $.post('/reviews', { review: { reviewable_id: ID, reviewable_type: "Song", content: contentText } } ).done(function( data ) {
+    $.get('/reviews/' + data, function(review){
+      $('.reviewModalBody').html(review);
+      $('#reviewModal').modal('show');
+    });
+  });
 });
 
         $(document).on('click', ".cancelReviewButton", function(event){

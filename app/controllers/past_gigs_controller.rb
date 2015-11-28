@@ -34,12 +34,6 @@ class PastGigsController < ApplicationController
       render :layout => false
     end
 
-    def writeGigReview
-      @pg = PastGig.find(params[:id])
-      render :layout => false
-    end
-
-
   	private
 
     def past_gig_params
