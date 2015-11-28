@@ -1,0 +1,10 @@
+<textarea class="newReviewInput noReview" placeholder="Write a review of to your heart's extent (as long as your heart's extent is less than 5000 characters)!"></textarea>
+
+
+<% if @type == "PastGig" %>
+	<div class="saveGigReviewButton editDeleteBkgd">Save</div>
+<% elsif @type == "Song" %>
+	<div class="saveSongReviewButton editDeleteBkgd">Save</div>
+<% end %>
+<div class="cancelReviewButton editDeleteBkgd" data-toggle="modal" data-target="#reviewModal">Cancel</div>
+<div class="reviewableID"><%= @reviewableID %></div>
