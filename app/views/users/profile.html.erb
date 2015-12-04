@@ -30,10 +30,6 @@
 
     <% end %>
     <div class="points profilePoints"><%= @user.points %></div>
-
-    
-
-    <div id="followsAndButtons">
     
 
     <% if current_user.follows?(@user) %>
@@ -51,8 +47,8 @@
 
       <% else %>
   
-        <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :post , class: "follow", style: "display: block" %>
-        <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :post , class: "unfollow", style: "display: none" %>
+        <%= button_to "Follow", follow_path(user: @user.id) , remote: true, html: { style: 'display:inline-block;' }, method: :post , class: "follow", style: "display: block" %>
+        <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, html: { style: 'display:inline-block;' }, method: :post , class: "unfollow", style: "display: none" %>
         <span class="hiddenID"><%= @user.id %></span>
         <!-- <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span> -->
       <% end %>
@@ -68,15 +64,10 @@
       <h5><%= @user.followers(User).count %></h5>
     </div>
 
-    </div>
-
     <div id="userBadges">
         <h4>Badges</h4>
         <% @user.badges.reverse.take(3).each do |badge| %>
-          <div class="badgesDiv">
-            <%= image_tag (badge.custom_fields[:image]), class: 'badgeImg' %>
-          </div>
-          
+          <%= image_tag (badge.custom_fields[:image]), class: 'badgeImg' %>
         <% end %>
     </div>
   </div>
