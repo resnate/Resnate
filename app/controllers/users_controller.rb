@@ -159,7 +159,7 @@ end
         @percentToNextLevel = (points - 25)/75
         @pointsToNextLevel = 100 - points
       elsif points < 500
-        @percentToNextLevel (points - 100)/400
+        @percentToNextLevel = (points - 100)/400
         @pointsToNextLevel = 500 - points
       elsif points < 1000
         @percentToNextLevel = (points - 500)/500
