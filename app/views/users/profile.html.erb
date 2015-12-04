@@ -34,7 +34,15 @@
       <!-- <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span> -->
 
     <% else %>
-      <% unless current_user == @user %>
+      <% if current_user == @user %>
+
+      <div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+    <span class="sr-only">60% Complete</span>
+  </div>
+</div>
+
+      <% else %>
   
         <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :post , class: "follow", style: "display: block" %>
         <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :post , class: "unfollow", style: "display: none" %>
@@ -52,7 +60,7 @@
       <h4>Followers</h4>
       <h5><%= @user.followers(User).count %></h5>
     </div>
-    
+
     </div>
 
     <div id="userBadges">
