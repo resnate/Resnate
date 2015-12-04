@@ -147,25 +147,25 @@ end
       @review = Review.where(user_id: @user.id).last
       points = @user.points
       if points < 5
-        @percentToNextLevel = points/5
+        @percentToNextLevel = points/5.0
         @pointsToNextLevel = 5 - points
       elsif points < 10
-        @percentToNextLevel = (points - 5)/5
+        @percentToNextLevel = (points - 5)/5.0
         @pointsToNextLevel = 10 - points
       elsif points < 25
-        @percentToNextLevel = (points - 10)/15
+        @percentToNextLevel = (points - 10)/15.0
         @pointsToNextLevel = 25 - points
       elsif points < 100
-        @percentToNextLevel = (points - 25)/75
+        @percentToNextLevel = (points - 25)/75.0
         @pointsToNextLevel = 100 - points
       elsif points < 500
-        @percentToNextLevel = (points - 100)/400
+        @percentToNextLevel = (points - 100)/400.0
         @pointsToNextLevel = 500 - points
       elsif points < 1000
-        @percentToNextLevel = (points - 500)/500
+        @percentToNextLevel = (points - 500)/500.0
         @pointsToNextLevel = 1000 - points
       elsif points < 10000
-        @percentToNextLevel = (points - 1000)/9000
+        @percentToNextLevel = (points - 1000)/9000.0
         @pointsToNextLevel = 10000 - points
       end
 
