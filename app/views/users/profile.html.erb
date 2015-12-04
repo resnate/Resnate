@@ -19,68 +19,13 @@
     
 
     <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
-    <h4><%= @user.name %></h4>
-     <% if @user.level_name == "Filthy Casual" %>   
-      <div class="levelName filthy">
-      <%= @user.level_name %>
-      </div>
-
-    <% elsif @user.level_name == "Hipster" %> 
-    <%= image_tag "HipsterGlasses.png", class: "hipsterSwag" %>   
-      <div class="levelName hipster">
-      <%= @user.level_name %>
-      </div>
-
-    <% elsif @user.level_name == "UberHipster" %>
-      <%= image_tag "UberHipsterTache.png", class: "hipsterSwag" %> 
-      <div class="levelName uberHipster">
-          <%= @user.level_name %>
-      </div>
-      
-    <% elsif @user.level_name == "Groupie" %>   
-    <%= image_tag "Groupie.png", class: "hipsterSwag" %> 
-      <div class="levelName groupie">
-      <%= @user.level_name %>
-      </div>
-
-    <% elsif @user.level_name == "SuperGroupie" %>
-    <%= image_tag "SuperGroupie.png", class: "hipsterSwag" %> 
-      <div class="levelName superGroupie">
-      <%= @user.level_name %>
-      </div>
-
-    <% elsif @user.level_name == "Rock Star" %> 
-    <%= image_tag "Rock_Star.png", class: "hipsterSwag" %>   
-      <div class="levelName rockStar">
-      <%= @user.level_name %>
-      </div>
-
-    <% elsif @user.level_name == "Rap God" %>   
-      <div class="levelName rapGod">
-      <%= @user.level_name %>
-      </div>
-
-    <% elsif @user.level_name == "BIGGER THAN JESUS" %>   
-      <div class="levelName">
-        <font color="red">BI</font><font color="orange">GG</font><font color="yellow">ER </font></font><font color="green">TH</font><font color="blue">AN </font><font color="indigo">JE</font><font color="violet">SUS</font>
-      </div>
-
-    <% end %>
-
-    <div class="points"><%= @user.points %></div>
+    <h4 class="profileNameBig"><%= @user.name %></h4>
+    <div class="points profilePoints"><%= @user.points %></div>
 
     
 
     <div id="followsAndButtons">
-    <div id="follows" data-toggle="modal" data-target="#genericModal">
-      <h4>Following</h4>
-      <h5> <%= @user.followees(User).count %></h5>
-    </div>
-
-    <div id="followers" data-toggle="modal" data-target="#genericModal">
-      <h4>Followers</h4>
-      <h5><%= @user.followers(User).count %></h5>
-    </div>
+    
 
     <% if current_user.follows?(@user) %>
   
@@ -97,6 +42,17 @@
         <!-- <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span> -->
       <% end %>
     <% end %>
+
+    <div id="follows" data-toggle="modal" data-target="#genericModal">
+      <h4>Following</h4>
+      <h5> <%= @user.followees(User).count %></h5>
+    </div>
+
+    <div id="followers" data-toggle="modal" data-target="#genericModal">
+      <h4>Followers</h4>
+      <h5><%= @user.followers(User).count %></h5>
+    </div>
+    
     </div>
 
     <div id="userBadges">

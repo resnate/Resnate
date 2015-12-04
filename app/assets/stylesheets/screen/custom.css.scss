@@ -105,7 +105,7 @@ textarea {
   display: inline-block;
   height: calc(50% - 51px);
   padding: 7.5px;
-  width: 250px;
+  width: 249px;
   margin-left: -3px;
   text-align: center;
   a {
@@ -426,7 +426,7 @@ body {
 }
 
 .sidePlaylistName, .sideLikedName, .sideNewPlaylistName {
-  width: calc(100% - 83px);
+  width: calc(100% - 84px);
   display: inline-block;
   padding: 4px;
   font-weight: bold;
@@ -1021,7 +1021,7 @@ img {border:none;}
   }
 
 .gigBlocks, #noPastGigs, #noUpcomingGigs, #noSongkick, .profileActivity, #topFive {
-  margin: 0px 25px 30px 20px;
+  margin: 25px;
 }
 
 .latest {
@@ -1037,7 +1037,7 @@ img {border:none;}
 
 .latestContent {
   display: inline-block;
-  width: 592px;
+  width: 591px;
   vertical-align: top;
 }
 
@@ -1675,6 +1675,14 @@ tr {
 #profilePicBig {
   height: 115px;
   margin-bottom: 15px;
+  display: inline-block;
+}
+
+.profileNameBig {
+  width: 150px;
+  display: inline-block;
+  margin-left: 10px;
+
 }
 
 .profileInfo {
@@ -1713,6 +1721,14 @@ tr {
   text-align: center !important;
 }
 
+.profilePoints {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 90px;
+  font-weight: normal;
+  vertical-align: top;
+}
+
 .filthy {
   color: peru;
 }
@@ -1726,8 +1742,9 @@ tr {
 }
 
 .hipsterSwag {
-  height: 60px;
+  height: 115px;
   margin-left: 27.5px;
+  display: inline-block;
 }
 
 .groupie {
