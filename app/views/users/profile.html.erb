@@ -17,7 +17,7 @@
 
   <div class="profileActivity">
     
-
+    <div class="topDetails">
     <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
     <h4 class="profileNameBig"><%= @user.name %></h4>
     <% if @user.level_name == "Filthy Casual" %>   
@@ -33,14 +33,15 @@
     
 
     <% if current_user == @user %>
-
+      <% percent = @percentToNextLevel * 100 %>
       <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-          384 points to next level
+        <div class="progress-bar" role="progressbar" aria-valuenow="#{percent}" aria-valuemin="0" aria-valuemax="100" style="width: #{percent}%;">
+          <%= @pointsToNextLevel %> points to next level
         </div>
       </div>
 
     <% end %>
+    </div>
 
     <div id="followsAndButtons">
     <div id="follows" data-toggle="modal" data-target="#genericModal">

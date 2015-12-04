@@ -1681,6 +1681,7 @@ tr {
   display: inline-block;
   vertical-align: top;
   form.button_to {
+    display: inline-block;
     max-width: 115px;
     margin-top: 20px;
   }
@@ -2053,10 +2054,6 @@ tr {
   display: inline-block;
   margin-left: 10px;
   height: 90px;
-}
-
-.button_to {
-  display: inline-block;
 }
 
 .fUl {
