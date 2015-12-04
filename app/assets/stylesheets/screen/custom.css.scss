@@ -995,7 +995,6 @@ img {border:none;}
 
 .profileActivity {
   max-height: 475px;
-  width: 725px;
   overflow: hidden;
   vertical-align: top;
   text-align: left;
@@ -1279,7 +1278,9 @@ tr {
   }
 
 #userBadges {
-  padding-top: 10px;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 30px;
   cursor: pointer;
 }
 
@@ -1694,7 +1695,7 @@ tr {
 }
 
 #followsAndButtons {
-  height: 115px;
+  display: inline-block;
 }
 
 .levelName {
