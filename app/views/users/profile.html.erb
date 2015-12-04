@@ -47,8 +47,8 @@
 
       <% else %>
   
-        <%= button_to "Follow", follow_path(user: @user.id) , remote: true, html: { style: 'display:inline-block;' }, method: :post , class: "follow", style: "display: block" %>
-        <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, html: { style: 'display:inline-block;' }, method: :post , class: "unfollow", style: "display: none" %>
+        <%= button_to "Follow", follow_path(user: @user.id) , remote: true, method: :post , class: "follow", style: "display: block" %>
+        <%= button_to "Unfollow", unfollow_path(user: @user.id) , remote: true, method: :post , class: "unfollow", style: "display: none" %>
         <span class="hiddenID"><%= @user.id %></span>
         <!-- <span class="glyphicon glyphicon-envelope privateMsg" data-toggle="modal" data-target="#genericModal" ></span> -->
       <% end %>

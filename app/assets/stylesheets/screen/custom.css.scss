@@ -1279,20 +1279,13 @@ tr {
   }
 
 #userBadges {
-  width: 250px;
   padding-top: 10px;
   cursor: pointer;
 }
 
-.badgesDiv {
-  display: inline-block;
-  width: 70px;
-}
-
 .badgeImg {
-  margin-right: 10px;
-  width: 50px;
-  max-height: 50px;
+  margin-right: 30px;
+  width: 90px;
   display: inline-block;
   text-align: center !important;
 }
@@ -1462,7 +1455,7 @@ tr {
 
 .reviewT {
  margin-bottom: 15px; 
- font-size: 1.5em;
+ font-size: 2.5em;
 }
 
 .featuredReviewT {
@@ -1510,9 +1503,7 @@ tr {
 
 .reviewContent {
   text-align: left;
-}
-
-.reviewContent {
+  font-size: 1.5em;
   margin: 10px 0px;
   line-height: 2em;
   height: 100%;
@@ -1690,9 +1681,12 @@ tr {
   vertical-align: top;
   form.button_to {
     max-width: 115px;
-    display: inline-block;
     margin-top: 20px;
   }
+}
+
+.progress {
+  margin-top: 20px;
 }
 
 .progress-bar {
@@ -2059,7 +2053,7 @@ tr {
   height: 90px;
 }
 
-.feedShares .button_to {
+.button_to {
   display: inline-block;
 }
 
