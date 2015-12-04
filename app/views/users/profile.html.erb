@@ -1,5 +1,5 @@
 
-  <div class="gigBlocks" >
+  <!--<div class="gigBlocks" >
     <h4 id="getLikes" data-toggle="modal" data-target="#genericModal" onclick="getLikes">
       Artists <%=@user.first_name%> Likes
     </h4>
@@ -13,14 +13,13 @@
       <% end %>
     <% end %>
   </ul>
-  </div>
+  </div>-->
 
-  <div class="gigBlocks">
-    <h4><%= @user.name %></h4>
+  <div class="profileActivity">
+    
 
-    <div class="profileInfo profileInfoLeft">
     <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
-
+    <h4><%= @user.name %></h4>
      <% if @user.level_name == "Filthy Casual" %>   
       <div class="levelName filthy">
       <%= @user.level_name %>
@@ -44,12 +43,14 @@
       <%= @user.level_name %>
       </div>
 
-    <% elsif @user.level_name == "SuperGroupie" %>   
+    <% elsif @user.level_name == "SuperGroupie" %>
+    <%= image_tag "SuperGroupie.png", class: "hipsterSwag" %> 
       <div class="levelName superGroupie">
       <%= @user.level_name %>
       </div>
 
-    <% elsif @user.level_name == "Rock Star" %>   
+    <% elsif @user.level_name == "Rock Star" %> 
+    <%= image_tag "Rock_Star.png", class: "hipsterSwag" %>   
       <div class="levelName rockStar">
       <%= @user.level_name %>
       </div>
@@ -66,12 +67,10 @@
 
     <% end %>
 
-    <div class="points"><%= @user.points %> points</div>
+    <div class="points"><%= @user.points %></div>
 
     
-    </div>
 
-    <div class="profileInfo profileInfoRight">
     <div id="followsAndButtons">
     <div id="follows" data-toggle="modal" data-target="#genericModal">
       <h4>Following</h4>
@@ -105,11 +104,9 @@
         <% @user.badges.reverse.take(3).each do |badge| %>
           <div class="badgesDiv">
             <%= image_tag (badge.custom_fields[:image]), class: 'badgeImg' %>
-            <div class="badgesName"><%= badge.name %></div>
           </div>
           
         <% end %>
-    </div>
     </div>
   </div>
 

@@ -13,7 +13,7 @@ body {
   background-image: image-url("testBkgd.jpg");
   background-repeat:no-repeat;
     background-position: 50% 50%;
-    font-family: 'Lato', "Helvetica", sans-serif;
+    font-family: 'HelveticaNeue-Light', "Lato", sans-serif;
     font-size: 12px;
 }
 
@@ -577,6 +577,7 @@ body {
   height: 40px;
   float: right;
   display: inline-block;
+  cursor: pointer;
 }
 
 #InfoShare {
@@ -622,6 +623,7 @@ body {
 #currentShare {
   float: right;
   margin-top: 37.5px;
+  margin-right: 10px;
 }
 
 #csImg, .playlistCsImg, .shareGig, .shareReview {
@@ -1279,6 +1281,7 @@ tr {
 #userBadges {
   width: 250px;
   padding-top: 10px;
+  cursor: pointer;
 }
 
 .badgesDiv {

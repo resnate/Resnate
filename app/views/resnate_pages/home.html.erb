@@ -1275,7 +1275,7 @@ $(document).on('click', '.shareReview', function(){
         $('#pointCount').html(parseInt($('#pointCount').html()) + 1);
         $('#pointCount').removeClass('invisCount');
         $.get('/points', function(result){
-          $('.points').html(result);
+          $('.navPoints').html(result);
         });
         
 

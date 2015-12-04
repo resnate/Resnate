@@ -37,13 +37,13 @@ Merit::Badge.create!(id: 4,
    name: 'SuperGroupie',
    level: 4,
    description: "Your favourite artist has you on speed dial when they're in town.",
-   custom_fields: { image: "badge_7.png"})
+   custom_fields: { image: "SuperGroupie.png"})
 
 Merit::Badge.create!(id: 5,
    name: 'Rock Star',
    level: 5,
    description: "Now you've got your own groupies.",
-   custom_fields: { image: "badge_8.png"})
+   custom_fields: { image: "Rock_Star.png"})
 
 Merit::Badge.create!(id: 6,
    name: 'Rap God',

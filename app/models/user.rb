@@ -62,7 +62,7 @@ def self.remote_ip
       level_name = "Rock Star"
     elsif self.points < 1000
       level_name = "Rap God"
-    elsif self.points >= 1000
+    elsif self.points >= 10000
       level_name = "BIGGER THAN JESUS"
     end
   end
