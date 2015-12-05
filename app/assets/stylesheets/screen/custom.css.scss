@@ -2002,6 +2002,7 @@ tr {
 
 .feedShares .feedFollow, .feedShares .feedUnfollow, .msgFollow, .msgUnfollow {
   height: 40px;
+  display: inline-block;
 }
 
 .feedReview, .feedDescription, .profileReview {
