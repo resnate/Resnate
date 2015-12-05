@@ -1,5 +1,5 @@
 <% if @badges.count > 0 %>
-	<% badges.each do |badge| %>
+	<% @badges.each do |badge| %>
 		<div class="uberBadgeDiv">
 			<%= image_tag (badge.name), class: 'uberBadgeImg' %>
 			<div class="uberBadgeDescription"><%= badge.description %></div>
