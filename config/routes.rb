@@ -161,6 +161,7 @@ Resnate::Application.routes.draw do
       get "/:id/firstFollowedPlaylist"  => "playlists#firstFollowedPlaylist"
       get "/:id/followedPlaylists"  => "playlists#followedPlaylists"
       get "/:user_id/:playlist_id/ifFollow"  => "playlists#ifFollow"
+      get '/playlists/:id/followers' => 'playlists#followers'
       post 'playlists/follow' => 'playlists#follow'
       post 'playlists/unfollow' => 'playlists#unfollow'
 
