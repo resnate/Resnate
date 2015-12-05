@@ -71,10 +71,10 @@
     <% end %>
     </div>
 
-    <div id="userBadges" data-toggle="modal" data-target="#genericModal">>
+    <div id="userBadges" data-toggle="modal" data-target="#genericModal">
         <h4>Badges</h4>
         <% @user.badges.reverse.take(3).each do |badge| %>
-          <%= image_tag (badge.custom_fields[:image]), class: 'badgeImg' %>
+          <%= image_tag "#{badge.name}.png", class: 'badgeImg' %>
         <% end %>
     </div>
   </div>
@@ -562,7 +562,7 @@ $('#seeAllReviews').click(function(){
 
 $('#userBadges').click(function(){ 
 
-  $.get("<%= @user.id %>/badges", function(result){
+  $.get("/users/<%= @user.id %>/badges", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Badges</h3></div><div class="modal-body" id="userBadgesBody">'+result+'</div>');
 });
