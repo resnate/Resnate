@@ -102,12 +102,12 @@
 
             <% if current_user.follows?(Playlist.find(imgAndTitle[0])) %>
               <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgUnfollow", style: "display: inline" %></li>
-                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgUnfollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
             <% elsif current_user.follows?(Playlist.find(imgAndTitle[0])) == false && current_user.id != Playlist.find(imgAndTitle[0]).user_id %>
               <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgFollow", style: "display: inline" %></li>
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :get, class: "msgUnfollow", style: "display: none" %></li>
+                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgFollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgUnfollow", style: "display: none" %></li>
             <% elsif current_user.id == Playlist.find(imgAndTitle[0]).user_id %>
               <div class="msgButtons">
             <% end %>
