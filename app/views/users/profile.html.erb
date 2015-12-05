@@ -71,7 +71,7 @@
     <% end %>
     </div>
 
-    <div id="userBadges">
+    <div id="userBadges" data-toggle="modal" data-target="#genericModal">>
         <h4>Badges</h4>
         <% @user.badges.reverse.take(3).each do |badge| %>
           <%= image_tag (badge.custom_fields[:image]), class: 'badgeImg' %>
@@ -106,8 +106,8 @@
             <div class="hiddenReviewID"><%= review.id %></div>
       <% end %>
       <div class="profileReview">
-      <%= review.content %>
-    </div>
+        <%= review.content.gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/, "") %>
+      </div>
       <% likers = review.likers(User).count %>
       <% unless likers == 0 %>
         <div class="profileLikerNumber">
@@ -556,6 +556,15 @@ $('#seeAllReviews').click(function(){
   $.get("<%= @user.id %>/userReviews", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Reviews</h3></div><div class="modal-body" id="userReviewsBody">'+result+'</div>');
+});
+
+});
+
+$('#userBadges').click(function(){ 
+
+  $.get("<%= @user.id %>/badges", function(result){
+
+  $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Badges</h3></div><div class="modal-body" id="userBadgesBody">'+result+'</div>');
 });
 
 });

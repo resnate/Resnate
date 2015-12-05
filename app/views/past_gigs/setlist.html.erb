@@ -1,9 +1,9 @@
      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <% setlistURL = "http://api.setlist.fm/rest/0.1/search/setlists.json?artistName=" + @artistName + "&cityName=" + @cityName + "&date=" + @pastGigDate +"&apikey=ece37fb8-74e5-40e1-b04a-a0c4f23b732d" %>
-<%= setlistURL %>
+<% setlistURL %>
     <% url = URI.parse(setlistURL.gsub(" ", "+")) %>
     <% request = Net::HTTP.get_response(url) %>
-<%= request.body %>
+<% request.body %>
     <% if request.body.include?("not found") || request.body.include?('"sets":""') %>
       <div class="setlistList"> No setlist found </div>
       

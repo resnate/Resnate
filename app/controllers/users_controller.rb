@@ -237,6 +237,15 @@ end
       render :layout => false
     end
 
+    def badges
+      @user = User.find(params[:id])
+      @badges = []
+      @user.badges.reverse.each do |badge|
+        @badges.push( name: badge.name, description: badge.description )
+      end
+      render :layout => false
+    end
+
   	private
 
 

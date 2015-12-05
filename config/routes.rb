@@ -31,6 +31,7 @@ Resnate::Application.routes.draw do
   post "/:id/point5" => "users#point5"
   get "/:id/conversations" => "users#conversations"
   get "/:id/notifications" => "users#notifications"
+  get "/:id/badges" => "users#badges"
 
   get "/:id/playlistFollowers" => "playlists#playlistFollowers"
   get "/newPlaylist" => "playlists#newPlaylist"
