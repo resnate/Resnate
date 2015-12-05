@@ -16,6 +16,11 @@ class API::PlaylistsController < ApplicationController
     @playlist = Playlist.find(params[:id])
   end
 
+  def followers
+    @followers = Playlist.find(params[:id]).followers(User)
+    @count = @followers.count
+  end
+
   def update
     current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @playlist = Playlist.find(params[:id])

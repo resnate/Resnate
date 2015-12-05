@@ -578,6 +578,7 @@ body {
   float: right;
   display: inline-block;
   cursor: pointer;
+  margin-right: 10px;
 }
 
 #InfoShare {
@@ -1455,7 +1456,7 @@ tr {
 }
 
 .reviewT {
- margin-bottom: 15px; 
+ margin-bottom: 13px; 
  font-size: 2.5em;
 }
 
@@ -1837,7 +1838,7 @@ tr {
 }
 
 .inputComment {
-  width: calc(100% - 43px);
+  width: calc(100% - 44px);
   height: 40px;
   color: black;
 }

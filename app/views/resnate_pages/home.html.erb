@@ -681,14 +681,14 @@ $('#shareCurrentImg').click(function(){
       $('#Welcome').remove();
 
       function profile() {
-  $.get('/<%= current_user.id%>/profile', function(result){
-  $('#box2').html(result);});
-  
-
-    $('#container').animate({
-        top: '-100%'
-    });
-}
+        $.get('/<%= current_user.id%>/profile', function(result){
+          $('#box2').html(result);
+        });
+        $('#container').animate({
+          top: '-100%'
+        });
+        $('#box2').scrollTop(0);
+      }
 
   $('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
     
