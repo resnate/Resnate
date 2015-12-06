@@ -1,6 +1,8 @@
 class API::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-before_filter :restrict_access, :except => :userSearch
+  before_filter :restrict_access, :except => :userSearch
+  require 'uri'
+
   def index
     @users = User.all
   end
@@ -31,7 +33,7 @@ before_filter :restrict_access, :except => :userSearch
     @user.followees(User).each do |fl|
       unless fl.musicLikes.nil?
         fl.musicLikes.select do |s|
-          if s.gsub(/[\'.]/, '').downcase.include?(params[:search].gsub(/[\'.]/, '').downcase) == true
+          if s.gsub(/[\'.]/, '').downcase.include?(URI.unescape(params[:search]).gsub(/[\'.]/, '').downcase) == true
             @friends.push(fl)
           end
         end
