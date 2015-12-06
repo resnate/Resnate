@@ -340,11 +340,6 @@ body {
     height: calc(100% - 25px);
   }
 
-  #Playlist {
-    margin-left: 2%;
-    
-  }
-
   #videoResultsUberDiv, #PlaylistUberDiv {
    width: 238px;
    vertical-align: top;
@@ -1106,6 +1101,7 @@ tr {
   width: 250px;
   height: 100%;
   margin-top: 50px;
+  margin-left: 10px;
   color: white;
   a {
     color: white;
