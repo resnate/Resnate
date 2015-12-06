@@ -68,6 +68,7 @@ class PlaylistsController < ApplicationController
       lv1 = @user.level
       @user.add_points(5)
       current_user.send_message(@user, " is now following " + @playlist.name, "P|" + @playlist.id.to_s)
+      Pusher.trigger('messages', 'inbox', { message: @user.id, sender: current_user })
       lv2 = @user.level
       if lv1 != lv2
         User.find(3).send_message(@user, "New level: " + @user.level_name, "B|"+ @user.level_name)
