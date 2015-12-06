@@ -105,7 +105,7 @@ textarea {
   display: inline-block;
   height: calc(50% - 51px);
   padding: 7.5px;
-  width: 249px;
+  width: 250px;
   margin-left: -3px;
   text-align: center;
   a {
@@ -114,7 +114,7 @@ textarea {
 }
 
 #newStuff {
-  width: calc(100% - 250px);
+  width: calc(100% - 265px);
   overflow: auto;
   display: inline-block;
   vertical-align: top;
@@ -342,21 +342,29 @@ body {
 
   #Playlist {
     margin-left: 2%;
-    display: inline-block;
+    
   }
 
-#videoResultsDiv, #Playlist {
+  #videoResultsUberDiv, #PlaylistUberDiv {
    width: 238px;
    vertical-align: top;
    overflow-x: hidden;
    height: 100%;
    margin-bottom: 50px;
+   display: inline-block;
+}
+
+#videoResultsDiv, #Playlist {
+   width: 100%;
+   vertical-align: top;
+   overflow-x: hidden;
+   height: 100%;
    ul {
     padding-left: 0px;
    }
 }
 
-#videoResultsDiv {
+#videoResultsUberDiv {
   display: none;
 }
 
@@ -388,6 +396,10 @@ body {
 
 .descriptP {
   padding: 5px;
+}
+
+.playlistSong {
+  position: relative;
 }
 
 #videoResultsDiv li, .playlistSong {
@@ -925,14 +937,17 @@ ol li {
   list-style: decimal;
 }
 
-.glyphicon-remove{
+.glyphicon-remove {
   margin-top: 2px;
   display: none;
   cursor: pointer;
   vertical-align: top;
   /*background-color: #333;*/
   font-size: 1.2em;
-  }
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+}
 
 .commentDelete {
   right: 2px;
