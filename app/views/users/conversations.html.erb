@@ -100,16 +100,20 @@
             <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
             <br>
 
+            <div class="msgButtons">
             <% if current_user.follows?(playlist) %>
-              <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist), remote: true, method: :post, class: "msgUnfollow", style: "display: inline" %></li>
-                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= playlistID%></div></li>
+              
+                <li class="messageIcons messageUnfollow" style="display:inline"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist), remote: true, method: :post, class: "msgUnfollow" %></li>
+
+                <li class="messageIcons messageFollow" style="display:none"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow" %>
+                  <div class="sharePlaylistID" style="display:none"><%= playlistID%></div></li>
+
             <% elsif current_user.follows?(playlist) == false && current_user.id != playlist.user_id %>
-              <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow", style: "display: inline" %></li>
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist) , remote: true, method: :post, class: "msgUnfollow", style: "display: none" %></li>
-            <% elsif current_user.id == playlist.user_id %>
-              <div class="msgButtons">
+
+                <li class="messageIcons messageFollow" style="display:inline"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow" %></li>
+
+                <li class="messageIcons messageUnfollow" style="display:none"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist) , remote: true, method: :post, class: "msgUnfollow" %></li>
+
             <% end %>
                 <div class="sharePlaylistID" style="display:none"><%= playlistID %></div>
                 <div class="sharePlaylistName" style="display:none"><%= playlist.name %></div>
@@ -226,10 +230,10 @@
    <%= will_paginate @convos, renderer: BootstrapPagination::Rails %>
  </div>
         
-        <script type="text/javascript">
+<script type="text/javascript">
 
 
-         var urls = [];
+  var urls = [];
 
   for(j=0; j<$('.msgGigs').length; j++){
     urls.push($('.msgGigs').eq(j).attr('src'));
@@ -369,8 +373,16 @@
  });
 
 
+$('.msgUnfollow').click(function(){
+  $(this).parents('.messageUnfollow').css("display", "none");
+  $(this).parents('.messageUnfollow').siblings('.messageFollow').css("display", "inline-block");
+});
 
+$('.msgFollow').click(function(){
+  $(this).parents('.messageFollow').css("display", "none");
+  $(this).parents('.messageFollow').siblings('.messageUnfollow').css("display", "inline-block");
+});
 
-        </script>
+</script>
         
 <% end %>

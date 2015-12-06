@@ -63,6 +63,22 @@ class PlaylistsController < ApplicationController
     @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id
     @message = @activity.to_s + ',' + current_user.uid.to_s
     Pusher.trigger('activities', 'feed', {:message => @message})
+    @user = User.find(@playlist.user_id)
+    if current_user != @user
+      lv1 = @user.level
+      @user.add_points(5)
+      current_user.send_message(@user, " is now following " + @playlist.name, "P|" + @playlist.id.to_s)
+      lv2 = @user.level
+      if lv1 != lv2
+        User.find(3).send_message(@user, "New level: " + @user.level_name, "B|"+ @user.level_name)
+        @user.create_activity key: 'badge.create', parameters: {level: @user.level}, owner: @user
+        @user.add_badge(@user.level)
+        activity = PublicActivity::Activity.where(key: "badge.create", owner: @user).last.id 
+        @message = activity.to_s + ',' + current_user.uid.to_s
+        Pusher.trigger('activities', 'feed', {:message => @message})
+      end
+    end
+
     render :layout => false
   end
 
@@ -74,7 +90,15 @@ class PlaylistsController < ApplicationController
         @activity.destroy
       end
       current_user.unfollow!(@playlist)
-      
+      user = User.find(@playlist.user_id)
+      if current_user != user
+        lv1 = user.level
+        user.subtract_points(5)
+        lv2 = user.level
+        if lv1 != lv2
+          @user.rm_badge(lv1)
+        end
+      end
       render :layout => false
     end
 

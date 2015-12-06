@@ -1718,11 +1718,14 @@ tr {
 
 }
 
+.feedButtons .button_to {
+  display: inline-block;
+}
+
 .profileInfo {
   display: inline-block;
   vertical-align: top;
   form.button_to {
-    display: inline-block;
     max-width: 115px;
     margin-top: 20px;
   }
