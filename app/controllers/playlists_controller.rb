@@ -67,7 +67,7 @@ class PlaylistsController < ApplicationController
     if current_user != @user
       lv1 = @user.level
       puts @user.points
-      @user.add_points(5)
+      @user.add_points(10)
       puts @user.points
       current_user.send_message(@user, " is now following " + @playlist.name, "P|" + @playlist.id.to_s)
       lv2 = @user.level
@@ -96,7 +96,7 @@ class PlaylistsController < ApplicationController
       if current_user != user
         lv1 = user.level
         puts user.points
-        user.subtract_points(5)
+        user.subtract_points(10)
         puts user.points
         lv2 = user.level
         if lv1 != lv2
