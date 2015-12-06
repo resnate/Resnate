@@ -337,7 +337,7 @@ body {
     }
 
   #searchNsee, #YTtest, #merchNgigs {
-    height: 100%;
+    height: calc(100% - 25px);
   }
 
   #Playlist {
@@ -350,7 +350,7 @@ body {
    vertical-align: top;
    overflow-x: hidden;
    height: 100%;
-   margin-bottom: 50px;
+   margin-bottom: 25px;
    display: inline-block;
 }
 
@@ -358,7 +358,8 @@ body {
    width: 100%;
    vertical-align: top;
    overflow-x: hidden;
-   height: 100%;
+   height: calc(100% - 50px);
+   margin-bottom: 50px
    ul {
     padding-left: 0px;
    }
