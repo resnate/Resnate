@@ -34,7 +34,9 @@ class API::UsersController < ApplicationController
       unless fl.musicLikes.nil?
         fl.musicLikes.select do |s|
           if s.gsub(/[\'.]/, '').downcase.include?(URI.unescape((params[:search]).gsub('&', '+')).gsub(/[\'.]/, '').downcase) == true
-            @friends.push(fl)
+            unless @friends.include?(fl)
+              @friends.push(fl)
+            end
           end
         end
       end
