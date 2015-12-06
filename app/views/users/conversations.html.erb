@@ -70,15 +70,15 @@
         </div>     
 
         <% elsif message.subject[0] == 'P' %>
-          <% imgAndTitle = message.subject[2..-1].split(',') %>
+          <% playlistID = message.subject[2..-1] %>
 
-          <% unless Playlist.find_by_id(imgAndTitle[0]).nil? %>
-
+          <% unless Playlist.find_by_id(playlistID).nil? %>
+          <% playlist = Playlist.find(playlistID) %>
           <div class="inboxYT playlistInfo" >
-            <div class="hiddenPlaylistID"><%= imgAndTitle[0] %></div>
+            <div class="hiddenPlaylistID"><%= playlistID %></div>
 
               <% img1 = "a" %>
-              <% JSON.parse(Playlist.find(imgAndTitle[0]).content)[0].each do |k, v| %>
+              <% JSON.parse(playlist.content)[0].each do |k, v| %>
                 <% img1 = v %>
               <% end %>
               <img src="https://img.youtube.com/vi/<%= img1 %>/hqdefault.jpg" class="playlistImg feedPlaylist" >
@@ -86,7 +86,7 @@
 
           <div class="messageDetails">
             <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
-            <div class="messageSong playlistTitle"><%= title = imgAndTitle[1] %></div>
+            <div class="messageSong playlistTitle"><%= title = playlist.name %></div>
             <div>with 
               <% conversation.participants.each do |participant| %>
                 <% if participant != User.find(message.sender_id) %>
@@ -100,19 +100,19 @@
             <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
             <br>
 
-            <% if current_user.follows?(Playlist.find(imgAndTitle[0])) %>
+            <% if current_user.follows?(playlist) %>
               <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgUnfollow", style: "display: inline" %></li>
-                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
-            <% elsif current_user.follows?(Playlist.find(imgAndTitle[0])) == false && current_user.id != Playlist.find(imgAndTitle[0]).user_id %>
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist, remote: true, method: :post, class: "msgUnfollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
+            <% elsif current_user.follows?(playlist) == false && current_user.id != playlist.user_id %>
               <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgFollow", style: "display: inline" %></li>
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: Playlist.find(imgAndTitle[0])) , remote: true, method: :post, class: "msgUnfollow", style: "display: none" %></li>
-            <% elsif current_user.id == Playlist.find(imgAndTitle[0]).user_id %>
+                <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist) , remote: true, method: :post, class: "msgUnfollow", style: "display: none" %></li>
+            <% elsif current_user.id == playlist.user_id %>
               <div class="msgButtons">
             <% end %>
-                <div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div>
-                <div class="sharePlaylistName" style="display:none"><%= imgAndTitle[1] %></div>
+                <div class="sharePlaylistID" style="display:none"><%= playlistID %></div>
+                <div class="sharePlaylistName" style="display:none"><%= playlist.name %></div>
                 <li class="messageIcons csImgMsgPlaylist" id="csImgLi"><%= image_tag "ResnateShareIcon.png", id: "csImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li>
               </div>
           </div>
