@@ -30931,7 +30931,6 @@ function abracadabra() {
     
     $('#searchPlaceholder').fadeOut();
     $("#YTtest, #searchNsee, #iframeAmazon").fadeIn().css("display","inline-block");
-    $("#PlaylistUberDiv").css("margin-left","10px");
 }
 
 
