@@ -102,7 +102,7 @@
 
             <% if current_user.follows?(playlist) %>
               <div class="msgButtons">
-                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist, remote: true, method: :post, class: "msgUnfollow", style: "display: inline" %></li>
+                <li class="messageIcons"><%= button_to "Unfollow", playlists_unfollow_path(playlist: playlist), remote: true, method: :post, class: "msgUnfollow", style: "display: inline" %></li>
                 <li class="messageIcons"><%= button_to "Follow", playlists_follow_path(playlist: playlist) , remote: true, method: :post, class: "msgFollow", style: "display: none" %><div class="sharePlaylistID" style="display:none"><%= imgAndTitle[0] %></div></li>
             <% elsif current_user.follows?(playlist) == false && current_user.id != playlist.user_id %>
               <div class="msgButtons">
