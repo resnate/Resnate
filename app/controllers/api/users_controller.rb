@@ -25,6 +25,20 @@ before_filter :restrict_access, :except => :userSearch
     end
   end
 
+  def friendsWhoLike
+    @user = User.find(params[:id])
+    @friends = []
+    @user.followees(User).each do |fl|
+      unless fl.musicLikes.nil?
+        fl.musicLikes.select do |s|
+          if s.gsub(/[\'.]/, '').downcase.include?(params[:search].gsub(/[\'.]/, '').downcase) == true
+            @friends.push(fl)
+          end
+        end
+      end
+    end
+  end
+
   def userSearch
     @profile = JSON.parse(Net::HTTP.get_response(URI.parse("https://graph.facebook.com/me?access_token=" + params[:oauth] + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], params[:oauth]))).body.html_safe)["id"]
     if User.find_by_uid(@profile).nil?

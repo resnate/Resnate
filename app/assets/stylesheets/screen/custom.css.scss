@@ -909,12 +909,13 @@ background-color: white;
 
 #footerPlayer {
   height: 150px;
-    position: fixed;
-    background-color: #801336;
-    bottom: -150px;
-    right: 0px;
-    width: 100%;
+  position: fixed;
+  background-color: #801336;
+  bottom: -150px;
+  right: 0px;
+  width: 100%;
   color: white;
+  border-top: 1px solid black;
 }
 
 /*#Feed{
@@ -937,15 +938,14 @@ ol li {
 }
 
 .glyphicon-remove {
-  margin-top: 2px;
   display: none;
   cursor: pointer;
   vertical-align: top;
   /*background-color: #333;*/
   font-size: 1.2em;
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: 5px;
+  top: 5px;
 }
 
 .commentDelete {
@@ -1562,11 +1562,6 @@ tr {
   cursor: pointer;
 }
 
-.writeSongReview {
-  margin-left: calc(50% - 500px);
-  vertical-align: top;
-}
-
 .editDeleteBkgd {
   padding: 10px 20px;
   background-color: #E50049;
@@ -1611,6 +1606,12 @@ tr {
   text-align: center;
   margin-top: 2em;
   cursor: pointer;
+}
+
+.writeSongReview {
+  margin-top: calc(75px - 1em);
+  margin-left: 50px;
+  vertical-align: top;
 }
 
 .reviewImg {
@@ -1728,7 +1729,7 @@ tr {
 }
 
 .progress {
-  margin-top: 20px;
+  margin-top: 5px;
   width: 600px;
 }
 
@@ -1756,6 +1757,10 @@ tr {
   font-size: 90px;
   font-weight: normal;
   vertical-align: top;
+}
+
+#pointsToLevel {
+  font-size: 1.5em;
 }
 
 .filthy {

@@ -109,6 +109,7 @@ Resnate::Application.routes.draw do
       get "/users/:id/followers/:page" => "users#followers"
       get "/users/:id/followeeIDs" => "users#followeeIDs"
       get "/:id/userActivities" => "users#userActivities"
+      get "/:id/:search/friendsWhoLike" => "users#friendsWhoLike"
       get "/:token/lastMsg" => "users#lastMsg"
       get "/:token/unread" => "users#unread"
       post "/markAsRead" => "users#markAsRead"
