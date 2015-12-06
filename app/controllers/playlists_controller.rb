@@ -66,10 +66,7 @@ class PlaylistsController < ApplicationController
     @user = User.find(@playlist.user_id)
     if current_user != @user
       lv1 = @user.level
-      puts @user.points
-      @user.add_points(10)
-      @user.add_points(10)
-      puts @user.points
+      @user.add_points(5)
       current_user.send_message(@user, " is now following " + @playlist.name, "P|" + @playlist.id.to_s)
       lv2 = @user.level
       if lv1 != lv2
@@ -96,10 +93,7 @@ class PlaylistsController < ApplicationController
       user = User.find(@playlist.user_id)
       if current_user != user
         lv1 = user.level
-        puts user.points
-        user.subtract_points(10)
-        user.subtract_points(10)
-        puts user.points
+        user.subtract_points(5)
         lv2 = user.level
         if lv1 != lv2
           @user.rm_badge(lv1)
