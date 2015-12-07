@@ -70,6 +70,7 @@ Resnate::Application.routes.draw do
 
   post "/reviews/:id/reviewLike" => "reviews#like"
   post "/reviews/:id/reviewUnlike" => "reviews#unlike"
+  put "/reviews/:id/updateRating/"  => "reviews#updateRating"
   get "/reviews/:id/pl" => "reviews#pl"
   get "/:type/:id/writeReview" => "reviews#writeReview"
   

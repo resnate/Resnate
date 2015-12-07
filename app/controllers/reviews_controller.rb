@@ -29,6 +29,13 @@ class ReviewsController < ApplicationController
     render :layout => false
   end
 
+  def updateRating
+    @review = Review.find(params[:id])
+    @rating = params[:updateRating]
+    @review.update_attributes(rating: @rating)
+    render :layout => false
+  end
+
   def show
     @review = Review.find(params[:id])
     @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first

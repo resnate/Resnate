@@ -210,7 +210,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
-			$(obj).attr("src","emptystar.png")
+			$(obj).attr("src","/assets/emptystar.png")
   		}
   	});
 
@@ -218,9 +218,16 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) <= newRating ) {
   			$(obj).addClass('fullstar');
 			$(obj).removeClass('emptystar');
-			$(obj).attr("src","fullstar.png")
+			$(obj).attr("src","/assets/fullstar.png")
   		}
   	});
+
+  	var updateURL = "/reviews/" + $('.hiddenReviewID').html() +"/updateRating/";
+      $.ajax({
+        url: updateURL,
+        method: "PUT",
+        data: { rating : newRating }
+      });
 
   	$('#hiddenReviewRating').html(newRating);
   });
@@ -232,7 +239,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) < newRating ) {
   			$(obj).addClass('fullstar');
 			$(obj).removeClass('emptystar');
-			$(obj).attr("src","fullstar.png")
+			$(obj).attr("src","/assets/fullstar.png")
   		}
   	});
 
@@ -240,9 +247,16 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
-			$(obj).attr("src","emptystar.png")
+			$(obj).attr("src","/assets/emptystar.png")
   		}
   	});
+
+  	var updateURL = "/reviews/" + $('.hiddenReviewID').html() +"/updateRating/";
+      $.ajax({
+        url: updateURL,
+        method: "PUT",
+        data: { rating : newRating }
+      });
 
   	$('#hiddenReviewRating').html(newRating);
   });
