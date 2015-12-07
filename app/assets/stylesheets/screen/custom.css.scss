@@ -1557,6 +1557,16 @@ tr {
 
 }
 
+.reviewRating {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.fullstar, .emptystar {
+  height: 50px;
+  margin-right: 10px;
+}
+
 .editReview, .deleteReview, .cancelReview, .saveReviewButton, .cancelReviewButton, .editDeleteBkgd, .writeSongReview {
   display: inline-block;
   cursor: pointer;
@@ -2301,12 +2311,6 @@ height: 90%;
     
   }
 }
-
-.fullstar, .emptystar {
-  height: 50px;
-  margin-right: 10px;
-}
-
 
 .pagination > li:last-child > span, .pagination > li:last-child > a {
   border-bottom-right-radius: 0px;

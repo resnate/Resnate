@@ -192,6 +192,22 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   	}
 
   }
+
+  <% if current_user.id == @review.user_id %>
+
+  if(rating == 0) {
+
+  	for (var j = rating + 1; j <= 5; j++) {
+  		$('.reviewRating').append('<img src="/assets/emptystar.png" class="emptystar" id="'+j+'">')
+  	}
+
+  }
+
+  $('.emptystar').click(function(){
+  	alert($(this).attr('id'));
+  });
+
+  <% end %>
   
 
 </script>
