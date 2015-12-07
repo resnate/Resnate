@@ -207,6 +207,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   	var newRating = $(this).attr('id');
 
   	$('.fullstar').each(function(i, obj){
+  		alert(parseInt($(obj).attr('id')));
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
@@ -221,6 +222,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   	var newRating = $(this).attr('id');
 
   	$('.emptystar').each(function(i, obj){
+  		alert(parseInt($(obj).attr('id')));
   		if(parseInt($(obj).attr('id')) < newRating ) {
   			$(obj).addClass('fullstar');
 			$(obj).removeClass('emptystar');
