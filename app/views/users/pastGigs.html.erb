@@ -88,18 +88,6 @@ var gigUrls = [];
                             $('.profileGigLocation').eq(i).html(data.resultsPage.results.event.venue.metroArea.displayName);
 
                             $('.hiddenArtistName').eq(i).html(data.resultsPage.results.event.performance[0].artist.displayName);
-
-                            
-
-                            
-                            
-
-                            
-                            
-
-                            
-
-
                             
                     }
       }
@@ -107,11 +95,13 @@ var gigUrls = [];
   }
 
   $('.setlistButton').click(function(){
+
     $.get('/' + $(this).siblings('.hiddenArtistName').html().replace("/", "%2f") + ',' + $(this).siblings('.uberdate').find('.profileGigLocation').html() + ',' + $(this).siblings('.hiddenGigDate').html() + '/setlist', function(re){
 
-                              $('.setlistBody').html(re);
+       $('.setlistBody').html(re);
 
-                            });
+    });
+    
   });
 
   $('.reviewPresent').click(function(){
