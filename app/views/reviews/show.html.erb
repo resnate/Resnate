@@ -204,7 +204,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   }
 
   $('.emptystar').click(function(){
-  	var newRating = $(this).attr('id');
+  	var newRating = parseInt($(this).attr('id'));
 
   	$('.fullstar').each(function(i, obj){
   		if(parseInt($(obj).attr('id')) > newRating ) {
@@ -233,7 +233,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   });
 
   $('.fullstar').click(function(){
-  	var newRating = $(this).attr('id');
+  	var newRating = parseInt($(this).attr('id'));
 
   	$('.emptystar').each(function(i, obj){
   		if(parseInt($(obj).attr('id')) < newRating ) {
@@ -255,7 +255,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
       $.ajax({
         url: updateURL,
         method: "PUT",
-        data: { review: { rating : newRating } }
+        data: { rating : newRating }
       });
 
   	$('#hiddenReviewRating').html(newRating);
