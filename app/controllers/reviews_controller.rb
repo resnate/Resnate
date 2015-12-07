@@ -31,7 +31,7 @@ class ReviewsController < ApplicationController
 
   def updateRating
     @review = Review.find(params[:id])
-    @rating = params[:updateRating]
+    @rating = params[:rating]
     @review.update_attributes(rating: @rating)
     render :layout => false
   end
