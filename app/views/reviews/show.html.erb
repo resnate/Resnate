@@ -184,11 +184,11 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   if(rating >= 1) {
 
   	for (var i = 1; i <= rating; i++) {
-  		$('.reviewRating').append('<img src="/assets/fullstar" id="star'+i+'">')
+  		$('.reviewRating').append('<img src="/assets/fullstar.png" class="fullstar" id="'+i+'">')
   	}
 
   	for (var j = rating + 1; j <= 5; j++) {
-  		$('.reviewRating').append('<img src="/assets/emptystar" id="star'+j+'">')
+  		$('.reviewRating').append('<img src="/assets/emptystar.png" class="emptystar" id="'+j+'">')
   	}
 
   }
