@@ -222,7 +222,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		}
   	});
 
-  	var updateURL = "/reviews/" + $('.hiddenReviewID').html() +"/updateRating/";
+  	var updateURL = "/reviews/" + $('#reviewBody .hiddenReviewID').html() +"/updateRating/";
       $.ajax({
         url: updateURL,
         method: "PUT",
@@ -251,7 +251,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		}
   	});
 
-  	var updateURL = "/reviews/" + $('.hiddenReviewID').html() +"/updateRating/";
+  	var updateURL = "/reviews/" + $('#reviewBody .hiddenReviewID').html() +"/updateRating/";
       $.ajax({
         url: updateURL,
         method: "PUT",

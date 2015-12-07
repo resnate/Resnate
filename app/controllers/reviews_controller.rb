@@ -24,15 +24,19 @@ class ReviewsController < ApplicationController
 
   def update
     @review = Review.find(params[:id])
-    @content = params[:content]
-    @review.update_attributes(content: @content)
+    if @review.user_id == current_user.id
+      @content = params[:content]
+      @review.update_attributes(content: @content)
+    end
     render :layout => false
   end
 
   def updateRating
     @review = Review.find(params[:id])
-    @rating = params[:rating]
-    @review.update_attributes(rating: @rating)
+    if @review.user_id == current_user.id
+      @rating = params[:rating]
+      @review.update_attributes(rating: @rating)
+    end
     render :layout => false
   end
 
