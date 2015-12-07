@@ -210,15 +210,15 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
-			$(obj).attr("src","emptystar.jpg")
+			$(obj).attr("src","emptystar.png")
   		}
   	});
 
   	$('.emptystar').each(function(i, obj){
-  		if(parseInt($(obj).attr('id')) < newRating ) {
+  		if(parseInt($(obj).attr('id')) <= newRating ) {
   			$(obj).addClass('fullstar');
 			$(obj).removeClass('emptystar');
-			$(obj).attr("src","fullstar.jpg")
+			$(obj).attr("src","fullstar.png")
   		}
   	});
 
@@ -232,7 +232,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) < newRating ) {
   			$(obj).addClass('fullstar');
 			$(obj).removeClass('emptystar');
-			$(obj).attr("src","fullstar.jpg")
+			$(obj).attr("src","fullstar.png")
   		}
   	});
 
@@ -240,7 +240,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
-			$(obj).attr("src","emptystar.jpg")
+			$(obj).attr("src","emptystar.png")
   		}
   	});
 
