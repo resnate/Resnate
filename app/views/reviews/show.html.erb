@@ -255,7 +255,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
       $.ajax({
         url: updateURL,
         method: "PUT",
-        data: { rating : newRating }
+        data: { review: { rating : newRating } }
       });
 
   	$('#hiddenReviewRating').html(newRating);
