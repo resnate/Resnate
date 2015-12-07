@@ -204,7 +204,31 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   }
 
   $('.emptystar').click(function(){
-  	alert($(this).attr('id'));
+  	var newRating = $(this).attr('id');
+
+  	$('.fullstar').each(function(){
+  		if(parseInt($(this).attr('id')) > newRating ) {
+  			$(this).addClass('emptystar');
+			$(this.removeClass('fullstar');
+			$(this).attr("src","emptystar.jpg")
+  		}
+  	});
+
+  	$('#hiddenReviewRating').html(newRating);
+  });
+
+  $('.fullstar').click(function(){
+  	var newRating = $(this).attr('id');
+
+  	$('.emptystar').each(function(){
+  		if(parseInt($(this).attr('id')) < newRating ) {
+  			$(this).addClass('fullstar');
+			$(this.removeClass('emptystar');
+			$(this).attr("src","fullstar.jpg")
+  		}
+  	});
+
+  	$('#hiddenReviewRating').html(newRating);
   });
 
   <% end %>
