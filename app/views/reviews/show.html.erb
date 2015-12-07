@@ -180,7 +180,6 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   }
 
   var rating = parseInt($('#hiddenReviewRating').html().trim());
-  var unfilledStars = 5 - rating;
 
   if(rating >= 1) {
 
@@ -188,7 +187,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		$('.reviewRating').append('<img src="/assets/fullstar" id="star'+i+'">')
   	}
 
-  	for (var j = rating + 1; j <= unfilledStars; j++) {
+  	for (var j = rating + 1; j <= 5; j++) {
   		$('.reviewRating').append('<img src="/assets/emptystar" id="star'+j+'">')
   	}
 
