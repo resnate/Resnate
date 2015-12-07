@@ -209,7 +209,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   	$('.fullstar').each(function(){
   		if(parseInt($(this).attr('id')) > newRating ) {
   			$(this).addClass('emptystar');
-			$(this.removeClass('fullstar');
+			$(this).removeClass('fullstar');
 			$(this).attr("src","emptystar.jpg")
   		}
   	});
@@ -223,7 +223,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   	$('.emptystar').each(function(){
   		if(parseInt($(this).attr('id')) < newRating ) {
   			$(this).addClass('fullstar');
-			$(this.removeClass('emptystar');
+			$(this).removeClass('emptystar');
 			$(this).attr("src","fullstar.jpg")
   		}
   	});
