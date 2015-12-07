@@ -61,16 +61,19 @@
 	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img p) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
-
-	<div class="reviewRating">
+	<div id="hiddenReviewRating">
 		<% if current_user.id == @review.user_id %>
-			<%= @review.rating %>
+			<% unless @review.rating.nil? %>
+				<%= @review.rating %>
+			<% end %>
 		<% else %>
 			<% unless @review.rating.nil? %>
 				<%= @review.rating %>
 			<% end %>
 		<% end %>
 	</div>
+
+	<div class="reviewRating"></div>
 
 	<div class="reviewSetlist editDeleteBkgd">Setlist</div>
 	<% unless current_user.nil? %>
@@ -174,6 +177,21 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
     });
     
     
+  }
+
+  var rating = parseInt($('#hiddenReviewRating').html().trim());
+  var unfilledStars = 5 - rating;
+
+  if(rating >= 1) {
+
+  	for (var i = 1; i <= rating; i++) {
+  		$('.reviewRating').append('<img src="/assets/fullstar" id="star'+i+'">')
+  	}
+
+  	for (var j = rating + 1; j <= unfilledStars; j++) {
+  		$('.reviewRating').append('<img src="/assets/emptystar" id="star'+j+'">')
+  	}
+
   }
   
 
