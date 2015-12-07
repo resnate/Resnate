@@ -178,13 +178,9 @@ end
 
 
   	def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(user_params)
-      
+      @user = User.find(params[:id])
+      @user.update_attributes(user_params)
       redirect_to :root
-    else
-      redirect_to :root
-    end   
   	end
 
     def follow

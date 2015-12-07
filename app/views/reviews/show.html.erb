@@ -61,6 +61,18 @@
 	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img p) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
+
+	<div class="reviewRating">
+		<% if current_user.id == @review.user_id %>
+			<%= @review.rating %>
+		<% else %>
+			<% unless @review.rating.nil? %>
+				<%= @review.rating %>
+			<% end %>
+		<% end %>
+	</div>
+
+	<div class="reviewSetlist editDeleteBkgd">Setlist</div>
 	<% unless current_user.nil? %>
 		<% if current_user.id == @review.user_id %>
 			<div class="editReview editDeleteBkgd">Edit</div>
