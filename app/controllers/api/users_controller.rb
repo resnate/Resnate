@@ -94,15 +94,26 @@ class API::UsersController < ApplicationController
     else
       if user.past_gigs.count == 0
         @pastGig = nil
+        @pGarray = nil
       else
         pg = user.past_gigs.first
         @pastGig = "https://api.songkick.com/api/3.0/events/#{pg.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"
+        @pGarray = []
+        user.past_gigs.each do |pG|
+          @pGarray.push(pG.songkick_id)
+        end
       end
       if user.gigs.count == 0
         @upcomingGig = nil
+        @uGarray = nil
       else
         g = user.gigs.first
         @upcomingGig = "https://api.songkick.com/api/3.0/events/#{g.songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"
+        @uGarray = []
+        user.gigs.each do |uG|
+          @uGarray.push(uG.songkick_id)
+        end
+        @uGarray.map(&:inspect).join(', ')
       end
     end
     if user.playlists.count == 0 || user.playlists.first.content.nil?

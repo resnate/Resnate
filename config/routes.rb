@@ -1,8 +1,8 @@
 Resnate::Application.routes.draw do
   
 
-  root "resnate_pages#home"
-  
+  root "resnate_pages#apicheck"
+  get "resnate_pages#home"
   get "resnate_pages/AmazonStore"
   get "/leaderboard" => "resnate_pages#leaderboard"
   get "/topReviews" => "resnate_pages#topReviews"
