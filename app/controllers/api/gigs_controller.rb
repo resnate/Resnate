@@ -49,6 +49,12 @@ class API::GigsController < ApplicationController
     end
   end
 
+  def gigUndo
+    @gig = Gig.find_by_songkick_id(params[:songkick_id])
+    @gig.destroy
+    PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: @gig.id).first.destroy
+  end
+
   private
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|

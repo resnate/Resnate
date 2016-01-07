@@ -147,6 +147,7 @@ Resnate::Application.routes.draw do
 
       get "/gigs/:user/:songkick_id/friendsGoing"  => "gigs#friendsGoing"
       post "/apiMultipleCreate" => "gigs#apiMultipleCreate"
+      post '/gigUndo' => 'gigs#gigUndo'
 
       resources :songs
 

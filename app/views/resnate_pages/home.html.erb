@@ -1356,11 +1356,7 @@ $("#navTitle").mouseout(function() {
 
       var allPreviousGigs = $('#hiddenGigsIDs').html().trim();
 
-
       allPreviousGigs = allPreviousGigs.split(',').map(function(x){return parseInt(x)});
-
-
-      if(json.resultsPage.totalEntries > 50) {
 
       var totalEntries = json.resultsPage.totalEntries;
 
@@ -1391,28 +1387,6 @@ $("#navTitle").mouseout(function() {
           });
         });
       }
-    } else {
-
-        $.each(json.resultsPage.results.calendarEntry,function(j,e){
-
-        allGigs.push(e.event.id);
-
-        if($('#hiddenGigsIDs').html().indexOf(e.event.id) == -1){
-          
-          gigsArray.push({songkick_id: e.event.id , gig_date: e.event.start.date });
-          
-        }
-      });
-
-
-      $.each(allPreviousGigs, function(i, gigID){
-         if(allGigs.indexOf(gigID) == -1){
-          deleteURL = '/gigUndo/'+gigID;
-          $.post(deleteURL);
-        }
-      });
-
-    }
      
 
     $.post( '/<%= current_user.id %>/multipleCreate', { multiGigs: JSON.stringify(gigsArray) });
@@ -1425,8 +1399,6 @@ $("#navTitle").mouseout(function() {
   var pastGigsArray = [];
 
   $.getJSON(pGurl,function(json){ 
-
-    if(json.resultsPage.totalEntries > 50) {
 
       var totalEntries = json.resultsPage.totalEntries;
 
@@ -1449,25 +1421,8 @@ $("#navTitle").mouseout(function() {
 
         });
       }
-
-
-
-    } else {
-
-      $.each(json.resultsPage.results.event,function(j,e){
-        if($('#hiddenPastGigsIDs').html().indexOf(e.id) == -1){
-          
-          pastGigsArray.push({songkick_id: e.id , gig_date: e.start.date });
-          
-        }
-            });
-    $.post( '/<%= current_user.id %>/pastMultipleCreate', { multiGigs: JSON.stringify(pastGigsArray) });
-
-    }
-
-      
-      
-          });
+  
+    });
 
 
   <% end %>
