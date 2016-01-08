@@ -1360,7 +1360,13 @@ $("#navTitle").mouseout(function() {
 
       var totalEntries = json.resultsPage.totalEntries;
 
-      var totalPages = totalEntries % 50;
+      var totalPages = 1
+
+      if totalEntries > 50 {
+
+        totalPages = totalEntries % 50;
+
+      }
 
       for (i = 1; i <= totalPages; i++) { 
 
@@ -1402,7 +1408,13 @@ $("#navTitle").mouseout(function() {
 
       var totalEntries = json.resultsPage.totalEntries;
 
-      var totalPages = totalEntries % 50;
+      var totalPages = 1
+
+      if totalEntries > 50 {
+
+        totalPages = totalEntries % 50;
+
+      }
 
       for (i = 1; i <= totalPages; i++) { 
 
