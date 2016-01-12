@@ -1,6 +1,7 @@
 Resnate::Application.routes.draw do
   
 
+  #root "resnate_pages#landing"
   root "resnate_pages#home"
   get "resnate_pages/AmazonStore"
   get "/leaderboard" => "resnate_pages#leaderboard"

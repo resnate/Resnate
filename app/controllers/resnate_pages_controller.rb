@@ -1,7 +1,12 @@
 class ResnatePagesController < ApplicationController
   require 'will_paginate/array'
+
   def home
     
+  end
+
+  def landing
+    render :layout => false
   end
 
   def topReviews

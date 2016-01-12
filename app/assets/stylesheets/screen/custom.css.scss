@@ -757,7 +757,7 @@ body {
     }
 
 #moreGigs {
-  margin: 0px 10px 10px 10px;
+  margin: 10px;
   height: 14px;
 }
 
@@ -784,9 +784,8 @@ body {
 }
 
 #Gigs {
-    margin: 15px 5px 0px 10px;
+    margin: 15px 0px;
     font-size: 12px;
-    width: 95%;
     height: 180px;
     display: none;
 }
@@ -825,7 +824,7 @@ body {
 }
 
 .threeGigs {
-  width: 279px;
+  width: 315px;
   display: inline-block;
 }
 
@@ -898,8 +897,8 @@ background-color: white;
 #iframeAmazon {
     background-color: white;
     height: 148px;
-    width: 475px;
-    margin: 10px;
+    width: 100%;
+    margin: 10px 0px;
     border: none;
     display: none;
     body {
@@ -1830,7 +1829,7 @@ tr {
 #friendsHeader {
   display: inline-block;
   h4 {
-    margin: 0px 10px;
+    margin: 0px 10px 0 0;
   }
 }
 
