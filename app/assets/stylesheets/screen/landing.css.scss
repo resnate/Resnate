@@ -1,0 +1,130 @@
+video#bgvid, #landingWelcome { 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    width: auto;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+video#bgvid {
+    min-height: 100%;
+    height: auto;
+    z-index: -100;
+	background: url(webPreview.png) no-repeat;
+    background-size: cover; 
+}
+
+#landingExisting {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	opacity: 0;
+	#already, form {
+		display: inline-block;
+	}
+}
+
+#invalid {
+	text-align: left;
+	opacity: 0;
+}
+
+#landingWelcome {
+	background-color: rgba(0, 0, 0, 0.7);
+	color: white;
+    text-align: center;
+    height: 100%;
+    overflow: auto;
+}
+
+#logoNname {
+	margin-top: 100px;
+	opacity: 0;
+	margin-bottom: 50px;
+}
+
+#landingIcon {
+	width: 200px;
+}
+
+#landingIcon, #landingResnate {
+	display: inline-block;
+	vertical-align: top;
+}
+
+#landingResnate {
+	font-size: 70px;
+	margin-left: 20px;
+	margin-top: 40px;
+}
+
+.landingWords {
+	opacity: 0;
+	font-size: 36px;
+	margin-bottom: 20px;
+	display: inline-block;
+}
+
+.lastToLoad {
+	opacity: 0;
+	a {
+		text-decoration: none;
+		color: #E50049;
+		&:hover {
+			color: white;
+		}	
+	}
+}
+
+#landingMusic, #landingGigs {
+	margin-right: 10px;
+}
+
+#landingEmail, #landingSubmit {
+	font-size: 20px;
+	height: 36px;
+
+}
+
+#landingEmail {
+	width: 250px;
+}
+
+#landingEmail, #landingKey {
+	-webkit-appearance: none;
+	border: 1px solid grey;
+	padding: 5px 5px 5px;
+}
+
+#landingSubmit, #keySubmit {
+	vertical-align: top;
+	border: 0;
+	color: white;
+	background-color: #E50049;
+}
+
+#keySubmit {
+	height: 27px;
+}
+
+#invalidEmail {
+	opacity: 0;
+}
+
+.landingSocial {
+	display: inline-block;
+	cursor: pointer;
+}
+
+#landingFb {
+	height: 50px;
+	margin-right: 20px;
+}
+
+#landingTwit {
+	height: 70px;
+}

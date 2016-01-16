@@ -1,0 +1,103 @@
+<video autoplay loop poster="assets/webPreview.png" id="bgvid">
+    <source src="assets/webPreview.mp4" type="video/mp4">
+</video>
+
+
+<div id="landingWelcome">
+
+	<div id="landingExisting">
+		<div id="already">Already have a login key?</div>
+		<input type="text" id="landingKey" placeholder="Enter your login key">
+		<input type="submit" id="keySubmit" value="Sign in">
+    <div id="invalid">Invalid login key.</div>
+	</div>
+
+	<div id="logoNname">
+    	<%= image_tag "ResnateCropped.png", id: "landingIcon" %>
+    	<div id="landingResnate">resnate</div>
+    </div>
+
+    <div id="landingMusic" class="landingWords">Music, </div>
+    <div id="landingGigs" class="landingWords">Gigs, </div>
+    <div id="landingMerch" class="landingWords">Merch.</div>
+
+    <div class="lastToLoad">
+    <h4>Share music. Playlists with a drag and a drop.</h4>
+    <h4>Write reviews for past gigs. Tell friends about upcoming concerts.</h4>
+    <h4>Get points. Collect badges. Climb the ranks of music fans.</h4>
+
+    <br>
+
+        <h4>Sign up for the beta and to receive updates:</h4>
+        <input type="email" value="" name="EMAIL" class="email" id="landingEmail" placeholder="Enter your email address" required>
+        <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_29f152e51961d91c69623accf_7852194cd0" tabindex="-1" value=""></div>
+        <input type="submit" value="Sign up" name="subscribe" id="landingSubmit" class="button">
+
+    <h4 id="invalidEmail">Invalid email address.</h4>
+    <div>
+    <%= link_to image_tag("facebookBrand.png", id: "landingFb", class: "landingSocial"), "https://facebook.com/resnatemusic", target: "_blank" %>
+    <%= link_to image_tag("twitterBrand.png", id: "landingTwit", class: "landingSocial"), "https://twitter.com/resnate", target: "_blank" %>
+    </div>
+
+    <h4 id="homeFooter">Built using <a href="https://developers.google.com/youtube/" target="_blank">YouTube</a> + <a href="https://www.songkick.com/developer" target="_blank">Songkick</a> + <a href="https://affiliate-program.amazon.co.uk/gp/advertising/api/detail/main.html" target="_blank">Amazon</a> + <a href="http://api.setlist.fm/docs/index.html" target="_blank">Setlist.fm</a> APIs.</h4>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+	$(function(){
+
+		$("#logoNname, #landingExisting").animate({'opacity': '1'}, 2000);
+
+		$("#landingMusic").delay(2000).animate({'opacity': '1'}, 'slow');
+
+		$("#landingGigs").delay(3500).animate({'opacity': '1'}, 'slow');
+
+		$("#landingMerch").delay(5000).animate({'opacity': '1'}, 'slow');
+
+		$(".lastToLoad").delay(7000).animate({'opacity': '1'}, 'slow');
+
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+
+  		$("#landingKey").keydown(function(event){
+    		if(event.keyCode==13){
+    			$('#keySubmit').trigger('click');
+  			}
+  		});
+
+  		$('#keySubmit').click(function(){
+  			$.get('/keytest/' + $('#landingKey').val(), function(result){
+            if(result == "true"){
+              window.location.replace('/home/' + $('#landingKey').val());
+            } else{
+              $('#invalid').animate({'opacity': '1'}, 'fast');
+            } 
+        });
+  		});
+
+      $("#landingEmail").keydown(function(event){
+        if(event.keyCode==13){
+          $('#landingSubmit').trigger('click');
+        }
+      });
+
+      $('#landingSubmit').click(function(){
+        if(validateEmail($('#landingEmail').val()) == true) {
+          $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#landingEmail').val()})
+          $('#landingEmail').css('border', '1px solid darkgrey');
+          $('#invalidEmail').html('Thanks for signing up! Please check your inbox for the confirmation email.');
+          $('#invalidEmail').animate({'opacity': '1'}, 'fast');
+        } else {
+          $('#landingEmail').css('border', '2px solid #E50049');
+          $('#invalidEmail').html('Invalid email address.');
+          $('#invalidEmail').animate({'opacity': '1'}, 'fast');
+        }
+      });
+
+	});
+
+</script>

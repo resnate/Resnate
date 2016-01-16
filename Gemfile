@@ -36,6 +36,7 @@ gem 'bulk_data_methods'
 gem 'newrelic_rpm'
 gem 'has_secure_token'
 gem 'api-pagination'
+gem "gibbon"
 
 group :test do
   gem 'selenium-webdriver', '2.35.1'

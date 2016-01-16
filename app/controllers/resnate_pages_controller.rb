@@ -2,10 +2,29 @@ class ResnatePagesController < ApplicationController
   require 'will_paginate/array'
 
   def home
-    
+    if APIKey.find_by_access_token(params[:key]).nil?
+      redirect_to root_url
+    end
   end
 
   def landing
+    if current_user
+      redirect_to '/home/#{APIKey.find_by_user_id(current_user.id).access_token}'
+    end
+  end
+
+  def subscribe
+    @list_id = "YOUR-LIST-ID"
+    gibbon = Gibbon::API.new
+    gibbon.lists(ENV["MAILCHIMP_LIST_ID"]).members.create(body: {email_address: params[:address], status: "subscribed"})
+  end
+
+  def keytest
+    if APIKey.find_by_access_token(params[:key]).nil?
+      @test = false
+    else
+      @test = true
+    end
     render :layout => false
   end
 
