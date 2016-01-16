@@ -72,7 +72,7 @@
   		$('#keySubmit').click(function(){
   			$.get('/keytest/' + $('#landingKey').val(), function(result){
             if(result == "true"){
-              window.location.replace('/home/' + $('#landingKey').val());
+              window.location.replace('/' + $('#landingKey').val());
             } else{
               $('#invalid').animate({'opacity': '1'}, 'fast');
             } 

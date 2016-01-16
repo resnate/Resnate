@@ -3,7 +3,7 @@ class ResnatePagesController < ApplicationController
 
   def home
     if APIKey.find_by_access_token(params[:key]).nil?
-      redirect_to root_url
+      redirect_to '/landing'
     end
   end
 
