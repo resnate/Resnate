@@ -2,9 +2,6 @@ class ResnatePagesController < ApplicationController
   require 'will_paginate/array'
 
   def home
-    if APIKey.find_by_access_token(params[:key]).nil?
-      redirect_to '/landing'
-    end
   end
 
   def landing
