@@ -143,22 +143,57 @@ video#bgvid {
 	width: 100%;
 	text-align: center;
 	color: white;
+	overflow: auto;
 }
 
 #landingIconTablet {
-	width: 200px;
-}
-
-#landingResnateTablet {
-	font-size: 3em;
-	margin-bottom: 2.5%;
+	margin-top: 30px;
+	width: 300px;
+	vertical-align: top;
 }
 
 #tabletWords {
-	font-size: 2em;
-	margin-bottom: 1%;
+	display: inline-block;
+	margin-top: 75px;
+	margin-left: 30px;
+	text-align: left;
+}
+
+#landingResnateTablet {
+	font-size: 75px;
+	margin-bottom: 10px;
+}
+
+#tabletTagline {
+	font-size: 40px;
 }
 
 #landingVideo {
-	margin-bottom: 1%;
+	margin-top: 25px;
+	width: 100%;
+	height: 50%;
+}
+
+#tabletSignup, #tabletInvalidEmail {
+	font-size: 25px;
+	margin-top: 20px;
+}
+
+#tabletEmail {
+	font-size: 25px;
+	height: 50px;
+	width: 90%;
+	margin-top: 20px;
+}
+
+#tabletInvalidEmail {
+	opacity: 0;
+}
+
+#tabletFb {
+	height: 50px;
+}
+
+#tabletTwit {
+	height: 75px;
 }
