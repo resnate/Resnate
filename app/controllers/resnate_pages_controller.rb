@@ -2,12 +2,14 @@ class ResnatePagesController < ApplicationController
   require 'will_paginate/array'
 
   def home
-    render :layout => false
+    if APIKey.find_by_access_token(params[:key]).nil?
+      redirect_to root_url
+    end
   end
 
   def landing
     if current_user
-      redirect_to '/' + APIKey.find_by_user_id(current_user.id).access_token
+      redirect_to '/home/' + APIKey.find_by_user_id(current_user.id).access_token
     end
   end
 
