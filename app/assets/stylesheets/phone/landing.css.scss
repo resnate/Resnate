@@ -9,11 +9,10 @@ body {
 #landingIcon {
 	height: 20%;
 	margin-top: 5%;
-	margin-bottom: 5%;
+	margin-bottom: 2.5%;
 }
 
 #landingWelcome {
-	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.7);
 	height: 100%;
 }
@@ -34,9 +33,12 @@ body {
 	opacity: 0;
 }
 
-.landingSocial {
+#landingFb {
 	width: 12.5%;
-	margin: 2.5%;
+}
+
+#landingTwit {
+	width: 15%;
 }
 
 #homeFooter a {
