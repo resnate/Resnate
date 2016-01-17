@@ -144,6 +144,7 @@ video#bgvid {
 	text-align: center;
 	color: white;
 	overflow: auto;
+	-webkit-overflow-scrolling:touch;
 }
 
 #landingIconTablet {
