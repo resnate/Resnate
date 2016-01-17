@@ -1,0 +1,31 @@
+body {
+	background-image: image-url("mobilePreview.png");
+	background-repeat:no-repeat;
+	background-attachment: fixed;
+    background-size: 100% 100%;
+    text-align: center;
+}
+
+#landingIcon {
+	width: 50%;
+	margin-top: 15%;
+	margin-bottom: 5%;
+}
+
+#landingWelcome {
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+#landingResnate {
+	font-size: 2em;
+}
+
+#landingVideo {
+	margin: 5% 0;
+}
+
+.landingSocial {
+	width: 12.5%;
+	margin: 2.5%;
+}
