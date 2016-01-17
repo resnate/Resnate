@@ -133,7 +133,8 @@ video#bgvid {
 	height: 100%;
 	width: 100%;
 	background-image: image-url("webPreview.png");
-	 background-size: 100%;
+	background-position: 50% 50%;
+	background-repeat:no-repeat;
 }
 
 #landingTablet {
@@ -149,5 +150,15 @@ video#bgvid {
 }
 
 #landingResnateTablet {
-	
+	font-size: 3em;
+	margin-bottom: 2.5%;
+}
+
+#tabletWords {
+	font-size: 2em;
+	margin-bottom: 1%;
+}
+
+#landingVideo {
+	margin-bottom: 1%;
 }
