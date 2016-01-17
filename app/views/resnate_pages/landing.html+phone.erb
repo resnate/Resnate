@@ -7,15 +7,15 @@
 
     <div id="landingWords">Music, Gigs, Merch.</div>
 
-    <iframe id="landingVideo" frameborder="0" src="https://www.youtube.com/embed/7lAz45swqHk"></iframe>
+    <iframe id="landingVideo" frameborder="0" src="https://www.youtube.com/embed/7lAz45swqHk?rel=0&showinfo=0&controls=0"></iframe>
 
     <div class="lastToLoad">
-        <h4>Sign up for the beta and to receive updates:</h4>
-        <input type="email" value="" name="EMAIL" class="email" id="landingEmail" placeholder="Enter your email address" required>
+        <div>Sign up for the beta and to receive updates:</div>
+        <input type="email" value="" name="EMAIL" class="email" id="landingEmail" placeholder="Email address" required>
         <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_29f152e51961d91c69623accf_7852194cd0" tabindex="-1" value=""></div>
         <input type="submit" value="Sign up" name="subscribe" id="landingSubmit" class="button">
 
-    <h4 id="invalidEmail">Invalid email address.</h4>
+    <h5 id="invalidEmail">Invalid email address.</h5>
     <div>
     <%= link_to image_tag("facebookBrand.png", id: "landingFb", class: "landingSocial"), "https://facebook.com/resnatemusic", target: "_blank" %>
     <%= link_to image_tag("twitterBrand.png", id: "landingTwit", class: "landingSocial"), "https://twitter.com/resnate", target: "_blank" %>
@@ -24,3 +24,30 @@
     <h4 id="homeFooter">Built using <a href="https://developers.google.com/youtube/" target="_blank">YouTube</a> + <a href="https://www.songkick.com/developer" target="_blank">Songkick</a> + <a href="https://affiliate-program.amazon.co.uk/gp/advertising/api/detail/main.html" target="_blank">Amazon</a> + <a href="http://api.setlist.fm/docs/index.html" target="_blank">Setlist.fm</a> APIs.</h4>
     </div>
 </div>
+
+<script type="text/javascript">
+
+	function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+	$("#landingEmail").keydown(function(event){
+        if(event.keyCode==13){
+          $('#landingSubmit').trigger('click');
+        }
+      });
+
+      $('#landingSubmit').click(function(){
+        if(validateEmail($('#landingEmail').val()) == true) {
+          $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#landingEmail').val()})
+          $('#landingEmail').css('border', '1px solid darkgrey');
+          $('#invalidEmail').html('Thanks for signing up! Please check your inbox for the confirmation email.');
+          $('#invalidEmail').animate({'opacity': '1'}, 'fast');
+        } else {
+          $('#landingEmail').css('border', '2px solid #E50049');
+          $('#invalidEmail').html('Invalid email address.');
+          $('#invalidEmail').animate({'opacity': '1'}, 'fast');
+        }
+      });
+</script>

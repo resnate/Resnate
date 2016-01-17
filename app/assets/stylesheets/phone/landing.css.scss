@@ -7,14 +7,15 @@ body {
 }
 
 #landingIcon {
-	width: 50%;
-	margin-top: 15%;
+	height: 20%;
+	margin-top: 5%;
 	margin-bottom: 5%;
 }
 
 #landingWelcome {
 	overflow: hidden;
 	background-color: rgba(0, 0, 0, 0.7);
+	height: 100%;
 }
 
 #landingResnate {
@@ -25,7 +26,21 @@ body {
 	margin: 5% 0;
 }
 
+#landingSubmit {
+	border: 0;
+	color: white;
+	background-color: #E50049;
+}
+
+#invalidEmail {
+	opacity: 0;
+}
+
 .landingSocial {
 	width: 12.5%;
 	margin: 2.5%;
+}
+
+#homeFooter a {
+	color: #E50049 !important;	
 }
