@@ -34,12 +34,21 @@ body {
 	width: 75%;
 }
 
+#landingSubmit {
+	background-color: #E50049;
+	color: white;
+	border: 0;
+	height: 24px;
+	vertical-align: top;
+}
+
 #invalidEmail {
 	opacity: 0;
 }
 
 #landingFb {
 	width: 12.5%;
+	margin-right: 5%;
 }
 
 #landingTwit {
