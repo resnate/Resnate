@@ -128,3 +128,26 @@ video#bgvid {
 #landingTwit {
 	height: 70px;
 }
+
+#landingTabletBkgd {
+	height: 100%;
+	width: 100%;
+	background-image: image-url("webPreview.png");
+	 background-size: 100%;
+}
+
+#landingTablet {
+	background-color: rgba(0, 0, 0, 0.7);
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	color: white;
+}
+
+#landingIconTablet {
+	width: 200px;
+}
+
+#landingResnateTablet {
+	
+}

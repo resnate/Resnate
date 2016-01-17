@@ -12,9 +12,10 @@ html, body{
 body {
   background-image: image-url("testBkgd.jpg");
   background-repeat:no-repeat;
-    background-position: 50% 50%;
-    font-family: 'HelveticaNeue-Light', "Lato", sans-serif;
-    font-size: 12px;
+  background-position: 50% 50%;
+  font-family: 'HelveticaNeue-Light', "Lato", sans-serif;
+  font-size: 12px;
+  overflow: hidden;
 }
 
 input, textarea {
@@ -232,11 +233,6 @@ textarea {
 #topSongName {
   display: inline-block;
   font-weight: bold;
-}
-
-body {
-  min-width: 1260px;
-  overflow: hidden;
 }
 
 #box1 {
