@@ -10,7 +10,7 @@
     <iframe id="landingVideo" frameborder="0" src="https://www.youtube.com/embed/7lAz45swqHk?rel=0&showinfo=0&controls=0"></iframe>
 
     <div>Sign up for the beta and to receive updates:</div>
-    <input type="search" value="" name="EMAIL" class="email" id="landingEmail" placeholder="Email address" required>
+    <input type="email" value="" name="EMAIL" class="email" id="landingEmail" placeholder="Email address" required>
     <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_29f152e51961d91c69623accf_7852194cd0" tabindex="-1" value=""></div>
 
     <h5 id="invalidEmail">Invalid email address.</h5>
@@ -31,12 +31,7 @@
 
 	$("#landingEmail").keydown(function(event){
         if(event.keyCode==13){
-          $('#landingSubmit').trigger('click');
-        }
-      });
-
-      $('#landingSubmit').click(function(){
-        if(validateEmail($('#landingEmail').val()) == true) {
+          if(validateEmail($('#landingEmail').val()) == true) {
           $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#landingEmail').val()})
           $('#landingEmail').css('border', '1px solid darkgrey');
           $('#invalidEmail').html('Thanks for signing up! Please check your inbox for the confirmation email.');
@@ -46,5 +41,7 @@
           $('#invalidEmail').html('Invalid email address.');
           $('#invalidEmail').animate({'opacity': '1'}, 'fast');
         }
+        }
       });
+
 </script>
