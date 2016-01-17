@@ -37,7 +37,12 @@
 
 	$("#landingEmail").keydown(function(event){
         if(event.keyCode==13){
-          if(validateEmail($('#landingEmail').val()) == true) {
+          $('#landingSubmit').trigger('click');
+        }
+      });
+
+      $('#landingSubmit').click(function(){
+        if(validateEmail($('#landingEmail').val()) == true) {
           $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#landingEmail').val()})
           $('#landingEmail').css('border', '1px solid darkgrey');
           $('#invalidEmail').html('Thanks for signing up! Please check your inbox for the confirmation email.');
@@ -46,7 +51,6 @@
           $('#landingEmail').css('border', '2px solid #E50049');
           $('#invalidEmail').html('Invalid email address.');
           $('#invalidEmail').animate({'opacity': '1'}, 'fast');
-        }
         }
       });
 
