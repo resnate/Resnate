@@ -691,7 +691,7 @@ $('#shareCurrentImg').click(function(){
 
   $('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
     
-  $.get($(this).siblings('.hiddenID').html() + '/profile', function(result){
+  $.get('/' + $(this).siblings('.hiddenID').html() + '/profile', function(result){
   $('#box2').html(result);});
   $('.modal').modal('hide');
     $('#container').animate({
@@ -701,7 +701,7 @@ $('#shareCurrentImg').click(function(){
 
  $('.seeAllpastHome').click(function(){
   
-  $.get("<%= @user.id %>/pastGigs", function(result){
+  $.get("/<%= @user.id %>/pastGigs", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
 
@@ -710,7 +710,7 @@ $('#shareCurrentImg').click(function(){
 
 
   $(document).on('click', '.reviewerName', function(){
-    $.get($(this).siblings('.hiddenReviewerID').html() + '/profile', function(result){
+    $.get('/' + $(this).siblings('.hiddenReviewerID').html() + '/profile', function(result){
   $('#box2').html(result);});
   $('.modal').modal('hide');
     $('#container').animate({
@@ -720,13 +720,13 @@ $('#shareCurrentImg').click(function(){
   });
 
       function getConvos(){
-  $.get("<%= current_user.id %>/conversations", function(result){
+  $.get("/<%= current_user.id %>/conversations", function(result){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Messages</h3></div><div class="modal-body" id="convosBody">'+result+'</div>');});
   $('#recCount').html(0);
 }
 
 function getPoints(){
-  $.get("<%= current_user.id %>/notifications", function(result){
+  $.get("/<%= current_user.id %>/notifications", function(result){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Notifications</h3></div><div class="modal-body" id="ntBody">'+result+'</div>');});
   $('#pointCount').html(0);
 }
@@ -812,7 +812,7 @@ function friendsLikeArtist(){
       $('.reviewModalBody').html(review);
     });
   });
-  $.get("<%= @user.id %>/pastGigs", function(result){
+  $.get("/<%= @user.id %>/pastGigs", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
 });
@@ -898,7 +898,7 @@ $(document).on('click', '.deleteReviewYes', function(){
             url: reviewURL ,
             type: 'DELETE'
           });
-  $.get('<%= current_user.id %>/profile', function(result){
+  $.get('/<%= current_user.id %>/profile', function(result){
   $('#box2').html(result);});
     $('#container').animate({
         top: '-100%'
@@ -1246,7 +1246,7 @@ $(document).on('click', '.shareReview', function(){
         msgChannel.bind('inbox', function(re) {
           var data = re.message;
           if('<%= current_user.id%>' == parseInt(data)) {
-    $.get(data + '/lastMsg', function(result){
+    $.get('/' + data + '/lastMsg', function(result){
       $('#lastMsgDiv').html(result);
 
       var lastMessageSenderID = $('#lastMessageSenderID').html();
@@ -1679,7 +1679,7 @@ $('#Playlist').on('click', '.sideLiked', function(e){
   }
 
 
-      var likesURL = $(this).find('.hiddenPlaylistID').html() + '/likes';
+      var likesURL = '/' + $(this).find('.hiddenPlaylistID').html() + '/likes';
       var likestID = $(this).find('.hiddenPlaylistID').html();
 
         $.get(likesURL, function(result){

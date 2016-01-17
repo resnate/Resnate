@@ -317,7 +317,7 @@ $(function(){
 
   <% if Like.find(activity.trackable_id).likeable_type == "Gig" %>
 
-  var url = $('.feedGigs<%= activity.trackable_id %>').attr('src');
+  var url = '/' + $('.feedGigs<%= activity.trackable_id %>').attr('src');
   $.getJSON(url, function(data){
     $('.feedGigs<%= activity.trackable_id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 
@@ -332,7 +332,7 @@ $(function(){
 
   <% elsif Like.find(activity.trackable_id).likeable_type == "Review" %>
 
-  var url = $('.feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>').attr('src');
+  var url = '/' + $('.feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>').attr('src');
   $.getJSON(url, function(data){
     $('.feedReviewLikeGigs<%= Review.find(Like.find(activity.trackable_id).likeable_id).reviewable_id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 

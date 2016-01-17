@@ -117,7 +117,7 @@
 <script type="text/javascript">
 
 $(function(){
-  var url = $('.feedReviewGigs<%= Review.find(activity.trackable_id).reviewable_id %>').attr('src');
+  var url = '/' + $('.feedReviewGigs<%= Review.find(activity.trackable_id).reviewable_id %>').attr('src');
   $.getJSON(url, function(data){
     $('.feedReviewGigs<%= Review.find(activity.trackable_id).reviewable_id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
 

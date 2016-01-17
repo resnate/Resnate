@@ -104,7 +104,7 @@ $('.unfollow').click(function(){
 
  $('.followersOpener').click(function(){
   
-  $.get($(this).find('.hiddenPlaylistID').html() + "/playlistFollowers", function(result){
+  $.get('/' + $(this).find('.hiddenPlaylistID').html() + "/playlistFollowers", function(result){
   	
   	
   $('.genericContent').html(result);});

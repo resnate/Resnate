@@ -101,14 +101,14 @@ $('#mobileInbox').click(function(){
 });
 
 $(document).on('click', '#writeGig', function(){
-  $.get("<%= current_user.id %>/pastGigs", function(result){
+  $.get("/<%= current_user.id %>/pastGigs", function(result){
   	$('#mobileMainBody').html(result);
   });
  });
 
 $('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
     
-  $.get($(this).siblings('.hiddenID').html() + '/profile', function(result){
+  $.get('/' + $(this).siblings('.hiddenID').html() + '/profile', function(result){
   $('#mobileMainBody').html(result);
   $('#mobileMainBody').scrollTop(0);
 });
@@ -126,7 +126,7 @@ $(document).on('click', '.deleteReviewYes', function(){
 $('#mobileMainBody').on('scroll', function(){
     if($('.infinite-scrolling .pagination .next').length){
       if(!$('.next').hasClass('disabled')) {
-        url = $('.infinite-scrolling .next').find('a').attr('href');
+        url = '/' + $('.infinite-scrolling .next').find('a').attr('href');
         if($('#mobileMainBody').scrollTop() + $('#mobileMainBody').innerHeight()>=$('#mobileMainBody')[0].scrollHeight - 200){
       
           $('.infinite-scrolling').remove();

@@ -509,7 +509,7 @@ $('#getLikes').click(function(){
 
    
   
-  $.get("<%= @user.id %>/artistLikes", function(result){
+  $.get("/<%= @user.id %>/artistLikes", function(result){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Artists <%=@user.first_name%> Likes</h3></div><div class="modal-body" id="getLikesBody">'+result+'</div>');});
 });
 
@@ -523,7 +523,7 @@ $(document).on('click', '.ml, .alMl', function(){
 
  $('.seeAllpast').click(function(){
   
-  $.get("<%= @user.id %>/pastGigs", function(result){
+  $.get("/<%= @user.id %>/pastGigs", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Past Gigs & Reviews</h3></div><div class="modal-body" id="pastGigsBody">'+result+'</div>');});
 
@@ -534,7 +534,7 @@ $(document).on('click', '.ml, .alMl', function(){
 $('#seeAll').click(function(){
   
   
-  $.get("<%= @user.id %>/upcomingGigs", function(result){
+  $.get("/<%= @user.id %>/upcomingGigs", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Upcoming Gigs</h3></div><div class="modal-body" id="upcomingGigsBody">'+result+'</div>');
 });
@@ -544,7 +544,7 @@ $('#seeAll').click(function(){
 
 $('#seeAllActivity').click(function(){ 
 
-  $.get("<%= @user.id %>/userActivities", function(result){
+  $.get("/<%= @user.id %>/userActivities", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Activity</h3></div><div class="modal-body" id="userActivityBody">'+result+'</div>');
 });
@@ -553,7 +553,7 @@ $('#seeAllActivity').click(function(){
 
 $('#seeAllReviews').click(function(){ 
 
-  $.get("<%= @user.id %>/userReviews", function(result){
+  $.get("/<%= @user.id %>/userReviews", function(result){
 
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Reviews</h3></div><div class="modal-body" id="userReviewsBody">'+result+'</div>');
 });
@@ -582,20 +582,20 @@ $('.unfollow').click(function(){
 $('#follows').click(function(){
   
   
-  $.get("<%= @user.id %>/followees", function(result){
+  $.get("/<%= @user.id %>/followees", function(result){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Following</h3></div><div class="modal-body" id="FolloweesBody">'+result+'</div>');});
 });
 
 $('#followers').click(function(){
   
   
-  $.get("<%= @user.id %>/followers", function(result){
+  $.get("/<%= @user.id %>/followers", function(result){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel">Following</h3></div><div class="modal-body" id="FollowersBody">'+result+'</div>');});
 });
 
 $('#seePlaylists').click(function(){
   
-  $.get("<%= @user.id %>/userPlaylists", function(result){
+  $.get("/<%= @user.id %>/userPlaylists", function(result){
   $('.genericContent').html('<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h3 class="modal-title" id="myModalLabel"><%= @user.first_name %>\'s Playlists</h3></div><div class="modal-body" id="playlistsBody">'+result+'</div>');});
 });
 
@@ -607,13 +607,13 @@ $('.likedInfo').click(function(){
   if($('#Playlist').find('#dropdownLike<%= @user.id %>').length == 0){
     $('.sideLiked').after('<li class="sideLiked"><span class="glyphicon glyphicon-thumbs-up sideGlyph"></span><span class="hiddenPlaylistID"><%= @user.id %></span><h5 class="sideLikedName"><%=@user.first_name%>\'s Liked Songs</h5><div class="dropdownLikeDiv" id="dropdownLikeDiv<%= @user.id %>"><div class="dropdownLike" id="dropdownLike<%= @user.id %>"></div></div></li>');
 
-    $.get("<%= @user.id %>/likes", function(result){
+    $.get("/<%= @user.id %>/likes", function(result){
     $('#Playlist').find('#dropdownLike<%= @user.id %>').html(result);
           $('#dropdownLikeDiv<%= @user.id %>').toggle();
     });
 
   } else {
-    $.get("<%= @user.id %>/likes", function(result){
+    $.get("/<%= @user.id %>/likes", function(result){
     $('#Playlist').find('#dropdownLike<%= @user.id %>').html(result);
           $('#dropdownLikeDiv<%= @user.id %>').toggle();
     });
