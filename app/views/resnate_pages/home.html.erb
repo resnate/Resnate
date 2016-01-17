@@ -737,7 +737,7 @@ function getLeaderboard(){
 }
 
       function feed(){
-        $.get('<%= current_user.id %>/followeesUIDs', function(result){
+        $.get('/<%= current_user.id %>/followeesUIDs', function(result){
       $('#hiddenFolloweesIDs').html(result);
     });
         $.get("/activities", function(result){
