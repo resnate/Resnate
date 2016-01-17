@@ -20,7 +20,7 @@
     <%= link_to image_tag("twitterBrand.png", id: "tabletTwit", class: "landingSocial"), "https://twitter.com/resnate", target: "_blank" %>
     </div>
 
-    <h4 id="homeFooter">Built using <a href="https://developers.google.com/youtube/" target="_blank">YouTube</a> + <a href="https://www.songkick.com/developer" target="_blank">Songkick</a> + <a href="https://affiliate-program.amazon.co.uk/gp/advertising/api/detail/main.html" target="_blank">Amazon</a> + <a href="http://api.setlist.fm/docs/index.html" target="_blank">Setlist.fm</a> APIs.</h4>
+    <h4 id="tabletFooter">Built using <a href="https://developers.google.com/youtube/" target="_blank">YouTube</a> + <a href="https://www.songkick.com/developer" target="_blank">Songkick</a> + <a href="https://affiliate-program.amazon.co.uk/gp/advertising/api/detail/main.html" target="_blank">Amazon</a> + <a href="http://api.setlist.fm/docs/index.html" target="_blank">Setlist.fm</a> APIs.</h4>
 	</div>
 </div>
 
@@ -33,8 +33,8 @@
 
 	$("#tabletEmail").keydown(function(event){
         if(event.keyCode==13){
-          if(validateEmail($('#landingEmail').val()) == true) {
-          $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#landingEmail').val()})
+          if(validateEmail($('#tabletEmail').val()) == true) {
+          $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#tabletEmail').val()})
           $('#tabletEmail').css('border', '1px solid darkgrey');
           $('#tabletInvalidEmail').html('Thanks for signing up! Please check your inbox for the confirmation email.');
           $('#tabletInvalidEmail').animate({'opacity': '1'}, 'fast');
