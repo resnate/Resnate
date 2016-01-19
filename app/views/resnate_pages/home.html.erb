@@ -615,9 +615,9 @@ $('#maximise').click(function(){
     maximumSelectionSize: 3,
     formatSelectionTooBig: "You can only message 3 users at once",
     ajax: { 
-        url: "search.json",
+        url: "/search.json",
         dataType: 'json',
-        data: function (term, page) {
+        data: function (params) {
             return {
                 search: term
             };
