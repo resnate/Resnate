@@ -18,7 +18,7 @@ class SongsController < ApplicationController
   end
 
   def show
-      @user = User.find(params[:user])
+      @user = current_user
       @songs = Song.where(content: params[:content])
       
       render :layout => false

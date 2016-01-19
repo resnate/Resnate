@@ -901,10 +901,10 @@ background-color: white;
   position: fixed;
   background-color: #801336;
   bottom: -150px;
-  right: 0px;
-  width: 100%;
+  left: calc(50% - 495px);
+  width: 990px;
   color: white;
-  border-top: 1px solid black;
+  border-top: 5px solid black;
 }
 
 /*#Feed{
