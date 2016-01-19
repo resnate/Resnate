@@ -617,7 +617,7 @@ $('#maximise').click(function(){
     ajax: { 
         url: "/search.json",
         dataType: 'json',
-        data: function (params) {
+        data: function (term, page) {
             return {
                 search: term
             };
