@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
   end
 
   def create_api_key
-    api =  = APIKey.new(user_id: self.id, access_token: SecureRandom.hex)
+    api  = APIKey.new(user_id: self.id, access_token: SecureRandom.hex)
     api.save!
   end
 
