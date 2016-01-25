@@ -1,13 +1,18 @@
 class User < ActiveRecord::Base
+
   extend BulkMethodsMixin
+
   has_merit
+
   require 'json'
   include PublicActivity::Common
+
   acts_as_follower
   acts_as_followable
   acts_as_mentionable
   acts_as_liker
   acts_as_messageable
+
   def self.search(query)
     where("name ILIKE ?", "%#{query}%") 
   end
@@ -21,30 +26,32 @@ class User < ActiveRecord::Base
   has_one :api_keys
   
 
-serialize :musicLikes, JSON
-serialize :friends, JSON
+  serialize :musicLikes, JSON
+  serialize :friends, JSON
 
 
-geocoded_by :ip_address
-after_validation :geocode
+  geocoded_by :ip_address
+  after_validation :geocode
 
-reverse_geocoded_by :latitude, :longitude do |obj,results|
+  reverse_geocoded_by :latitude, :longitude do |obj,results|
     if geo = results.first
       obj.city    = geo.city
       obj.country    = geo.country
     end
- end
-after_validation :reverse_geocode
-
-def self.remote_ip
-  unless $request.nil?
-    if $request.remote_ip == '127.0.0.1'
-      # Hard coded remote address
-      '50.78.167.161'
-    else
-      $request.remote_ip
-    end
   end
+  after_validation :reverse_geocode
+
+  after_create :create_api_key
+
+  def self.remote_ip
+    unless $request.nil?
+      if $request.remote_ip == '127.0.0.1'
+      # Hard coded remote address
+        '50.78.167.161'
+      else
+        $request.remote_ip
+      end
+    end
   end  
 
   def level_name
@@ -158,11 +165,16 @@ def self.remote_ip
     end
   end
 
+  def create_api_key
+    api =  = APIKey.new(user_id: self.id, access_token: SecureRandom.hex)
+    api.save!
+  end
 
 
-def mailboxer_email(user)
- user.email
-end
+
+  def mailboxer_email(user)
+    user.email
+  end
 
   
 end
