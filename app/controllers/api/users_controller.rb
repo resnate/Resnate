@@ -91,11 +91,11 @@ class API::UsersController < ApplicationController
       @songkickID = nil
       @pastGig = nil
       @upcomingGig = nil
-      @pGarray = nil
-      @uGarray = nil
+      @pGarray = []
+      @uGarray = []
     else
       @songkickID = user.songkickID
-      @pGarray = []
+      
       if user.past_gigs.count == 0
         @pastGig = nil
       else
@@ -105,7 +105,7 @@ class API::UsersController < ApplicationController
           @pGarray.push(pG.songkick_id)
         end
       end
-      @uGarray = []
+      
       if user.gigs.count == 0
         @upcomingGig = nil
       else
