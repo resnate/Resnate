@@ -87,12 +87,12 @@ class API::UsersController < ApplicationController
         @review = "https://img.youtube.com/vi/#{Song.find(review.reviewable_id).content}/hqdefault.jpg"
       end
     end
+    @pGarray = []
+    @uGarray = []
     if user.songkickID.nil?
       @songkickID = nil
       @pastGig = nil
       @upcomingGig = nil
-      @pGarray = []
-      @uGarray = []
     else
       @songkickID = user.songkickID
       
