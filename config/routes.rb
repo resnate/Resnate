@@ -3,7 +3,7 @@ Resnate::Application.routes.draw do
 
   root "resnate_pages#landing"
   get "/home/:key" => "resnate_pages#home"
-  get "/keytest/:key" => "resnate_pages#keytest"
+  get "/keytest/:key/:address" => "resnate_pages#keytest"
   post "/subscribe" => "resnate_pages#subscribe"
   get "resnate_pages/AmazonStore"
   get "/leaderboard" => "resnate_pages#leaderboard"

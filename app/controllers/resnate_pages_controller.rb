@@ -20,10 +20,15 @@ class ResnatePagesController < ApplicationController
   end
 
   def keytest
-    if APIKey.find_by_access_token(params[:key]).nil?
+    if Email.find_by_address(params[:address]).nil?
       @test = false
     else
-      @test = true
+      email = Email.find_by_address(params[:address])
+      if email.key == params[:key]
+        @test = true
+      else
+        @test = false
+      end
     end
     render :layout => false
   end

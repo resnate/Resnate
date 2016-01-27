@@ -7,7 +7,8 @@
 
 	<div id="landingExisting">
 		<div id="already">Already have a login key?</div>
-		<input type="text" id="landingKey" placeholder="Enter your login key">
+    <input type="text" id="alreadyEmail" placeholder="Email address">
+		<input type="text" id="alreadyKey" placeholder="Login key">
 		<input type="submit" id="keySubmit" value="Sign in">
     <div id="invalid">Invalid login key.</div>
 	</div>
@@ -63,16 +64,16 @@
     }
 
 
-  		$("#landingKey").keydown(function(event){
+  		$("#alreadyKey").keydown(function(event){
     		if(event.keyCode==13){
     			$('#keySubmit').trigger('click');
   			}
   		});
 
   		$('#keySubmit').click(function(){
-  			$.get('/keytest/' + $('#landingKey').val(), function(result){
+  			$.get('/keytest/' + $('#alreadyKey').val() + '/' + $('#alreadyEmail').val(), function(result){
             if(result == "true"){
-              window.location.replace('/home/' + $('#landingKey').val());
+              window.location.replace('/home/' + $('#alreadyKey').val());
             } else{
               $('#invalid').animate({'opacity': '1'}, 'fast');
             } 
