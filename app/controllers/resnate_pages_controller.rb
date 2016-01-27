@@ -9,7 +9,7 @@ class ResnatePagesController < ApplicationController
 
   def landing
     if current_user
-      redirect_to '/home/' + Email.find_by_user_id(current_user.id).access_token
+      redirect_to '/home/' + APIKey.find_by_user_id(current_user.id).access_token
     end
   end
 
