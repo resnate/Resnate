@@ -71,13 +71,7 @@
   		});
 
   		$('#keySubmit').click(function(){
-  			$.get('/keytest/' + $('#alreadyKey').val() + '/' + $('#alreadyUser').val(), function(result){
-            if(result == "true"){
-              window.location.replace('/home/' + $('#alreadyKey').val());
-            } else{
-              $('#invalid').animate({'opacity': '1'}, 'fast');
-            } 
-        });
+        window.location.replace('/keytest/' + $('#alreadyKey').val() + '/' + $('#alreadyUser').val());
   		});
 
       $("#landingEmail").keydown(function(event){

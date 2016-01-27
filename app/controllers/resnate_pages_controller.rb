@@ -3,9 +3,7 @@ class ResnatePagesController < ApplicationController
 
   def home
     if current_user.nil?
-      if Email.find_by_key(params[:key]).nil?
-        redirect_to root_url
-      end
+      redirect_to root_url
     end
   end
 
@@ -16,23 +14,20 @@ class ResnatePagesController < ApplicationController
   end
 
   def subscribe
-    @list_id = ENV["MAILCHIMP_LIST_ID"]
+    @list_id = "YOUR-LIST-ID"
     gibbon = Gibbon::API.new
     gibbon.lists(ENV["MAILCHIMP_LIST_ID"]).members.create(body: {email_address: params[:address], status: "subscribed"})
   end
 
   def keytest
     if Email.find_by_address(params[:address]).nil?
-      @test = false
+      redirect_to root_url
     else
       email = Email.find_by_address(params[:address])
-      if email.key == params[:key]
-        @test = true
-      else
-        @test = false
+      if email.key != params[:key]
+        redirect_to root_url
       end
     end
-    render :layout => false
   end
 
   def topReviews
@@ -56,6 +51,10 @@ class ResnatePagesController < ApplicationController
 
     render :layout => false
     
+  end
+
+  def apicheck
+    render :layout => false
   end
 
   def artistSearch
