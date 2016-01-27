@@ -2,14 +2,16 @@ class ResnatePagesController < ApplicationController
   require 'will_paginate/array'
 
   def home
-    if Email.find_by_key(params[:key]).nil?
-      redirect_to root_url
+    if current_user.nil?
+      if Email.find_by_key(params[:key]).nil?
+        redirect_to root_url
+      end
     end
   end
 
   def landing
     if current_user
-      redirect_to '/home/' + APIKey.find_by_user_id(current_user.id).access_token
+      redirect_to '/home'
     end
   end
 
