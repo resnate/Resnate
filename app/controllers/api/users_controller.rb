@@ -55,6 +55,11 @@ class API::UsersController < ApplicationController
     end
   end
 
+  def create
+    @user = User.from_omniauth(env["omniauth.auth"])
+    @user.update_music_image_etc(env["omniauth.auth"])
+  end
+
   def level
     @user = User.find(params[:id])
     @points = @user.points
