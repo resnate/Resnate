@@ -48,7 +48,7 @@
     	<%elsif activity.trackable_type == "User" %>
     		<div class="latest userUser">
     			<% user = User.find(activity.trackable_id) %>
-    			<img src="<%= user.image %>" class="latestImg" >
+    			<img src="https://graph.facebook.com/<%= user.uid %>/picture?width=200&height=200" class="latestImg" >
     			<div class="hiddenID"><%= user.id %></div>
     			<div class="latestContent">
     				<% if activity.parameters.nil? || activity.parameters == {} %>

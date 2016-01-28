@@ -1,42 +1,4 @@
-<div id="Welcome">
-    
-      
-      <h2 id="bigResnate">Resnate.</h2>
-      <h3>The social network for people who love music.</h3>
 
-      <div id="Welcome2">
-        <%= link_to image_tag("ResnateCropped.png", id: 'rsCrop'), "/auth/facebook" %>
-      
-        <div id="signIn"><%= link_to simple_format("Sign in with Facebook<br />Follow your Friends"), "/auth/facebook", id: "sign_in" %></div>
-      </div>
-
-      <div class="tuteTextNImage">
-      
-      
-      <h4>Enter an artist's name to find<br>Music, Gigs & Merch.</h4>
-      </div>
-
-      
-
-      <div class="centred">
-      <div class="tuteTextNImage">
-      <h4>Share music.<br>Playlists with a drag and a drop.</h4>
-      </div>
-
-      <div class="tuteTextNImage">
-      <h4>Write reviews for past gigs.<br>Tell friends about upcoming concerts.*</h4>
-      </div>
-
-      <div class="tuteTextNImage">
-      <h4>Get points. Collect badges.<br>Climb the ranks of music fans.</h4>
-      </div>
-      </div>
-      
-  
-    
-    <h4 id="homeFooter">Built using YouTube + Songkick + Amazon + Setlist.fm APIs. </h4>
-    <h4>*Requires a <a href="https://www.songkick.com" target="_blank" id="skLink">Songkick account</a>.</h4>
-  </div>
 
 <div id="container">
 
@@ -523,12 +485,7 @@ $(function(){
 
   if(window.location.hash) {
     var url = window.location.hash.substr(1);
-    if($('#Welcome').length && url[0] == "r"){
-      $.get(url, function(result){
-      $('#Welcome2').before('<div class="modal-body">'+result+'</div>');
-    });
-    }
-    else if(url[0] == "r"){
+    if(url[0] == "r"){
       $.get(url, function(result){
       $('#box2').html('<div class="modal-body">'+result+'</div>');
     });
@@ -539,11 +496,9 @@ $(function(){
       feed();
     }
     
-} else if($('#Welcome').length == 0) {
+} else {
       feed();
     }
-
-  $('#Welcome').hide().fadeIn(3000);
 
   $('#Playlist').on('click', '.glyphicon-remove', function(){
     var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
@@ -686,8 +641,6 @@ $('#shareCurrentImg').click(function(){
       
 
       <% if !current_user.nil? %>
-
-      $('#Welcome').remove();
 
       function profile() {
         $.get('/<%= current_user.id%>/profile', function(result){

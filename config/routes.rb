@@ -101,6 +101,7 @@ Resnate::Application.routes.draw do
       get "/userSearch/:oauth"  => "users#userSearch"
       match '/auth/facebook/callback', to: 'users#createUser', via: [:get, :post]
       get "search/:id/" => "users#search"
+      post "/users/create" => "users#create"
       get "/users/:id/level"  => "users#level"
       get "/users/:id/profile"  => "users#profile"
       get "/users/:id/login"  => "users#login"

@@ -29,9 +29,9 @@ class API::UsersController < ApplicationController
     end
   end
 
-  def createUser
-    @user = User.from_omniauth(env["omniauth.auth"])
-    @user.update_music_image_etc(env["omniauth.auth"])
+  def create
+    user = User.new(email: params[:email], uid: params[:uid], provider: "facebook", name: params[:name], first_name: params[:first_name], musicLikes: params[:musicLikes], oauth_token: params[:oauth_token])
+    user.save!
   end
 
   def friendsWhoLike
