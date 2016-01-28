@@ -23,7 +23,8 @@ class API::UsersController < ApplicationController
     unless User.find_by_uid(params[:id]).nil?
   	 @user = User.find_by_uid(params[:id])
     else 
-      @user = nil
+      @user = User.from_omniauth(env["omniauth.auth"])
+      @user.update_music_image_etc(env["omniauth.auth"])
     end
   end
 
@@ -53,11 +54,6 @@ class API::UsersController < ApplicationController
       @name = User.find(id).name
       @first_name = User.find(id).first_name
     end
-  end
-
-  def create
-    @user = User.from_omniauth(env["omniauth.auth"])
-    @user.update_music_image_etc(env["omniauth.auth"])
   end
 
   def level
