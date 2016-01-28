@@ -1,3 +1,3 @@
 object @user
 
-attributes *User.column_names
+attributes :id
