@@ -1,6 +1,6 @@
 class API::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access, :except => [:userSearch, :createUser]
+  before_filter :restrict_access, :except => [:userSearch, :create]
   require 'uri'
   require 'net/http'
   require 'json'

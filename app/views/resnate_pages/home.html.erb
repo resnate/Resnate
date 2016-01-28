@@ -500,6 +500,10 @@ $(function(){
       feed();
     }
 
+    $.get('/topReviews', function(result){
+    $('.featuredContent').append(result);
+  });
+
   $('#Playlist').on('click', '.glyphicon-remove', function(){
     var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
     var playlistContent = [];
@@ -926,9 +930,7 @@ $(document).on('click', '#songReviewContent', function(){
     } 
   });
 
-  $.get('/topReviews', function(result){
-    $('.featuredContent').append(result);
-  });
+  
   
 
 
