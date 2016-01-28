@@ -30,8 +30,8 @@ class API::UsersController < ApplicationController
   end
 
   def createUser
-    @user = User.from_omniauth(request.env["omniauth.auth"])
-    @user.update_music_image_etc(request.env["omniauth.auth"])
+    @user = User.from_omniauth(env["omniauth.auth"])
+    @user.update_music_image_etc(env["omniauth.auth"])
   end
 
   def friendsWhoLike
