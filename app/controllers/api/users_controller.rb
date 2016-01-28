@@ -1,6 +1,6 @@
 class API::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access, :except => [:userSearch, :login]
+  before_filter :restrict_access, :except => :userSearch
   require 'uri'
 
   def index
@@ -23,9 +23,12 @@ class API::UsersController < ApplicationController
     unless User.find_by_uid(params[:id]).nil?
   	 @user = User.find_by_uid(params[:id])
     else 
-      @user = User.from_omniauth(env["omniauth.auth"])
-      @user.update_music_image_etc(env["omniauth.auth"])
+      @user = nil
     end
+  end
+
+  def create
+    @user = JSON.parse(Net::HTTP.get_response(URI.parse("https://graph.facebook.com/me?access_token=" + params[:oauth] + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], params[:oauth]))).body
   end
 
   def friendsWhoLike
