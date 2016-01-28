@@ -1,6 +1,6 @@
 class API::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access, :except => [:userSearch, :create]
+  before_filter :restrict_access, :except => [:userSearch, :createUser]
   require 'uri'
   require 'net/http'
   require 'json'
@@ -29,7 +29,7 @@ class API::UsersController < ApplicationController
     end
   end
 
-  def create
+  def createUser
     @user = User.from_omniauth(env["omniauth.auth"])
     @user.update_music_image_etc(env["omniauth.auth"])
   end
