@@ -577,17 +577,17 @@ $('#maximise').click(function(){
     ajax: { 
         url: "/search.json",
         dataType: 'json',
-        data: function (term, page) {
+        data: function (params) {
             return {
-                search: term
+                search: params.term
             };
         },
-        results: function (data, page) { 
+        processResults: function (data, params) { 
             return {results: data};
         }
     },
-    formatResult: userFormatResult,
-    formatSelection: userFormatSelection,  
+    templateResult: userFormatResult,
+    templateSelection: userFormatSelection,  
     
     escapeMarkup: function (m) { return m; } 
 });
