@@ -16,6 +16,7 @@ class MessagesController < ApplicationController
     @recipients.each do |recipient|
       Pusher.trigger('messages', 'inbox', { message: recipient.id, sender: @sender})
     end
+    render nothing: true
   end
-  render nothing: true
+  
 end
