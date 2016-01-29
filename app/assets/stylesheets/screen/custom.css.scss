@@ -2195,9 +2195,13 @@ height: 90%;
   }
 }
 
-.select2-drop, .select2-container, .select2-choice, .select2-container .select2-choice, .select2-drop-above, .select2-drop.select2-drop-above,
+.select2-dropdown, .select2-container, .select2-choice, .select2-container .select2-choice, .select2-drop-above, .select2-drop.select2-drop-above,
  .select2-container.select2-drop-above .select2-choice, .select2-container, .select2-choices, .select2-search-field input, .select2-container, .select2-choice, .select2-container, .select2-choices {
   border-radius: 0px !important;
+}
+
+.select2-dropdown {
+  z-index: 1051;
 }
 
 
