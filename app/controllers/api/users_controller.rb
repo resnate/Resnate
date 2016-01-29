@@ -268,6 +268,7 @@ class API::UsersController < ApplicationController
         end
       end
     end
+    render nothing: true
   end
 
   def update

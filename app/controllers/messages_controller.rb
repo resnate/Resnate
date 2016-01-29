@@ -17,4 +17,5 @@ class MessagesController < ApplicationController
       Pusher.trigger('messages', 'inbox', { message: recipient.id, sender: @sender})
     end
   end
+  render nothing: true
 end

@@ -483,14 +483,6 @@ function abracadabra() {
 
 $(function(){
 
-if ($.ui && $.ui.dialog && $.ui.dialog.prototype._allowInteraction) {
-    var ui_dialog_interaction = $.ui.dialog.prototype._allowInteraction;
-    $.ui.dialog.prototype._allowInteraction = function(e) {
-        if ($(e.target).closest('.select2-dropdown').length) return true;
-        return ui_dialog_interaction.apply(this, arguments);
-    };
-}
-
   if(window.location.hash) {
     var url = window.location.hash.substr(1);
     if(url[0] == "r"){

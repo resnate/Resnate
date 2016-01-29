@@ -65,9 +65,6 @@ class ResnatePagesController < ApplicationController
     render :layout => false
   end
 
-  def help
-  end
-
   def level
     render :layout => false
     
