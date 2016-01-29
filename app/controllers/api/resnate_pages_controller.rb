@@ -6,7 +6,7 @@ class API::ResnatePagesController < ApplicationController
 		@user = User.find(params[:id])
     	if @user.country == "United Kingdom"
       		req = Vacuum.new('GB', true)
-    	elsif current_user.country == "France"
+    	elsif @user.country == "France"
       		req = Vacuum.new('FR', true)
     	else
       		req = Vacuum.new('US', true)
