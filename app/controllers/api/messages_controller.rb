@@ -39,7 +39,6 @@ class API::MessagesController < ApplicationController
           end
         end
       end
-      render nothing: true
       paginate json: @messages, page: params[:page], per_page: 3
     end
   end
@@ -62,7 +61,6 @@ class API::MessagesController < ApplicationController
         end
       end
       paginate json: @messages, page: params[:page], per_page: 10
-      render nothing: true
     end
   end
 
