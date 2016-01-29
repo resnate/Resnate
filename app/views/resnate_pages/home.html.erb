@@ -57,7 +57,7 @@
       </div>
       <div class="modal-body">
 
-        <input id="shareCurrentInput" ><%= image_tag "ResnateShareIcon.png", id: "shareCurrentImg" %>
+        <select id="shareCurrentInput" ><%= image_tag "ResnateShareIcon.png", id: "shareCurrentImg" %></select>
         <%= form_tag({controller: "messages", action: "create"}, method: :post, remote:true) do %>
         
         <input type="textbox" name="user" id="shareCurrentID">
