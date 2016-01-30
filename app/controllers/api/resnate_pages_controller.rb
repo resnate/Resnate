@@ -6,15 +6,18 @@ class API::ResnatePagesController < ApplicationController
 		@user = User.find(params[:id])
     	if @user.country == "United Kingdom"
       		req = Vacuum.new('GB', true)
+          clothing = "Apparel"
     	elsif @user.country == "France"
       		req = Vacuum.new('FR', true)
+          clothing = "Clothing"
     	else
       		req = Vacuum.new('US', true)
+          clothing = "Clothing"
     	end
     	search_query = params[:search_query]
   		req.associate_tag = 'resnate-21'
             req.configure(   aws_access_key_id:     ENV['S3_KEY'],aws_secret_access_key: ENV['S3_SECRET'], associate_tag: 'resnate-21')
-             params = {'SearchIndex' => 'Books', 'Keywords' => search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'ItemPage' => 1} 
+             params = {'SearchIndex' => clothing, 'Keywords' => search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'ItemPage' => 1} 
              res = req.item_search(params)
              hash = res.to_h
              puts hash
