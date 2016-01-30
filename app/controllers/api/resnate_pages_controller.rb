@@ -17,6 +17,7 @@ class API::ResnatePagesController < ApplicationController
              params = {'SearchIndex' => 'Apparel', 'Keywords'    => search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage' => 1} 
              res = req.item_search(params)
              hash = res.to_h
+             puts hash
              items = hash["ItemSearchResponse"]["Items"]["Item"]
              noOfItems = Integer(hash["ItemSearchResponse"]["Items"]["TotalResults"])
               if noOfItems == 0
