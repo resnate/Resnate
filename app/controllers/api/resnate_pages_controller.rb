@@ -9,10 +9,10 @@ class API::ResnatePagesController < ApplicationController
           clothing = "Apparel"
     	elsif @user.country == "France"
       		req = Vacuum.new('FR', true)
-          clothing = "Clothing"
+          clothing = "Fashion"
     	else
       		req = Vacuum.new('US', true)
-          clothing = "Clothing"
+          clothing = "Fashion"
     	end
     	search_query = params[:search_query]
   		req.associate_tag = 'resnate-21'
