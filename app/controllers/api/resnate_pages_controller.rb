@@ -14,7 +14,7 @@ class API::ResnatePagesController < ApplicationController
     	search_query = params[:search_query]
   		req.associate_tag = 'resnate-21'
             req.configure(   aws_access_key_id:     ENV['S3_KEY'],aws_secret_access_key: ENV['S3_SECRET'], associate_tag: 'resnate-21')
-             params = {'SearchIndex' => 'Apparel', 'Keywords'    => search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage' => 1} 
+             params = {'SearchIndex' => 'Books', 'Keywords' => search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'ItemPage' => 1} 
              res = req.item_search(params)
              hash = res.to_h
              puts hash
