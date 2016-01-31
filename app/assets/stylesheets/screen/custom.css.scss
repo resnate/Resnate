@@ -2021,7 +2021,12 @@ tr {
 }
 
 #shareCurrentImg {
-  padding-left: 20px;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.select2-container--bootstrap {
+  display: inline-block;
 }
 
 .shareGigNoLike {
