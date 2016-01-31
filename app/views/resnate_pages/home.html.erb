@@ -1340,9 +1340,9 @@ $("#navTitle").mouseout(function() {
         var pageUrl = "https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/calendar.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&page=" + i + "&jsoncallback=?";
         
         $.getJSON(pageUrl,function(pageJson){
-          alert(pageJson);
-          $.each(pageJson.resultsPage.results.calendarEntry,function(j,e){
 
+          $.each(pageJson.resultsPage.results.calendarEntry,function(j,e){
+            alert(e.event.id);
             allGigs.push(e.event.id);
             
             if($('#hiddenGigsIDs').html().indexOf(e.event.id) == -1){
