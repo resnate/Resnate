@@ -188,7 +188,7 @@
   <div id="mainWriteSongReview">
       <h1>Write About Your Life in Music.</h1>
       <h4>Get points, gain followers, become the No. 1 Music Fan.</h4>
-      <input placeholder="Paste YouTube link for a Song or Album here and press Enter" id="mainYTPaste">
+      <input placeholder="Paste YouTube link for a Song or Album here and press Enter to write a Review" id="mainYTPaste">
       <% unless @user.past_gigs.count == 0 %>
         <h6 id="writeGig" data-toggle="modal" data-target="#genericModal" class="seeAllpastHome">Write reviews for concerts you've attended.</h6>
       <% end %>
@@ -737,7 +737,7 @@ function friendsLikeArtist(){
             
             if(url.match(ytReg)){
               var songReviewID = url.match(ytReg)[1];
-              $.getJSON('http://gdata.youtube.com/feeds/api/videos/' + songReviewID + '?v=2&alt=jsonc', function(json){
+              $.getJSON('https://gdata.youtube.com/feeds/api/videos/' + songReviewID + '?v=2&alt=jsonc', function(json){
                 var songName = json["data"]["title"];
                 $.post('/songs', { song: { content: songReviewID, name: songName } }).done(function(data) {
                   
@@ -1352,12 +1352,17 @@ $("#navTitle").mouseout(function() {
             }
           });
 
+          <% unless current_user.gigs.count == 0 %>
+
           $.each(allPreviousGigs, function(i, gigID){
             if(allGigs.indexOf(gigID) == -1){
               deleteURL = '/gigUndo/'+gigID;
               $.post(deleteURL);
             }
           });
+
+          <% end %>
+          
         });
       }
      
