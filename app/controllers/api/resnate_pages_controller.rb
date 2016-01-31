@@ -20,7 +20,6 @@ class API::ResnatePagesController < ApplicationController
              params = {'SearchIndex' => clothing, 'Keywords' => search_query.gsub("%20", " "), 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'ItemPage' => 1} 
              res = req.item_search(params)
              hash = res.to_h
-             puts hash
              items = hash["ItemSearchResponse"]["Items"]["Item"]
              noOfItems = Integer(hash["ItemSearchResponse"]["Items"]["TotalResults"])
               if noOfItems == 0
