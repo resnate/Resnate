@@ -1348,7 +1348,6 @@ $("#navTitle").mouseout(function() {
             if($('#hiddenGigsIDs').html().indexOf(e.event.id) == -1){
           
               gigsArray.push({songkick_id: e.event.id , gig_date: e.event.start.date });
-            alert(gigsArray)
             }
           });
 
@@ -1362,9 +1361,10 @@ $("#navTitle").mouseout(function() {
           });
 
           <% end %>
-        });
-        alert(gigsArray);
+        alert(JSON.stringify(gigsArray) );
         $.post( '/<%= current_user.id %>/multipleCreate', { multiGigs: JSON.stringify(gigsArray) });
+        });
+        
       }
      
 
