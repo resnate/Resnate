@@ -1342,13 +1342,13 @@ $("#navTitle").mouseout(function() {
         $.getJSON(pageUrl,function(pageJson){
 
           $.each(pageJson.resultsPage.results.calendarEntry,function(j,e){
-            alert(e.event.id);
+
             allGigs.push(e.event.id);
             
             if($('#hiddenGigsIDs').html().indexOf(e.event.id) == -1){
           
               gigsArray.push({songkick_id: e.event.id , gig_date: e.event.start.date });
-          
+            alert(gigsArray)
             }
           });
 
@@ -1363,10 +1363,12 @@ $("#navTitle").mouseout(function() {
 
           <% end %>
         });
+        alert(gigsArray);
+        $.post( '/<%= current_user.id %>/multipleCreate', { multiGigs: JSON.stringify(gigsArray) });
       }
      
 
-    $.post( '/<%= current_user.id %>/multipleCreate', { multiGigs: JSON.stringify(gigsArray) });
+    
       
           });
 
