@@ -13,6 +13,15 @@ class API::PlaylistsController < ApplicationController
     render nothing: true
   end
 
+  def destroy
+    current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    @playlist = Playlist.find(params[:id])
+    if @playlist.user_id == current_user.id
+      @playlist.destroy
+      PublicActivity::Activity.where(trackable_type: "Playlist", trackable_id: @playlist.id).first.destroy
+    end
+  end
+
   def show
     @playlist = Playlist.find(params[:id])
   end
