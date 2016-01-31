@@ -128,7 +128,7 @@
 
   
 
-  <% if @songkickID.nil? %>
+  <% if @songkickID.nil? || @songkickID == "" %>
  
     <div id="noSongkick">
 
@@ -153,7 +153,7 @@
     <% if current_user == @user %>
     
     <div id="noPastGigs" class="gigBlocks">
-      No past gigs! <br> Add a few gigs you've already been to at <a href="www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).
+      No past gigs! <br> Add a few gigs you've already been to at <a href="https://www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).
     </div>
 
     <% else %>
@@ -211,7 +211,7 @@
     <% if current_user == @user %>
 
     <div id="noUpcomingGigs" class="gigBlocks">
-      No upcoming gigs! <br> Add a few gigs you're going to at <a href="www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).
+      No upcoming gigs! <br> Add a few gigs you're going to at <a href="https://www.songkick.com"> Songkick</a>.<br> Then this'll look awesome (instead of crappy like it does now).
     </div>
 
     <% else %>
