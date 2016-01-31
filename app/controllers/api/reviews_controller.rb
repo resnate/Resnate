@@ -21,6 +21,7 @@ class API::ReviewsController < ApplicationController
     @activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: @review.id).first.id
     @message = @activity.to_s + ',' + current_user.uid.to_s
     Pusher.trigger('activities', 'feed', {:message => @message})
+    render nothing: true
   end
 
   def update

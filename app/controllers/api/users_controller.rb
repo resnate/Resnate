@@ -274,6 +274,7 @@ class API::UsersController < ApplicationController
   def update
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
     @user.update_attributes(user_params)
+    render nothing: true
   end
 
 private

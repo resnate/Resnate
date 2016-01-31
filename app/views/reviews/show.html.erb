@@ -63,9 +63,9 @@
 	
 	<div id="hiddenReviewRating">
 		<% if current_user.id == @review.user_id %>
-			<% unless @review.rating.nil? %>
+			
 				<%= @review.rating %>
-			<% end %>
+			
 		<% else %>
 			<% unless @review.rating.nil? %>
 				<%= @review.rating %>
