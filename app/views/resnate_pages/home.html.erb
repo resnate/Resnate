@@ -1314,7 +1314,7 @@ $("#navTitle").mouseout(function() {
         <% unless current_user.songkickID.nil? %>
   
   var url="https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/calendar.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?";
-
+alert(url);
   var gigsArray = [];
 
   $.getJSON(url,function(json){ 
@@ -1338,7 +1338,7 @@ $("#navTitle").mouseout(function() {
       for (i = 1; i <= totalPages; i++) { 
 
         var pageUrl = "https://api.songkick.com/api/3.0/users/" + $('#hiddenSongkickID').html() + "/calendar.json?reason=attendance&apikey=Pxms4Lvfx5rcDIuR&page=" + i + "&jsoncallback=?";
-        alert(pageUrl)
+
         $.getJSON(pageUrl,function(pageJson){
 
           $.each(pageJson.resultsPage.results.calendarEntry,function(j,e){
