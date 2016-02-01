@@ -738,7 +738,7 @@ function friendsLikeArtist(){
             if(url.match(ytReg)){
               var songReviewID = url.match(ytReg)[1];
               $.getJSON('https://www.googleapis.com/youtube/v3/videos?id=' + songReviewID + '&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet', function(json){
-                var songName = json["data"]["title"];
+                var songName = json["items"][0]["snippet"]["title"];
                 $.post('/songs', { song: { content: songReviewID, name: songName } }).done(function(data) {
                   
                     $.get('/songs/' + data + '/reviewTemplate', function(result){
