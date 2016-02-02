@@ -1,11 +1,11 @@
 <div id="reviewBody" class="modal-body">
 	<div class="reviewHeader">
 
-		<% if params[:type] == "PastGig" %>
+		<% if @type == "PastGig" %>
 
 		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg writeReviewGigs<%= @id %>"></a>
 
-		<% elsif params[:type] == "Song" %>
+		<% elsif @type == "Song" %>
 		<img src="https://img.youtube.com/vi/<%= @song.content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
 		<p class="jamTitle"><%= @song.name %></p>
 
@@ -15,9 +15,9 @@
 			<div class="reviewT">
 				Review of
 
-				<% if @review.reviewable_type == "PastGig" %>
+				<% if @type == "PastGig" %>
 					<div class="writeReviewGigName<%= @review.id %>"></div>
-				<% elsif @review.reviewable_type == "Song" %>
+				<% elsif @type == "Song" %>
 					<div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
 				<% end %>
 
@@ -72,7 +72,7 @@
 
 <script type="text/javascript">
 
-	<% if @review.reviewable_type == "PastGig" %>
+	<% if @type == "PastGig" %>
 
 	var url = $('.writeReviewGigs<%= @review.id %>').attr('src');
 
