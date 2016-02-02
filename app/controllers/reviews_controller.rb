@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
 
   def writeReview
     @type = params[:type]
-    @reviewableID = params[:id]
+    @id = params[:id]
     render :layout => false
   end
 

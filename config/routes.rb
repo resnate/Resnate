@@ -53,7 +53,6 @@ Resnate::Application.routes.draw do
   get '/:content/songs/show' => 'songs#show'
   get '/:content/songs/lastSong' => 'songs#lastSong'
   get '/:user/history' => 'songs#history'
-  get '/songs/:id/reviewTemplate' => 'songs#reviewTemplate'
   post '/:id/like' => 'songs#like'
   post '/:id/unlike' => 'songs#unlike'
 
