@@ -36,10 +36,10 @@
         
         <div class="pgID"><%= pg.id %></div>
         <% if pg.review.nil? && current_user.id == @user.id %>
-        <div class="reviewButton writeGigReview" data-toggle="modal" data-target="#reviewModal">Write a Review</div>
+        <div class="reviewButton writeGigReview">Write a Review</div>
         <% elsif pg.review.present?%>
         <div class="pgReviewID"><%= pg.review.id %></div>
-        <div class="reviewButton reviewPresent" data-toggle="modal" data-target="#reviewModal">Review</div>
+        <div class="reviewButton reviewPresent">Review</div>
         <% end %>
 
 </div>
@@ -106,13 +106,21 @@ var gigUrls = [];
 
   $('.reviewPresent').click(function(){
     $.get('/reviews/' + $(this).siblings('.pgReviewID').html(), function(review){
-      $('.reviewModalBody').html(review);
+      $('#box2').html(review);
+    });
+    $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
     });
   });
 
   $('.writeGigReview').click(function(){
     $.get( '/PastGig/' + $(this).siblings('.pgID').html() + '/writeReview/', function(review){
-      $('.reviewModalBody').html(review);
+      $('#box2').html(review);
+    });
+    $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
     });
   });
 

@@ -741,13 +741,14 @@ function friendsLikeArtist(){
                 var songName = json["items"][0]["snippet"]["title"];
                 $.post('/songs', { song: { content: songReviewID, name: songName } }).done(function(data) {
                   
-                    $.get('/songs/' + data + '/reviewTemplate', function(result){
-                      $('#box2').html('<div class="modal-body">'+result+'</div>');
-                      $('#container').animate({
-                         top: '-100%'
+                    $.get('/Song/' + data + '/writeReview/', function(review){
+                      $('#box2').html(review);
                       });
+                      $('.modal').modal('hide');
+                    $('#container').animate({
+                        top: '-100%'
+                    });
                   
-                  });
                 });
               });
             }
@@ -2058,7 +2059,12 @@ $('#topPhoto').click(function(){
 
   $('.writeSongReview').click(function(){
     $.get( '/Song/' + $('#csImg').siblings('.hiddenSongID').html() + '/writeReview/', function(review){
-      $('.reviewModalBody').html(review);
+      $('#box2').html(review);
+    });
+    $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
+    });
     });
   });
 

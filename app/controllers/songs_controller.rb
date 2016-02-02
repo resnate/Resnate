@@ -29,17 +29,12 @@ class SongsController < ApplicationController
     render :layout => false
   end
 
-  def reviewTemplate
-    @song = Song.find(params[:id])
+  def history
+    @user = User.find(params[:user])
+    @songs = @user.songs
+      
     render :layout => false
   end
-
-    def history
-      @user = User.find(params[:user])
-      @songs = @user.songs
-      
-      render :layout => false
-    end
 
   def like
       @song = Song.find(params[:id])

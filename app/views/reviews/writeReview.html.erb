@@ -1,10 +1,140 @@
-<textarea class="newReviewInput noReview" placeholder="Write a review of to your heart's extent (as long as your heart's extent is less than 5000 characters)!"></textarea>
+<div id="reviewBody" class="modal-body">
+	<div class="reviewHeader">
+
+		<% if params[:type] == "PastGig" %>
+
+		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg writeReviewGigs<%= @id %>"></a>
+
+		<% elsif params[:type] == "Song" %>
+		<img src="https://img.youtube.com/vi/<%= @song.content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
+		<p class="jamTitle"><%= @song.name %></p>
+
+		<% end %>
+
+		<div class="reviewTitle">
+			<div class="reviewT">
+				Review of
+
+				<% if @review.reviewable_type == "PastGig" %>
+					<div class="writeReviewGigName<%= @review.id %>"></div>
+				<% elsif @review.reviewable_type == "Song" %>
+					<div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
+				<% end %>
+
+			</div>
+			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=200&height=200", class: "feedPic" %>
+			<div class="hiddenID">
+  				<%= current_user.id %>
+			</div>
+			<div class="reviewerInfo">
+				<div class="profileName"><%= current_user.name %></div>
+				<div class="hiddenID">
+  					<%= current_user.id %>
+				</div>
+				<br>
+				<%= image_tag (current_user.badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+				<div class="reviewLevelNameNPoints">
+      				<%= current_user.level_name %> <%= current_user.points %> points
+      			</div>
+      			<div class="reviewFollowers">
+      			<% followerCount = current_user.followers(User).count %>
+      			<% if followerCount == 1 %>
+      				<%= followerCount %> follower
+      			<% elsif followerCount > 1 %>
+      				<%= followerCount %> followers
+      			<% end %>
+      			</div>
+			</div>
+		</div>
+	</div>
+
+	<textarea id="newSongReview" placeholder="Write a review for this Song or Album."></textarea>
+
+	<div id="hiddenReviewRating">0</div>
+
+	<div class="reviewRating">
+		<img src="/assets/emptystar.png" class="emptystar" id="1">
+		<img src="/assets/emptystar.png" class="emptystar" id="2">
+		<img src="/assets/emptystar.png" class="emptystar" id="3">
+		<img src="/assets/emptystar.png" class="emptystar" id="4">
+		<img src="/assets/emptystar.png" class="emptystar" id="5">
+	</div>
+
+	<div class="saveReviewButton editDeleteBkgd">Save</div>
+	<div class="cancelReviewButton editDeleteBkgd" data-toggle="modal" data-target="#reviewModal">Cancel</div>
+	<div class="reviewableID"><%= @reviewableID %></div>
+	<div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
+	<div class="deleteReviewYes editDeleteBkgd">Yes</div>
+	<div class="deleteReviewNo editDeleteBkgd">No</div>
+</div>
 
 
-<% if @type == "PastGig" %>
-	<div class="saveGigReviewButton editDeleteBkgd">Save</div>
-<% elsif @type == "Song" %>
-	<div class="saveSongReviewButton editDeleteBkgd">Save</div>
-<% end %>
-<div class="cancelReviewButton editDeleteBkgd" data-toggle="modal" data-target="#reviewModal">Cancel</div>
-<div class="reviewableID"><%= @reviewableID %></div>
+
+<script type="text/javascript">
+
+	<% if @review.reviewable_type == "PastGig" %>
+
+	var url = $('.writeReviewGigs<%= @review.id %>').attr('src');
+
+  	$.getJSON(url, function(data){
+
+    $('.reviewGigs<%= @review.id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
+
+    $('#reviewBody .hiddenGigLocation').html(data.resultsPage.results.event.venue.metroArea.displayName);
+
+    $('#reviewBody .hiddenArtistName').html(data.resultsPage.results.event.performance[0].artist.displayName);
+
+    $('.reviewGigName<%= @review.id %>').html(data.resultsPage.results.event.displayName);
+    
+    $('.reviewGigs<%= @review.id %>').removeClass('reviewGigs<%= @review.id %>');
+  	});
+
+	<% end %>
+
+	$('.emptystar').click(function(){
+  	var newRating = parseInt($(this).attr('id'));
+
+  	$('.fullstar').each(function(i, obj){
+  		if(parseInt($(obj).attr('id')) > newRating ) {
+  			$(obj).addClass('emptystar');
+			$(obj).removeClass('fullstar');
+			$(obj).attr("src","/assets/emptystar.png")
+  		}
+  	});
+
+  	$('.emptystar').each(function(i, obj){
+  		if(parseInt($(obj).attr('id')) <= newRating ) {
+  			$(obj).addClass('fullstar');
+			$(obj).removeClass('emptystar');
+			$(obj).attr("src","/assets/fullstar.png")
+  		}
+  	});
+
+
+  	$('#hiddenReviewRating').html(newRating);
+  });
+
+  $('.fullstar').click(function(){
+  	var newRating = parseInt($(this).attr('id'));
+
+  	$('.emptystar').each(function(i, obj){
+  		if(parseInt($(obj).attr('id')) < newRating ) {
+  			$(obj).addClass('fullstar');
+			$(obj).removeClass('emptystar');
+			$(obj).attr("src","/assets/fullstar.png")
+  		}
+  	});
+
+  	$('.fullstar').each(function(i, obj){
+  		if(parseInt($(obj).attr('id')) > newRating ) {
+  			$(obj).addClass('emptystar');
+			$(obj).removeClass('fullstar');
+			$(obj).attr("src","/assets/emptystar.png")
+  		}
+  	});
+
+  	$('#hiddenReviewRating').html(newRating);
+  });
+
+
+</script>

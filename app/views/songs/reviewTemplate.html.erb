@@ -1,11 +1,26 @@
 <div id="reviewBody" class="modal-body">
 	<div class="reviewHeader">
+
+		<% if @review.reviewable_type == "PastGig" %>
+
+		<a href="https://www.songkick.com/concerts/<%= PastGig.find(@review.reviewable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= @review.id %>"></a>
+
+		<% elsif @review.reviewable_type == "Song" %>
 		<img src="https://img.youtube.com/vi/<%= @song.content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
 		<p class="jamTitle"><%= @song.name %></p>
+
+		<% end %>
+
 		<div class="reviewTitle">
 			<div class="reviewT">
 				Review of
-				<div class="activityName songName" src="https://img.youtube.com/vi/<%= @song.content %>/hqdefault.jpg"><%= @song.name %></div>
+
+				<% if @review.reviewable_type == "PastGig" %>
+					<div class="reviewGigName<%= @review.id %>"></div>
+				<% elsif @review.reviewable_type == "Song" %>
+					<div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
+				<% end %>
+
 			</div>
 			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=200&height=200", class: "feedPic" %>
 			<div class="hiddenID">
@@ -34,9 +49,10 @@
 	</div>
 
 	<textarea id="newSongReview" placeholder="Write a review for this Song or Album."></textarea>
-	<div id="hiddenSongID"><%= @song.id %></div>
-	<div class="cancelReview">Cancel</div>
-	<div class="cancelReviewPrompt">Are you sure?</div>
-	<div class="cancelReviewYes">Yes</div>
-	<div class="cancelReviewNo">No</div>
+	<div class="saveReviewButton editDeleteBkgd">Save</div>
+	<div class="cancelReviewButton editDeleteBkgd" data-toggle="modal" data-target="#reviewModal">Cancel</div>
+	<div class="reviewableID"><%= @reviewableID %></div>
+	<div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
+	<div class="deleteReviewYes editDeleteBkgd">Yes</div>
+	<div class="deleteReviewNo editDeleteBkgd">No</div>
 </div>
