@@ -1072,9 +1072,12 @@ $(document).on('click', '.shareReview', function(){
         }
 
         messageRT = '<div class="ns-thumb inboxNotification"><img src="https://graph.facebook.com/'+lastMessageSenderUID+'/picture?width=100&height=100" class="notificationImg"/></div><div class="ns-content inboxNotification"><p>'+lastMessageSenderName+' shared a '+lastMessageSubjectType+' with you!</p></div>';
+        $(document).attr('title', '(' + $('#recCount').html().trim() + ') Resnate: The Music Social Network.');
 
       } else {
         $('#pointCount').html(parseInt($('#pointCount').html()) + 1);
+        var totalNotifications = parseInt($('#pointCount').html()) + parseInt($('#recCount').html());
+        $(document).attr('title', '(' + totalNotifications + ') Resnate: The Music Social Network.');
         $('#pointCount').removeClass('invisCount');
         $.get('/points', function(result){
           $('.navPoints').html(result);
