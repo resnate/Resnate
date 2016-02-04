@@ -333,6 +333,16 @@ $('.deleteReviewYes').click(function(){
     $('.modal').modal('hide');
 });
 
+  $('.cancelEditingReview').click(function(){
+    var ID = $(this).siblings('.hiddenReviewID').html();
+    $.getJSON('/reviews/' + ID + '.json', function(data){
+      var reviewContent = data["content"]
+      $('.updateReview').replaceWith('<div class="updateReview">' + reviewContent + '</div>');
+      $('.editReview').css('display', 'inline-block');
+      $('.cancelEditingReview').hide();
+    });
+  });
+
 
   <% end %>
   
