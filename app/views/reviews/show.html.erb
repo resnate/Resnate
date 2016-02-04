@@ -86,7 +86,7 @@
 		<% if current_user.id == @review.user_id %>
 			<div class="editReview editDeleteBkgd">Edit</div>
 			<div class="saveReview editDeleteBkgd">Save</div>
-			<div class="cancelGigReview editDeleteBkgd">Cancel</div>
+			<div class="cancelEditingReview editDeleteBkgd">Cancel</div>
 			<div class="deleteReview editDeleteBkgd">Delete</div>
 			<div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
 			<div class="deleteReviewYes editDeleteBkgd">Yes</div>
@@ -282,6 +282,57 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
 
   	$('#hiddenReviewRating').html(newRating);
   });
+
+  $(".saveReview").click(function(event){
+    var reviewContent = $(this).siblings('.updateReview')
+    var contentText = $(reviewContent).val();
+    var ID = $(this).siblings('.hiddenReviewID').html();
+    var updateURL = "/reviews/" + ID;
+    $.ajax({
+      url: updateURL,
+      method: "PUT",
+      data: { content : contentText }
+    });
+    var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
+            return ("<img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p>")
+          });
+    $(reviewContent).replaceWith('<div class="reviewContent">' + updatedContentText + '</div>');
+    $(this).css('display', 'none');
+    $(this).siblings('.cancelEditingReview').css('display', 'none');
+    $(this).siblings('.editReview').css('display', 'inline-block');
+  });
+
+  $('.editReview').click(function(){
+    var ID = $(this).siblings('.hiddenReviewID').html();
+    $.getJSON('/reviews/' + ID + '.json', function(data){
+      var reviewContent = data["content"]
+      var height = $('#box2 .reviewContent').height();
+      $('#box2 .reviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
+      $('.updateReview').height(height);
+      $('#box2 .editReview').hide();
+      $('#box2 .editReview').siblings('.saveReview, .cancelEditingReview').css('display', 'inline-block');
+    });
+  });
+
+  $('.deleteReview').click(function(){
+    $(this).siblings('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').addClass('inlinePrompt');
+  });
+
+$('.deleteReviewNo').click(function(){
+  $(this).siblings('.deleteReviewPrompt, .deleteReviewYes').removeClass('inlinePrompt');
+  $(this).removeClass('inlinePrompt');
+});
+
+$('.deleteReviewYes').click(function(){
+  var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();
+  $.ajax({
+            url: reviewURL ,
+            type: 'DELETE'
+          });
+  profile();
+    $('.modal').modal('hide');
+});
+
 
   <% end %>
   

@@ -142,10 +142,6 @@ textarea {
   cursor: pointer;
 }
 
-#newSongReview {
-  width: 100%;
-}
-
 .headerRow {
   font-weight: bold;
   td {
@@ -632,7 +628,7 @@ textarea {
 
 #currentShare {
   float: right;
-  margin-top: 37.5px;
+  margin-top: 53px;
   margin-right: 10px;
 }
 
@@ -1571,20 +1567,20 @@ tr {
   color: white;
 }
 
-.saveReview, .cancelGigReview {
+.cancelEditingReview {
   display: none;
   cursor: pointer;
 }
 
-.reviewableID {
+.reviewableID, .reviewableType {
   display: none;
 }
 
-.deleteReviewPrompt {
+.deleteReviewPrompt, .cancelReviewPrompt {
   margin-right: 20px;
 }
 
-.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo {
+.saveReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo {
   display: none;
   cursor: pointer;
   
@@ -1661,11 +1657,12 @@ tr {
   width: calc(100% - 325px);
 }
 
-.newReviewInput, .updateReview {
+#newReviewInput, .updateReview {
+  margin-top: 10px;
   width: 100%;
 }
 
-.newReviewInput {
+#newReviewInput {
   height: 20em;
 }
 

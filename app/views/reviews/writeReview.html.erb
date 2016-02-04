@@ -48,7 +48,7 @@
 		</div>
 	</div>
 
-	<textarea id="newSongReview" placeholder="Write a review for this Song or Album."></textarea>
+	<textarea id="newReviewInput" placeholder="Write a review for this Song or Album."></textarea>
 
 	<div id="hiddenReviewRating">0</div>
 
@@ -63,9 +63,10 @@
 	<div class="saveReviewButton editDeleteBkgd">Save</div>
 	<div class="cancelReviewButton editDeleteBkgd">Cancel</div>
 	<div class="reviewableID"><%= @id %></div>
-	<div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
-	<div class="deleteReviewYes editDeleteBkgd">Yes</div>
-	<div class="deleteReviewNo editDeleteBkgd">No</div>
+	<div class="reviewableType"><%= @type %></div>
+	<div class="cancelReviewPrompt">Are you sure you want to delete this review?</div>
+	<div class="cancelReviewYes editDeleteBkgd">Yes</div>
+	<div class="cancelReviewNo editDeleteBkgd">No</div>
 </div>
 
 
@@ -130,6 +131,37 @@
 
   	$('#hiddenReviewRating').html(newRating);
   });
+
+  $('.saveReviewButton').click(function(){
+
+  	var contentText = $('#newReviewInput').val()
+  	var ID = $(this).siblings('.reviewableID').html();
+  	var type = $(this).siblings('.reviewableType').html();
+  	var postURL = "/reviews/" + ID;
+  	var youtubedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
+            return ("<img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p>")});
+
+
+  	$.post('/reviews', { review: { reviewable_id: ID, reviewable_type: type, content: contentText, rating: hiddenrating } } ).done(function( data ) {
+    	$.get('/reviews/' + data, function(review){
+      		$('#reviewBody').html(review);
+    	});
+  	});
+
+  })
+
+	$('.cancelReviewYes').click(function(){
+		profile();
+	});
+
+	$('.cancelReview').click(function(){
+  		$(this).siblings('.cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo').css('display', 'inline-block');
+	});
+
+	$('.cancelReviewNo').click(function(){
+  		$(this).hide();
+  		$(this).siblings('.cancelReviewPrompt, .cancelReviewYes').hide();
+	});
 
 
 </script>
