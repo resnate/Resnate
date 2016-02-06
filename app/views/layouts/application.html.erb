@@ -176,11 +176,6 @@ $('body').on('click', '.ns-close', function(){
      <% end %>
         </li>
 
-        <div id="deletePrompt" class="delete">
-          <div>Delete <span id="deletePlaylistName"></span>?</div>
-          <div id="deletePlaylistYes">Yes</div><div id="deletePlaylistNo">No</div><div id="deletePlaylistID"></div>
-        </div>
-
         <% img1 = "v" %>
         <% unless current_user.playlists.count == 0 %>
           <% current_user.playlists.each do |playlist| %>
@@ -200,11 +195,17 @@ $('body').on('click', '.ns-close', function(){
                 <span class="hiddenPlaylistID"><%= playlist.id %></span>
                 <h5 class="sidePlaylistName"><%= playlist.name %></h5>
                 <input class="editPlaylistInput">
-                <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= playlist.id %>">
-                   <div class="sideDestroy">Delete</div>
-                <div class="sideEdit">Edit</div>
-                <div class="sideShare" data-toggle="modal" data-target="#shareModal">Share</div>
 
+                <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= playlist.id %>">
+                  <div class="sideDestroy">Delete</div>
+                  <div class="sideEdit">Edit</div>
+                  <div class="sideShare" data-toggle="modal" data-target="#shareModal">Share</div>
+                  <div id="deletePrompt" class="delete">
+                    <div>Delete <span id="deletePlaylistName"></span>?</div>
+                    <div id="deletePlaylistYes">Yes</div>
+                    <div id="deletePlaylistNo">No</div>
+                    <div id="deletePlaylistID"></div>
+                  </div>
                   <div class="dropdownPlaylist" id="dropdownPlaylist<%= playlist.id %>"></div>
                 </div>
               </li>

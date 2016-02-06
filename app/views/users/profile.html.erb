@@ -1,21 +1,4 @@
-
-  <!--<div class="gigBlocks" >
-    <h4 id="getLikes" data-toggle="modal" data-target="#genericModal" onclick="getLikes">
-      Artists <%=@user.first_name%> Likes
-    </h4>
-  <ul>
-    <% unless @user.musicLikes.nil? %>
-      <% @user.musicLikes.take(6).each do |ml| %>
-        <li class="ml">
-          <h5 class="mlSpan"><%= ml %></h5>
-            <img class="mlImg" src="https://api.songkick.com/api/3.0/search/artists.json?query=<%= ml %>&apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?">
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
-  </div>-->
-
-  <div class="profileActivity">
+<div class="profileActivity">
     
     <div class="topDetails">
     <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>

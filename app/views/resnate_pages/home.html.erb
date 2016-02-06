@@ -836,6 +836,8 @@ function friendsLikeArtist(){
           });
           
           $('.sidePlaylistName').css('display', 'inline-block');
+        } else {
+          $('.editPlaylistInput').hide();
         }
         
     });
@@ -1636,16 +1638,10 @@ $('#Playlist ul').on('click', '.sideEdit', function(){
 });
 
 $('#Playlist ul').on('click', '.sideDestroy', function(){
-  var offset = $(this).offset();
-  left = offset.left;
-  $('#deletePrompt').css('top', offset["top"] -120 );
-  $('#deletePrompt').css('left', left + 220 );
   $('#deletePlaylistName').html($(this).parent().siblings('.sidePlaylistName').html().slice(0, 14));
   var deletePlaylistURL = $(this).parent().siblings('.hiddenPlaylistID').html();
   $('#deletePlaylistID').html(deletePlaylistURL);
   $('#deletePrompt').show();
-  
-  
 });
 
 $('#deletePlaylistYes').on('click', function(){

@@ -458,9 +458,6 @@ textarea {
 }
 
 #deletePrompt {
-  position: absolute;
-  top: 0px;
-  left: 0px;
   background-color: grey;
   height: 60px;
   width: 150px;
@@ -468,7 +465,6 @@ textarea {
   padding-top: 10px;
   display: none;
   color: white;
-  z-index: 9;
 }
 
 #deletePlaylistYes, #deletePlaylistNo {

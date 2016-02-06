@@ -30,6 +30,7 @@ class API::UsersController < ApplicationController
   end
 
   def create
+    musicLikes = (params[:musicLikes]).gsub(/[\'.]/, '').split(',')
     user = User.new(email: params[:email], uid: params[:uid], provider: "facebook", name: params[:name], first_name: params[:first_name], musicLikes: params[:musicLikes], oauth_token: params[:oauth_token])
     user.save!
     if APIKey.find_by_user_id(user.id).nil?
