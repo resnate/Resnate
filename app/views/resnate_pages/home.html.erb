@@ -1631,8 +1631,8 @@ $('#Playlist ul').on('click', '.sideUnfollow', function(){
 
 
 $('#Playlist ul').on('click', '.sideEdit', function(){
-  $(this).parent().siblings('.sidePlaylistName').toggle();
-  $(this).parent().siblings('.editPlaylistInput').toggle();
+  $(this).parent().siblings('.sidePlaylistName').hide();
+  $(this).parent().siblings('.editPlaylistInput').show();
   $(this).parent().siblings('.editPlaylistInput').val('');
   $('.editPlaylistInput').focus();
 });
