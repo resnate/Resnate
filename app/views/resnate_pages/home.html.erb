@@ -820,7 +820,7 @@ function friendsLikeArtist(){
   });
 
   $(document).click( function(e){
-        $('.dropdown-menu').hide();
+        $('.click-dropdown, .feedDropdown').hide();
 
         if(e.target.className.indexOf('sideNewPlaylist') != -1){
           return;
@@ -836,8 +836,6 @@ function friendsLikeArtist(){
           });
           
           $('.sidePlaylistName').css('display', 'inline-block');
-        } else {
-          $('.editPlaylistInput').hide();
         }
         
     });
