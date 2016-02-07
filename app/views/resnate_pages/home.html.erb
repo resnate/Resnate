@@ -828,12 +828,8 @@ function friendsLikeArtist(){
           $('#newPlaylistInput').replaceWith('<h5 class="sideNewPlaylistName">Create a New Playlist</h5>');  
         }
 
-        if(e.target.className.indexOf('sideEdit') == -1){
-          $('.editPlaylistInput').each(function(){
-            if($(this).css('display') == 'inline'){
-              $(this).css('display', 'none');
-            }
-          });
+        if(e.target.className.indexOf('sideEdit') == -1 && e.target.className.indexOf('editPlaylistInput') == -1){
+          $('.editPlaylistInput').hide();
           
           $('.sidePlaylistName').css('display', 'inline-block');
         }
