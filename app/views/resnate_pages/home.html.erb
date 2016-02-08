@@ -1363,7 +1363,7 @@ $('#Playlist').on('click', '.sidePlaylist, .sideFollowed', function(e){
 
         $.get(playlistURL, function(result){
           $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
-          $('#dropdownPlaylistDiv' + playlistID).toggle();
+          //$('#dropdownPlaylistDiv' + playlistID).toggle();
         });
       
 });
@@ -1559,7 +1559,7 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPla
            $('.sideNewPlaylist').after(result);
            $.get(playlistURL, function(result){
           $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
-          $('#dropdownPlaylistDiv' + playlistID).toggle();
+          //$('#dropdownPlaylistDiv' + playlistID).toggle();
         });
         });
 
@@ -1568,7 +1568,7 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPla
   } else {
     $.get(playlistURL, function(result){
           $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
-          $('#dropdownPlaylistDiv' + playlistID).toggle();
+          //$('#dropdownPlaylistDiv' + playlistID).toggle();
         });
   }
 
