@@ -1736,10 +1736,10 @@ $('#footerPlayer').on('click', '.glyphicon-thumbs-up', function(){
   
     if($(this).hasClass('liked')) {
       $(this).removeClass('liked');
-      $.post("/<%= current_user.id %>/"+$('#infoID').val()+"/unlike");
+      $.post('/' + $('#currentShare .hiddenSongID').html()+"/unlike");
     } else {
       $(this).addClass('liked');
-       $.post("/<%= current_user.id %>/"+$('#infoID').val()+"/like");
+       $.post('/' + $('#currentShare .hiddenSongID').html() +"/like");
     }
 });
 
