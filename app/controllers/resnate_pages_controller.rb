@@ -79,7 +79,7 @@ class ResnatePagesController < ApplicationController
       @req = Vacuum.new('US', true)
     end
     @search_query = params[:search_query]
-  	render nothing: true
+  	render layout: false
   end
 
 end
