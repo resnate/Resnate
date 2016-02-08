@@ -24,6 +24,8 @@ class API::UsersController < ApplicationController
   def login
     unless User.find_by_uid(params[:id]).nil?
   	 @user = User.find_by_uid(params[:id])
+     musicLikes = (params[:musicLikes]).gsub(/[\'.]/, '').split(',')
+     @user.update_attribute(:musicLikes, musicLikes)
     else 
       @user = nil
     end
@@ -291,6 +293,6 @@ private
     end
 
     def user_params
-      params.require(:user).permit(:songkickID, :jamID, :jamName)
+      params.require(:user).permit(:songkickID, :musicLikes, :oauth_token)
     end
 end
