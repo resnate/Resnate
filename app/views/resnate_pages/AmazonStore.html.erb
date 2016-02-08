@@ -1,11 +1,11 @@
 <%= stylesheet_link_tag "resnate_pages", media: "screen",
                                            "data-turbolinks-track" => true %>
-<div id="azDiv">
-              <% @req.associate_tag = 'resnate-21' %>
-              <% @req.configure(   aws_access_key_id:     ENV['S3_KEY'],aws_secret_access_key: ENV['S3_SECRET'], associate_tag:         'resnate-21') %>
+<div id="azDiv">asd
+              <%= @req.associate_tag = 'resnate-21' %>
+              <%= @req.configure(   aws_access_key_id:     ENV['S3_KEY'],aws_secret_access_key: ENV['S3_SECRET'], associate_tag:         'resnate-21') %>
               <%= @req %>
-              <% params = {'SearchIndex' => 'Apparel', 'Keywords'    => @search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage'    => 1} %>
-              <% res = @req.item_search(params) %>
+              <%= params = {'SearchIndex' => 'Apparel', 'Keywords'    => @search_query, 'ResponseGroup' => 'ItemAttributes, Offers, Images', 'Availability' => "Available", 'Condition' => "All", 'ItemPage'    => 1} %>
+              <%= res = @req.item_search(params) %>
               <%= hash = res.to_h %>
               <% puts hash %>
              <% items = hash["ItemSearchResponse"]["Items"]["Item"] %>
