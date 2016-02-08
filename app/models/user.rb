@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :reviews, dependent: :destroy
   has_many :gigs, dependent: :destroy
   has_many :past_gigs, dependent: :destroy
-  has_one :api_keys
+  has_one :api_keys, dependent: :destroy
   
 
   serialize :musicLikes, JSON
