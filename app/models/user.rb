@@ -90,9 +90,6 @@ class User < ActiveRecord::Base
       self.oauth_token = auth.credentials.token
       self.oauth_expires_at = Time.at(auth.credentials.expires_at)
       self.info = Net::HTTP.get(URI("https://graph.facebook.com/" + auth.uid + "/music?access_token=" + self.oauth_token + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], self.oauth_token) + '&limit=1000'))
-      puts request.remote_ip
-      self.ip_address = request.remote_ip
-      self.location = self.country 
     
 
     data = (ActiveSupport::JSON.decode(self.info))["data"]
@@ -104,8 +101,6 @@ class User < ActiveRecord::Base
       end
       self.musicLikes = arr
     end
-
-    self.save!
 
   end
 
@@ -121,8 +116,7 @@ class User < ActiveRecord::Base
       user.first_name = auth.info.first_name
       user.email = auth.info.email
       user.image = auth.info.image
-      user.ip_address = remote_ip
-      user.location = user.country 
+      
       user.oauth_token = auth.credentials.token
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.info = Net::HTTP.get(URI("https://graph.facebook.com/" + auth.uid + "/music?access_token=" + user.oauth_token + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], user.oauth_token) + '&limit=1000'))
@@ -150,9 +144,6 @@ class User < ActiveRecord::Base
       end
 
       user.friends = fArr
-
-      user.save!
-
     end
   end
 
