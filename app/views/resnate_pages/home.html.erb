@@ -1631,7 +1631,9 @@ $('#Playlist ul').on('click', '.sideEdit', function(){
   $('.editPlaylistInput').focus();
 });
 
-$('#Playlist ul').on('click', '.sideDestroy', function(){
+$('#Playlist ul').on('click', '.sideDestroy', function(e){
+  e.preventDefault();
+  $(this).parent().show();
   $('#deletePlaylistName').html($(this).parent().siblings('.sidePlaylistName').html().slice(0, 14));
   var deletePlaylistURL = $(this).parent().siblings('.hiddenPlaylistID').html();
   $('#deletePlaylistID').html(deletePlaylistURL);
