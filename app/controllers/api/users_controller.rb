@@ -24,8 +24,8 @@ class API::UsersController < ApplicationController
   def login
     unless User.find_by_uid(params[:id]).nil?
   	 @user = User.find_by_uid(params[:id])
-     musicLikes = (params[:musicLikes]).gsub(/[\'.]/, '').split(',')
-     @user.update_attribute(:musicLikes, musicLikes)
+     
+     
     else 
       @user = nil
     end
@@ -276,7 +276,8 @@ class API::UsersController < ApplicationController
 
   def update
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
-    @user.update_attributes(user_params)
+    musicLikes = (params[:musicLikes]).gsub(/[\'.]/, '').split(',')
+    @user.update_attributes(musicLikes: musicLikes, oauth_token: params[:oauth_token])
     render nothing: true
   end
 
