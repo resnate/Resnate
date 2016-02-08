@@ -101,6 +101,8 @@ class User < ActiveRecord::Base
       self.oauth_token = auth.credentials.token
       self.oauth_expires_at = Time.at(auth.credentials.expires_at)
       self.info = Net::HTTP.get(URI("https://graph.facebook.com/" + auth.uid + "/music?access_token=" + self.oauth_token + "&appsecret_proof=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest::SHA256.new, FACEBOOK_CONFIG['secret'], self.oauth_token) + '&limit=1000'))
+      puts remote_ip
+      self.ip_address = remote_ip
       self.location = self.country 
     
 
