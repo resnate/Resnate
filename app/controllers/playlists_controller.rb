@@ -46,7 +46,7 @@ class PlaylistsController < ApplicationController
       @playlist.destroy
       PublicActivity::Activity.where(trackable_type: "Playlist", trackable_id: @playlist.id).first.destroy
     end
-      render :layout => false
+    render :layout => false
   end
 
   def playlistLi

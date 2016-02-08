@@ -1637,7 +1637,7 @@ $('#Playlist ul').on('click', '.sideDestroy', function(e){
   $('#deletePlaylistName').html($(this).parent().siblings('.sidePlaylistName').html().slice(0, 14));
   var deletePlaylistURL = $(this).parent().siblings('.hiddenPlaylistID').html();
   $('#deletePlaylistID').html(deletePlaylistURL);
-  $('#deletePrompt').show();
+  $(this).siblings('#deletePrompt').show();
 });
 
 $('#deletePlaylistYes').on('click', function(){
@@ -1646,7 +1646,7 @@ $('#deletePlaylistYes').on('click', function(){
     $('#deletePrompt').hide();
 
     $.ajax({
-            url: '/playlists/' + $('#deletePlaylistID').html() ,
+            url: '/playlists/' + $(this).siblings('#deletePlaylistID').html() ,
             type: 'DELETE'
           });
   });
