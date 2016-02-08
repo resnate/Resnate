@@ -1363,7 +1363,9 @@ $('#Playlist').on('click', '.sidePlaylist, .sideFollowed', function(e){
 
         $.get(playlistURL, function(result){
           $('#Playlist').find('#dropdownPlaylist' + playlistID).html(result);
-          $('#dropdownPlaylistDiv' + playlistID).toggle();
+          if(e.target.className.indexOf('sideDestroy') != -1){
+            $('#dropdownPlaylistDiv' + playlistID).toggle();  
+          }
         });
       
 });
