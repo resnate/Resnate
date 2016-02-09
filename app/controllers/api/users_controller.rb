@@ -276,7 +276,7 @@ class API::UsersController < ApplicationController
 
   def update
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
-    musicLikes = (params[:musicLikes]).gsub(/\\n/, '').gsub(/[\'.]/, '').split(',')
+    musicLikes = (params[:musicLikes])
     @user.update_attributes(musicLikes: musicLikes, oauth_token: params[:oauth_token])
     render nothing: true
   end
