@@ -647,7 +647,9 @@ $('#shareCurrentImg').click(function(){
         $('#container').animate({
           top: '-100%'
         });
-        $('#box2').scrollTop(0);
+        $('#box2').animate({
+          top: 0
+        });
       }
 
   $('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
