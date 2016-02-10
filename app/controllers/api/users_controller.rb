@@ -84,6 +84,9 @@ class API::UsersController < ApplicationController
 
   def profile
     user = User.find(params[:id])
+    @points = user.points
+    @level = user.level
+    @level_name = user.level_name
     @id = params[:id]
     @userID = user.uid
     @name = user.name
