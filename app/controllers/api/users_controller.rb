@@ -46,7 +46,7 @@ class API::UsersController < ApplicationController
     @friends = []
     @user.followees(User).each do |fl|
       unless fl.musicLikes.nil?
-        fl.musicLikes.select do |s|
+        fl.musicLikes.each do |s|
           if s.gsub(/[\'.]/, '').downcase.include?(URI.unescape((params[:search]).gsub('&', '+')).gsub(/[\'.]/, '').downcase) == true
             unless @friends.include?(fl)
               @friends.push(fl)
