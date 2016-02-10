@@ -139,11 +139,12 @@
     		/activity/<%=@activity.id%>/comments/
   		</div>
   			<img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg commentImg">
-			<textarea class="inputComment"></textarea>
-			<span class="hiddenID"><%= @review.user_id %></span>
-
-    <div class="hiddenReviewID"><%=@activity.trackable_id%></div>
+			
+			<span class="hiddenID"><%= @review.user_id %></span>   
 	</div>
+  <div class="hiddenReviewID"><%=@activity.trackable_id%></div>
+  <textarea class="inputComment"></textarea>
+  <span class="hiddenID"><%= @review.user_id %></span>
 	<% end %>
 </div>
 

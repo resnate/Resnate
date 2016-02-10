@@ -1036,7 +1036,7 @@ $(document).on('click', '.shareReview', function(){
           var data = re.message;
           $.get(data + 'index', function(result){
             var commentID = '.'+data.trim().replace(/\//g, '');
-            //$(commentID).html(result);
+            $(commentID).html(result);
           });
         });
 
