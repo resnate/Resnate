@@ -75,7 +75,21 @@ class API::LikesController < ApplicationController
           @user.unlike!(song)
         end
       end
-
+    elsif @likeable_type == "Review"
+      review = Review.find(params[:likeable_id])
+      likee = User.find(review).user_id)
+      if likee != @user
+        lv1 = likee.level
+        likee.subtract_points(1)
+        lv2 = likee.level
+        if lv1 != lv2
+          likee.rm_badge(lv1)
+        end
+      end
+      @like = Like.where(likeable_type: "Review", likeable_id: params[:likeable_id]).first
+      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first
+      @activity.destroy
+      @user.unlike!(review)
     end
   end
 
