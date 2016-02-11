@@ -142,7 +142,7 @@ function merchNgigsSearch(){
                                   image_link(html , this.indexValue);
 
                                   function image_link(data, i) {
-                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>');
+                                      $("#shareNfriends"+i+"").html(data /*+ '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>'*/);
                                   }
                                 }
                               });
@@ -185,7 +185,7 @@ function merchNgigsSearch(){
                                   success: function(html) {
                                     image_link(html , this.indexValue);
                                     function image_link(data, i) {
-                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
+                                      $("#shareNfriends"+i+"").html(data/* + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>'*/);
                                     }
                                   }});
                                 

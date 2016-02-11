@@ -93,6 +93,7 @@ class API::LikesController < ApplicationController
       end
       @user.unlike!(review)
     end
+    render nothing: true
   end
 
   def show

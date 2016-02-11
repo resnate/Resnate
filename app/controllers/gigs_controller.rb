@@ -45,7 +45,10 @@ class GigsController < ApplicationController
     def gigUndo
       @gig = Gig.find_by_songkick_id(params[:songkick_id])
       @gig.destroy
-      PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: @gig.id).first.destroy
+      activity = PublicActivity::Activity.where(trackable_type: "Gig", trackable_id: @gig.id).first
+      unless activity.nil?
+        activity.destroy
+      end
       render :layout => false
     end
 
