@@ -115,8 +115,9 @@
 		
       	
       	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+        <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
         <% if @review.reviewable_type == "PastGig" %>
-      	 <a class="twitter popup csIcons" href=""><%= image_tag "twitter.png", id: "twit" %></a>
+      	 <a class="twitter popup csIcons" id="twitGigReview" href=""><%= image_tag "twitter.png", id: "twit" %></a>
         <% else %>
           <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of <%= Song.find(@review.reviewable_id).name %> @resnate"><%= image_tag "twitter.png", id: "twit" %></a>
         <% end %>
@@ -161,7 +162,7 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
 
     $('.reviewGigName<%= @review.id %>').html(data.resultsPage.results.event.displayName);
 
-    $('#twit').attr('href', "https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of " + data.resultsPage.results.event.displayName + "@resnate")
+    $('#twitGigReview').attr('href', "https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of " + data.resultsPage.results.event.displayName + "@resnate");
     
     $('.reviewGigs<%= @review.id %>').removeClass('reviewGigs<%= @review.id %>');
   });
