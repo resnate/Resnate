@@ -2,4 +2,7 @@
 	<meta property="og:title" content="<%= @name %>" />
     <meta property="og:description" content="Resnate: The Music Social Network." />
     <meta property="og:image" content="<%= @image %>" />
+    <body>
+    	<%= render 'reviews/show', {id: params[:id]} %>
+    </body>
  </head>
