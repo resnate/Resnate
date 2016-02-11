@@ -88,7 +88,9 @@ class API::LikesController < ApplicationController
       end
       @like = Like.where(likeable_type: "Review", likeable_id: params[:likeable_id]).first
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first
-      @activity.destroy
+      unless @activity.nil?
+        @activity.destroy
+      end
       @user.unlike!(review)
     end
   end
