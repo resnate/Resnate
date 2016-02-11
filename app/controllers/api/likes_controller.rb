@@ -10,6 +10,8 @@ class API::LikesController < ApplicationController
       @liked = Song.find(@likeable_id)
     elsif @likeable_type == "Gig"
       @liked = Gig.find(@likeable_id)
+    elsif @likeable_type == "Review"
+      @liked = Review.find(@likeable_id)
     end
       @user.like!(@liked)
       @like = Like.where(liker_id: @user.id, likeable_type: @likeable_type).find_by_likeable_id(@liked.id)
