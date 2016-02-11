@@ -77,7 +77,7 @@ class API::LikesController < ApplicationController
       end
     elsif @likeable_type == "Review"
       review = Review.find(params[:likeable_id])
-      likee = User.find(review).user_id)
+      likee = User.find(review)
       if likee != @user
         lv1 = likee.level
         likee.subtract_points(1)
