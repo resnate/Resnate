@@ -3,6 +3,17 @@
     <meta property="og:description" content="Resnate: The Music Social Network." />
     <meta property="og:image" content="<%= @image %>" />
     <body>
-    	<%= render 'reviews/show', {id: params[:id]} %>
+    	<div class="hiddenReviewID"><%= params[:id] %></div>
+    	<div id="publicReview"></div>
     </body>
  </head>
+
+ <script type="text/javascript">
+
+ 	$(function(){
+ 		$.get('/reviews/' + $('.hiddenReviewID').html(), function(result){
+ 			$('#publicReview').html(result);
+ 		});
+ 	});
+
+ </script>
