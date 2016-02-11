@@ -104,11 +104,12 @@
           <%= likers %> likes
         <% end %>
       </div>
-      <% if current_user.likes?(@review) %>
-			<span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
-		<% elsif current_user.id != @review.user_id %>
-			<span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
-			
+      <% unless  current_user.nil? %>
+        <% if current_user.likes?(@review) %>
+			   <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
+		    <% elsif current_user.id != @review.user_id %>
+			   <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+      <% end %>
 		<% end %>
 		<span class="hiddenID"><%= @review.user_id %></span>
 		<div class="hiddenReviewID"><%= @review.id -%></div>
@@ -135,15 +136,17 @@
               <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
               </div>
               <div class="hiddenCommentID"><%= comment.id %></div>
-              <% if comment.user_id == current_user.id %>
+              <% if current_user && comment.user_id == current_user.id %>
     			       <span class="glyphicon glyphicon-remove commentDelete"></span>
     			     <% end %>
         </div>
   			<% end %>
 	</div>
   <div class="hiddenReviewID"><%=@activity.trackable_id%></div>
-  <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg commentImg">
-  <textarea class="inputComment"></textarea>
+  <% unless current_user.nil? %>
+    <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg commentImg">
+    <textarea class="inputComment"></textarea>
+  <% end %>
   <span class="hiddenID"><%= @review.user_id %></span>
   <div class="commentURL">
         /activity/<%=@activity.id%>/comments/
@@ -221,7 +224,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
 
   }
 
-  <% if current_user.id == @review.user_id %>
+  <% if current_user && current_user.id == @review.user_id %>
 
   if(rating == 0) {
 

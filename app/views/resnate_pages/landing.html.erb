@@ -48,15 +48,6 @@
 
 	$(function(){
 
-    if(window.location.hash) {
-    var url = window.location.hash.substr(1);
-    if(url[0] == "r"){
-      $.get(url, function(result){
-      $('#landingWelcome').html('<div class="modal-body">'+result+'</div>');
-    });
-    }
-  }
-
 		$("#logoNname, #landingExisting").animate({'opacity': '1'}, 2000);
 
 		$("#landingMusic").delay(2000).animate({'opacity': '1'}, 'slow');

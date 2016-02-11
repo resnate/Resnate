@@ -17,11 +17,11 @@
     <%= render 'layouts/shim' %>
   </head>
   <body>
-    <div id="fb-root"></div>
-<script>
+  <div id="fb-root"></div>
+  
+  <% if signed_in? %>
 
-<% if !current_user.nil? %>
-
+  <script>
 
 $(function(){
 
@@ -33,13 +33,6 @@ $(function(){
       $(this).removeClass('animated pulse') 
     }
 }, '.glyphicon, .shareGig, .shareReview, .csIcons, #sign_out, #rsCrop, .button_to');
-
-
-    
-
-    
-
-
 
 var users = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -119,15 +112,10 @@ $('body').on('click', '.ns-close', function(){
     $(this).parents('.ns-effect-thumbslider').addClass('ns-hide');
   });
 
-
-<% end %>
-
 </script>
-<% if signed_in? %>
 
-<div class="sidebar-nav">
-  <div id="searchNsee">          
-        
+  <div class="sidebar-nav">
+    <div id="searchNsee">          
         <iframe name="AmazonResults" id="iframeAmazon">
             </iframe>
             <h6 id="moreMerch">More Merch at Amazon</h6>
