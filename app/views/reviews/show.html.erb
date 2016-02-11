@@ -61,9 +61,9 @@
 	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img p) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
-  <% unless  current_user.nil? %>
+
 	<div id="hiddenReviewRating">
-		<% if current_user.id == @review.user_id %>
+		<% if current_user && current_user.id == @review.user_id %>
 			
 				<%= @review.rating %>
 			
@@ -73,7 +73,7 @@
 			<% end %>
 		<% end %>
 	</div>
-  <% end %>
+
 
 	<div class="reviewRating"></div>
 

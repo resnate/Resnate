@@ -1652,6 +1652,11 @@ tr {
   width: calc(100% - 325px);
 }
 
+#publicReview {
+  height: 100%;
+  overflow: scroll;
+}
+
 #newReviewInput, .updateReview {
   margin-top: 10px;
   width: 100%;
