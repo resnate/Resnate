@@ -48,8 +48,6 @@ class ReviewsController < ApplicationController
         format.html { render :layout => false }
         format.json
       end
-    else
-      render layout: false
     end
   end
 
