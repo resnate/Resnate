@@ -59,7 +59,7 @@ class ReviewsController < ApplicationController
       @image = "https://img.youtube.com/vi/" + Song.find(@review.reviewable_id).content + "/hqdefault.jpg"
     end
       
-    if request.headers['HTTP_USER_AGENT'].eql? 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
+    if current_user.nil?
       render :layout => false
     else
       redirect_to "/#reviews/" + params[:id]
