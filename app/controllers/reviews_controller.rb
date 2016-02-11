@@ -59,9 +59,7 @@ class ReviewsController < ApplicationController
       @image = "https://img.youtube.com/vi/" + Song.find(@review.reviewable_id).content + "/hqdefault.jpg"
     end
       
-    if current_user.nil?
-      render :layout => false
-    else
+    if current_user
       redirect_to "/#reviews/" + params[:id]
     end
   end
