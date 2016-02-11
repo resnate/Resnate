@@ -19,9 +19,9 @@
 			<div class="reviewT">
 			Review of
 			<% if @review.reviewable_type == "PastGig" %>
-			<div class="reviewGigName<%= @review.id %>"></div>
+			 <div class="reviewGigName<%= @review.id %>"></div>
 			<% elsif @review.reviewable_type == "Song" %>
-			<div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
+			 <div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
 			<% end %>
 			
 			</div>
@@ -116,7 +116,11 @@
       	
       	<%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
       	<a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
-      	<a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
+        <% if @review.reviewable_type == "PastGig" %>
+      	 <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of <span id='twitGigReview'></span> @resnate!"><%= image_tag "twitter.png", id: "twit" %></a>
+        <% else %>
+          <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of <%= Song.find(@review.reviewable_id).name %> @resnate"><%= image_tag "twitter.png", id: "twit" %></a>
+        <% end %>
       <div class="hiddenReviewID"><%= @review.id %></div>
       <span class="hiddenID"><%= @review.user_id %></span>
 	</div>
@@ -156,7 +160,7 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
 
     $('#reviewBody .hiddenArtistName').html(data.resultsPage.results.event.performance[0].artist.displayName);
 
-    $('.reviewGigName<%= @review.id %>').html(data.resultsPage.results.event.displayName);
+    $('.reviewGigName<%= @review.id %>, #twitGigReview').html(data.resultsPage.results.event.displayName);
     
     $('.reviewGigs<%= @review.id %>').removeClass('reviewGigs<%= @review.id %>');
   });
