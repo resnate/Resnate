@@ -1504,6 +1504,20 @@ tr {
   
 }
 
+.feedFollowDiv {
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 240px;
+  text-align: left;
+}
+
+.feedFollowInfo {
+  margin-left: 5px;
+  vertical-align: top;
+  width: 180px;
+  display: inline-block;
+}
+
 .reviewerInfo {
   display: inline-block;
   margin-left: 5px;

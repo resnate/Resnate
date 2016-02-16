@@ -718,9 +718,14 @@ function friendsLikeArtist(){
   $("#searchNsee").scrollTop(0);
   $('#queryFriends').html($('#search_query').val().replace(/\./g, '').replace(/\b./g, function(m){ return m.toUpperCase(); }));
   $.get("/<%= @user.id %>/"+$('#search_query').val().replace(/\./g, '')+"/friendsWhoLike", function(result){
-    $('#friendsLikeDiv').html(result);  
+    if(result != "") {
+      $('#friendsLikeArtist').css('display', 'inline-block');
+      $('#friendsLikeDiv').html(result);  
+    } else {
+      $('#friendsLikeArtist').hide();
+    }
+    
   });
-  $('#friendsLikeArtist').css('display', 'inline-block');
 }
 
       $(function(){
@@ -1828,7 +1833,7 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                                   image_link(html , this.indexValue);
 
                                   function image_link(data, i) {
-                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>');
+                                      $("#shareNfriends"+i+"").html(data/* + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %>'*/);
                                   }
                                 }
                               });
@@ -1871,7 +1876,7 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                                   success: function(html) {
                                     image_link(html , this.indexValue);
                                     function image_link(data, i) {
-                                      $("#shareNfriends"+i+"").html(data + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>');
+                                      $("#shareNfriends"+i+"").html(data/* + '<%= image_tag "ResnateShareIcon.png", class: "shareGig", "data-toggle" => "modal", "data-target" => "#shareModal" %><div class="hiddenGigID">' + gigID + '</div>'*/);
                                     }
                                   }});
                                 

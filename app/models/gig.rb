@@ -7,6 +7,7 @@ class Gig < ActiveRecord::Base
 	validates :songkick_id, presence: true, length: { maximum: 8 }
 	validates :gig_date, presence: true
 	validates :user_id, presence: true
+	validates :songkick_id, uniqueness: { scope: :user_id }
 
 	include PublicActivity::Common
 
