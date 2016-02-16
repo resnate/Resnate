@@ -32,7 +32,9 @@
   					<%= current_user.id %>
 				</div>
 				<br>
-				<%= image_tag (current_user.badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+				<% unless current_user.badges.count == 0 %>
+					<%= image_tag (current_user.badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+				<% end %>
 				<div class="reviewLevelNameNPoints">
       				<%= current_user.level_name %> <%= current_user.points %> points
       			</div>

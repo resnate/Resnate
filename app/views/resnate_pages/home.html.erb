@@ -1017,6 +1017,7 @@ $(document).on('click', '.shareReview', function(){
 
         
         channel.bind('feed', function(re) {
+          $('#noFeed').remove();
           var data = re.message;
           var owner = data.trim().split(',')[1];
     var activity = data.trim().split(',')[0];

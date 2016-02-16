@@ -1,5 +1,5 @@
 <% if current_user.followees(User).count == 0 %>
-
+<div id="noFeed">
 	<h3 id="followFriends"> Follow friends, share songs, read reviews </h3>
 
 	<% unless @user.friends.nil? || @user.friends.count == 0 %>
@@ -8,6 +8,7 @@
 		<% @user.friends.each do |friend| %>
   			<% unless User.find_by_uid(friend).nil? %>
         <% f = User.find_by_uid(friend) %>
+        
     			<div class="feedFollowDiv">
             <%= image_tag "https://graph.facebook.com/#{f.uid}/picture?width=200&height=200", class: "feedFollowImgs" %>
             <div class="hiddenID"><%= f.id %></div>  
@@ -32,10 +33,11 @@
           </div>
         </div>
       </div>
+      
   		<% end %>
 		<% end %>
 	<% end %>
-
+</div>
 
 <% else %>
 
