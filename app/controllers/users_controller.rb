@@ -204,6 +204,14 @@ end
       @follow = Follow.where(follower_id: current_user.id, followable_type: "User").find_by_followable_id(@user.id)
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
       @activity.destroy
+      if current_user != @user
+        lv1 = @user.level
+        @user.subtract_points(5)
+        lv2 = @user.level
+        if lv1 != lv2
+          @user.rm_badge(lv1)
+        end
+      end
       render :layout => false
     end
 
