@@ -200,10 +200,10 @@ end
 
     def unfollow
       @user = User.find(params[:user])
-      current_user.unfollow!(@user)
-      @follow = Follow.where(follower_id: current_user.id, followable_type: "User").find_by_followable_id(@user.id)
+      @follow = Follow.where(follower_id: current_user.id, followable_type: "User", followable_id: @user.id).first
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first
       @activity.destroy
+      current_user.unfollow!(@user)
       if current_user != @user
         lv1 = @user.level
         @user.subtract_points(5)
