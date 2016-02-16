@@ -8,11 +8,11 @@
 		<% @user.friends.each do |friend| %>
   			<% unless User.find_by_uid(friend).nil? %>
         <% f = User.find_by_uid(friend) %>
-    			<div class="followDiv">
-            <%= image_tag "https://graph.facebook.com/#{f.uid}/picture?width=200&height=200", class: "followImgs" %>
+    			<div class="feedFollowDiv">
+            <%= image_tag "https://graph.facebook.com/#{f.uid}/picture?width=200&height=200", class: "feedFollowImgs" %>
             <div class="hiddenID"><%= f.id %></div>  
 
-          <div class="followInfo">
+          <div class="feedFollowInfo">
             <div class="profileName"><%= f.name %></div>
             <div class="hiddenID"><%= f.id %></div>
             <br>
