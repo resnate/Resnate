@@ -37,6 +37,18 @@
 	<script type="text/javascript">
 $(function(){
 
+	if(window.location.hash) {
+    var url = window.location.hash.substr(1);
+    if(url[0] == "r"){
+      $.get(url, function(result){
+      $('#box2').html('<div class="modal-body">'+result+'</div>');
+    });
+      $('#container').animate({
+        top: '-100%'
+    });
+    }
+    }
+
 	$.get('/indexHeader', function(result){
 		$('#mobileMainBody').html(result);
 		$.get('/activities', function(result){

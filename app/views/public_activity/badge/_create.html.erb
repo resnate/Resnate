@@ -3,7 +3,7 @@
 	<%= activity.owner.id %>
 </div>
 
-<%= image_tag (Merit::Badge.find(User.find(activity.owner_id).level).custom_fields[:image]), class: 'feedBadge' %>
+<%= image_tag "#{Merit::Badge.find(activity.parameters[:level]).name}.png", class: 'feedBadge' %>
 
 <div class="activityInfo">
 	<div class="profileName">

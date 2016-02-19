@@ -22,7 +22,7 @@
                   <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
                   </div>
                   <% unless Merit::Badge.by_name(message.subject[2..-1]).first.nil? %>
-                    <%= image_tag (Merit::Badge.by_name(message.subject[2..-1]).first.custom_fields[:image]), class: 'feedBadge' %>
+                    <%= image_tag  "#{message.subject[2..-1]}.png", class: 'feedBadge' %>
                   <% end %>
                 </div>
 

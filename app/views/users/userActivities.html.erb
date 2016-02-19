@@ -57,7 +57,7 @@
     					New level: <%= user.level_name %>
     				<% else %>
     					<div class="activityName">New level: <%= Merit::Badge.find(activity.parameters[:level]).name %></div>
-              <%= image_tag (Merit::Badge.find(activity.parameters[:level]).custom_fields[:image]), class: 'badgeImg' %>
+              <%= image_tag "#{Merit::Badge.find(activity.parameters[:level]).name}.png", class: 'badgeImg' %>
     				<% end %>
     			</div>
     		</div>
