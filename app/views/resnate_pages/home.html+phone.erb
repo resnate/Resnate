@@ -33,7 +33,7 @@
 	<div id="mobileMainBody">
 		
 	</div>
-
+<% end %>
 	<script type="text/javascript">
 $(function(){
 
@@ -41,7 +41,7 @@ $(function(){
     var url = window.location.hash.substr(1);
     if(url[0] == "r"){
       $.get(url, function(result){
-      $('#box2').html('<div class="modal-body">'+result+'</div>');
+      $('#Welcome').html('<div class="modal-body">'+result+'</div>');
     });
       $('#container').animate({
         top: '-100%'
@@ -152,4 +152,3 @@ $('#mobileMainBody').on('scroll', function(){
   });
 
 </script>
-<% end %>
