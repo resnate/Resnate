@@ -1,74 +1,196 @@
-<div class="mobileReviewBody">
-  <div class="mobileReviewImgNName">
-		<% if @review.reviewable_type == "PastGig" %>
-      
-        <div class="mobileReviewShowGigName"></div>
-        <img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="mobileReviewShowGigImgs mobileReviewShowImgs">
-        <div class="hiddenReviewID"><%= @review.id %></div>
-          
+
+<div id="reviewBody" class="modal-body">
+
+  
+  <div class="reviewHeader">
+    <div class="hiddenUserID"><%= @review.user_id%></div>
+    <% if @review.reviewable_type == "PastGig" %>
+
+    <a href="https://www.songkick.com/concerts/<%= PastGig.find(@review.reviewable_id).songkick_id %>" target="_blank"><img src="https://api.songkick.com/api/3.0/events/<%= PastGig.find(@review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?" class="reviewImg reviewGigs<%= @review.id %>"></a>
+
+    <% elsif @review.reviewable_type == "Song" %>
+
+    <img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="reviewImg reviewSongImg" >
+    <p class="jamTitle"><%= Song.find(@review.reviewable_id).name %></p>
+
+    <% end %>
+    
+    <div class="reviewTitle">
+      <div class="reviewT">
+      Review of
+      <% if @review.reviewable_type == "PastGig" %>
+       <div class="reviewGigName<%= @review.id %>"></div>
       <% elsif @review.reviewable_type == "Song" %>
-        <div class="mobileReviewShowSongName"><%= Song.find(@review.reviewable_id).name %></div>
-        <img src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg" class="mobileReviewShowImgs">
-        <div class="hiddenReviewID"><%= @review.id %></div>
-          
+       <div class="activityName songName" src="https://img.youtube.com/vi/<%= Song.find(@review.reviewable_id).content %>/hqdefault.jpg"><%= Song.find(@review.reviewable_id).name %></div>
       <% end %>
-      	</div>
-      	<div class="mobileReviewWrapper">
-          <div class="mobileReviewContent"><%= sanitize @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %></div>
-          <div class="hiddenReviewID"><%= @review.id -%></div>
-          
-          <% if current_user.id == @review.user_id %>
-            <div class="editReview">Edit</div>
-            <div class="deleteReview">Delete</div>
-            <div class="deleteReviewPrompt">Are you sure?</div>
-            <div class="deleteReviewYes">Yes</div>
-            <div class="deleteReviewNo">No</div>
-            <div class="editReviewPrompt">Save changes?</div>
-            <div class="editReviewYes">Yes</div>
-            <div class="editReviewNo">No</div>
-          <% end %>
-          <div class="likesNcomments">
-            <div class="numberNthumb">
-            <div class="likerNumber">
-              <% likers = @review.likers(User).count %>
-              <% if likers == 1 %>
-                <%= likers %> like
-              <% else %>
-                <%= likers %> likes
-              <% end %>
+      
+      </div>
+      <%= image_tag "https://graph.facebook.com/#{User.find(@review.user_id).uid}/picture?width=200&height=200", class: "feedPic" %>
+      <div class="hiddenID">
+          <%= @review.user_id %>
+      </div>
+      <div class="reviewerInfo">
+        <div class="profileName"><%= User.find(@review.user_id).name %></div>
+        <div class="hiddenID"><%= @review.user_id %></div>
+        <br>
+        <% unless User.find(@review.user_id).badges.count == 0 %>
+        <%= image_tag (User.find(@review.user_id).badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
+        <% end %>
+        <div class="reviewLevelNameNPoints">
+              <%= User.find(@review.user_id).level_name %> <%= User.find(@review.user_id).points %> points
             </div>
-            <% if current_user.likes?(@review) %>
-              <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
-            <% elsif current_user.id != @review.user_id %>
-              <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+            <div class="reviewFollowers">
+            <% followerCount = User.find(@review.user_id).followers(User).count %>
+            <% if followerCount == 1 %>
+              <%= followerCount %> follower
+            <% elsif followerCount > 1 %>
+              <%= followerCount %> followers
             <% end %>
             </div>
-            <span class="hiddenID"><%= @review.user_id %></span>
-            <div class="hiddenReviewID"><%= @review.id -%></div>
-            <div class="reviewButtons">
-              <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "collapse", "href" => "#shareAccordion" %>
-              <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl" target="_blank"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
-              <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=I've written a review on @resnate!" target="_blank"><%= image_tag "twitter.png", id: "twit" %></a>
-              <div class="hiddenReviewID"><%= @review.id %></div>
-              <span class="hiddenID"><%= @review.user_id %></span>
-            </div>
-          </div>
+      </div>
+      
+    </div>
+    
+  </div>
+  
+  <% addYouTubeImages = @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
+  <% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
+  <% youTubeID = url.match(matchYoutubeUrl)[1] %>
+  <% "<img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p>" %>
+  <% end %>
+  <div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img p) %></div>
+  <div class="hiddenReviewID"><%= @review.id -%></div>
+  
+
+  <div id="hiddenReviewRating">
+    <% if current_user && current_user.id == @review.user_id %>
+      
+        <%= @review.rating %>
+      
+    <% else %>
+      <% unless @review.rating.nil? %>
+        <%= @review.rating %>
+      <% end %>
+    <% end %>
+  </div>
+
+
+  <div class="reviewRating"></div>
+
+  <% if @review.reviewable_type == "PastGig" %>
+    <span class="hiddenGigDate"><%= pastGigDate = Date.parse(PastGig.find(@review.reviewable_id).gig_date).strftime("%d-%m-%Y") %></span>
+        <span class="hiddenArtistName"></span>
+        <span class="hiddenGigLocation"></span>  
+    <div class="reviewSetlist editDeleteBkgd" data-toggle="modal" data-target="#setlistModal">Setlist</div>
+  <% end %>
+
+  <% unless current_user.nil? %>
+    <% if current_user.id == @review.user_id %>
+      <div class="editReview editDeleteBkgd">Edit</div>
+      <div class="saveReview editDeleteBkgd">Save</div>
+      <div class="cancelEditingReview editDeleteBkgd">Cancel</div>
+      <div class="deleteReview editDeleteBkgd">Delete</div>
+      <div class="deleteReviewPrompt">Are you sure you want to delete this review?</div>
+      <div class="deleteReviewYes editDeleteBkgd">Yes</div>
+      <div class="deleteReviewNo editDeleteBkgd">No</div>
+    <% end %>
+  
+  <div>
+  <div class="likerNumber">
+    <% likers = @review.likers(User).count %>
+        <% if likers == 1 %>
+          <%= likers %> like
+        <% else %>
+          <%= likers %> likes
+        <% end %>
+      </div>
+      <% unless  current_user.nil? %>
+        <% if current_user.likes?(@review) %>
+         <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
+        <% elsif current_user.id != @review.user_id %>
+         <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+      <% end %>
+    <% end %>
+    <span class="hiddenID"><%= @review.user_id %></span>
+    <div class="hiddenReviewID"><%= @review.id -%></div>
+  </div>
+  <div class="feedButtons reviewButtons">
+    
+        
+        <%= image_tag "ResnateShareIcon.png", class: "shareReview", "data-toggle" => "modal", "data-target" => "#shareModal" %>
+        <a class="popup csIcons" href="https://facebook.com/sharer/sharer.php?app_id=397688387002984&u=https://www.resnate.com/reviews/<%= params[:id] %>/pl"><%= image_tag "facebook.jpg", id: "fbShareImg" %></a>
+        <% if @review.reviewable_type == "PastGig" %>
+         <a class="twitter popup csIcons" id="twitGigReview" href=""><%= image_tag "twitter.png", id: "twit" %></a>
+        <% else %>
+          <a class="twitter popup csIcons" href="https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of <%= Song.find(@review.reviewable_id).name %> @resnate"><%= image_tag "twitter.png", id: "twit" %></a>
+        <% end %>
+      <div class="hiddenReviewID"><%= @review.id %></div>
+      <span class="hiddenID"><%= @review.user_id %></span>
+  </div>
+
+  <div class="comments activity<%=@activity.id%>comments">
+        <% @activity.comment_threads.each do |comment| %>
+        <div class="comment">
+              <img src="https://graph.facebook.com/<%= User.find(comment.user_id).uid %>/picture?width=50&height=50" class="userImg commentPic">
+              <span class="hiddenID"><%= comment.user_id %></span>
+              <div class="commentContent"><span class="commenterName"><%= User.find(comment.user_id).name %></span><span class="hiddenID"><%= comment.user_id %></span><%= simple_format(comment.body) %>
+              </div>
+              <div class="hiddenCommentID"><%= comment.id %></div>
+              <% if current_user && comment.user_id == current_user.id %>
+                 <span class="glyphicon glyphicon-remove commentDelete"></span>
+               <% end %>
         </div>
+        <% end %>
+  </div>
+  <div class="hiddenReviewID"><%=@activity.trackable_id%></div>
+  <% unless current_user.nil? %>
+    <img src="https://graph.facebook.com/<%= current_user.uid %>/picture?width=50&height=50" class="userImg commentImg">
+    <textarea class="inputComment"></textarea>
+  <% end %>
+  <span class="hiddenID"><%= @review.user_id %></span>
+  <div class="commentURL">
+        /activity/<%=@activity.id%>/comments/
+      </div>
+  <% end %>
 </div>
 
 <script type="text/javascript">
 
-var reviewShowUrls = [];
+var url = $('.reviewGigs<%= @review.id %>').attr('src');
+  $.getJSON(url, function(data){
 
-  for(j=0; j<$('.mobileReviewShowGigImgs').length; j++){
-    reviewShowUrls.push($('.mobileReviewShowGigImgs').eq(j).attr('src'));
-  }
+    $('.reviewGigs<%= @review.id %>').attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
 
+    $('#reviewBody .hiddenGigLocation').html(data.resultsPage.results.event.venue.metroArea.displayName);
 
+    $('#reviewBody .hiddenArtistName').html(data.resultsPage.results.event.performance[0].artist.displayName);
 
-  for(j=0; j<$('.mobileReviewShowGigImgs').length; j++){
+    $('.reviewGigName<%= @review.id %>').html(data.resultsPage.results.event.displayName);
+
+    $('#twitGigReview').attr('href', "https://twitter.com/share?url=https://www.resnate.com/reviews/<%= params[:id] %>/pl&text=<%= User.find(@review.user_id).first_name %>'s review of " + data.resultsPage.results.event.displayName + "@resnate");
+    
+    $('.reviewGigs<%= @review.id %>').removeClass('reviewGigs<%= @review.id %>');
+  });
+
+  $('.reviewSetlist').click(function(){
+
+    $.get('/' + $('#reviewBody .hiddenArtistName').html().replace("/", "%2f") + ',' + $('#reviewBody .hiddenGigLocation').html() + ',' + $('#reviewBody .hiddenGigDate').html() + '/setlist', function(re){
+
+       $('.setlistBody').html(re);
+
+    });
+    
+  });
+
+var imgUrls = [];
+
+for(j=0; j<$('.hiddenYouTubeURLs').length; j++){
+   imgUrls.push($('.hiddenYouTubeURLs').eq(j).text());
+ }
+
+for(j=0; j<$('.reviewYouTubeImgs').length; j++){
     $.ajax({
-      url: reviewShowUrls[j],
+      url: imgUrls[j],
       indexValue: j,
       async: false,
       dataType: 'json',
@@ -78,50 +200,163 @@ var reviewShowUrls = [];
 
                     function image_link(data, i) {
                         
-                            $('.mobileReviewShowGigImgs').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/huge_avatar');
-
-                            $('.mobileReviewShowGigName').eq(i).text(data.resultsPage.results.event.displayName);
+                      $('.hiddenSongName').eq(i).text(data.items[0].snippet.title);
+                          
                     }
+        
       }
     });
+    
+    
   }
 
-  $('.editReview').click(function(){
-    var reviewContent = $(this).siblings('.mobileReviewContent').html();
-    $(this).siblings('.mobileReviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
-    autosize($('.updateReview'));
-    $('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').hide();
-    $('.editReviewPrompt, .editReviewYes, .editReviewNo').css('display', 'inline-block');
+  var rating = parseInt($('#hiddenReviewRating').html().trim());
 
-    $('.editReviewNo, .deleteReview').click(function(){
-      $('.editReviewPrompt, .editReviewYes, .editReviewNo').hide();
-      $('.updateReview').replaceWith('<div class="mobileReviewContent">'+reviewContent+'</div>');
+  if(rating >= 1) {
+
+    for (var i = 1; i <= rating; i++) {
+      $('.reviewRating').append('<img src="/assets/fullstar.png" class="fullstar" id="'+i+'">')
+    }
+
+    for (var j = rating + 1; j <= 5; j++) {
+      $('.reviewRating').append('<img src="/assets/emptystar.png" class="emptystar" id="'+j+'">')
+    }
+
+  }
+
+  <% if current_user && current_user.id == @review.user_id %>
+
+  if(rating == 0) {
+
+    for (var j = rating + 1; j <= 5; j++) {
+      $('.reviewRating').append('<img src="/assets/emptystar.png" class="emptystar" id="'+j+'">')
+    }
+
+  }
+
+  $('.emptystar').click(function(){
+    var newRating = parseInt($(this).attr('id'));
+
+    $('.fullstar').each(function(i, obj){
+      if(parseInt($(obj).attr('id')) > newRating ) {
+        $(obj).addClass('emptystar');
+      $(obj).removeClass('fullstar');
+      $(obj).attr("src","/assets/emptystar.png")
+      }
     });
 
-    $('.editReviewYes').click(function(){
-      $('.editReviewPrompt, .editReviewYes, .editReviewNo').hide();
-      var contentText = $('.updateReview').val();
-      var ID = $(this).siblings('.hiddenReviewID').html();
-      var updateURL = "/reviews/" + ID;
+    $('.emptystar').each(function(i, obj){
+      if(parseInt($(obj).attr('id')) <= newRating ) {
+        $(obj).addClass('fullstar');
+      $(obj).removeClass('emptystar');
+      $(obj).attr("src","/assets/fullstar.png")
+      }
+    });
+
+    var updateURL = "/reviews/" + $('#reviewBody .hiddenReviewID').html() +"/updateRating/";
       $.ajax({
         url: updateURL,
         method: "PUT",
-        data: { content : contentText }
+        data: { rating : newRating }
       });
-      $('.updateReview').replaceWith('<div class="mobileReviewContent">' + contentText.replace(/\r?\n|\r/g, "<br>") + '</div>');
+
+    $('#hiddenReviewRating').html(newRating);
+  });
+
+  $('.fullstar').click(function(){
+    var newRating = parseInt($(this).attr('id'));
+
+    $('.emptystar').each(function(i, obj){
+      if(parseInt($(obj).attr('id')) < newRating ) {
+        $(obj).addClass('fullstar');
+      $(obj).removeClass('emptystar');
+      $(obj).attr("src","/assets/fullstar.png")
+      }
+    });
+
+    $('.fullstar').each(function(i, obj){
+      if(parseInt($(obj).attr('id')) > newRating ) {
+        $(obj).addClass('emptystar');
+      $(obj).removeClass('fullstar');
+      $(obj).attr("src","/assets/emptystar.png")
+      }
+    });
+
+    var updateURL = "/reviews/" + $('#reviewBody .hiddenReviewID').html() +"/updateRating/";
+      $.ajax({
+        url: updateURL,
+        method: "PUT",
+        data: { rating : newRating }
+      });
+
+    $('#hiddenReviewRating').html(newRating);
+  });
+
+  $(".saveReview").click(function(event){
+    var reviewContent = $(this).siblings('.updateReview')
+    var contentText = $(reviewContent).val();
+    var ID = $(this).siblings('.hiddenReviewID').html();
+    var updateURL = "/reviews/" + ID;
+    $.ajax({
+      url: updateURL,
+      method: "PUT",
+      data: { content : contentText }
+    });
+    var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
+            return ("<img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p>")
+          });
+    $(reviewContent).replaceWith('<div class="reviewContent">' + updatedContentText + '</div>');
+    $(this).css('display', 'none');
+    $(this).siblings('.cancelEditingReview').css('display', 'none');
+    $(this).siblings('.editReview').css('display', 'inline-block');
+  });
+
+  $('.editReview').click(function(){
+    var ID = $(this).siblings('.hiddenReviewID').html();
+    $.getJSON('/reviews/' + ID + '.json', function(data){
+      var reviewContent = data["content"]
+      var height = $('#box2 .reviewContent').height();
+      $('#box2 .reviewContent').replaceWith('<textarea class="updateReview">' + reviewContent.replace(/(<br>)|(<br \/>)|(<p>)|(<\/p>)/g, "\r\n") + '</textarea>');
+      $('.updateReview').height(height);
+      $('#box2 .editReview').hide();
+      $('#box2 .editReview').siblings('.saveReview, .cancelEditingReview').css('display', 'inline-block');
     });
   });
 
-$('.deleteReview').click(function(){
-  $('.editReviewPrompt, .editReviewYes, .editReviewNo').hide();
-  $('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').css('display', 'inline-block');
+  $('.deleteReview').click(function(){
+    $(this).siblings('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').addClass('inlinePrompt');
+  });
 
-  $('.deleteReviewNo').click(function(){
-      $('.deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo').hide();
-    });
-
+$('.deleteReviewNo').click(function(){
+  $(this).siblings('.deleteReviewPrompt, .deleteReviewYes').removeClass('inlinePrompt');
+  $(this).removeClass('inlinePrompt');
 });
 
+$('.deleteReviewYes').click(function(){
+  var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();
+  $.ajax({
+            url: reviewURL ,
+            type: 'DELETE'
+          });
+  profile();
+    $('.modal').modal('hide');
+});
+
+  $('.cancelEditingReview').click(function(){
+    var ID = $(this).siblings('.hiddenReviewID').html();
+    $.getJSON('/reviews/' + ID + '.json', function(data){
+      var contentText = data["content"]
+      var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
+            return ("<img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p>")
+          });
+      $('.updateReview').replaceWith('<div class="updateReview">' + updatedContentText + '</div>');
+      $('.editReview').css('display', 'inline-block');
+      $('.cancelEditingReview').hide();
+    });
+  });
+
+
+  <% end %>
+  
 
 </script>
-        
