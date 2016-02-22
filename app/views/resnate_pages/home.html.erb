@@ -279,8 +279,7 @@ function onYouTubeIframeAPIReady() {YT_ready(true)}
 var player; 
 YT_ready(function(){
         player = new YT.Player('player', {
-            controls: 0,
-            showinfo: 0,
+            playerVars: {'controls': 0, 'showinfo': 0}
             events: {
               'onReady': onPlayerReady,
               'onStateChange': stopCycle
