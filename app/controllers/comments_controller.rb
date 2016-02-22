@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
       end
     elsif params[:commentable_type] == "review"
       @commentable = Review.find(params[:commentable_id])
-      recipient = @commentable.user_id
+      recipient = User.find(@commentable.user_id)
       notification = "C|R"
     end
 
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
 
     Comment.where(commentable_id: @comment.id).each do |c|
       if c.user_id != @commentable.owner_id && c.user_id != current_user.id
-        recipients.push(c.user_id)
+        recipients.push(User.find(c.user_id))
       end
     end
 
