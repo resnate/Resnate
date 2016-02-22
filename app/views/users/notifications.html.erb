@@ -78,12 +78,18 @@
 
 
                   <% elsif  message.subject[0..1] == 'C|' %>
+                    <% activityID = message.body %>
                     <% if  message.subject[2] == 'R' %>
-                      <span>commented on your review of </span>
+                      <% review = Review.find(activityID) %>
+                      <% if review.user_id == current_user.id %>
+                        <span>commented on your review of </span>
+                      <% else %>
+                        <span>commented on <%= User.find(review.user_id).name %>'s review of </span>
+                      <% end %>
                     <% else %>
                       <span>commented on </span>
                     <% end %>
-                    <% activityID = message.body %>
+                    
                     <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
                     <div class="activityLink"><%= activityID %></div>
                     <% if  message.subject[2] == 'S' %>
@@ -91,7 +97,7 @@
                     <% elsif  message.subject[2] == 'P' %>
                       <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
                     <% elsif  message.subject[2] == 'R' %>
-                      <% review = Review.find(activityID) %>
+                      
                       <% reviewable_type = review.reviewable_type %>
                       <% reviewable_id = review.reviewable_id %>
                       <% if reviewable_type == "Song" %>
