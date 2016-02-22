@@ -65,19 +65,48 @@ class ReviewsController < ApplicationController
   end
 
 	def like
-      @review = Review.find(params[:id])
-      current_user.like!(@review)
-      @like = Like.where(liker_id: current_user.id, likeable_type: "Review").find_by_likeable_id(@review.id)
-      @like.create_activity :create, owner: current_user
-      @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
-      @message = @activity.to_s + ',' + current_user.uid.to_s
-      Pusher.trigger('activities', 'feed', {:message => @message})
-      render :layout => false
+    @review = Review.find(params[:id])
+    current_user.like!(@review)
+    @like = Like.where(liker_id: current_user.id, likeable_type: "Review").find_by_likeable_id(@review.id)
+
+    @like.create_activity :create, owner: current_user
+    @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
+    @message = @activity.to_s + ',' + current_user.uid.to_s
+    Pusher.trigger('activities', 'feed', {:message => @message})
+
+    reviewer = User.find(@review.user_id)
+    if current_user != reviewer
+      lv1 = reviewer.level
+      reviewer.add_points(5)
+      current_user.send_message(reviewer, "test", "R|"+ @likeable_id.to_s)
+      Pusher.trigger('messages', 'inbox', { message: reviewer.id, sender: current_user })  
+      lv2 = reviewer.level
+      if lv1 != lv2
+        reviewer.create_activity key: 'badge.create', parameters: {level: reviewer.level}, owner: reviewer
+        User.find(3).send_message(reviewer, "New level: "+ reviewer.level_name, "B|"+ reviewer.level_name)
+        reviewer.add_badge(reviewer.level)
+        badgeActivity = PublicActivity::Activity.where(key: "badge.create", owner: reviewer).last.id
+        badgeMessage = badgeActivity + ',' + current_user.uid.to_s
+        Pusher.trigger('activities', 'feed', {:message => badgeMessage})
+        Pusher.trigger('messages', 'inbox', { message: reviewer.id, sender: current_user })
+      end
     end
+
+    render :layout => false
+  end
 
     def unlike
       @review = Review.find(params[:id])
       current_user.unlike!(@review)
+      @user = @review.user_id
+      if current_user != @user
+        lv1 = @user.level
+        @user.subtract_points(5)
+        lv2 = @user.level
+        if lv1 != lv2
+          @user.rm_badge(lv1)
+        end
+      end
       render :layout => false
     end
 

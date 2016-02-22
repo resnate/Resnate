@@ -884,16 +884,6 @@ if($(this).parent().siblings('.activityInfo').find('.hiddenID').html().trim() !=
   $(this).addClass('liked');
   $.post("/reviews/"+$(this).siblings('.hiddenReviewID').html()+"/reviewLike");
 
-if($(this).siblings('.hiddenID').html().trim() != "<%= current_user.id %>"){
-  $.post("/"+$(this).siblings('.hiddenID').html().trim()+"/point5");
-  $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
-  $('#messageURL').val('R|'+$(this).siblings('.hiddenReviewID').html());
-  $('.shareTextarea').val($(this).siblings('.hiddenReviewID').html());
-  $('#shareSubmit').click();
-  $('#messageURL').val('');
-  $('.shareTextarea').val('Check this out!');
-  }
-
  }
 
  });

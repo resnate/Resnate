@@ -106,9 +106,9 @@
       </div>
       <% unless  current_user.nil? %>
         <% if current_user.likes?(@review) %>
-			   <span class="glyphicon glyphicon-thumbs-up reviewThumb liked"></span>
+			   <span class="glyphicon glyphicon-thumbs-up reviewThumb liked" id="bigReviewThumb"></span>
 		    <% elsif current_user.id != @review.user_id %>
-			   <span class="glyphicon glyphicon-thumbs-up reviewThumb"></span>
+			   <span class="glyphicon glyphicon-thumbs-up reviewThumb" id="bigReviewThumb"></span>
       <% end %>
 		<% end %>
 		<span class="hiddenID"><%= @review.user_id %></span>
