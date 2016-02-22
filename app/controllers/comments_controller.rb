@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     recipients = []
     if params[:commentable_type] == "activity"
       @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
-      recipient = @commentable.owner_id
+      recipient = User.find(@commentable.owner_id)
       if @commentable.trackable_type == "Song"    
         notification = "C|S"
       elsif @commentable.trackable_type == "Playlist"    
@@ -31,8 +31,6 @@ class CommentsController < ApplicationController
       end
     end
 
-    puts recipients
-    puts notification
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
