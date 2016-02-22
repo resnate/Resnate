@@ -30,12 +30,12 @@ class CommentsController < ApplicationController
         recipients.push(User.find(c.user_id))
       end
     end
-
+puts recipients
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
     end
-  	render :layout => false
+  	render nothing: true
   end
 
   def index
@@ -50,6 +50,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
+    render nothing: true
   end
 
 end
