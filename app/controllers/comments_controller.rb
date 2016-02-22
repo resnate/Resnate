@@ -32,8 +32,8 @@ class CommentsController < ApplicationController
     end
 
 
-    current_user.send_message(@recipients, params[:body], notification)
-    @recipients.each do |r|
+    current_user.send_message(recipients, params[:body], notification)
+    recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
     end
   	render :layout => false
