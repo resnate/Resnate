@@ -26,11 +26,10 @@ class CommentsController < ApplicationController
     Pusher.trigger('comments', 'comment', {:message => @get})
 
     Comment.where(commentable_id: @comment.id).each do |c|
-      if c.user_id != @commentable.owner_id && c.user_id != current_user.id
+      if c.user_id != current_user.id
         recipients.push(User.find(c.user_id))
       end
     end
-puts recipients
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
