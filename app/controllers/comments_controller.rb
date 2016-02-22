@@ -11,11 +11,9 @@ class CommentsController < ApplicationController
         notification = "C|P"
       elsif @commentable.trackable_type == "Gig"    
         notification = "C|G"
-      end
-    elsif params[:commentable_type] == "review"
-      @commentable = Review.find(params[:commentable_id])
-      recipient = User.find(@commentable.user_id)
-      notification = "C|R"
+      elsif @commentable.trackable_type == "review"
+        notification = "C|R"
+      end      
     end
 
     recipients.push(recipient)
@@ -25,11 +23,12 @@ class CommentsController < ApplicationController
     @comment.save
     Pusher.trigger('comments', 'comment', {:message => @get})
 
-    Comment.where(commentable_id: @commentable.id).each do |c|
+    Comment.where(commentable_id: params[:commentable_id]).each do |c|
       if c.user_id != @commentable.owner_id && c.user_id != current_user.id
         recipients.push(User.find(c.user_id))
       end
     end
+    
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
