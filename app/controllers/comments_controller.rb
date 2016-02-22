@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
         notification = "C|P"
       elsif @commentable.trackable_type == "Gig"    
         notification = "C|G"
-      elsif @commentable.trackable_type == "review"
+      elsif @commentable.trackable_type == "Review"
         notification = "C|R"
       end      
     end
@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
         recipients.push(User.find(c.user_id))
       end
     end
-    
+
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
