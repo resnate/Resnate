@@ -219,7 +219,7 @@
   </div> 
   
   
-  
+  <div id="otherReviews"></div>  
   <div class="reviewButton writeSongReview">Write a Review</div>
   
 
@@ -963,52 +963,8 @@ $(document).on('click', '.shareReview', function(){
       
       
       $(this).val('');
-
-
-          
-        
-          if($(this).siblings('.hiddenReviewID').length > 0) {
-            $('#messageURL').val('C|R' + $(this).siblings('.hiddenReviewID').html().trim());
-          } else if ($(this).siblings('.hiddenSongID').length > 0) {
-            $('#messageURL').val('C|S' + $(this).siblings('.hiddenSongID').html().trim());
-            
-          } else if ($(this).siblings('.hiddenGigID').length > 0) {
-            $('#messageURL').val('C|G' + $(this).siblings('.hiddenGigID').html().trim());
-          }  else if ($(this).siblings('.hiddenPlaylistID').length > 0) {
-            $('#messageURL').val('C|P' + $(this).siblings('.hiddenPlaylistID').html().trim());
-          }
-          
-          if($(this).siblings('.hiddenReviewID').length > 0) {
-            $('.shareTextarea').val($(this).siblings('.hiddenReviewID').html().trim());  
-          } else {
-            $('.shareTextarea').val($(this).siblings('.hiddenActivityID').html().trim());
-          }
-
-          if($(this).siblings('.hiddenLikerID').length > 0 ) {
-            if($(this).siblings('.hiddenLikerID').html().trim() != "<%= current_user.id %>") {
-              $('#shareCurrentID').val($(this).siblings('.hiddenLikerID').html().trim());
-              $('#shareSubmit').click();
-            }
-            
-
-          } else {
-            
-            if($(this).siblings('.hiddenID').html().trim() != "<%= current_user.id %>") {
-              $('#shareCurrentID').val($(this).siblings('.hiddenID').html().trim());
-              $('#shareSubmit').click();
-
-            }
-
-          }
-          
-          
-          $('.shareTextarea').val('Check this out!')
-          $('#messageURL').val('');
-        }
         
         
-        
-      
   });
 
 
