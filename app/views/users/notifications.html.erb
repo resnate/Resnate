@@ -78,11 +78,11 @@
 
 
                   <% elsif  message.subject[0..1] == 'C|' %>
-                    <% activityID = message.subject[3..-1] %>
-                    <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <%= activityID = message.subject[3..-1] %>
+                    <%= trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
                     <% if  message.subject[2] == 'R' %>
                       <% review = Review.find(trackable_id) %>
-                      <% if review.user_id == current_user.id %>
+                      <% if !review.nil? && review.user_id == current_user.id %>
                         <span>commented on your review of </span>
                       <% else %>
                         <span>commented on <%= User.find(review.user_id).name %>'s review of </span>
