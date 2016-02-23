@@ -99,9 +99,9 @@
                     <% elsif  message.subject[2] == 'P' %>
                       <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
                     <% elsif  message.subject[2] == 'R' %>
-                      <% if reviewable_type == "Song" %>
+                      <% if review.reviewable_type == "Song" %>
                         <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
-                      <% elsif reviewable_type == "PastGig" %>
+                      <% elsif review.reviewable_type == "PastGig" %>
                         <div class="msgGigReviews">https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?</div>
                         <div class="activityName msgReviews msgReviewGigName"></div>
                       <% end %>
