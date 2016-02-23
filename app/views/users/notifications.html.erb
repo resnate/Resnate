@@ -70,6 +70,7 @@
                     <% reviewable_type = review.reviewable_type %>
                     <span> liked your review of </span>
                     <% if reviewable_type == "PastGig" %>
+                      <div class="msgGigReviews">https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?</div>
                       <span class="activityName msgReviewName msgReviewGigName"></span>.
                     <% elsif reviewable_type == "Song" %>
                       <span class="activityName msgReviewName"><%= Song.find(review.reviewable_id).name %></span>.
@@ -78,8 +79,8 @@
 
 
                   <% elsif  message.subject[0..1] == 'C|' %>
-                    <%= activityID = message.subject[3..-1] %>
-                    <%= trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <% activityID = message.subject[3..-1] %>
+                    <% trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
                     <% if  message.subject[2] == 'R' %>
                       <% review = Review.find(trackable_id) %>
                       <% if !review.nil? && review.user_id == current_user.id %>
@@ -98,13 +99,11 @@
                     <% elsif  message.subject[2] == 'P' %>
                       <div class="activityName commentActivity"><%= Playlist.find(trackable_id).name %></div>
                     <% elsif  message.subject[2] == 'R' %>
-                      
-                      <%= reviewable_type = review.reviewable_type %>
-                      <%= reviewable_id = review.reviewable_id %>
                       <% if reviewable_type == "Song" %>
                         <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
                       <% elsif reviewable_type == "PastGig" %>
-                        <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
+                        <div class="msgGigReviews">https://api.songkick.com/api/3.0/events/<%= PastGig.find(review.reviewable_id).songkick_id %>.json?apikey=Pxms4Lvfx5rcDIuR&jsoncallback=?</div>
+                        <div class="activityName msgReviews msgReviewGigName"></div>
                       <% end %>
                       <span class="hiddenReviewID"><%= trackable_id %></span>
                     <% end %>
@@ -189,13 +188,13 @@ var urls = [];
 
   var reviewUrls = [];
 
-  for(j=0; j<$('.msgReviews').length; j++){
-    reviewUrls.push($('.msgReviews').eq(j).attr('src'));
+  for(j=0; j<$('.msgGigReviews').length; j++){
+    reviewUrls.push($('.msgGigReviews').eq(j).html());
   }
 
 
 
-  for(j=0; j<$('.msgReviews').length; j++){
+  for(j=0; j<$('.msgGigReviews').length; j++){
     $.ajax({
       url: reviewUrls[j],
       indexValue: j,
@@ -206,12 +205,7 @@ var urls = [];
         image_link(json , this.indexValue);
 
                     function image_link(data, i) {
-                        
-                            $('.msgReviews').eq(i).attr("src", 'https://ssl.sk-static.com/images/media/profile_images/artists/'+data.resultsPage.results.event.performance[0].artist.id+'/large_avatar');
-
-                            $('.msgReviewGigName').eq(i).html(data.resultsPage.results.event.displayName);
-
-                          
+                      $('.msgReviewGigName').eq(i).html(data.resultsPage.results.event.displayName);
                     }
         
       }
