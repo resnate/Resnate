@@ -1,5 +1,6 @@
 
 <% @playlists.each do |p| %>
+ <% unless p.content.nil? %>
 	<table>
 		<tr class="playlistInfo">
 			<td>
@@ -38,6 +39,7 @@
 			<td class="tdDescriptP"><%= simple_format(p.description, class: "descriptP") %></td>
 		</tr>
 	</table>
+	<% end %>
 <% end %>
 
 <% if @followedPlaylists.count != 0 %>

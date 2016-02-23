@@ -333,11 +333,17 @@
       </tr>
     <% end %>
 
-    <% if @user.playlists.count === 0 %>
+    <% if @user.playlists.count == 0 %>
       <% if @user == current_user %>
         <tr class="playlistInfo">
           <td>
             <div id="noPlaylists">Make some playlists!</div>
+          </td>
+        </tr>
+      <% else %>
+        <tr class="playlistInfo">
+          <td>
+            <div id="noPlaylists"><%= @user.first_name %> has no playlists, share a song with them!</div>
           </td>
         </tr>
       <% end %>

@@ -1385,7 +1385,7 @@ $(".sidePlaylist .dropdownPlaylist").sortable(sortable_opts);
 
 
 $('#Playlist').on('click', '.sideNewPlaylist', function(e){
-  $(this).find('.sideNewPlaylistName').replaceWith('<input id="newPlaylistInput">');
+  $(this).find('.sideNewPlaylistName').replaceWith('<input id="newPlaylistInput" placeholder="Enter playlist name">');
   $('#newPlaylistInput').focus();
   $("#newPlaylistInput").keydown(function(event){
     if(event.keyCode==13 && $('#newPlaylistInput').val() != '' ){
