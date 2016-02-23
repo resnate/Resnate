@@ -70,9 +70,9 @@
                     <% reviewable_type = review.reviewable_type %>
                     <span> liked your review of </span>
                     <% if reviewable_type == "PastGig" %>
-                      <span class="activityName msgReviewName msgReviewGigName"></span>!
+                      <span class="activityName msgReviewName msgReviewGigName"></span>.
                     <% elsif reviewable_type == "Song" %>
-                      <span class="activityName msgReviewName"><%= Song.find(review.reviewable_id).name %></span>!
+                      <span class="activityName msgReviewName"><%= Song.find(review.reviewable_id).name %></span>.
                     <% end %>
                     <span class="hiddenReviewID"><%= message.subject[2..-1] %></span>
 
@@ -80,6 +80,8 @@
                   <% elsif  message.subject[0..1] == 'C|' %>
                     <%= activityID = message.subject[3..-1] %>
                     <%= trackable_id = PublicActivity::Activity.find(activityID).trackable_id %>
+                    <%= PublicActivity::Activity.find(activityID).trackable_type %>
+                    <%= message.subject[2] %>
                     <% if  message.subject[2] == 'R' %>
                       <% review = Review.find(trackable_id) %>
                       <% if !review.nil? && review.user_id == current_user.id %>
@@ -106,7 +108,7 @@
                       <% elsif reviewable_type == "PastGig" %>
                         <div class="activityName msgReviews"><%= Song.find(reviewable_id).name %></div>
                       <% end %>
-                      <span class="hiddenReviewID"><%= activityID %></span>
+                      <span class="hiddenReviewID"><%= trackable_id %></span>
                     <% end %>
                   <% end %>
                 <% end %>
