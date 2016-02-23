@@ -28,7 +28,7 @@ class CommentsController < ApplicationController
         recipients.push(User.find(c.user_id))
       end
     end
-
+puts recipients
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
