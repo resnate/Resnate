@@ -4,6 +4,7 @@ class API::CommentsController < ApplicationController
 
   def create
     userID = APIKey.find_by_access_token(params[:token]).user_id
+    recipients = []
   	if params[:commentable_type] == "activity"
       @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
       recipient = @commentable.owner_id
@@ -19,6 +20,9 @@ class API::CommentsController < ApplicationController
       recipient = @commentable.user_id
       notification = "C|R"
   	end
+
+    recipients.push(recipient)
+
     @get = "/activity/" + params[:commentable_id] + "/comments/"
     @body = params[:body] 
     @comment = Comment.build_from( @commentable, userID, params[:body] )
@@ -26,8 +30,19 @@ class API::CommentsController < ApplicationController
     Pusher.trigger('comments', 'comment', {:message => @get})
 
     user = User.find(userID)
-    user.send_message(recipient, params[:body], notification)
-    Pusher.trigger('messages', 'inbox', { message: recipient.id, sender: user})
+
+    Comment.where(commentable_id: params[:commentable_id]).each do |c|
+      if c.user_id != @commentable.owner_id && c.user_id != userID
+        recipients.push(User.find(c.user_id))
+      end
+    end
+
+    recipients = recipients.uniq
+    
+    user.send_message(recipients, params[:body], notification)
+    recipients.each do |r|
+      Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
+    end
   end
 
   def index

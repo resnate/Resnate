@@ -56,7 +56,8 @@ class API::MessagesController < ApplicationController
         receipts.each do |receipt|
           if receipt.message.subject[1] == "|" && receipt.message.sender_id != current_user.id
             message = receipt.message
-            @messages.push(message: message, participants: conversation.participants)
+            sender = User.find(message.sender_id)
+            @messages.push(message: message, sender: sender)
           end
         end
       end
