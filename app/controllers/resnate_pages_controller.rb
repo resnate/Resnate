@@ -7,6 +7,10 @@ class ResnatePagesController < ApplicationController
     end
   end
 
+  def about
+    
+  end
+
   def landing
     if current_user
       redirect_to '/home'

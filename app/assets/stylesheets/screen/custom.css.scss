@@ -318,6 +318,21 @@ textarea {
   }
 }
 
+#fatkid, #aboutSpiel {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#fatkid {
+  margin: 30px;
+}
+
+#aboutSpiel {
+  color: white;
+  font-size: 16px;
+  width: calc(100% - 490px);
+}
+
 
   #mainYTPaste {
     color: black;
