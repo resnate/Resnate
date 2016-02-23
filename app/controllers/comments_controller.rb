@@ -18,7 +18,7 @@ class CommentsController < ApplicationController
 
     recipients.push(recipient)
     recipients = recipients.uniq
-
+    puts recipients
     @get = "/activity/" + params[:commentable_id] + "/comments/"
     @comment = Comment.build_from( @commentable, current_user.id, params[:body] )
     @comment.save
@@ -32,6 +32,7 @@ class CommentsController < ApplicationController
 
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
+      puts r.id
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
     end
   	render nothing: true
