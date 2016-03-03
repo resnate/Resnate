@@ -18,7 +18,7 @@ class MessagesController < ApplicationController
       Pusher.trigger('messages', 'inbox', { message: recipient.id, sender: @sender})
       if recipient.device_token
         token = recipient.device_token
-        notification = Houston::Notification.new(device: token)
+        notification = Houston::Notification.new(device: token, sound: '')
         notification.alert = "Hello, World!"
         APN.push(notification)
       end
