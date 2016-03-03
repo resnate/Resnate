@@ -297,6 +297,6 @@ private
     end
 
     def user_params
-      params.require(:user).permit(:songkickID, :musicLikes, :oauth_token)
+      params.require(:user).permit(:songkickID, :musicLikes, :oauth_token, :device_token)
     end
 end
