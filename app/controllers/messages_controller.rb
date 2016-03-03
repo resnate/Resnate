@@ -6,8 +6,6 @@ class MessagesController < ApplicationController
   end
  
   def create
-    APN = Houston::Client.development
-    APN.certificate = ENV["APPLE_DEV_PEM"]
   	@recipients = []
   	attrs = params[:user].split(',').each do |attri|
   		@recipients.push(User.find(attri))
