@@ -103,6 +103,7 @@ Resnate::Application.routes.draw do
       get "search/:id/" => "users#search"
       post "/users/create" => "users#create"
       get "/users/:id/level"  => "users#level"
+      put "/users/updateToken"  => "users#updateToken"
       get "/users/:id/profile"  => "users#profile"
       get "/users/:id/login"  => "users#login"
       get "/users/:id/reviews/:page"  => "users#reviews"

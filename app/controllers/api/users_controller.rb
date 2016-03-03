@@ -284,6 +284,13 @@ class API::UsersController < ApplicationController
     render nothing: true
   end
 
+  def updateToken
+    @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)
+    device_token = params[:device_token]
+    @user.update_attribute(:device_token, device_token)
+    render nothing: true
+  end
+
 private
     def restrict_access
       authenticate_or_request_with_http_token do |token, options|
