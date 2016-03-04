@@ -19,7 +19,8 @@ class MessagesController < ApplicationController
       if recipient.device_token
         token = recipient.device_token
         notification = Houston::Notification.new(device: token)
-        notification.alert = "New message from " + current_user.name
+        notification.alert = "New message from " + current_user.name + ": " + params[:body]
+        notification.sound = "sosumi.aiff"
         APN.push(notification)
       end
     end
