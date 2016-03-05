@@ -33,7 +33,12 @@ class API::MessagesController < ApplicationController
       conversations = current_user.mailbox.conversations
       conversations.each do |convo|
         if convo.subject[1] == "#"
-          @messages.push(convo)
+          receipts = convo.receipts_for current_user
+          receipts.each do |receipt|
+            message = receipt.message
+            #unless message.subject[0] == 'R' && Review.where(id: message.subject[2..-1]).count == 0
+            @messages.push(message: message, participants: convo.participants)
+          end
         end
       end
       paginate json: @messages, page: params[:page], per_page: 3
