@@ -19,13 +19,11 @@ class MessagesController < ApplicationController
       if recipient.device_token
         token = recipient.device_token
         notification = Houston::Notification.new(device: token)
-        if params[:subject][1] == "|"
-          if params[:subject][0] == "S"
-            notification.alert = current_user.name + " liked " + Song.find(params[:body]).name
-          elsif params[:subject][0] == "R"
+        if params[:subject][1] == "|" && params[:subject][0] == "S"
+            notification.alert = current_user.name + " liked " + Song.find(PublicActivity::Activity.find(params[:body]).trackable_id).name
+        elsif params[:subject][1] == "|" && params[:subject][0] == "R"
             notification.alert = current_user.name + " liked a review you wrote!"
-          end
-        else
+        elsif params[:subject][1] == "#"
           notification.alert = "New message from " + current_user.name + ": " + params[:body]
         end
         notification.sound = "sosumi.aiff"

@@ -44,7 +44,7 @@ class SongsController < ApplicationController
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
       @message = @activity.to_s + ',' + current_user.uid.to_s
       Pusher.trigger('activities', 'feed', {:message => @message})
-      render :layout => false
+      render nothing: true
     end
 
     def unlike
@@ -53,7 +53,7 @@ class SongsController < ApplicationController
       @songs.each do |song|
         current_user.unlike!(song)
       end
-      render :layout => false
+      render nothing: true
     end
     
   private
