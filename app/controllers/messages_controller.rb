@@ -21,6 +21,13 @@ class MessagesController < ApplicationController
         notification = Houston::Notification.new(device: token)
         notification.alert = "New message from " + current_user.name + ": " + params[:body]
         notification.sound = "sosumi.aiff"
+        unread = 0
+        unless recipient.mailbox.receipts.where(is_read:false ).count == 0
+          @user.mailbox.receipts.where(is_read:false, ).each do |receipt|
+            unread += 1
+          end
+        end
+        notification.badge = unread
         APN.push(notification)
       end
     end
