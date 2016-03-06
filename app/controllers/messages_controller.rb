@@ -20,7 +20,11 @@ class MessagesController < ApplicationController
         token = recipient.device_token
         notification = Houston::Notification.new(device: token)
         if params[:subject][1] == "|"
-          notification.alert = "New notification from " + current_user.name + ": " + params[:body]
+          if params[:subject][0] == "S"
+            notification.alert = current_user.name + " liked " + Song.find(params[:body]).name
+          elsif params[:subject][0] == "R"
+            notification.alert = current_user.name + " liked a review you wrote!"
+          end
         else
           notification.alert = "New message from " + current_user.name + ": " + params[:body]
         end
