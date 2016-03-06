@@ -19,7 +19,11 @@ class MessagesController < ApplicationController
       if recipient.device_token
         token = recipient.device_token
         notification = Houston::Notification.new(device: token)
-        notification.alert = "New message from " + current_user.name + ": " + params[:body]
+        if receipt.message.subject[1] == "|"
+          notification.alert = "New notification from " + current_user.name + ": " + params[:body]
+        else
+          notification.alert = "New message from " + current_user.name + ": " + params[:body]
+        end
         notification.sound = "sosumi.aiff"
         notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
         APN.push(notification)
