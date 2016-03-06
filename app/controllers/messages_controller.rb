@@ -23,6 +23,7 @@ class MessagesController < ApplicationController
             notification.alert = current_user.name + " liked " + Song.find(PublicActivity::Activity.find(params[:body]).trackable_id).name
         elsif params[:subject][1] == "|" && params[:subject][0] == "R"
             notification.alert = current_user.name + " liked a review you wrote!"
+            puts notification.alert
         elsif params[:subject][1] == "#"
           notification.alert = "New message from " + current_user.name + ": " + params[:body]
         end
