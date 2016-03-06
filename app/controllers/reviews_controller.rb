@@ -92,7 +92,7 @@ class ReviewsController < ApplicationController
       end
     end
 
-    render :layout => false
+    render nothing: true
   end
 
     def unlike
@@ -107,7 +107,7 @@ class ReviewsController < ApplicationController
           @user.rm_badge(lv1)
         end
       end
-      render :layout => false
+      render nothing: true
     end
 
     private
