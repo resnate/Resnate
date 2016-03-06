@@ -78,7 +78,7 @@ class ReviewsController < ApplicationController
     if current_user != reviewer
       lv1 = reviewer.level
       reviewer.add_points(5)
-      current_user.send_message(reviewer, "test", "R|"+ @likeable_id.to_s)
+      current_user.send_message(reviewer, @like.likeable_id.to_s, "R|"+ @like.likeable_id.to_s)
       Pusher.trigger('messages', 'inbox', { message: reviewer.id, sender: current_user })  
       lv2 = reviewer.level
       if lv1 != lv2
@@ -98,7 +98,7 @@ class ReviewsController < ApplicationController
     def unlike
       @review = Review.find(params[:id])
       current_user.unlike!(@review)
-      @user = @review.user_id
+      @user = User.find(@review.user_id)
       if current_user != @user
         lv1 = @user.level
         @user.subtract_points(5)
