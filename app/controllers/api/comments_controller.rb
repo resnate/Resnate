@@ -5,21 +5,17 @@ class API::CommentsController < ApplicationController
   def create
     userID = APIKey.find_by_access_token(params[:token]).user_id
     recipients = []
-  	if params[:commentable_type] == "activity"
-      @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
-      recipient = @commentable.owner_id
-      if @commentable.trackable_type == "Song"    
-        notification = "C|S"
-      elsif @commentable.trackable_type == "Playlist"    
-        notification = "C|P"
-      elsif @commentable.trackable_type == "Gig"    
-        notification = "C|G"
-      end
-    elsif params[:commentable_type] == "review"
-  		@commentable = Review.find(params[:commentable_id])
-      recipient = @commentable.user_id
+    @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
+    recipient = @commentable.owner_id
+    if @commentable.trackable_type == "Song"    
+      notification = "C|S"
+    elsif @commentable.trackable_type == "Playlist"    
+      notification = "C|P"
+    elsif @commentable.trackable_type == "Gig"    
+      notification = "C|G"
+    elsif @commentable.trackable_type == "Review"    
       notification = "C|R"
-  	end
+    end
 
     recipients.push(recipient)
 
@@ -44,19 +40,19 @@ class API::CommentsController < ApplicationController
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: user})
       if r.device_token
         token = r.device_token
-        notification = Houston::Notification.new(device: token)
+        pushNotification = Houston::Notification.new(device: token)
         if @commentable.trackable_type == "Song"
-          notification.alert = user.name + " commented on " + Song.find(params[:commentable_id]).name
+          pushNotification.alert = user.name + " commented on " + Song.find(params[:commentable_id]).name
         elsif @commentable.trackable_type == "Playlist"
-          notification.alert = user.name + " commented on " + Playlist.find(params[:commentable_id]).name
+          pushNotification.alert = user.name + " commented on " + Playlist.find(params[:commentable_id]).name
         elsif @commentable.trackable_type == "Gig"
-          notification.alert = user.name + " commented on a gig you'll be attending."
+          pushNotification.alert = user.name + " commented on a gig you'll be attending."
         elsif @commentable.trackable_type == "Review"
-          notification.alert = user.name + " commented on a review that you wrote."
+          pushNotification.alert = user.name + " commented on a review that you wrote."
         end
-        notification.sound = "sosumi.aiff"
-        notification.badge = r.mailbox.receipts.where(is_read:false ).count
-        APN.push(notification)
+        pushNotification.sound = "sosumi.aiff"
+        pushNotification.badge = r.mailbox.receipts.where(is_read:false ).count
+        APN.push(pushNotification)
       end
     end
   end

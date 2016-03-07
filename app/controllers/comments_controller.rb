@@ -34,19 +34,19 @@ class CommentsController < ApplicationController
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
       if r.device_token
         token = r.device_token
-        notification = Houston::Notification.new(device: token)
+        pushNotification = Houston::Notification.new(device: token)
         if @commentable.trackable_type == "Song"
-          notification.alert = current_user.name + " commented on " + Song.find(params[:commentable_id]).name
+          pushNotification.alert = current_user.name + " commented on " + Song.find(params[:commentable_id]).name
         elsif @commentable.trackable_type == "Playlist"
-          notification.alert = current_user.name + " commented on " + Playlist.find(params[:commentable_id]).name
+          pushNotification.alert = current_user.name + " commented on " + Playlist.find(params[:commentable_id]).name
         elsif @commentable.trackable_type == "Gig"
-          notification.alert = current_user.name + " commented on a gig you'll be attending."
+          pushNotification.alert = current_user.name + " commented on a gig you'll be attending."
         elsif @commentable.trackable_type == "Review"
-          notification.alert = current_user.name + " commented on a review that you wrote."
+          pushNotification.alert = current_user.name + " commented on a review that you wrote."
         end
-        notification.sound = "sosumi.aiff"
-        notification.badge = r.mailbox.receipts.where(is_read:false ).count
-        APN.push(notification)
+        pushNotification.sound = "sosumi.aiff"
+        pushNotification.badge = r.mailbox.receipts.where(is_read:false ).count
+        APN.push(pushNotification)
       end
     end
   	render nothing: true
