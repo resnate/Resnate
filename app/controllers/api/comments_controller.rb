@@ -6,7 +6,7 @@ class API::CommentsController < ApplicationController
     userID = APIKey.find_by_access_token(params[:token]).user_id
     recipients = []
     @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
-    recipient = @commentable.owner_id
+    recipient = User.find(@commentable.owner_id)
     if @commentable.trackable_type == "Song"    
       notification = "C|S"
     elsif @commentable.trackable_type == "Playlist"    
