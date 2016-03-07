@@ -34,6 +34,14 @@ class CommentsController < ApplicationController
     current_user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
+      if r.device_token
+        token = r.device_token
+        notification = Houston::Notification.new(device: token)
+        notification.alert = current_user.name + " commented on your activity."
+        notification.sound = "sosumi.aiff"
+        notification.badge = r.mailbox.receipts.where(is_read:false ).count
+        APN.push(notification)
+      end
     end
   	render nothing: true
   end

@@ -26,15 +26,39 @@ class API::LikesController < ApplicationController
           listener.add_points(1)
           @user.send_message(listener, "test", "S|"+ @likeable_id.to_s)
           Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
+          if listener.device_token
+            token = listener.device_token
+            notification = Houston::Notification.new(device: token)
+            notification.alert = current_user.name + " liked " + Song.find(PublicActivity::Activity.find(params[:body]).trackable_id).name
+            notification.sound = "sosumi.aiff"
+            notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
+            APN.push(notification)
+          end
         elsif @likeable_type == "Gig"
           listener.add_points(5)
           @user.send_message(listener, "test", "G|"+ @likeable_id.to_s)
           Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
+          if listener.device_token
+            token = listener.device_token
+            notification = Houston::Notification.new(device: token)
+            notification.alert = current_user.name + " liked one of your upcoming gigs!"
+            notification.sound = "sosumi.aiff"
+            notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
+            APN.push(notification)
+          end
         elsif @likeable_type == "Review"
           listener.add_points(5)
           @user.send_message(listener, "test", "R|"+ @likeable_id.to_s)
           Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
-        end 
+          if listener.device_token
+            token = listener.device_token
+            notification = Houston::Notification.new(device: token)
+            notification.alert = current_user.name + " liked a review you wrote!"
+            notification.sound = "sosumi.aiff"
+            notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
+            APN.push(notification)
+          end
+        end
         lv2 = listener.level
         if lv1 != lv2
           listener.create_activity key: 'badge.create', parameters: {level: listener.level}, owner: listener
@@ -44,6 +68,14 @@ class API::LikesController < ApplicationController
           badgeMessage = badgeActivity + ',' + @user.uid.to_s
           Pusher.trigger('activities', 'feed', {:message => badgeMessage})
           Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
+          if listener.device_token
+            token = listener.device_token
+            notification = Houston::Notification.new(device: token)
+            notification.alert = "New level: "+ listener.level_name
+            notification.sound = "sosumi.aiff"
+            notification.badge = listener.mailbox.receipts.where(is_read:false ).count
+            APN.push(notification)
+          end
         end
       end
     
