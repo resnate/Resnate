@@ -41,7 +41,7 @@ class API::CommentsController < ApplicationController
     
     user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
-      Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
+      Pusher.trigger('messages', 'inbox', { message: r.id, sender: user})
       if r.device_token
         token = r.device_token
         notification = Houston::Notification.new(device: token)
