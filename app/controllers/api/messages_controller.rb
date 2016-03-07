@@ -16,8 +16,8 @@ class API::MessagesController < ApplicationController
   	end
 
     @sender = params["sender_id"]
-    
-    User.find(@sender).send_message(@recipients, params[:body], params[:subject])
+    current_user = User.find(@sender)
+    current_user.send_message(@recipients, params[:body], params[:subject])
     @recipients.each do |recipient|
       Pusher.trigger('messages', 'inbox', { message: recipient.id, sender: @sender })
       if recipient.device_token
