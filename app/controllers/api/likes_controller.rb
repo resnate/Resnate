@@ -31,7 +31,7 @@ class API::LikesController < ApplicationController
             notification = Houston::Notification.new(device: token)
             notification.alert = current_user.name + " liked " + Song.find(PublicActivity::Activity.find(params[:body]).trackable_id).name
             notification.sound = "sosumi.aiff"
-            notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
+            notification.badge = listener.mailbox.receipts.where(is_read:false ).count
             APN.push(notification)
           end
         elsif @likeable_type == "Gig"
@@ -43,7 +43,7 @@ class API::LikesController < ApplicationController
             notification = Houston::Notification.new(device: token)
             notification.alert = current_user.name + " liked one of your upcoming gigs!"
             notification.sound = "sosumi.aiff"
-            notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
+            notification.badge = listener.mailbox.receipts.where(is_read:false ).count
             APN.push(notification)
           end
         elsif @likeable_type == "Review"
@@ -55,7 +55,7 @@ class API::LikesController < ApplicationController
             notification = Houston::Notification.new(device: token)
             notification.alert = current_user.name + " liked a review you wrote!"
             notification.sound = "sosumi.aiff"
-            notification.badge = recipient.mailbox.receipts.where(is_read:false ).count
+            notification.badge = listener.mailbox.receipts.where(is_read:false ).count
             APN.push(notification)
           end
         end

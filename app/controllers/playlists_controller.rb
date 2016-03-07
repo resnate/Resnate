@@ -69,6 +69,14 @@ class PlaylistsController < ApplicationController
       @user.add_points(5)
       current_user.send_message(@user, " is now following " + @playlist.name, "P|" + @playlist.id.to_s)
       Pusher.trigger('messages', 'inbox', { message: @user.id, sender: current_user })
+      if @user.device_token
+        token = @user.device_token
+        notification = Houston::Notification.new(device: token)
+        notification.alert = current_user.name + " is now following " + @playlist.name
+        notification.sound = "sosumi.aiff"
+        notification.badge = @user.mailbox.receipts.where(is_read:false ).count
+        APN.push(notification)
+      end
       lv2 = @user.level
       if lv1 != lv2
         User.find(3).send_message(@user, "New level: " + @user.level_name, "B|"+ @user.level_name)
@@ -77,6 +85,15 @@ class PlaylistsController < ApplicationController
         activity = PublicActivity::Activity.where(key: "badge.create", owner: @user).last.id 
         @message = activity.to_s + ',' + current_user.uid.to_s
         Pusher.trigger('activities', 'feed', {:message => @message})
+        Pusher.trigger('messages', 'inbox', { message: @user.id, sender: @user })
+        if @user.device_token
+          token = @user.device_token
+          notification = Houston::Notification.new(device: token)
+          notification.alert = "New level: "+ @user.level_name
+          notification.sound = "sosumi.aiff"
+          notification.badge = @user.mailbox.receipts.where(is_read:false ).count
+          APN.push(notification)
+        end
       end
     end
 

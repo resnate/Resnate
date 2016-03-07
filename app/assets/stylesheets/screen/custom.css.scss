@@ -1576,11 +1576,18 @@ tr {
   height: 100%;
 }
 
-.reviewYouTubeImgs {
+.reviewYouTubeImgsOverlay {
   cursor: pointer;
   padding: 10px;
   margin-left: calc(50% - 260px);
+  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+}
 
+.reviewYouTubeImgs {
+  position: absolute;
+  top: 0px;
+  left: 0px;
 }
 
 .reviewRating {

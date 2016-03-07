@@ -216,6 +216,20 @@ class API::UsersController < ApplicationController
     @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Follow", trackable_id: @follow.id).first.id.to_s
     @message = @activity + ',' + current_user.uid.to_s
     Pusher.trigger('activities', 'feed', {:message => @message})
+    if current_user != @user
+      lv1 = @user.level
+      @user.add_points(5)
+      current_user.send_message(@user, " is now following you!", "U|")
+      Pusher.trigger('messages', 'inbox', { message: @user.id, sender: current_user })
+      if @user.device_token
+        token = @user.device_token
+        notification = Houston::Notification.new(device: token)
+        notification.alert = current_user.name + " is now following you!"
+        notification.sound = "sosumi.aiff"
+        notification.badge = @user.mailbox.receipts.where(is_read:false ).count
+        APN.push(notification)
+      end
+    end
   end
 
   def unfollow
