@@ -19,6 +19,7 @@ class MessagesController < ApplicationController
       if recipient.device_token
         token = recipient.device_token
         notification = Houston::Notification.new(device: token)
+        puts params[:subject][0]
         if params[:subject][1] == "|" && params[:subject][0] == "S"
             notification.alert = current_user.name + " liked " + Song.find(PublicActivity::Activity.find(params[:body]).trackable_id).name
         elsif params[:subject][1] == "|" && params[:subject][0] == "R"
