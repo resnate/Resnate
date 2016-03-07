@@ -79,7 +79,15 @@ class ReviewsController < ApplicationController
       lv1 = reviewer.level
       reviewer.add_points(5)
       current_user.send_message(reviewer, @like.likeable_id.to_s, "R|"+ @like.likeable_id.to_s)
-      Pusher.trigger('messages', 'inbox', { message: reviewer.id, sender: current_user })  
+      Pusher.trigger('messages', 'inbox', { message: reviewer.id, sender: current_user })
+      if reviewer.device_token
+        token = reviewer.device_token
+        notification = Houston::Notification.new(device: token)
+        notification.alert = current_user.name + " liked a review you wrote!"
+        notification.sound = "sosumi.aiff"
+        notification.badge = reviewer.mailbox.receipts.where(is_read:false ).count
+        APN.push(notification)
+      end
       lv2 = reviewer.level
       if lv1 != lv2
         reviewer.create_activity key: 'badge.create', parameters: {level: reviewer.level}, owner: reviewer
