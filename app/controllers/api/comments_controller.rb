@@ -8,13 +8,13 @@ class API::CommentsController < ApplicationController
     @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
     recipient = User.find(@commentable.owner_id)
     if @commentable.trackable_type == "Song"    
-      notification = "C|S"
+      notification = "C|S" + (params[:commentable_id]).to_s
     elsif @commentable.trackable_type == "Playlist"    
-      notification = "C|P"
+      notification = "C|P" + (params[:commentable_id]).to_s
     elsif @commentable.trackable_type == "Gig"    
-      notification = "C|G"
+      notification = "C|G" + (params[:commentable_id]).to_s
     elsif @commentable.trackable_type == "Review"    
-      notification = "C|R"
+      notification = "C|R" + (params[:commentable_id]).to_s
     end
 
     recipients.push(recipient)
