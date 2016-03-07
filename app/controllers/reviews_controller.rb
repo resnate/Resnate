@@ -93,6 +93,14 @@ class ReviewsController < ApplicationController
         reviewer.create_activity key: 'badge.create', parameters: {level: reviewer.level}, owner: reviewer
         User.find(3).send_message(reviewer, "New level: "+ reviewer.level_name, "B|"+ reviewer.level_name)
         reviewer.add_badge(reviewer.level)
+        if reviewer.device_token
+          token = reviewer.device_token
+          notification = Houston::Notification.new(device: token)
+          notification.alert = "New level: "+ reviewer.level_name
+          notification.sound = "sosumi.aiff"
+          notification.badge = reviewer.mailbox.receipts.where(is_read:false ).count
+          APN.push(notification)
+        end
         badgeActivity = PublicActivity::Activity.where(key: "badge.create", owner: reviewer).last.id
         badgeMessage = badgeActivity + ',' + current_user.uid.to_s
         Pusher.trigger('activities', 'feed', {:message => badgeMessage})
