@@ -56,7 +56,7 @@
 	<% addYouTubeImages = @review.content.gsub(/(?:\n\r?|\r\n?)/, '<br>').gsub("<", "\<").gsub(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/) do  |url| %>
 	<% matchYoutubeUrl = /^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/ %>
 	<% youTubeID = url.match(matchYoutubeUrl)[1] %>
-	<% "<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div></div>" %>
+	<% "<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>" %>
 	<% end %>
 	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img p div) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
@@ -180,6 +180,10 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
 
     });
     
+  });
+
+  $('.reviewYouTubePlay').click(function(){
+
   });
 
 var imgUrls = [];
