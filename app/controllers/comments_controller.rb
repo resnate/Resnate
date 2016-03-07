@@ -2,19 +2,17 @@ class CommentsController < ApplicationController
 
   def create
     recipients = []
-    if params[:commentable_type] == "activity"
-      @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
-      recipient = User.find(@commentable.owner_id)
-      if @commentable.trackable_type == "Song"    
-        notification = "C|S" + (params[:commentable_id]).to_s
-      elsif @commentable.trackable_type == "Playlist"    
-        notification = "C|P" + (params[:commentable_id]).to_s
-      elsif @commentable.trackable_type == "Gig"    
-        notification = "C|G" + (params[:commentable_id]).to_s
-      elsif @commentable.trackable_type == "Review"
-        notification = "C|R" + (params[:commentable_id]).to_s
-      end      
-    end
+    @commentable = PublicActivity::Activity.find(params[:commentable_id]) 
+    recipient = User.find(@commentable.owner_id)
+    if @commentable.trackable_type == "Song"    
+      notification = "C|S" + (params[:commentable_id]).to_s
+    elsif @commentable.trackable_type == "Playlist"    
+      notification = "C|P" + (params[:commentable_id]).to_s
+    elsif @commentable.trackable_type == "Gig"    
+      notification = "C|G" + (params[:commentable_id]).to_s
+    elsif @commentable.trackable_type == "Review"
+      notification = "C|R" + (params[:commentable_id]).to_s
+    end    
 
     recipients.push(recipient)
 
@@ -37,7 +35,15 @@ class CommentsController < ApplicationController
       if r.device_token
         token = r.device_token
         notification = Houston::Notification.new(device: token)
-        notification.alert = current_user.name + " commented on your activity."
+        if @commentable.trackable_type == "Song"
+          notification.alert = current_user.name + " commented on " + Song.find(params[:commentable_id]).name
+        elsif @commentable.trackable_type == "Playlist"
+          notification.alert = current_user.name + " commented on " + Playlist.find(params[:commentable_id]).name
+        elsif @commentable.trackable_type == "Gig"
+          notification.alert = current_user.name + " commented on a gig you'll be attending."
+        elsif @commentable.trackable_type == "Review"
+          notification.alert = current_user.name + " commented on a review that you wrote."
+        end
         notification.sound = "sosumi.aiff"
         notification.badge = r.mailbox.receipts.where(is_read:false ).count
         APN.push(notification)

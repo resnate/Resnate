@@ -42,6 +42,22 @@ class API::CommentsController < ApplicationController
     user.send_message(recipients, params[:body], notification)
     recipients.each do |r|
       Pusher.trigger('messages', 'inbox', { message: r.id, sender: @sender})
+      if r.device_token
+        token = r.device_token
+        notification = Houston::Notification.new(device: token)
+        if @commentable.trackable_type == "Song"
+          notification.alert = user.name + " commented on " + Song.find(params[:commentable_id]).name
+        elsif @commentable.trackable_type == "Playlist"
+          notification.alert = user.name + " commented on " + Playlist.find(params[:commentable_id]).name
+        elsif @commentable.trackable_type == "Gig"
+          notification.alert = user.name + " commented on a gig you'll be attending."
+        elsif @commentable.trackable_type == "Review"
+          notification.alert = user.name + " commented on a review that you wrote."
+        end
+        notification.sound = "sosumi.aiff"
+        notification.badge = r.mailbox.receipts.where(is_read:false ).count
+        APN.push(notification)
+      end
     end
   end
 
