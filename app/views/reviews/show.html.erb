@@ -58,8 +58,8 @@
 	<% youTubeID = url.match(matchYoutubeUrl)[1] %>
 	<% "<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>" %>
 	<% end %>
-  <% addImgurImages = addYouTubeImages.gsub(/(https?:\/\/imgur\.com\/a\/(.*?)(?:\/.*|$))/) do |imgurl| %>
-  <% matchImgurUrl = /(https?:\/\/imgur\.com\/a\/(.*?)(?:\/.*|$))/ %>
+  <% addImgurImages = addYouTubeImages.gsub(/(https?:\/\/imgur\.com\/(.*?)(?:\/.*|$))/) do |imgurl| %>
+  <% matchImgurUrl = /(https?:\/\/imgur\.com\/(.*?)(?:\/.*|$))/ %>
   <% imgurID = imgurl.match(matchImgurUrl)[1] %>
     <% "<img src='https://i.imgur.com/#{imgurID}.png' class='reviewImgurImgs'/>" %>
   <% end %>
