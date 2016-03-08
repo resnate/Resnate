@@ -15,23 +15,42 @@ class GigsController < ApplicationController
 
   def like
       @gig = Gig.find(params[:id])
+      listener = User.find(@gig.user_id)
+      lv1 = listener.level
       current_user.like!(@gig)
       @like = Like.where(liker_id: current_user.id, likeable_type: "Gig", likeable_id: id).first
       @like.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
-      listener = User.find(@gig.user_id)
       @message = @activity.to_s + ',' + current_user.uid.to_s
       Pusher.trigger('activities', 'feed', {:message => @message})
       Pusher.trigger('messages', 'inbox', { message: listener.id, sender: current_user })
+      if listener.device_token
+        token = listener.device_token
+        notification = Houston::Notification.new(device: token)
+        notification.alert = current_user.name + " liked one of your upcoming gigs!"
+        notification.sound = "sosumi.aiff"
+        notification.badge = listener.mailbox.receipts.where(is_read:false ).count
+        APN.push(notification)
+      end
+      lv2 = listener.level
+        if lv1 != lv2
+          listener.create_activity key: 'badge.create', parameters: {level: listener.level}, owner: listener
+          User.find(3).send_message(listener, "New level: "+ listener.level_name, "B|"+ listener.level_name)
+          listener.add_badge(listener.level)
+          badgeActivity = PublicActivity::Activity.where(key: "badge.create", owner: listener).last.id
+          badgeMessage = badgeActivity + ',' + @user.uid.to_s
+          Pusher.trigger('activities', 'feed', {:message => badgeMessage})
+          Pusher.trigger('messages', 'inbox', { message: listener.id, sender: @user })
           if listener.device_token
             token = listener.device_token
             notification = Houston::Notification.new(device: token)
-            notification.alert = current_user.name + " liked one of your upcoming gigs!"
+            notification.alert = "New level: "+ listener.level_name
             notification.sound = "sosumi.aiff"
             notification.badge = listener.mailbox.receipts.where(is_read:false ).count
             APN.push(notification)
           end
-      render :layout => false
+        end
+      render nothing: true
     end
 
     def unlike
