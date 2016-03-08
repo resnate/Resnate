@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
         elsif @commentable.trackable_type == "Gig"
           pushNotification.alert = current_user.name + " commented on a gig you'll be attending."
         elsif @commentable.trackable_type == "Review"
-          pushNotification.alert = current_user.name + " commented on a review that you wrote."
+          pushNotification.alert = current_user.name + " commented on a review."
         end
         pushNotification.sound = "sosumi.aiff"
         pushNotification.badge = r.mailbox.receipts.where(is_read:false ).count

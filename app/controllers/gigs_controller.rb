@@ -19,8 +19,18 @@ class GigsController < ApplicationController
       @like = Like.where(liker_id: current_user.id, likeable_type: "Gig", likeable_id: id).first
       @like.create_activity :create, owner: current_user
       @activity = PublicActivity::Activity.where(trackable_type: "Socialization::ActiveRecordStores::Like", trackable_id: @like.id).first.id
+      listener = User.find(@gig.user_id)
       @message = @activity.to_s + ',' + current_user.uid.to_s
       Pusher.trigger('activities', 'feed', {:message => @message})
+      Pusher.trigger('messages', 'inbox', { message: listener.id, sender: current_user })
+          if listener.device_token
+            token = listener.device_token
+            notification = Houston::Notification.new(device: token)
+            notification.alert = current_user.name + " liked one of your upcoming gigs!"
+            notification.sound = "sosumi.aiff"
+            notification.badge = listener.mailbox.receipts.where(is_read:false ).count
+            APN.push(notification)
+          end
       render :layout => false
     end
 
