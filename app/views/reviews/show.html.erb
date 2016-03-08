@@ -311,7 +311,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
       method: "PUT",
       data: { content : contentText }
     });
-    var updatedContentText = contentText.replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
+    var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
             return ("<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>")
           });
 
@@ -361,7 +361,7 @@ $('.deleteReviewYes').click(function(){
     $.getJSON('/reviews/' + ID + '.json', function(data){
       var contentText = data["content"]
 
-      var updatedContentText = contentText.replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
+      var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
             return ("<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>")
           });
 
