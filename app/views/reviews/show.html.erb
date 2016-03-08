@@ -58,7 +58,10 @@
 	<% youTubeID = url.match(matchYoutubeUrl)[1] %>
 	<% "<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>" %>
 	<% end %>
-	<div class="reviewContent"><%= sanitize addYouTubeImages, tags: %w(br img p div) %></div>
+  <% addImgurImages = addYouTubeImages.gsub(/(?:https?:\/\/)?(?:i\.)?imgur\.com\/(?:gallery\/)?(.+(?=[sbtmlh]\..{3,4})|.+(?=‌​\..{3,4})|.+?(?:(?=\s)|$))/) do |imgurl| %>
+    <img src='https://i.imgur.com/#{imgurl}.png' />
+  <% end %>
+	<div class="reviewContent"><%= sanitize addImgurImages, tags: %w(br img p div) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
 	
 
@@ -183,7 +186,7 @@ var url = $('.reviewGigs<%= @review.id %>').attr('src');
   });
 
   $('.reviewYouTubeImgsPlay, .reviewYouTubeImgsOverlay').click(function(){
-    $('.reviewYouTubeImgs').click();
+    $(this).siblings('.reviewYouTubeImgs').click();
   });
 
 var imgUrls = [];
@@ -307,7 +310,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
       data: { content : contentText }
     });
     var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
-            return ("<div class='reviewYouTubeImgsOverlay'><img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p></div>")
+            return ("<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>")
           });
     $(reviewContent).replaceWith('<div class="reviewContent">' + updatedContentText + '</div>');
     $(this).css('display', 'none');
@@ -351,7 +354,7 @@ $('.deleteReviewYes').click(function(){
     $.getJSON('/reviews/' + ID + '.json', function(data){
       var contentText = data["content"]
       var updatedContentText = contentText.replace(/\r?\n|\r/g, "<br>").replace(/(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([-a-zA-Z0-9_]+)/g, function ($0) {
-            return ("<div class='reviewYouTubeImgsOverlay'><img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p></div>")
+            return ("<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/"+$0.match(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/)[1]+"/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>")
           });
       $('.updateReview').replaceWith('<div class="updateReview">' + updatedContentText + '</div>');
       $('.editReview').css('display', 'inline-block');
