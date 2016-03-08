@@ -59,7 +59,7 @@
 	<% "<div class='reviewYouTubeImgsContainer'><img src='https://img.youtube.com/vi/#{youTubeID}/hqdefault.jpg' class='reviewYouTubeImgs' /><p class='hiddenSongName'></p><p class='hiddenYouTubeURLs'>https://www.googleapis.com/youtube/v3/videos?id=#{youTubeID}&key=AIzaSyCa2qY9zSZWCKyX6HftBDvSSszkjJQSd8Y&part=snippet</p><div class='reviewYouTubeImgsOverlay'></div><div class='reviewYouTubeImgsPlay'></div></div>" %>
 	<% end %>
   <% addImgurImages = addYouTubeImages.gsub(/(?:https?:\/\/)?(?:i\.)?imgur\.com\/(?:gallery\/)?(.+(?=[sbtmlh]\..{3,4})|.+(?=‌​\..{3,4})|.+?(?:(?=\s)|$))/) do |imgurl| %>
-    <img src='https://i.imgur.com/#{imgurl}.png' />
+    <% "<img src='https://i.imgur.com/#{imgurl}.png' class='reviewImgurImgs'/>" %>
   <% end %>
 	<div class="reviewContent"><%= sanitize addImgurImages, tags: %w(br img p div) %></div>
 	<div class="hiddenReviewID"><%= @review.id -%></div>
