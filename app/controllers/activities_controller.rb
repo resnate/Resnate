@@ -11,6 +11,9 @@ class ActivitiesController < ApplicationController
      	current_user.gigs.each do |gig|
       		@gigArray.push(gig.songkick_id)
      	end
+      Like.where(liker_id: current_user.id, likeable_type: "Gig").each do |likedGig|
+        @gigArray.push(Gig.find(likedGig.likeable_id).songkick_id)
+      end
     	@activities = PublicActivity::Activity.where(owner_id: @users, owner_type: "User").order("created_at desc").paginate(page: params[:page], per_page: 5)
 
       
