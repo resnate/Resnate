@@ -181,7 +181,9 @@
       <h1>Write About Your Life in Music.</h1>
       <h4>Get points, gain followers, become the No. 1 Music Fan.</h4>
       <% unless @user.past_gigs.count == 0 %>
-        <h6 id="goToSongkick">Add past and upcoming gigs at </h6><%= image_tag "songkicklogo.png", id: "songkicklogo" %>
+        <div id="goToSongkick">
+          <h6>Add past and upcoming gigs at </h6><%= image_tag "songkicklogo.png", id: "songkicklogo" %>
+        </div>
         <h6 id="writeGig" data-toggle="modal" data-target="#genericModal" class="seeAllpastHome">Write reviews for concerts you've attended.</h6>
       <% end %>
     </div>
