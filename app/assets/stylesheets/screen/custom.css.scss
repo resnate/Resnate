@@ -1538,9 +1538,8 @@ tr {
 
 .featuredReviewPreview {
   margin-top: 10px;
-  height: 90px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 5;
   -webkit-box-orient: vertical; 
 }
 
