@@ -1484,6 +1484,9 @@ tr {
   h6 {
     display: inline-block;
   }
+  a {
+    color: white;
+  }
 }
 
 #songkicklogo {
@@ -1530,8 +1533,11 @@ tr {
 .featuredLikesNComments {
   display: inline-block;
   vertical-align: top;
-  margin-left: 20px;
-  
+  margin-left: 20px; 
+}
+
+.featuredReviewPreview {
+
 }
 
 .feedFollowDiv {
@@ -2140,7 +2146,7 @@ tr {
   display: inline-block;
 }
 
-.feedReview, .feedDescription, .profileReview {
+.feedReview, .feedDescription, .profileReview, .featuredReviewPreview {
   font-style: italic;
   cursor: pointer; 
   overflow: hidden;

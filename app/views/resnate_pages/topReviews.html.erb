@@ -45,6 +45,9 @@
                     <% end %>
                 </div>
             </div>
+            <div class="featuredReviewPreview">
+                <%= review.content %>
+            </div>
         </div>
     <% end %>
     <div class="mainInfinite-scrolling">
@@ -53,6 +56,10 @@
 
 
 <script type="text/javascript">
+
+    $('.featuredReviewPreview').succinct({
+                 size: 200
+             });
 
 var imgUrls = [];
 
