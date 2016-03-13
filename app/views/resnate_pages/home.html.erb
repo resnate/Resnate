@@ -180,8 +180,8 @@
   <div id="mainWriteSongReview">
       <h1>Write About Your Life in Music.</h1>
       <h4>Get points, gain followers, become the No. 1 Music Fan.</h4>
-      <input placeholder="Paste a YouTube link for a Song or Album and press Enter to write a review" id="mainYTPaste">
       <% unless @user.past_gigs.count == 0 %>
+        <h6 id="goToSongkick">Add past and upcoming gigs at </h6><%= image_tag "songkicklogo.png", id: "songkicklogo" %>
         <h6 id="writeGig" data-toggle="modal" data-target="#genericModal" class="seeAllpastHome">Write reviews for concerts you've attended.</h6>
       <% end %>
     </div>

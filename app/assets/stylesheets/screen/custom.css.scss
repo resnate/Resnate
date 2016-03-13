@@ -1478,12 +1478,15 @@ tr {
 
 .setlistBody {
   padding: 2em;
-  font-size: 2em;
 }
 
+#goToSongkick {
+  display: inline-block;
+}
 
-.photosHeader, .reviewButton, .setlistButton {
-  font-weight: bold;
+#songkicklogo {
+  height: 42px;
+  display: inline-block;
 }
 
 .featuredHeader {
@@ -1495,7 +1498,7 @@ tr {
   background-color: #801336;
   padding: 15px;
   margin-bottom: 15px;
-  height: 130px;
+  height: 230px;
   
   color: white;
   position: relative;
@@ -1558,8 +1561,8 @@ tr {
 
 .featuredReviewerInfo {
   position: absolute;
-  bottom: 25px;
-  left: 190px;
+  top: 70px;
+  left: 185px;
 }
 
 .reviewerBadge {
@@ -1602,7 +1605,7 @@ tr {
   border-bottom: 50px solid transparent;
   border-left: 80px solid white;
   position: absolute;
-  margin: 155px 195px;
+  margin: 145px 210px;
   cursor: pointer;
 }
 
@@ -1709,7 +1712,7 @@ tr {
 .reviewerPic {
   height: 50px;
   position: absolute;
-  bottom: 15px;
+  top: 65px;
   cursor: pointer;
 }
 
