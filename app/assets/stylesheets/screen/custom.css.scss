@@ -1538,6 +1538,10 @@ tr {
 
 .featuredReviewPreview {
   margin-top: 10px;
+  height: 90px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .feedFollowDiv {
