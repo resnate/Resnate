@@ -135,6 +135,7 @@ textarea {
   padding: 10px;
   margin-left: 20px;
   cursor: pointer;
+  display: inline-block;
 }
 
 .headerRow {
@@ -1478,7 +1479,8 @@ tr {
 #goToSongkick {
   display: inline-block;
   background-color: #801336;
-  padding: 10px;
+  padding: 0px 10px;
+  cursor: pointer;
   h6 {
     display: inline-block;
   }
@@ -1486,6 +1488,7 @@ tr {
 
 #songkicklogo {
   height: 20px;
+  margin-left: 5px;
   display: inline-block;
 }
 

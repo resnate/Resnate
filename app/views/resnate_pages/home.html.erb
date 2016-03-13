@@ -182,16 +182,16 @@
       <h4>Get points, gain followers, become the No. 1 Music Fan.</h4>
       <% unless @user.past_gigs.count == 0 %>
         <div id="goToSongkick">
-          <h6>Add past and upcoming gigs at </h6><%= image_tag "songkicklogo.png", id: "songkicklogo" %>
+          <a href="https://www.songkick.com" target="_blank">
+            <h6>Add past and upcoming gigs at </h6><%= image_tag "songkicklogo.png", id: "songkicklogo" %>
+          </a>
         </div>
         <h6 id="writeGig" data-toggle="modal" data-target="#genericModal" class="seeAllpastHome">Write reviews for concerts you've attended.</h6>
       <% end %>
     </div>
 
-
   <div class="featuredContent">
-    <h1 class="featuredHeader">Trending Reviews</h1>
-    
+    <h1 class="featuredHeader">Trending Reviews</h1>    
   </div>
 
 
