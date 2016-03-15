@@ -47,7 +47,7 @@ class API::UsersController < ApplicationController
     @user.followees(User).each do |fl|
       unless fl.musicLikes.nil? || fl.musicLikes == "[]"
         fl.musicLikes.each do |s|
-          if s.gsub(/[\'.]/, '').downcase.include?(URI.unescape((params[:search]).gsub('&', '+')).gsub(/[\'.]/, '').downcase) == true
+          if s.gsub(/[\'.]/, '').downcase == URI.unescape((params[:search]).gsub('&', '+')).gsub(/[\'.]/, '').downcase
             unless @friends.include?(fl)
               @friends.push(fl)
             end
