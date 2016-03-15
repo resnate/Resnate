@@ -86,7 +86,7 @@
 		<span class="hiddenGigDate"><%= pastGigDate = Date.parse(PastGig.find(@review.reviewable_id).gig_date).strftime("%d-%m-%Y") %></span>
         <span class="hiddenArtistName"></span>
         <span class="hiddenGigLocation"></span>  
-		<div class="reviewSetlist editDeleteBkgd" data-toggle="modal" data-target="#setlistModal">Setlist</div>
+		<div class="reviewSetlist editDeleteBkgd" data-toggle="modal" data-target="#setlistModal"><span class="glyphicon glyphicon-list"></span>Setlist</div>
 	<% end %>
 
 	<% unless current_user.nil? %>
