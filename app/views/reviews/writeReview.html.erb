@@ -79,7 +79,7 @@
     e = e || window.event;
 
     // For IE and Firefox prior to version 4
-    if (e && $('#newReviewInput').val() != "") {
+    if (e && $('#newReviewInput').val().length > 0) {
         e.returnValue = 'Warning! Your review will not be saved if you close this tab.';
     }
 
