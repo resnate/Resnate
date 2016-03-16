@@ -1755,6 +1755,12 @@ tr {
   overflow: scroll;
 }
 
+#publicSignUp {
+  a {
+    color: #E50049;
+  }
+}
+
 #newReviewInput, .updateReview {
   margin-top: 10px;
   width: 100%;
