@@ -36,7 +36,7 @@
         
         <div class="pgID"><%= pg.id %></div>
         <% if pg.review.nil? && current_user.id == @user.id %>
-        <div class="reviewButton writeGigReview"><span class="glyphicon glyphicon-pencil">Write a Review</div>
+        <div class="reviewButton writeGigReview"><span class="glyphicon glyphicon-pencil"></span>Write a Review</div>
         <% elsif pg.review.present?%>
         <div class="pgReviewID"><%= pg.review.id %></div>
         <div class="reviewButton reviewPresent">Review</div>
