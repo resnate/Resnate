@@ -4,8 +4,8 @@
     <meta property="og:image" content="<%= @image %>" />
     <body>
     	<div class="hiddenReviewID"><%= params[:id] %></div>
-    	<div id="publicReview"></div>
-    	<div id="publicSignUp">Sign up to <a href="/">resnate.com</a> to find read more reviews for your favourite artist's albums and gigs.</div>
+    	<div id="publicReview"><div id="publicSignUp">Sign up to <a href="/">resnate.com</a> to find read more reviews for your favourite artist's albums and gigs.</div>
+    	</div>
     </body>
  </head>
 
@@ -13,7 +13,7 @@
 
  	$(function(){
  		$.get('/reviews/' + $('.hiddenReviewID').html(), function(result){
- 			$('#publicReview').html(result);
+ 			$('#publicReview').prepend(result);
  		});
  	});
 
