@@ -370,7 +370,10 @@ $('#currentTime').html(toHHMMSS(time));
                var match = url.match(/[?&]v=([^&]+)/);
                var videoId = match[1];
                $('#stopID').html(videoId);
-               
+               $('.glyphicon-pause').parent().css('display', 'none');
+              $('.glyphicon-play').parent().css('display', 'inline-block');
+              $('#slider').slider('option', 'value', 0);
+              player.seekTo(0);
                 if($('#stopID').html() == videoID){
                   var thisVideo = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+videoID+'/default.jpg"]');
                   nextVideo = $(thisVideo).parent().next().find('.playlistYT');
@@ -901,7 +904,7 @@ $(document).on('click', '.shareReview', function(){
         $('#messageURL').val('R#'+$(this).siblings('.hiddenReviewID').html());
   });
     
-    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg, .reviewSong, .reviewGigName, .reviewGigImgs, .profileReview, .featuredReviewTitle', function(){
+    $(document).on('click', '.feedReview, .msgReviewName, .msgReviewContent, #latestReviewName, #latestReviewImg, .reviewSong, .reviewGigName, .reviewGigImgs, .profileReview, .featuredReviewTitle, .featuredReviewPreview', function(){
   
   
   $.get('/reviews/' + $(this).siblings('.hiddenReviewID').html(), function(result){
