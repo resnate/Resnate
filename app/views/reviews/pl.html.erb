@@ -14,7 +14,7 @@
  	$(function(){
  		$.get('/reviews/' + $('.hiddenReviewID').html(), function(result){
  			$('#publicReview').html(result);
- 			$('#publicReview #reviewBody').append("<h1 id='publicSignUp'>Sign up to <a href=\"/\">resnate.com</a> to find read more reviews for your favourite artist's albums and gigs.</h1>")
+ 			$('#publicReview #reviewBody').append("<h1 id='publicSignUp'>Sign up to <a href=\"/\">resnate.com</a> to read more reviews for your favourite artist's albums and gigs.</h1>")
  		});
  	});
 
