@@ -75,6 +75,18 @@
 
 <script type="text/javascript">
 
+	window.onbeforeunload = function (e) {
+    e = e || window.event;
+
+    // For IE and Firefox prior to version 4
+    if (e && $('#newReviewInput').val() != "") {
+        e.returnValue = 'Warning! Your review will not be saved if you close this tab.';
+    }
+
+    // For Safari
+    	return 'Warning! Your review will not be saved if you close this tab.';
+	};
+
 	<% if @type == "PastGig" %>
 
 	var url = $('.writeReviewGigs<%= @id %>').attr('src');

@@ -319,7 +319,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
             return ("<img src='https://i.imgur.com/" + $0.match(/(?:https?:\/\/)?(?:www\.)?(?:i\.imgur\.com\/|imgur\.com\/)([-a-zA-Z0-9_]+)?(?:\.(gif|jpg|png)|)/)[1] + ".png' class='reviewImgurImgs'/>")
           });
 
-      $('.updateReview').replaceWith('<div class="updateReview">' + updatedImgurContentText + '</div>');
+      $('.updateReview').replaceWith('<div class="reviewContent">' + updatedImgurContentText + '</div>');
     $(this).css('display', 'none');
     $(this).siblings('.cancelEditingReview').css('display', 'none');
     $(this).siblings('.editReview').css('display', 'inline-block');

@@ -897,7 +897,7 @@ background-color: white;
 #iframeAmazon {
     background-color: white;
     height: 148px;
-    width: 100%;
+    width: calc(100% - 10px);
     margin: 10px 0px;
     border: none;
     display: none;
@@ -1188,7 +1188,7 @@ tr {
 }
 
 .glyphicon-list, .glyphicon-pencil {
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 #maximise {
