@@ -1,6 +1,6 @@
 class API::PastGigsController < ApplicationController
-  	include ActionController::HttpAuthentication::Token::ControllerMethods
-	before_filter :restrict_access, :except => :userSearch
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+	#before_filter :restrict_access, :except => :userSearch
 
 	def show
 		@past_gig = PastGig.find(params[:id])

@@ -1,6 +1,6 @@
 class API::ActivitiesController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access
+  #before_filter :restrict_access
 
 	def index
     	@user = User.find(params[:id])

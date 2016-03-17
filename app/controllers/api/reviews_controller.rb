@@ -1,6 +1,6 @@
 class API::ReviewsController < ApplicationController
-  	include ActionController::HttpAuthentication::Token::ControllerMethods
-	before_filter :restrict_access
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+	#before_filter :restrict_access
 
 	def show
 		@review = Review.find(params[:id])

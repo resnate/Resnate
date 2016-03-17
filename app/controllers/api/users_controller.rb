@@ -1,6 +1,6 @@
 class API::UsersController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access, :except => [:userSearch, :create]
+  #before_filter :restrict_access, :except => [:userSearch, :create]
   require 'uri'
   require 'net/http'
   require 'json'
@@ -95,7 +95,7 @@ class API::UsersController < ApplicationController
       @review = nil
       @reviewable_type = nil
     else
-      review = user.reviews.last
+      review = user.reviews.first
       if review.reviewable_type == "PastGig"
         @reviewable_type = "PastGig"
         @review = "https://api.songkick.com/api/3.0/events/#{PastGig.find(review.reviewable_id).songkick_id}.json?apikey=Pxms4Lvfx5rcDIuR"

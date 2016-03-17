@@ -1,6 +1,6 @@
 class API::CommentsController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access
+  #before_filter :restrict_access
 
   def create
     userID = APIKey.find_by_access_token(params[:token]).user_id

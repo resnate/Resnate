@@ -1,6 +1,6 @@
 class API::MessagesController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access, :except => :userSearch
+  #before_filter :restrict_access, :except => :userSearch
 
   require 'houston'
 

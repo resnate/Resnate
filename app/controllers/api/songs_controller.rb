@@ -1,6 +1,6 @@
 class API::SongsController < ApplicationController
-  	include ActionController::HttpAuthentication::Token::ControllerMethods
-	before_filter :restrict_access, :except => :userSearch
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+	#before_filter :restrict_access, :except => :userSearch
 
   def create
     current_user = User.find(APIKey.find_by_access_token(params[:token]).user_id)

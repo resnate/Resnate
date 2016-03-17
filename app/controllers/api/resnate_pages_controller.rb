@@ -1,6 +1,6 @@
 class API::ResnatePagesController < ApplicationController
-  	include ActionController::HttpAuthentication::Token::ControllerMethods
-	before_filter :restrict_access, :except => :userSearch
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+	#before_filter :restrict_access, :except => :userSearch
 
 	def AmazonStore
 		@user = User.find(params[:id])

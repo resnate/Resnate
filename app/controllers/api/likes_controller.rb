@@ -1,6 +1,6 @@
 class API::LikesController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access
+  #before_filter :restrict_access
 
   def create
     @user = User.find(APIKey.find_by_access_token(params[:token]).user_id)

@@ -1,6 +1,6 @@
 class API::FollowsController < ApplicationController
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  before_filter :restrict_access
+  #before_filter :restrict_access
 
   def show
     @follow =  Follow.find(params[:id])
