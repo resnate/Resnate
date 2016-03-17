@@ -374,6 +374,7 @@ $('#currentTime').html(toHHMMSS(time));
               $('.glyphicon-play').parent().css('display', 'inline-block');
               $('#slider').slider('option', 'value', 0);
               player.seekTo(0);
+              player.pauseVideo()
                 if($('#stopID').html() == videoID){
                   var thisVideo = $('#Playlist').find('li img[src="https://img.youtube.com/vi/'+videoID+'/default.jpg"]');
                   nextVideo = $(thisVideo).parent().next().find('.playlistYT');

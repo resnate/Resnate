@@ -41,6 +41,7 @@ class API::MessagesController < ApplicationController
     @messages = []
     if current_user.mailbox.conversations.count == 0
       @messages = nil
+      render nothing: true
     else
       conversations = current_user.mailbox.conversations
       conversations.each do |convo|
@@ -63,6 +64,7 @@ class API::MessagesController < ApplicationController
     @messages = []
     if current_user.mailbox.conversations.count == 0
       @messages = nil
+      render nothing: true
     else
       conversations = current_user.mailbox.conversations
       conversations.each do |conversation|
