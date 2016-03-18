@@ -307,7 +307,7 @@ class API::UsersController < ApplicationController
     render nothing: true
   end
 
-private
+  private
     def restrict_access
       authenticate_or_request_with_http_token do |token, options|
         APIKey.exists?(access_token: token)
