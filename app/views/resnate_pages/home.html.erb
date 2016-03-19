@@ -590,21 +590,16 @@ $('#shareCurrentImg').click(function(){
 
   $('#shareCurrentID').val(inputIDs);
 
-  if ($('.shareTextarea').val().length > 140) {
-
-
-
-  } else {
+  if ($('.shareTextarea').val().length <= 140) {
 
     if ($('.shareTextarea').val() == '') {
       $('.shareTextarea').val('Check this out!');
     }
-
+    $('.shareTextarea').val().replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\\\$&")
     $('#shareSubmit').click();
     $('.modal').modal('hide');
 
   }
-
   
 });
 

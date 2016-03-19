@@ -197,7 +197,7 @@
                 <div class="messageDetails">
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared
                   <% if message.sender_id == Review.find(message.subject[2..-1]).user_id %>
-                    <div class="reviewerName">their</div>
+                    their
                   <% else %>
                     <div class="reviewerName"><%= User.find(Review.find(message.subject[2..-1]).user_id).name %>'s</div>
                   <% end %>
@@ -205,8 +205,9 @@
                   <span class="activityName reviewSong"><%= Song.find(Review.find(message.subject[2..-1]).reviewable_id).name %></span>
               <% end %>
               <div class="hiddenReviewerID"><%= Review.find(message.subject[2..-1]).user_id %></div>
+                <br>
                 <div class="msgReviewContent">
-                  <%= Review.find(message.subject[2..-1]).content %>
+                  <%= sanitize Review.find(message.subject[2..-1]).content.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %>
                 </div>
                 <div class="hiddenReviewID"><%= message.subject[2..-1] %></div>
                 <br>
