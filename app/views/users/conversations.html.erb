@@ -211,7 +211,7 @@
                 </div>
                 <div class="hiddenReviewID"><%= message.subject[2..-1] %></div>
                 <br>
-                <div class="messageSong">"<%= sanitize message.body.gsub(/(?:\n\r?|\r\n?)/, '<br>'), tags: %w(br) %>"</div>
+                <div class="messageSong">"<%= CGI::unescape(message.body) %>"</div>
               
               <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
               <br>
