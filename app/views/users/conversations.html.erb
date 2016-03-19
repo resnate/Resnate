@@ -205,22 +205,21 @@
                   <span class="activityName reviewSong"><%= Song.find(Review.find(message.subject[2..-1]).reviewable_id).name %></span>
               <% end %>
               <div class="hiddenReviewerID"><%= Review.find(message.subject[2..-1]).user_id %></div>
-              <br>
-              <div class="messageSong">"<%= message.body %>"</div>
-              <br>
                 <div class="msgReviewContent">
                   <%= Review.find(message.subject[2..-1]).content %>
                 </div>
                 <div class="hiddenReviewID"><%= message.subject[2..-1] %></div>
+                <br>
+                <div class="messageSong">"<%= message.body %>"</div>
+              
+              <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
+              <br>
               </div>
             <% else %>
               <div class="messageDetails">
                   <div class="profileNameMsg"><%= User.find(message.sender_id).name %></div><div class="hiddenID" style="display:none"><%= message.sender_id %></div> shared a review but has since deleted it.
               </div>
             <% end %>
-            <br>
-              <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
-              <br>
           <% end %>
 
         </div>
