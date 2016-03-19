@@ -2184,14 +2184,11 @@ tr {
 
 .msgReviewContent {
   cursor: pointer;
-  margin-top: 15px;
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 7;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   position: relative;
-  height: 4.2em;
   &:hover {
     color: #E50049;
   }
