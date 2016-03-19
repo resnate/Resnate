@@ -44,7 +44,7 @@
           <% end %>
           </div>
           <br>
-          <div class="messageSong">"<%= message.body %>"</div> 
+          <div class="messageSong">"<%= CGI::unescape(message.body) %>"</div> 
 
           <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
           <br>
@@ -95,7 +95,7 @@
               <% end %>
             </div>
              <br>
-            <div class="messageSong">"<%= message.body %>"</div>
+            <div class="messageSong">"<%= CGI::unescape(message.body) %>"</div>
 
             <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
             <br>
@@ -158,7 +158,7 @@
               <% end %>
               </div>
               <br>
-              <div class="messageSong">"<%= message.body %>"</div>
+              <div class="messageSong">"<%= CGI::unescape(message.body) %>"</div>
               
               <div class="createdAt"><%= time_ago_in_words(DateTime.parse(message.created_at.to_s)) %> ago</div>
               <br>
