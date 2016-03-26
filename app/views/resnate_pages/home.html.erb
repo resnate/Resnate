@@ -597,6 +597,7 @@ $('#shareCurrentImg').click(function(){
     }
     $('.shareTextarea').val().replace(/[!"#$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\\\$&")
     $('#shareSubmit').click();
+    $('#shareCurrentID').val('');
     $('.modal').modal('hide');
 
   }
@@ -737,9 +738,10 @@ function friendsLikeArtist(){
   $('.genericContent').on('scroll', function(){
     if($('.genericInfinite-scrolling .pagination .next').length){
       if(!$('.next').hasClass('disabled')) {
+        alert('1');
         url = $('.genericInfinite-scrolling .next').find('a').attr('href');
         if($('.genericContent').scrollTop() + $('.genericContent').innerHeight()>=$('.genericContent')[0].scrollHeight - 200){
-      
+        alert('2');
           $('.genericInfinite-scrolling').remove();
           $.get(url, function(response){
             setTimeout(
