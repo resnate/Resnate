@@ -1706,6 +1706,10 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
             + key + "&jsoncallback=?"; 
             
             $.getJSON(url,function(json){ 
+              if(json.resultsPage.totalEntries == 0) {
+                $("#Gigs").html("<h4 id='noGigs'>No Gigs Announced</h4>");
+                $("#moreGigs").html('');
+              } else {
             $.each(json.resultsPage.results.artist,function(i,result){
             if(i==0){
             localGigs = "https://api.songkick.com/api/3.0/events.json?apikey=" + key + "&artist_name=" + userSearch + "&location=clientip&jsoncallback=?";
@@ -1767,7 +1771,8 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                             
 
                             
-                            })}
+                            });
+                          }
 
                             else {
                               var urls = [];
@@ -1806,8 +1811,12 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
                             
                               }
                             }
-
-             });}});});}
+                          /*localgigs*/});
+      /*if artist exists*/}
+    }
+    });
+  });
+}
 
 
 $('#topPhoto').click(function(){
