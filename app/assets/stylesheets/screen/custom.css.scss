@@ -985,12 +985,16 @@ ol li {
   margin-top: 12px;
   background-color: white;
   color: black;
+  border: 1px solid !important;
 }
 
 .search {
  height: 25px;
  float: left;
  margin-top: 12px; 
+ margin-right: 5px;
+ padding: 5px;
+ border: 1px solid;
 }
 
 img {border:none;}
@@ -1391,7 +1395,9 @@ tr {
 #search_user {
   width: 240px;
   height: 25px;
- margin-top: 12px; 
+  margin-top: 12px; 
+  padding: 5px;
+  border: 1px solid;
 }
 
 .tt-menu {
