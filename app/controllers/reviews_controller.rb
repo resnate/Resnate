@@ -62,7 +62,6 @@ class ReviewsController < ApplicationController
     if current_user
       redirect_to "/#reviews/" + params[:id]
     end
-    render layout: false
   end
 
 	def like
