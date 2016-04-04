@@ -1514,9 +1514,10 @@ tr {
   padding: 15px;
   margin-bottom: 15px;
   height: 230px;
-  width: calc(100% - 220px);
+  width: calc(100% - 234px);
   color: white;
   position: relative;
+  display: inline-block;
 }
 
 .reviewT {
@@ -1715,9 +1716,10 @@ tr {
 }
 
 .featuredImg {
-  height: 200px;
-  width: 200px;
+  height: 230px;
+  width: 230px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .likerNumber {
