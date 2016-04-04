@@ -14,7 +14,9 @@ class CommentsController < ApplicationController
       notification = "C|R" + (params[:commentable_id]).to_s
     end    
 
-    recipients.push(recipient)
+    if @commentable.owner_id != current_user.id
+      recipients.push(recipient)
+    end
 
     @get = "/activity/" + params[:commentable_id] + "/comments/"
     @comment = Comment.build_from( @commentable, current_user.id, params[:body] )

@@ -1597,7 +1597,7 @@ tr {
 }
 
 .reviewContent {
-  text-align: left;
+  text-align: justify;
   font-size: 1.5em;
   margin: 10px 0px;
   line-height: 2em;
@@ -2271,8 +2271,6 @@ z-index: 1050;
 
 #reviewBody {
   color: white;
-  text-align: justify;
-  text-justify: inter-word;
 }
 
 

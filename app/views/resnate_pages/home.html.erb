@@ -919,7 +919,7 @@ $(document).on('click', '.shareReview', function(){
     $(document).on('keydown', ".inputComment", function(event){
     if(event.keyCode==13 && !event.shiftKey){
       event.preventDefault();
-      var text = $(this).val().replace(/\r\n|\r|\n/g,"%0A");
+      var text = $(this).val().replace(/\r?\n|\r/g, "<br>");
       var url = $(this).siblings('.commentURL').html().trim() + "create";
       
       
