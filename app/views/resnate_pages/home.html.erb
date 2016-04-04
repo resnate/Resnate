@@ -1619,6 +1619,8 @@ function appendVideos(data)
             html.push('</ul><div class="startIndex">'+pageToken+'</div>');
 
             $('#videoResultsDiv').append(html.join(''));
+
+            $("#videoResultsDiv li").draggable(draggable_opts);
           }
 
 function showMyVideos(data)
@@ -1651,7 +1653,7 @@ function showMyVideos(data)
     $("#videoResultsDiv").scrollTop(0);
 
 
-    $("#videoResultsDiv li").click(function(){
+    $("#videoResultsDiv").on('click', "li", function(){
 
         
         videoID = $(this).find('img').attr("src").slice(27,38);
