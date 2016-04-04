@@ -232,7 +232,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   	}
 
   	for (var j = rating + 1; j <= 5; j++) {
-  		$('.reviewRating').append('<img src="/assets/emptystar.png" class="emptystar" id="'+j+'">')
+  		$('.reviewRating').append('<img src="/assets/emptystarwhite.png" class="emptystar" id="'+j+'">')
   	}
 
   }
@@ -242,7 +242,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   if(rating == 0) {
 
   	for (var j = rating + 1; j <= 5; j++) {
-  		$('.reviewRating').append('<img src="/assets/emptystar.png" class="emptystar" id="'+j+'">')
+  		$('.reviewRating').append('<img src="/assets/emptystarwhite.png" class="emptystar" id="'+j+'">')
   	}
 
   }
@@ -254,7 +254,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
-			$(obj).attr("src","/assets/emptystar.png")
+			$(obj).attr("src","/assets/emptystarwhite.png")
   		}
   	});
 
@@ -291,7 +291,7 @@ for(j=0; j<$('.reviewYouTubeImgs').length; j++){
   		if(parseInt($(obj).attr('id')) > newRating ) {
   			$(obj).addClass('emptystar');
 			$(obj).removeClass('fullstar');
-			$(obj).attr("src","/assets/emptystar.png")
+			$(obj).attr("src","/assets/emptystarwhite.png")
   		}
   	});
 
