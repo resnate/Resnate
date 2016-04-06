@@ -3,15 +3,9 @@
     <div class="topDetails">
     <%= image_tag "https://graph.facebook.com/#{@user.uid}/picture?width=200&height=200", id: "profilePicBig" %>
     <h4 class="profileNameBig"><%= @user.name %></h4>
-    <% if @user.level_name == "Filthy Casual" %>   
-      <div class="levelName filthy">
-      <%= @user.level_name %>
-      </div>
 
-    <% else %> 
     <%= image_tag "#{@user.level_name}.png", class: "hipsterSwag" %>
-
-    <% end %>
+    
     <div class="points profilePoints"><%= @user.points %></div>
     
 

@@ -1820,10 +1820,6 @@ $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
 }
 
 
-$('#topPhoto').click(function(){
-  $('#photoBody').html('<img src="'+$(this).attr('src')+'">');
-});
-
 
   $('.writeSongReview').click(function(){
     $.get( '/Song/' + $('#csImg').siblings('.hiddenSongID').html() + '/writeReview/', function(review){
