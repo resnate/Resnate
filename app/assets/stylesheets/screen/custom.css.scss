@@ -110,7 +110,7 @@ textarea {
 #feedBox {
   color: white;
   overflow: auto;
-  height: calc(100% - 246px);
+  height: calc(100% - 170px);
   font-size: 12px;
   text-align: center;
   a {
@@ -1883,6 +1883,7 @@ tr {
 #friendsLikeDiv {
   display: inline-block;
   vertical-align: top;
+  margin-top: 5px;
 }
 
 #friendsHeader {
