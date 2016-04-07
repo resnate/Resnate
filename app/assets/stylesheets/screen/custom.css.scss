@@ -100,7 +100,6 @@ textarea {
 }
 
 #feedAndMerch {
-  overflow: auto;
   display: inline-block;
   height: calc(50% - 51px);
   margin-left: -3px;
@@ -110,6 +109,8 @@ textarea {
 
 #feedBox {
   color: white;
+  overflow: auto;
+  height: calc(100% - 246px);
   font-size: 12px;
   text-align: center;
   a {
@@ -295,12 +296,11 @@ textarea {
     color: black;
   }
 
-#searchNsee {
+  #searchNsee {
     display: inline-block;
     text-align: left;
     width: 235px;
-    overflow-y: scroll;
-    }
+  }
 
   #searchNsee, #YTtest, #merchNgigs {
     height: calc(100% - 25px);
@@ -539,9 +539,7 @@ textarea {
 }
 
 #friendsLikeArtist {
-  
-  
-  width: 360px;
+  margin: 10px 0px;
   display: none;
   h6 {
     display: inline-block;
@@ -807,10 +805,7 @@ textarea {
 
 
 .shareNfriends {
-  display: inline-block;
-  width: 175px;
-  text-align: right;
-  vertical-align: top;
+  margin-bottom: 25px;
 }
 
 .goingImg {
