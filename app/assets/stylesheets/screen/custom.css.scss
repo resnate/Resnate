@@ -1978,6 +1978,16 @@ tr {
   margin-bottom: 10px;
 }
 
+.reviewButtons {
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.clickyReview {
+  cursor: pointer;
+}
+
 .commentContent {
   width: calc(100% - 60px);
 }
@@ -2111,7 +2121,6 @@ tr {
 }
 
 .feedButtons {
-  display: inline-block;
   margin-top: 10px;
   text-align: center;
   width: 100%;
@@ -2329,7 +2338,7 @@ z-index: 1050;
   width: 180px;
 }
 
-.playlistDestroy, .playlistFollowers, .playlistCreator, .playlistShare, .tdDescriptP {
+.playlistDestroy, .playlistFollowers, .playlistCreator, .playlistShare {
   vertical-align: middle;
   padding-left: 35px;
   

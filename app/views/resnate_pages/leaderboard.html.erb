@@ -1,10 +1,12 @@
 <h4 class="topUsersHeader">Top Users</h4>
     
+    <% rank = 1 %>
     <% @sortedUsers.first(10).each do |rankedUser| %>
       
       <% id = rankedUser[:id] %>
 
       <div class="followDiv leaderDiv">
+        <%= rank %>
         <%= image_tag "https://graph.facebook.com/#{User.find(id).uid}/picture?width=200&height=200", class: "followImgs" %>
         <div class="hiddenID">
             <%= User.find(id).id %>
@@ -30,5 +32,5 @@
             </div>
         </div>
       </div>
-
+      <% rank += 1 %>
       <% end %>

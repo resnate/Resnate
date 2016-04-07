@@ -231,7 +231,7 @@
     </div>
 
   <div class="featuredContent">
-    <h1 class="featuredHeader">Trending Reviews</h1>    
+    <h1 class="featuredHeader">Latest Reviews</h1>    
   </div>
 
 
@@ -861,7 +861,7 @@ function friendsLikeArtist(){
 
         
 
-          $(document).on('click', '.feedYT, .inboxSong, .songName, .reviewSongImg, .reviewYouTubeImgs', function(){
+          $(document).on('click', '.feedYT, .inboxSong, .songName, .reviewYouTubeImgs', function(){
             videoID = $(this).attr("src").slice(27,38);
             <%= render 'layouts/videoClick' %>
           });
@@ -952,10 +952,19 @@ $(document).on('click', '.shareReview', function(){
         top: '-100%'
     });
   $('#box2').scrollTop(0);
+  });  
 });
-    
-  
-});
+
+     $(document).on('click', '.clickyReview', function(){
+        $.get('/reviews/' + $(this).find('.hiddenReviewID').html(), function(result){
+        $('.modal').modal('hide');
+        $('#box2').html('<div class="modal-body">'+result+'</div>');
+        $('#container').animate({
+          top: '-100%'
+        });
+        $('#box2').scrollTop(0);
+        });  
+      });
 
     $(document).on('keydown', ".inputComment", function(event){
     if(event.keyCode==13 && !event.shiftKey){

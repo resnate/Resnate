@@ -4,6 +4,7 @@
         <% review = Review.find(reviewID) %>
         <% activity = PublicActivity::Activity.where(trackable_type: "Review", trackable_id: review.id).first %>
         <% type = review.reviewable_type %>
+        <div class="clickyReview">
         <% if type == "Song" %>
             <img src="https://img.youtube.com/vi/<%= Song.find(review.reviewable_id).content %>/hqdefault.jpg" class="featuredImg reviewSongImg" >
             <p class="jamTitle"><%= Song.find(review.reviewable_id).name %></p>
@@ -49,6 +50,7 @@
                 <%= review.content %>
             </div>
             <div class="hiddenReviewID"><%= reviewID %></div>
+        </div>
         </div>
     <% end %>
     <div class="mainInfinite-scrolling">
