@@ -99,15 +99,17 @@ textarea {
   
 }
 
-
-#feedBox {
-  color: white;
+#feedAndMerch {
   overflow: auto;
   display: inline-block;
   height: calc(50% - 51px);
+  margin-left: -3px;
   padding: 7.5px;
   width: 250px;
-  margin-left: -3px;
+}
+
+#feedBox {
+  color: white;
   font-size: 12px;
   text-align: center;
   a {
@@ -153,6 +155,7 @@ textarea {
 
 .likesNcomments {
   margin-top: 15px;
+  display: none;
 }
 
 .likesNpoints {
@@ -295,7 +298,7 @@ textarea {
 #searchNsee {
     display: inline-block;
     text-align: left;
-    width: 100%;
+    width: 235px;
     overflow-y: scroll;
     }
 
@@ -785,7 +788,6 @@ textarea {
 }
 
 .threeGigs {
-  width: 315px;
   display: inline-block;
 }
 
