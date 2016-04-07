@@ -2,19 +2,10 @@ class ResnatePagesController < ApplicationController
   require 'will_paginate/array'
 
   def home
-    if current_user.nil?
-      redirect_to root_url
-    end
   end
 
   def about
     
-  end
-
-  def landing
-    if current_user
-      redirect_to '/home'
-    end
   end
 
   def subscribe

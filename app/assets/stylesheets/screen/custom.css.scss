@@ -108,6 +108,7 @@ textarea {
   padding: 7.5px;
   width: 250px;
   margin-left: -3px;
+  font-size: 12px;
   text-align: center;
   a {
     color: white;
@@ -302,7 +303,7 @@ textarea {
     height: calc(100% - 25px);
   }
 
-  #videoResultsUberDiv, #PlaylistUberDiv {
+  #videoResultsUberDiv {
    width: 235px;
    vertical-align: top;
    overflow-x: hidden;
@@ -313,6 +314,10 @@ textarea {
     padding: 0px;
    }
 }
+
+  #PlaylistUberDiv {
+    display: none;
+  }
 
 #videoResultsDiv, #Playlist {
    width: 100%;
@@ -1929,13 +1934,15 @@ tr {
   }
 }
 
-.feedPlaylist, .feedFollowPic, .feedPic, .inboxSong {
+.feedPlaylist, .feedFollowPic, .feedPic {
   vertical-align: top;
-  height: 90px;
+  height: 50px;
 }
 
 .inboxSong {
+  vertical-align: top;
   margin-left: 10px;
+  height: 90px;
 }
 
 .feedPic {
@@ -2015,6 +2022,7 @@ tr {
 
 .createdAt {
   margin-top: 10px;
+  display: none;
 }
 
 .messageImgs {
@@ -2046,8 +2054,7 @@ tr {
 
 .feedGigs, .feedReviewGigs, .feedReviewLikeGigs, .feedYT, .activityYT, .feedBadge {
   cursor: pointer;
-  height: 90px;
-  max-width: 120px;
+  height: 50px;
   vertical-align: top;
 }
 
@@ -2110,6 +2117,7 @@ tr {
   margin-top: 10px;
   text-align: center;
   width: 100%;
+  display: none;
 }
 
 .feedFollow, .feedUnfollow, .msgFollow, .msgUnfollow, .sideFollowButton, .sideUnfollowButton  {

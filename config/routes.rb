@@ -1,8 +1,7 @@
 Resnate::Application.routes.draw do
   
 
-  root "resnate_pages#landing"
-  get "/home" => "resnate_pages#home"
+  root "resnate_pages#home"
   get "/about" => "resnate_pages#about"
   get "/keytest/:key/:address" => "resnate_pages#keytest"
   post "/subscribe" => "resnate_pages#subscribe"

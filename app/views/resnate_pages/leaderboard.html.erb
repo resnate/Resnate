@@ -16,9 +16,7 @@
             <%= User.find(id).id %>
           </div>
           <br>
-          <% unless User.find(id).badges.count == 0 %>
-            <%= image_tag (User.find(id).badges.last.custom_fields[:image]), class: 'reviewerBadge' %>
-          <% end %>
+          <%= image_tag "#{User.find(id).level_name}.png", class: 'reviewerBadge' %>
         <div class="reviewLevelNameNPoints">
               <%= User.find(id).level_name %> <%= User.find(id).points %> points
             </div>
