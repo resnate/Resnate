@@ -1528,9 +1528,20 @@ $('.dropdownPlaylistDiv, .dropdownLikeDiv').on({
 }, '.sideDestroy, .sideEdit, .sideShare, .sideFollow, .sideUnfollow');
 
 $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPlaylistName', function(e){
+
   var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim();
-  var playlistLiURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim() + '/playlistLi';
   $('.modal').modal('hide');
+
+  $.get(playlistURL, function(result){
+    $('#box2').html(review);
+    });
+    $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
+    });
+  });
+  /*var playlistLiURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html().trim() + '/playlistLi';
+  
   var playlistID = $(this).find('.hiddenPlaylistID').html().trim();
   if($('#dropdownPlaylist' + playlistID).length < 1){
     $.get(playlistLiURL, function(result){
@@ -1555,7 +1566,7 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPla
   }
   else {
     $('.modal').modal('hide');  
-  }
+  }*/
   
 });
 
