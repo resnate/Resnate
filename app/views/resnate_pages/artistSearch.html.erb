@@ -25,6 +25,7 @@ $("#search_query").keydown(function(event){
        		document.body.style.zoom="100%";
        		$('#noResults').remove();
 			$('#iframeAmazon, #moreMerch').show();
+      $('#feedBox').css('height', 'calc(100% - 170px)');
        		merchNgigsSearch();
        		ytSearch();
        }

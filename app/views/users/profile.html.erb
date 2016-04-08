@@ -587,20 +587,15 @@ $('#seePlaylists').click(function(){
 
 
 $('.likedInfo').click(function(){
-  if($('#Playlist').find('#dropdownLike<%= @user.id %>').length == 0){
-    $('.sideLiked').after('<li class="sideLiked"><span class="glyphicon glyphicon-thumbs-up sideGlyph"></span><span class="hiddenPlaylistID"><%= @user.id %></span><h5 class="sideLikedName"><%=@user.first_name%>\'s Liked Songs</h5><div class="dropdownLikeDiv" id="dropdownLikeDiv<%= @user.id %>"><div class="dropdownLike" id="dropdownLike<%= @user.id %>"></div></div></li>');
 
     $.get("/<%= @user.id %>/likes", function(result){
-    $('#Playlist').find('#dropdownLike<%= @user.id %>').html(result);
-          $('#dropdownLikeDiv<%= @user.id %>').toggle();
+    $('#box2').html(result);
     });
 
-  } else {
-    $.get("/<%= @user.id %>/likes", function(result){
-    $('#Playlist').find('#dropdownLike<%= @user.id %>').html(result);
-          $('#dropdownLikeDiv<%= @user.id %>').toggle();
+    $('.modal').modal('hide');
+    $('#container').animate({
+        top: '-100%'
     });
-  }
   
 });
 

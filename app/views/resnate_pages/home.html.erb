@@ -1533,7 +1533,7 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPla
   $('.modal').modal('hide');
 
   $.get(playlistURL, function(result){
-    $('#box2').html(review);
+    $('#box2').html(result);
     });
     $('.modal').modal('hide');
     $('#container').animate({
