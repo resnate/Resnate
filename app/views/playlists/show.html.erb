@@ -5,26 +5,27 @@
 <% end %>
 
 <div class="bigPlaylistInfo">
-<div class="description">
-	<% if @playlist.description.nil? && @playlist.user_id == current_user.id %>
-		<textarea class="descriptTxt" placeholder="Write about this playlist!"></textarea>
-	<% else %>
-		<%= simple_format(@playlist.description, class: "descriptP") %>
-	<% end %>
-</div>
-
-<% if @playlist.followers(User).count > 0 %>
-	<div class="playlistFollowers">
-	<% @playlist.followers(User).take(10).each do |follower| %>
-		<img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>
-	<% end %>
-	<% if @playlist.followers(User).count == 1 %>
-		<span class="followersOpener" ><%= @playlist.followers(User).count %> follower<div class="hiddenPlaylistID"><%= @playlist.id %></div></span>
-	<% else %>
-		<span class="followersOpener"><%= @playlist.followers(User).count %> followers<div class="hiddenPlaylistID"><%= @playlist.id %></div></span>
-	<% end %>
+	<h1 class="bigPlaylistName"><%= @playlist.name %></h1>
+	<div class="description">
+		<% if @playlist.description.nil? && @playlist.user_id == current_user.id %>
+			<textarea class="descriptTxt" placeholder="Write about this playlist!"></textarea>
+		<% else %>
+			<%= simple_format(@playlist.description, class: "descriptP") %>
+		<% end %>
 	</div>
-<% end %>
+
+	<% if @playlist.followers(User).count > 0 %>
+		<div class="playlistFollowers">
+		<% @playlist.followers(User).take(10).each do |follower| %>
+			<img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>
+		<% end %>
+		<% if @playlist.followers(User).count == 1 %>
+			<span class="followersOpener" ><%= @playlist.followers(User).count %> follower<div class="hiddenPlaylistID"><%= @playlist.id %></div></span>
+		<% else %>
+			<span class="followersOpener"><%= @playlist.followers(User).count %> followers<div class="hiddenPlaylistID"><%= @playlist.id %></div></span>
+		<% end %>
+		</div>
+	<% end %>
 </div>
 
 <% unless @playlist.content.nil? %>
