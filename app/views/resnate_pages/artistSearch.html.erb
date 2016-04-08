@@ -90,7 +90,7 @@ function merchNgigsSearch(){
             $.get('/resnate_pages/AmazonStore?search_query=' + userSearch, function(result){
             	$('#iframeAmazon').html(result);
             });
-            
+            $('#feedBox').css('height', 'calc(100% - 170px)');
             var key="Pxms4Lvfx5rcDIuR";
             var url="https://api.songkick.com/api/3.0/search/artists.json?query=" + userSearch + "&apikey="
             + key + "&jsoncallback=?"; 

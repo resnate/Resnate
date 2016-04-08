@@ -363,10 +363,6 @@ textarea {
   display: inline-block;
 }
 
-.descriptP {
-  padding: 5px;
-}
-
 .playlistSong {
   position: relative;
 }
@@ -380,9 +376,13 @@ textarea {
   background-color: #E50049;
 }
 
-.playlistSongLi, .description {
+.playlistSongLi {
   margin-bottom: 0px;
   border-top: 1px solid white;
+}
+
+.description {
+  font-size: 18px;
 }
 
 .playlistYT {
@@ -1674,11 +1674,15 @@ tr {
   cursor: pointer;
 }
 
-.featuredImg {
+.featuredImg, .bigPlaylistPic {
   height: 230px;
   width: 230px;
   display: inline-block;
   vertical-align: top;
+}
+
+.bigPlaylistInfo {
+  display: inline-block;
 }
 
 .likerNumber {
