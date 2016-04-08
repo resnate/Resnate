@@ -444,6 +444,7 @@ $('#currentTime').html(toHHMMSS(time));
 
 function ytSearch()
         {
+          $('#feedBox').css('height', 'calc(100% - 170px)');
             var userSearch = document.getElementById('search_query').value;
             var songSearch = document.getElementById('song_query').value;  
             var script = document.createElement('script');
@@ -828,14 +829,12 @@ function friendsLikeArtist(){
     event.stopPropagation();
     $('.dropdown-menu').html('');
     $.getJSON("../<%= current_user.id %>/userPlaylists.json",function(data){
-      if(data == '') {
-      $('.dropdown-menu').append('<li>No Playlists Found</li>')
-    } else {
+
+      $('.dropdown-menu').append('<li>New Playlist</li>')
 
         $(data).each(function(i,result){
         $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
     });
-  }
       
     });
 

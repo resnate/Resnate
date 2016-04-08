@@ -38,7 +38,6 @@ $(document).on('click', '.videoResultsDivLi', function(){
 
 function ytSearch()
         {
-            $('#feedBox').css('height', 'calc(100% - 170px)');
             var userSearch = document.getElementById('search_query').value;
             var script = document.createElement('script');
             script.setAttribute('id', 'jsonScript');
@@ -85,7 +84,7 @@ function showMyVideos(data)
         }
 
 function merchNgigsSearch(){
-			
+			 
             var userSearch = $('#search_query').val();
 
             $.get('/resnate_pages/AmazonStore?search_query=' + userSearch, function(result){

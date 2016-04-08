@@ -1,12 +1,1 @@
-<li class="sidePlaylist">
-                <span class="glyphicon glyphicon-music sideGlyph"></span>
-                <span class="hiddenPlaylistID"><%= Playlist.where(user_id: current_user.id).first.id %></span>
-                <h5 class="sidePlaylistName"><%= Playlist.where(user_id: current_user.id).first.name %></h5>
-                <input class="editPlaylistInput">
-                <div class="dropdownPlaylistDiv" id="dropdownPlaylistDiv<%= Playlist.where(user_id: current_user.id).first.id %>">
-                   	<div class="sideDestroy">Delete</div>
-                	<div class="sideEdit">Edit</div>
-                	<div class="sideShare">Share</div>
-                  	<div class="dropdownPlaylist" id="dropdownPlaylist<%= Playlist.where(user_id: current_user.id).first.id %>"></div>
-                </div>
-              </li>
+<img class="bigPlaylistPic" src="https://img.youtube.com/vi/<%= params[:content] %>/hqdefault.jpg"></img>

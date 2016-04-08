@@ -1,3 +1,4 @@
+<div class="bigPlaylistHeader">
 <% unless @playlist.content.nil? %>
 	<% JSON.parse(@playlist.content).first.each do |k, v| %>
 		<img class="bigPlaylistPic" src="https://img.youtube.com/vi/<%= v %>/hqdefault.jpg"></img>
@@ -6,6 +7,15 @@
 
 <div class="bigPlaylistInfo">
 	<h1 class="bigPlaylistName"><%= @playlist.name %></h1>
+	<% if current_user.id == @playlist.user_id %>
+		<div class="bigEditPlaylist editDeleteBkgd">Edit</div>
+		<div class="bigSavePlaylist editDeleteBkgd">Save</div>
+		<div class="cancelEditingPlaylist editDeleteBkgd">Cancel</div>
+		<div class="bigDeletePlaylist editDeleteBkgd">Delete</div>
+		<div class="deletePlaylistPrompt">Are you sure you want to delete this playlist?</div>
+		<div class="deletePlaylistYes editDeleteBkgd">Yes</div>
+		<div class="deletePlaylistNo editDeleteBkgd">No</div>
+	<% end %>
 	<div class="description">
 		<% if @playlist.description.nil? && @playlist.user_id == current_user.id %>
 			<textarea class="descriptTxt" placeholder="Write about this playlist!"></textarea>
@@ -27,7 +37,7 @@
 		</div>
 	<% end %>
 </div>
-
+</div>
 <% unless @playlist.content.nil? %>
 	<% JSON.parse(@playlist.content).each do |p| %>
 		<% p.each do |k, v| %>

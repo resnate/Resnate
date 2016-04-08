@@ -581,7 +581,6 @@ textarea {
 
 .dropdown-menu {
   margin-left: -17.5px;
-  margin-top: 5px;
   border-radius: 0px;
   max-height: 200px;
   overflow-y: scroll;
@@ -1612,7 +1611,7 @@ tr {
   margin-right: 10px;
 }
 
-.editReview, .deleteReview, .cancelReview, .saveReviewButton, .cancelReviewButton, .editDeleteBkgd, .writeSongReview {
+.editReview, .deleteReview, .cancelReview, .saveReviewButton, .cancelReviewButton, .editDeleteBkgd, .writeSongReview, .bigEditPlaylist, .bigDeletePlaylist, .cancelReview, .saveReviewButton, .cancelReviewButton, {
   display: inline-block;
   cursor: pointer;
 }
@@ -1624,20 +1623,15 @@ tr {
   color: white;
 }
 
-.cancelEditingReview {
-  display: none;
-  cursor: pointer;
-}
-
 .reviewableID, .reviewableType {
   display: none;
 }
 
-.deleteReviewPrompt, .cancelReviewPrompt {
+.deleteReviewPrompt, .cancelReviewPrompt, .deletePlaylistPrompt {
   margin-right: 20px;
 }
 
-.saveReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo {
+.saveReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo, .bigSavePlaylist, .deletePlaylistPrompt, .deletePlaylistYes, .deletePlaylistNo, .cancelPlaylistPrompt, .cancelPlaylistYes, .cancelPlaylistNo, .cancelEditingReview {
   display: none;
   cursor: pointer;
   
