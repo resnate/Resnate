@@ -25,7 +25,7 @@ $("#search_query").keydown(function(event){
        		document.body.style.zoom="100%";
        		$('#noResults').remove();
 			$('#iframeAmazon, #moreMerch').show();
-      $('#feedBox').css('height', 'calc(100% - 170px)');
+
        		merchNgigsSearch();
        		ytSearch();
        }
@@ -38,6 +38,7 @@ $(document).on('click', '.videoResultsDivLi', function(){
 
 function ytSearch()
         {
+            $('#feedBox').css('height', 'calc(100% - 170px)');
             var userSearch = document.getElementById('search_query').value;
             var script = document.createElement('script');
             script.setAttribute('id', 'jsonScript');
@@ -90,7 +91,7 @@ function merchNgigsSearch(){
             $.get('/resnate_pages/AmazonStore?search_query=' + userSearch, function(result){
             	$('#iframeAmazon').html(result);
             });
-            $('#feedBox').css('height', '70px');
+            
             var key="Pxms4Lvfx5rcDIuR";
             var url="https://api.songkick.com/api/3.0/search/artists.json?query=" + userSearch + "&apikey="
             + key + "&jsoncallback=?"; 

@@ -1713,10 +1713,12 @@ function showMyVideos(data)
     $("#videoResultsDiv").scrollTop(0);
 
 
-    $("#videoResultsDiv").on('click', "li", function(){
+    $("#videoResultsDiv li").click(function(){
 
         
-        alert('asd');
+        videoID = $(this).find('img').attr("src").slice(27,38);
+        
+        <%= render "layouts/videoClick" %>
 
             });
 
