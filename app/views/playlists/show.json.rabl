@@ -1,3 +1,3 @@
 collection @playlist, :object_root => false
 
-attributes :content
+attributes :content, :description, :name

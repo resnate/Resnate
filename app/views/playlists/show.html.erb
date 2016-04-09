@@ -70,6 +70,65 @@
 
       });
 
+	var playlistID = $(this).siblings('.hiddenPlaylistID').html();
+
+	$('.editPlaylist').click(function(){
+    	
+    	if($('.descriptP').length > 0) {
+    		$('.descriptP').replaceWith('<textarea class="descriptTxt" placeholder="Write about this playlist!">'+$('.descriptP').html()+'</textarea>');
+    	}
+    	$('.bigPlaylistName').replaceWith('<textarea class="editPlaylistName">'+$('.bigPlaylistName').html()+'</textarea>');
+    	$('.editPlaylist').hide();
+      	$('.editPlaylist').siblings('.bigSavePlaylist, .cancelEditingPlaylist').css('display', 'inline-block');
+	});
+
+	$('.cancelEditingPlaylist').click(function(){
+    $.getJSON('/playlists/' + playlistID + '.json', function(data){
+    	var name = data["name"]
+    	var description = data["description"]
+      	$('.editPlaylistName').replaceWith('<div class="bigPlaylistName">' + name + '</div>');
+      	if(description.length > 0) {
+      		$('.descriptTxt').replaceWith('<p class="descriptP">' + description + '</p>');
+      	}
+      	$('.editPlaylist').css('display', 'inline-block');
+      	$('.cancelEditingPlaylist, .bigSavePlaylist').hide();
+    });
+  });
+
+	$(".bigSavePlaylist").click(function(event){
+    var reviewContent = $(this).siblings('.updateReview')
+    var updateURL = "/playlists/" + playlistID;
+    var descriptionText = ""
+    var nameText = ""
+    if($('.descriptP').length > 0) {
+    		descriptionText = $('.descriptP').html();
+    	} else {
+    		descriptionText = $('.descriptTxt').val();
+    	}
+
+    	if($('.bigPlaylistName').length > 0) {
+    		nameText = $('.bigPlaylistName').html();
+    	} else {
+    		nameText = $('.editPlaylistName').val();
+    	}
+    $.ajax({
+      url: updateURL,
+      method: "PUT",
+      data: { description : descriptionText, name: nameText }
+    });
+    	if ($('.descriptTxt').length > 0) {
+    		$('.descriptTxt').replaceWith('<p class="descriptP">' + $('.descriptTxt').val() + '</p>');
+    	}
+
+    	if($('.editPlaylistName').length > 0) {
+    		$('.editPlaylistName').replaceWith('<div class="bigPlaylistName">' + $('.editPlaylistName').val() + '</div>');
+    	}
+      
+    $(this).css('display', 'none');
+    $(this).siblings('.cancelEditingPlaylist').css('display', 'none');
+    $(this).siblings('.editPlaylist').css('display', 'inline-block');
+  });
+
 
 	$('.bigDeletePlaylist').click(function(){
     $(this).siblings('.deletePlaylistPrompt, .deletePlaylistYes, .deletePlaylistNo').addClass('inlinePrompt');
@@ -89,6 +148,27 @@ $('.deletePlaylistYes').click(function(){
   profile();
     $('.modal').modal('hide');
 });
+
+	$('.bigPlaylistTracks .glyphicon-remove').click(function(){
+    var updatePlaylistURL = '/playlists/' + $(this).parents('.bigPlaylistTracks').siblings('.hiddenPlaylistID').html();
+    var playlistContent = [];
+      $(this).parents('.bigPlaylistTracks').children('li').not($(this).parent()).each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    $.ajax({
+   url: updatePlaylistURL ,
+   type: 'PUT',
+   data: {content: JSON.stringify(playlistContent)},
+   success: function(response) {
+     //...
+   }
+});
+    $(this).parent().remove();
+  });
 
 
 
