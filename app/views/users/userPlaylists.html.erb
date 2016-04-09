@@ -1,6 +1,6 @@
 
 <% @playlists.each do |p| %>
- <% unless p.content.nil? %>
+ <% unless p.content.nil? || p.content == "[]" %>
 	<table>
 		<tr class="playlistInfo">
 			<td>
