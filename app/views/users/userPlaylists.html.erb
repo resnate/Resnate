@@ -16,11 +16,6 @@
 			</td>
 			<td class="playlistName playlistImgOrName"><%= p.name %></td>
 			<td class="hiddenPlaylistID"><%= p.id %></td>
-			
-			<% unless @user != current_user %>
-			
-			<td class="playlistDestroy">Delete</td>
-			<% end %>
 			</td>
 
 			<% if p.followers(User).count > 0 %>
@@ -60,7 +55,6 @@
 <td class="hiddenPlaylistID"><%= fp.id %></td>
 <td class="playlistCreator"><img src="https://graph.facebook.com/<%= User.find(fp.user_id).uid %>/picture?width=50&height=50" class="userImg" title="<%= User.find(fp.user_id).name %>"></img><div class="hiddenID"><%= User.find(fp.user_id).id %></div>
 			by <span class="playlistCreatorName"><%= User.find(fp.user_id).name %></span></td>
-<td class="playlistShare"><li class="playlistCsImgLi"><%= image_tag "ResnateShareIcon.png", class: "playlistCsImg", "data-toggle" => "modal", "data-target" => "#shareModal" %></li></td>
 <td class="playlistFollowers">
 		<% fp.followers(User).take(10).each do |follower| %>
 		<td class="playlistFollower"><img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>

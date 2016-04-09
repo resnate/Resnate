@@ -1712,14 +1712,14 @@ function showMyVideos(data)
     $("#videoResultsDiv").scrollTop(0);
 
 
-    $("#videoResultsDiv li, .playlistSongLi").click(function(){
+    $("#videoResultsDiv li").click(function(){
 
         
         videoID = $(this).find('img').attr("src").slice(27,38);
         
         <%= render "layouts/videoClick" %>
 
-            });
+      });
 
     });}
 
