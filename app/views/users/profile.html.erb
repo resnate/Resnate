@@ -343,7 +343,7 @@
       <% end %>
     <% else %>
       <% @user.playlists.limit(2).each do |playlist| %>
-      <% unless playlist.content.nil? %>
+      <% unless playlist.content.nil? || playlist.content == "[]" %>
         <tr class="playlistInfo">
           <td>
             <div class="hiddenPlaylistID"><%= playlist.id %></div>
