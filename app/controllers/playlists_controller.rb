@@ -18,14 +18,14 @@ class PlaylistsController < ApplicationController
       @name = params[:name]
       @description = params[:description]
       unless current_user.id != @playlist.user_id
-        if @name.present?
+        if @description.present? && @name.present?
+          @playlist.update_attributes(description: @description, name: @name)
+        elsif @name.present?
           @playlist.update_attributes(name: @name)
         elsif @description.present?
           @playlist.update_attributes(description: @description)
         elsif @content.present?
           @playlist.update_attributes(content: @content)
-        elsif @description.present? && @name.present?
-          @playlist.update_attributes(description: @description, name: @name)
         end
       end
     end
