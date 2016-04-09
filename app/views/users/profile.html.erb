@@ -263,7 +263,7 @@
   
     <% unless PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Playlist").count == 0 %>
     <% latestPlaylist = PublicActivity::Activity.where(owner_id: @user.id, trackable_type: "Playlist").last %>
-    <% unless Playlist.find(latestPlaylist.trackable_id).content.nil? %>
+    <% unless Playlist.find(latestPlaylist.trackable_id).content.nil? || Playlist.find(latestPlaylist.trackable_id).content == "[]"  %>
     <div id="latestPlaylist" class="latest">
       
       <% img1 = "a" %>
