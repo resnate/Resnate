@@ -696,6 +696,9 @@ $('#shareCurrentImg').click(function(){
     $('#container').animate({
         top: '-100%'
     });
+        $('#box2').animate({
+          top: '50%'
+        });
     $('#box2').scrollTop(0);
   });
 
@@ -950,6 +953,9 @@ $(document).on('click', '.shareReview', function(){
   $('#container').animate({
         top: '-100%'
     });
+        $('#box2').animate({
+          top: '50%'
+        });
   $('#box2').scrollTop(0);
   });  
 });
@@ -960,6 +966,9 @@ $(document).on('click', '.shareReview', function(){
         $('#box2').html('<div class="modal-body">'+result+'</div>');
         $('#container').animate({
           top: '-100%'
+        });
+        $('#box2').animate({
+          top: '50%'
         });
         $('#box2').scrollTop(0);
         });  
@@ -1502,7 +1511,7 @@ $(document).on({
     
     $(this).find('.glyphicon-remove').hide();
   }
-}, '.dropdownPlaylist .playlistSongLi, .dropdownLike .playlistSongLi, .comment');
+}, '.playlistSongLi, .comment');
 
 $('.dropdownPlaylist, .dropdownLike').on({
    mouseenter: function(){
@@ -1515,16 +1524,6 @@ $('.dropdownPlaylist, .dropdownLike').on({
 }, '.dropdownPlaylist .playlistSongLi .glyphicon-remove, .dropdownLike .playlistSongLi .glyphicon-remove');
 
 
-
-$('.dropdownPlaylistDiv, .dropdownLikeDiv').on({
-   mouseenter: function(){
-    $(this).addClass('animated pulse');
-
-  },
-  mouseleave:  function(){
-    $(this).removeClass('animated pulse');
-  }
-}, '.sideDestroy, .sideEdit, .sideShare, .sideFollow, .sideUnfollow');
 
 $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPlaylistName', function(e){
 

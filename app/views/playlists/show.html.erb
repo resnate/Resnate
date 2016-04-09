@@ -15,6 +15,7 @@
 		<div class="deletePlaylistPrompt">Are you sure you want to delete this playlist?</div>
 		<div class="deletePlaylistYes editDeleteBkgd">Yes</div>
 		<div class="deletePlaylistNo editDeleteBkgd">No</div>
+		<div class="hiddenPlaylistID"><%= @playlist.id %></div>
 	<% end %>
 	<div class="description">
 		<% if @playlist.description.nil? && @playlist.user_id == current_user.id %>
@@ -25,9 +26,9 @@
 	</div>
 
 	<% if @playlist.followers(User).count > 0 %>
-		<div class="playlistFollowers">
+		<div class="bigPlaylistFollowers">
 		<% @playlist.followers(User).take(10).each do |follower| %>
-			<img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=50&height=50" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>
+			<img src="https://graph.facebook.com/<%= follower.uid %>/picture?width=100&height=100" class="userImg" title="<%= follower.name %>"></img><div class="hiddenID"><%= follower.id %></div>
 		<% end %>
 		<% if @playlist.followers(User).count == 1 %>
 			<span class="followersOpener" ><%= @playlist.followers(User).count %> follower<div class="hiddenPlaylistID"><%= @playlist.id %></div></span>
@@ -69,6 +70,29 @@
 
       });
 
+
+	$('.bigDeletePlaylist').click(function(){
+    $(this).siblings('.deletePlaylistPrompt, .deletePlaylistYes, .deletePlaylistNo').addClass('inlinePrompt');
+  });
+
+$('.deletePlaylistNo').click(function(){
+  $(this).siblings('.deletePlaylistPrompt, .deletePlaylistYes').removeClass('inlinePrompt');
+  $(this).removeClass('inlinePrompt');
+});
+
+$('.deletePlaylistYes').click(function(){
+  var playlistURL = '/playlists/' + $(this).siblings('.hiddenPlaylistID').html().trim();
+  $.ajax({
+            url: playlistURL ,
+            type: 'DELETE'
+          });
+  profile();
+    $('.modal').modal('hide');
+});
+
+
+
+
 	$(".bigPlaylistTracks").sortable({
     containment: '.bigPlaylistTracks',
 sort: function(event, ui) {
@@ -76,7 +100,7 @@ sort: function(event, ui) {
   $(ui.helper).addClass('playlistSong playlistSongLi noclick');
     },
     stop: function(){
-    var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
+    var updatePlaylistURL = '/playlists/' + $(this).siblings('.hiddenPlaylistID').html();
     var playlistContent = [];
       $(this).children('li').each(function(){
         name = $(this).find('p').text().trim();
