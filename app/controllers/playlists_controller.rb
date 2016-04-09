@@ -24,6 +24,8 @@ class PlaylistsController < ApplicationController
           @playlist.update_attributes(description: @description)
         elsif @content.present?
           @playlist.update_attributes(content: @content)
+        elsif @description.present? && @name.present?
+          @playlist.update_attributes(description: @description, name: @name)
         end
       end
     end

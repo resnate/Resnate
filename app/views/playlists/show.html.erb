@@ -86,7 +86,7 @@
     $.getJSON('/playlists/' + playlistID + '.json', function(data){
     	var name = data["name"]
     	var description = data["description"]
-      	$('.editPlaylistName').replaceWith('<div class="bigPlaylistName">' + name + '</div>');
+      	$('.editPlaylistName').replaceWith('<h1 class="bigPlaylistName">' + name + '</h1>');
       	if(description.length > 0) {
       		$('.descriptTxt').replaceWith('<p class="descriptP">' + description + '</p>');
       	}
@@ -121,7 +121,7 @@
     	}
 
     	if($('.editPlaylistName').length > 0) {
-    		$('.editPlaylistName').replaceWith('<div class="bigPlaylistName">' + $('.editPlaylistName').val() + '</div>');
+    		$('.editPlaylistName').replaceWith('<h1 class="bigPlaylistName">' + $('.editPlaylistName').val() + '</h1>');
     	}
       
     $(this).css('display', 'none');
