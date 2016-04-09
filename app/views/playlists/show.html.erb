@@ -40,6 +40,7 @@
 </div>
 
 <div class="bigPlaylistTracks">
+	<div class="hiddenPlaylistID"><%= @playlist.id %></div>
 <% unless @playlist.content.nil? %>
 	<% JSON.parse(@playlist.content).each do |p| %>
 		<% p.each do |k, v| %>
@@ -67,5 +68,51 @@
         <%= render "layouts/videoClick" %>
 
       });
+
+	var sortable_opts = {
+    containment: '#bigPlaylistTracks',
+sort: function(event, ui) {
+  $('.sidePlaylist').removeClass('dropPlaylist');
+  $(ui.helper).removeClass('videoResultsDivLi');
+  $(ui.helper).addClass('playlistSong playlistSongLi noclick');
+    },
+    stop: function(){
+    var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
+    var playlistContent = [];
+      $(this).children('li').each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    $.ajax({
+   url: updatePlaylistURL ,
+   type: 'PUT',
+   data: {content: JSON.stringify(playlistContent)},
+   success: function(response) {
+   }
+});
+    },
+    receive: function(event, ui){
+
+      var updatePlaylistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
+    var playlistContent = [];
+      $(this).children('li').each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    $.ajax({
+   url: updatePlaylistURL ,
+   type: 'PUT',
+   data: {content: JSON.stringify(playlistContent)},
+   success: function(response) {
+   }
+});
+    }
+      }
 
 </script>
