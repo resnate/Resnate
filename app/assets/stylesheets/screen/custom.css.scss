@@ -1631,7 +1631,7 @@ tr {
   margin-right: 20px;
 }
 
-.saveReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo, .bigSavePlaylist, .deletePlaylistPrompt, .deletePlaylistYes, .deletePlaylistNo, .cancelPlaylistPrompt, .cancelPlaylistYes, .cancelPlaylistNo, .cancelEditingReview {
+.saveReview, .deleteReviewPrompt, .deleteReviewYes, .deleteReviewNo, .cancelReviewPrompt, .cancelReviewYes, .cancelReviewNo, .bigSavePlaylist, .deletePlaylistPrompt, .deletePlaylistYes, .deletePlaylistNo, .cancelPlaylistPrompt, .cancelPlaylistYes, .cancelPlaylistNo, .cancelEditingReview, .cancelEditingPlaylist {
   display: none;
   cursor: pointer;
   
@@ -1673,6 +1673,14 @@ tr {
   width: 230px;
   display: inline-block;
   vertical-align: top;
+}
+
+.bigPlaylistPic {
+  margin-right: 15px;
+}
+
+.bigPlaylistHeader {
+  margin: 15px 0;
 }
 
 .bigPlaylistInfo {

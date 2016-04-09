@@ -38,6 +38,8 @@
 	<% end %>
 </div>
 </div>
+
+<div class="bigPlaylistTracks">
 <% unless @playlist.content.nil? %>
 	<% JSON.parse(@playlist.content).each do |p| %>
 		<% p.each do |k, v| %>
@@ -53,3 +55,4 @@
 		<% end %>
 	<% end %>
 <% end %>
+</div>
