@@ -72,14 +72,14 @@
 
 	var playlistID = $(this).siblings('.hiddenPlaylistID').html();
 
-	$('.editPlaylist').click(function(){
+	$('.bigEditPlaylist').click(function(){
     	
     	if($('.descriptP').length > 0) {
     		$('.descriptP').replaceWith('<textarea class="descriptTxt" placeholder="Write about this playlist!">'+$('.descriptP').html()+'</textarea>');
     	}
     	$('.bigPlaylistName').replaceWith('<textarea class="editPlaylistName">'+$('.bigPlaylistName').html()+'</textarea>');
-    	$('.editPlaylist').hide();
-      	$('.editPlaylist').siblings('.bigSavePlaylist, .cancelEditingPlaylist').css('display', 'inline-block');
+    	$('.bigEditPlaylist').hide();
+      	$('.bigEditPlaylist').siblings('.bigSavePlaylist, .cancelEditingPlaylist').css('display', 'inline-block');
 	});
 
 	$('.cancelEditingPlaylist').click(function(){
@@ -90,7 +90,7 @@
       	if(description.length > 0) {
       		$('.descriptTxt').replaceWith('<p class="descriptP">' + description + '</p>');
       	}
-      	$('.editPlaylist').css('display', 'inline-block');
+      	$('.bigEditPlaylist').css('display', 'inline-block');
       	$('.cancelEditingPlaylist, .bigSavePlaylist').hide();
     });
   });
@@ -126,7 +126,7 @@
       
     $(this).css('display', 'none');
     $(this).siblings('.cancelEditingPlaylist').css('display', 'none');
-    $(this).siblings('.editPlaylist').css('display', 'inline-block');
+    $(this).siblings('.bigEditPlaylist').css('display', 'inline-block');
   });
 
 
