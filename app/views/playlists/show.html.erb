@@ -69,8 +69,8 @@
 
       });
 
-	$("#bigPlaylistTracks").sortable({
-    containment: '#bigPlaylistTracks',
+	$(".bigPlaylistTracks").sortable({
+    containment: '.bigPlaylistTracks',
 sort: function(event, ui) {
   $(ui.helper).removeClass('videoResultsDivLi');
   $(ui.helper).addClass('playlistSong playlistSongLi noclick');
