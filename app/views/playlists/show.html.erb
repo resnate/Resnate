@@ -39,8 +39,8 @@
 </div>
 </div>
 
+<div class="hiddenPlaylistID"><%= @playlist.id %></div>
 <div class="bigPlaylistTracks">
-	<div class="hiddenPlaylistID"><%= @playlist.id %></div>
 <% unless @playlist.content.nil? %>
 	<% JSON.parse(@playlist.content).each do |p| %>
 		<% p.each do |k, v| %>
@@ -69,12 +69,9 @@
 
       });
 
-	$("#bigPlaylistTracks").sortable(sortable_opts);
-
-	var sortable_opts = {
+	$("#bigPlaylistTracks").sortable({
     containment: '#bigPlaylistTracks',
 sort: function(event, ui) {
-  $('.sidePlaylist').removeClass('dropPlaylist');
   $(ui.helper).removeClass('videoResultsDivLi');
   $(ui.helper).addClass('playlistSong playlistSongLi noclick');
     },
@@ -98,7 +95,7 @@ sort: function(event, ui) {
     },
     receive: function(event, ui){
 
-      var updatePlaylistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
+      var updatePlaylistURL = '/playlists/' + $(this).siblings('.hiddenPlaylistID').html();
     var playlistContent = [];
       $(this).children('li').each(function(){
         name = $(this).find('p').text().trim();
@@ -115,6 +112,6 @@ sort: function(event, ui) {
    }
 });
     }
-      }
+      });
 
 </script>
