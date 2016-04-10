@@ -525,12 +525,11 @@ var draggable_opts = {
       scroll: false,
       containment: '#searchNsee',
       zIndex: 1000,
-      connectToSortable: '.dropdownPlaylist',
+      connectToSortable: '.bigPlaylistTracks',
       helper: 'clone',
         start: function(event, ui)
         {
             $(this).hide();
-            $('.sidePlaylistName').removeClass('animated bounce');
 
         },
         stop: function(event, ui)
@@ -1333,8 +1332,8 @@ $('#Playlist').on('click', '.sidePlaylist, .sideFollowed', function(e){
 
 function songDroppable(event, ui) {
 
-      var playlistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html() + '.json';
-        var updatePlaylistURL = '/playlists/' + $(this).find('.hiddenPlaylistID').html();
+      var playlistURL = '/playlists/' + $('.bigPlaylistInfo .hiddenPlaylistID').html() + '.json';
+        var updatePlaylistURL = '/playlists/' + $('.bigPlaylistInfo .hiddenPlaylistID').html();
         $.getJSON(playlistURL, function(json){
           playlistContent = JSON.parse(json["content"]);
             name = ui.draggable.find("p").text();
@@ -1357,16 +1356,8 @@ function songDroppable(event, ui) {
           
           
         });
-$(this).find('.sidePlaylistName').addClass('animated bounce');
 
     }
-
-$(".sidePlaylist").droppable({ 
-  accept: ".videoResultsDivLi", 
-  zIndex: 1,
-  hoverClass: "dropPlaylist",
-  drop: songDroppable
-});
 
 var sortable_opts = {
     containment: '#searchNsee',
@@ -1585,35 +1576,6 @@ $('#Playlist ul').on('click', '.sideUnfollow', function(){
 
 
 
-$('#Playlist ul').on('click', '.sideEdit', function(){
-  $(this).parent().siblings('.sidePlaylistName').hide();
-  $(this).parent().siblings('.editPlaylistInput').show();
-  $(this).parent().siblings('.editPlaylistInput').val('');
-  $('.editPlaylistInput').focus();
-});
-
-$('#Playlist ul').on('click', '.sideDestroy', function(e){
-  e.preventDefault();
-  $(this).parent().show();
-  $('#deletePlaylistName').html($(this).parent().siblings('.sidePlaylistName').html().slice(0, 14));
-  var deletePlaylistURL = $(this).parent().siblings('.hiddenPlaylistID').html();
-  $('#deletePlaylistID').html(deletePlaylistURL);
-  $(this).siblings('#deletePrompt').show();
-});
-
-$('#deletePlaylistYes').on('click', function(){
-
-    $('#dropdownPlaylistDiv'+$('#deletePlaylistID').html()).parent().remove();
-    $('#deletePrompt').hide();
-
-    $.ajax({
-            url: '/playlists/' + $(this).siblings('#deletePlaylistID').html() ,
-            type: 'DELETE'
-          });
-  });
-  $('#deletePlaylistNo').on('click', function(){
-    $('#deletePrompt').hide();
-  });
 
 $(".editPlaylistInput").keydown(function(event){
     if(event.keyCode==13 && $(this).val() != '' ){
@@ -1679,7 +1641,7 @@ function showMyVideos(data)
             
 
               
-    /*$( "#videoResultsDiv li" ).draggable(draggable_opts);*/
+    $( "#videoResultsDiv li" ).draggable(draggable_opts);
 
     
 

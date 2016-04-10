@@ -111,11 +111,22 @@
     	} else {
     		nameText = $('.editPlaylistName').val();
     	}
-    $.ajax({
-      url: updateURL,
-      method: "PUT",
-      data: { description : descriptionText, name: nameText }
-    });
+
+    	if(descriptionText.length > 0 && nameText.length > 0) {
+    		$.ajax({
+      			url: updateURL,
+      			method: "PUT",
+      			data: { description : descriptionText, name: nameText }
+    		});
+    	} else if (nameText.length > 0) {
+    		$.ajax({
+      			url: updateURL,
+      			method: "PUT",
+      			data: { name: nameText }
+    		});
+    	}
+
+    	
     	if ($('.descriptTxt').length > 0) {
     		$('.descriptTxt').replaceWith('<p class="descriptP">' + $('.descriptTxt').val() + '</p>');
     	}
@@ -169,6 +180,12 @@ $('.deletePlaylistYes').click(function(){
 });
     $(this).parent().remove();
   });
+
+	$(".bigPlaylistTracks").droppable({ 
+  		accept: ".videoResultsDivLi", 
+  		zIndex: 1,
+  		drop: songDroppable
+	});
 
 
 
