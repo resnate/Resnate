@@ -1337,7 +1337,8 @@ function songDroppable(event, ui) {
           playlistContent = JSON.parse(json["content"]);
             name = ui.draggable.find("p").text();
           value = ui.draggable.find("img").attr("src").slice(27,-12);
-          $(ui.draggable).css('width', 'calc(100% - 15px');
+          width = $('.bigPlaylistTracks').width() - 15;
+          $(ui.draggable).width(width);
           var playlistObject = {};
           playlistObject[name] = value;
 
