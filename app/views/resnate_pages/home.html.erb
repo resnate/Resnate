@@ -530,8 +530,8 @@ var draggable_opts = {
         {
             $(this).hide();
             width = $('.bigPlaylistTracks').width() - 15;
-            alert(width);
-            $(ui.draggable).width(width);
+            
+            $(ui).width(width);
 
         },
         stop: function(event, ui)
