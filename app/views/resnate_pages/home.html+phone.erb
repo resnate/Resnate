@@ -1,154 +1,51 @@
-<% if current_user.nil? %>
-	<div id="Welcome">
-	<h2 id="bigResnate">Resnate.</h2>
-      <h3>The social network<br>for people who love music.</h3>
+<div id="landingWelcome">
+	<div id="landingWelcomeInner">
+	<div id="logoNname">
+    	<%= image_tag "ResnateCropped.png", id: "landingIcon" %>
+    	<div id="landingResnate">resnate</div>
+    </div>
 
-      <div id="Welcome2">
-        <%= link_to image_tag("ResnateCropped.png", id: 'rsCrop'), "/auth/facebook" %>
-      
-        <div id="signIn"><%= link_to simple_format("Sign in with Facebook<br />Follow your Friends"), "/auth/facebook", id: "sign_in" %></div>
-        <h4 id="homeFooter">Built using YouTube + Songkick + Amazon<br>+ Setlist.fm APIs. </h4>
-      </div>
-     </div>
-<% else %>
-	<div class="mobileHeader">
-		<div class="mobileHeaderDiv" id="mobileProfile">
-			<%= image_tag "https://graph.facebook.com/#{current_user.uid}/picture?width=100&height=100", id: "mobileHomePic" %>
-			<div id="mobileHeaderPoints"><%= current_user.points %></div>
-			<span class="glyphicon glyphicon-bell" aria-hidden="true"></span>
-		</div>
-		<div class="mobileHeaderDiv" id="mobileHome">
-			<span class="glyphicon glyphicon-home" aria-hidden="true"></span>Home
-		</div>
-		<div class="mobileHeaderDiv" id="mobileInbox">
-			<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>Messages
-		</div>
-		<div class="mobileHeaderDiv" id="mobileArtists">
-			<span class="glyphicon glyphicon-music" aria-hidden="true"></span> Artists
-		</div>
-		<div class="mobileHeaderDiv" id="mobilePeople">
-			<span class="glyphicon glyphicon-user" aria-hidden="true"></span> People
-		</div>
-	</div>
-	<div id="mobileMainBody">
-		
-	</div>
-<% end %>
-	<script type="text/javascript">
-$(function(){
+    <div id="landingWords">Music, Gigs, Merch.</div>
 
-	if(window.location.hash) {
-    var url = window.location.hash.substr(1);
-    if(url[0] == "r"){
-      $.get(url, function(result){
-      $('#Welcome').html('<div class="modal-body">'+result+'</div>');
-    });
-      $('#container').animate({
-        top: '-100%'
-    });
-    }
-    }
+    <iframe id="landingVideo" frameborder="0" src="https://www.youtube.com/embed/7lAz45swqHk?rel=0&showinfo=0&controls=0"></iframe>
 
-	$.get('/indexHeader', function(result){
-		$('#mobileMainBody').html(result);
-		$.get('/activities', function(result){
-			$('#mobileMainBody').append(result);
-		});
-	});
-	
-});
+    <div>Sign up for the beta and to receive updates:<br>Enter email address to download iOS beta.</div>
 
-$(document).on('focus', 'textarea', function() {
-    this.scrollIntoView();
-});
+    <form>
+    <input type="email" value="" name="EMAIL" class="email" id="landingEmail" placeholder="Enter your email address and press Go" required>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_29f152e51961d91c69623accf_7852194cd0" tabindex="-1" value=""></div>
+    </form>
+    <h5 id="invalidEmail">Invalid email address.</h5>
+    <div>
+    <%= link_to image_tag("facebookBrand.png", id: "landingFb", class: "landingSocial"), "https://facebook.com/resnatemusic", target: "_blank" %>
+    <%= link_to image_tag("twitterBrand.png", id: "landingTwit", class: "landingSocial"), "https://twitter.com/resnate", target: "_blank" %>
+    </div>
 
-$('.mobileHeaderDiv').click(function(){
-	$('.mobileHeaderDiv').css('color', 'white');
-	$(this).css('color', '#E50049');
-});
+    <h4 id="homeFooter">Built using <a href="https://developers.google.com/youtube/" target="_blank">YouTube</a> + <a href="https://www.songkick.com/developer" target="_blank">Songkick</a> + <a href="https://affiliate-program.amazon.co.uk/gp/advertising/api/detail/main.html" target="_blank">Amazon</a> + <a href="http://api.setlist.fm/docs/index.html" target="_blank">Setlist.fm</a> APIs.</h4>
 
-function getProfile(){
-	$.get('/<%=current_user.id %>/profile', function(result){
-		$('#mobileMainBody').html(result);
-		$('#mobileMainBody').css('overflow', 'hidden');
-		$('#mobileMainBody').scrollTop(0);
-		$('#mobileMainBody').css('overflow', 'scroll');
-	});
-}
+    </div>
+</div>
 
-$('#mobileProfile').click(function(){
-	getProfile();
-});
+<script type="text/javascript">
 
-$('#mobileHome').click(function(){
-	$.get('/indexHeader', function(result){
-		$('#mobileMainBody').html(result);
-		$.get('/activities', function(result){
-			$('#mobileMainBody').append(result);
-		});
-	});
-});
+	function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
 
-$('#mobilePeople').click(function(){
-	$.get('/peopleHeader', function(result){
-		$('#mobileMainBody').html(result);
-	$.get('/leaderboard', function(result){
-		$('#mobileMainBody').append(result);
-		$('#mobileMainBody').scrollTop(0);
-		});
-	});
-});
-
-
-$('#mobileArtists').click(function(){
-	$.get('/artistSearch', function(result){
-		$('#mobileMainBody').html(result);
-	});
-});
-
-$('#mobileInbox').click(function(){
-	$.get('/test', function(result){
-		$('#mobileMainBody').html(result);
-	});
-});
-
-$(document).on('click', '#writeGig', function(){
-  $.get("/<%= current_user.id %>/pastGigs", function(result){
-  	$('#mobileMainBody').html(result);
-  });
- });
-
-$('body').on('click', '.profileName, .profileImg, .profileNameMsg, .profileFollowName, .feedPic, .reviewerPic, .feedFollowPic, .playlistCreatorFeed, .followNames, .followImgs, .userImg, .playlistCreatorName, .friendsWhoLikeImgs, .commenterName', function(){
-    
-  $.get('/' + $(this).siblings('.hiddenID').html() + '/profile', function(result){
-  $('#mobileMainBody').html(result);
-  $('#mobileMainBody').scrollTop(0);
-});
-  });
-
-$(document).on('click', '.deleteReviewYes', function(){
-  var reviewURL = '/reviews/' + $(this).siblings('.hiddenReviewID').html().trim();
-  $.ajax({
-            url: reviewURL ,
-            type: 'DELETE'
-          });
-  getProfile();
-});
-
-$('#mobileMainBody').on('scroll', function(){
-    if($('.infinite-scrolling .pagination .next').length){
-      if(!$('.next').hasClass('disabled')) {
-        url = '/' + $('.infinite-scrolling .next').find('a').attr('href');
-        if($('#mobileMainBody').scrollTop() + $('#mobileMainBody').innerHeight()>=$('#mobileMainBody')[0].scrollHeight - 200){
-      
-          $('.infinite-scrolling').remove();
-          $.get(url, function(response){
-                $('#mobileMainBody').append(response); 
-                     });
-        }    
-      }
-          
-    } 
-  });
+	$("#landingEmail").keydown(function(event){
+        if(event.keyCode==13){
+          if(validateEmail($('#landingEmail').val()) == true) {
+          $.post("//resnate.us12.list-manage.com/subscribe/post?u=29f152e51961d91c69623accf&amp;id=7852194cd0", { EMAIL:  $('#landingEmail').val()})
+          $('#landingEmail').css('border', '1px solid darkgrey');
+          $('#invalidEmail').html('Thanks for signing up! Please check your inbox for the confirmation email.');
+          $('#invalidEmail').animate({'opacity': '1'}, 'fast');
+        } else {
+          $('#landingEmail').css('border', '2px solid #E50049');
+          $('#invalidEmail').html('Invalid email address.');
+          $('#invalidEmail').animate({'opacity': '1'}, 'fast');
+        }
+        }
+      });
 
 </script>
