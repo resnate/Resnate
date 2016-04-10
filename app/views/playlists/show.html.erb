@@ -241,6 +241,16 @@ sort: function(event, ui) {
    }
 });
     }
-      });
+    });
+
+	$('.bigPlaylistFollow').click(function(){
+  $(".bigPlaylistFollow").css("display", "none");
+  $(".bigPlaylistUnfollow").css("display", "block");
+});
+
+$('.bigPlaylistUnfollow').click(function(){
+  $(".bigPlaylistUnfollow").css("display", "none");
+  $(".bigPlaylistFollow").css("display", "block");
+});
 
 </script>
