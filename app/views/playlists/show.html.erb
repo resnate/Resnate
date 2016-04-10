@@ -215,7 +215,7 @@ sort: function(event, ui) {
 });
     },
     receive: function(event, ui){
-
+    	$(ui.draggable).css('width', 'calc(100% - 15px');
       var updatePlaylistURL = '/playlists/' + $(this).siblings('.hiddenPlaylistID').html();
     var playlistContent = [];
       $(this).children('li').each(function(){

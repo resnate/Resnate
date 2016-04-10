@@ -1337,6 +1337,7 @@ function songDroppable(event, ui) {
           playlistContent = JSON.parse(json["content"]);
             name = ui.draggable.find("p").text();
           value = ui.draggable.find("img").attr("src").slice(27,-12);
+          $(ui.draggable).css('width', 'calc(100% - 15px');
           var playlistObject = {};
           playlistObject[name] = value;
 
@@ -1357,54 +1358,6 @@ function songDroppable(event, ui) {
         });
 
     }
-
-var sortable_opts = {
-    containment: '#searchNsee',
-sort: function(event, ui) {
-  $('.sidePlaylist').removeClass('dropPlaylist');
-  $(ui.helper).removeClass('videoResultsDivLi');
-  $(ui.helper).addClass('playlistSong playlistSongLi noclick');
-  $(ui.helper).css('width', '238px');
-    },
-    stop: function(){
-    var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
-    var playlistContent = [];
-      $(this).children('li').each(function(){
-        name = $(this).find('p').text().trim();
-        value = $(this).find('img').attr('src').slice(27,-12);
-        var playlistObject = {};
-        playlistObject[name] = value;
-        playlistContent.push(playlistObject);
-      });
-    $.ajax({
-   url: updatePlaylistURL ,
-   type: 'PUT',
-   data: {content: JSON.stringify(playlistContent)},
-   success: function(response) {
-   }
-});
-    },
-    receive: function(event, ui){
-
-      var updatePlaylistURL = '/playlists/' + $(this).parents('.dropdownPlaylistDiv').siblings('.hiddenPlaylistID').html();
-    var playlistContent = [];
-      $(this).children('li').each(function(){
-        name = $(this).find('p').text().trim();
-        value = $(this).find('img').attr('src').slice(27,-12);
-        var playlistObject = {};
-        playlistObject[name] = value;
-        playlistContent.push(playlistObject);
-      });
-    $.ajax({
-   url: updatePlaylistURL ,
-   type: 'PUT',
-   data: {content: JSON.stringify(playlistContent)},
-   success: function(response) {
-   }
-});
-    }
-      }
-
     
 
 
