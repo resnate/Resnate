@@ -337,10 +337,6 @@ textarea {
   text-align: center;
 }
 
-#videoResultsUberDiv {
-  display: none;
-}
-
 .sideUnfollowButton, sideFollowButton {
   color: white !important;
 }
@@ -1316,13 +1312,19 @@ tr {
   }
 
 
-.follow {
+.follow, .bigPlaylistFollow {
   background-color: lightgreen;
 }
 
-.unfollow {
+.unfollow, .bigPlaylistUnfollow {
   background-color: #FF0050;
   
+}
+
+.bigPlaylistFollow, .bigPlaylistUnfollow {
+  padding: 10px 20px;
+  margin: 10px 10px 20px 0px;
+  color: white;
 }
 
 
@@ -1695,7 +1697,7 @@ tr {
 }
 
 .bigPlaylistHeader {
-  margin: 15px 0 0 15px;
+  margin: 15px 15px 0 15px;
 }
 
 .bigPlaylistTracks {

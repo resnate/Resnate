@@ -16,6 +16,14 @@
 		<div class="deletePlaylistYes editDeleteBkgd">Yes</div>
 		<div class="deletePlaylistNo editDeleteBkgd">No</div>
 		<div class="hiddenPlaylistID"><%= @playlist.id %></div>
+	<% else %>
+		<% if current_user.follows?(@playlist) %>
+      		<%= button_to "Unfollow", unfollow_path(playlist: @playlist.id) , remote: true, method: :post , class: "bigPlaylistUnfollow", style: "display: block" %>
+      		<%= button_to "Follow", follow_path(playlist: @playlist.id) , remote: true, method: :post , class: "bigPlaylistFollow", style: "display: none" %>
+    	<% else %>
+        	<%= button_to "Follow", follow_path(playlist: @playlist.id) , remote: true, method: :post , class: "bigPlaylistFollow", style: "display: block" %>
+        	<%= button_to "Unfollow", unfollow_path(playlist: @playlist.id) , remote: true, method: :post , class: "bigPlaylistUnfollow", style: "display: none" %>
+    	<% end %>
 	<% end %>
 	<div class="description">
 		<% if @playlist.description.nil? && @playlist.user_id == current_user.id %>
