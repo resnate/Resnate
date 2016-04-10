@@ -333,6 +333,10 @@ textarea {
    }
 }
 
+#noResults {
+  text-align: center;
+}
+
 #videoResultsUberDiv {
   display: none;
 }
@@ -1691,7 +1695,11 @@ tr {
 }
 
 .bigPlaylistHeader {
-  margin: 15px 0;
+  margin: 15px 0 0 15px;
+}
+
+.bigPlaylistTracks {
+  margin-left: 15px;
 }
 
 .bigPlaylistInfo {
