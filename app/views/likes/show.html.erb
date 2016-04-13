@@ -18,3 +18,16 @@
 		</li>
 	<% end %>
 </div>
+
+<script type="text/javascript">
+
+	$(".playlistSongLi").click(function(){
+
+        
+        videoID = $(this).find('img').attr("src").slice(27,38);
+        
+        <%= render "layouts/videoClick" %>
+
+      });
+	
+</script>
