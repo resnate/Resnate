@@ -809,7 +809,7 @@ function friendsLikeArtist(){
     $('.dropdown-menu').html('');
     $.getJSON("../<%= current_user.id %>/userPlaylists.json",function(data){
 
-      $('.dropdown-menu').append('<li>New Playlist</li>')
+      $('.dropdown-menu').append('<li><a id="createBigNewPlaylist">New Playlist</a></li>')
 
         $(data).each(function(i,result){
         $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
@@ -818,6 +818,20 @@ function friendsLikeArtist(){
     });
 
     $(this).siblings('.btn-group').find('.dropdown-menu').toggle();
+
+    $('#createBigNewPlaylist').click(function(){
+      $.get('/newPlaylist', function(result){
+          $('#box2').html(result);
+        });
+        $('#container').animate({
+          top: '-100%'
+        });
+        $('#box2').animate({
+          top: '50%'
+        });
+        $('#box2').scrollTop(0);
+    });
+
   });
 
   $(document).click( function(e){

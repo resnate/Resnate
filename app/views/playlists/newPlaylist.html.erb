@@ -1,1 +1,91 @@
+<div class="bigPlaylistHeader">
 <img class="bigPlaylistPic" src="https://img.youtube.com/vi/<%= params[:content] %>/hqdefault.jpg"></img>
+
+<div class="bigPlaylistInfo">
+  <textarea class="editPlaylistName"></textarea>
+    <div class="bigSavePlaylist editDeleteBkgd">Save</div>
+    <div class="cancelEditingPlaylist editDeleteBkgd">Cancel</div>
+    <div class="cancelPlaylistPrompt">Are you sure you want to cancel this playlist?</div>
+    <div class="cancelPlaylistYes editDeleteBkgd">Yes</div>
+    <div class="cancelPlaylistNo editDeleteBkgd">No</div>
+  <div class="description">
+    <textarea class="descriptTxt" placeholder="Write about this playlist!"></textarea>
+  </div>
+
+</div>
+</div>
+
+<div class="bigPlaylistTracks">
+  <li class="playlistSong playlistSongLi">
+    <img class="playlistYT playlistSong" src="https://img.youtube.com/vi/<%= params[:content] %>/default.jpg"></img>
+    <p class="playlistSongP"><%= params[:name] %></p>
+  </li>
+</div>
+
+<script type="text/javascript">
+
+  $(".playlistSongLi").click(function(){
+
+        
+        videoID = $(this).find('img').attr("src").slice(27,38);
+        
+        <%= render "layouts/videoClick" %>
+
+      });
+
+  $('.cancelEditingPlaylist').click(function(){
+     $(this).siblings('.cancelPlaylistPrompt, .cancelPlaylistYes, .cancelPlaylistNo').css('display', 'inline-block');
+  });
+
+  $('.cancelPlaylistNo').click(function(){
+      $(this).hide();
+      $(this).siblings('.cancelPlaylistPrompt, .cancelPlaylistYes').hide();
+  });
+
+  $('.cancelPlaylistYes').click(function(){
+    profile();
+  });
+
+
+  $(".bigSavePlaylist").click(function(event){
+    var playlistContent = [];
+      $(this).parents('.bigPlaylistTracks').children('li').not($(this).parent()).each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
+        var playlistObject = {};
+        playlistObject[name] = value;
+        playlistContent.push(playlistObject);
+      });
+    var updateURL = "/playlists/" + playlistID;
+    var descriptionText = ""
+    var nameText = ""
+    if($('.descriptP').length > 0) {
+      descriptionText = $('.descriptP').html();
+    } else {
+      descriptionText = $('.descriptTxt').val();
+    }
+  
+    if($('.bigPlaylistName').length > 0) {
+      nameText = $('.bigPlaylistName').html();
+    } else {
+      nameText = $('.editPlaylistName').val();
+    }
+
+    if(descriptionText.length > 0 && nameText.length > 0) {
+      $.post('/playlists', { playlist: { name: nameText, description : descriptionText, content: playlistContent } } ).done(function( data ) {
+          $.get('/playlists/' + data, function(playlist){
+            $('#box2').html(playlist);
+          });
+        });
+    } else if (nameText.length > 0) {
+        $.post('/playlists', { playlist: { name: nameText, content: playlistContent } } ).done(function( data ) {
+          $.get('/playlists/' + data, function(playlist){
+            $('#box2').html(playlist);
+          });
+        });
+      }
+
+  });
+
+
+</script>
