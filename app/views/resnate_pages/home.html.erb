@@ -814,19 +814,6 @@ function friendsLikeArtist(){
         $(data).each(function(i,result){
         $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
     });
-
-        $('#createBigNewPlaylist').click(function(){
-      $.get('/newPlaylist', function(result){
-          $('#box2').html(result);
-        });
-        $('#container').animate({
-          top: '-100%'
-        });
-        $('#box2').animate({
-          top: '50%'
-        });
-        $('#box2').scrollTop(0);
-    });
       
     });
 
@@ -1298,6 +1285,20 @@ $(document).on('click', '.dropdown-menu li a', function(e){
 
 $('.dropdown-menu').toggle();
 
+});
+
+$(document).on('click', '#createBigNewPlaylist', function(e){
+  e.preventDefault();
+  $.get('/newPlaylist', function(result){
+          $('#box2').html(result);
+        });
+        $('#container').animate({
+          top: '-100%'
+        });
+        $('#box2').animate({
+          top: '50%'
+        });
+        $('#box2').scrollTop(0);
 });
 
 
