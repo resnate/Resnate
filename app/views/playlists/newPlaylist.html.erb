@@ -49,11 +49,13 @@
 
   $(".bigSavePlaylist").click(function(event){
     var playlistContent = [];
-        name = $('.bigPlaylistTracks li p').text().trim();
-        value = $('.bigPlaylistTracks li img').attr('src').slice(27,-12);
+      $('.bigPlaylistTracks').children('li').each(function(){
+        name = $(this).find('p').text().trim();
+        value = $(this).find('img').attr('src').slice(27,-12);
         var playlistObject = {};
         playlistObject[name] = value;
         playlistContent.push(playlistObject);
+      });
     var descriptionText = ""
     var nameText = ""
     if($('.descriptP').length > 0) {
@@ -75,7 +77,7 @@
           });
         });
     } else if (nameText.length > 0) {
-        $.post('/playlists', { playlist: { name: nameText, content: playlistContent } } ).done(function( data ) {
+        $.post('/playlists', { playlist: { name: nameText, content: JSON.stringify(playlistContent) } } ).done(function( data ) {
           $.get('/playlists/' + data, function(playlist){
             $('#box2').html(playlist);
           });
