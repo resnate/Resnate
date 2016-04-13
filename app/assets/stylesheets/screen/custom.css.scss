@@ -209,6 +209,10 @@ textarea {
   }
 }
 
+#hiddenBigPlaylistLis {
+  top: 200%;
+}
+
 #search_query {
   margin-left: 12px;
 }
@@ -1426,9 +1430,9 @@ tr {
 
 #userButton, .hiddenID, #getPlaylist, #getUpdatePlaylist, #result2, #result3, .hiddenURL, .jamID, .jamTitle,
 .hiddenPlaylistID, .hiddenYTName, .sharePlaylistID, #shareSubmit, #messageURL,
-#infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrentID, #stopID, .btn-default, .invisCount,
+#infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrboxentID, #stopID, .btn-default, .invisCount,
 #hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #hiddenPastGigsIDs, #pastSongkickGigID, .reviewGigID, #pastGigIDsSubmit, #new_gig, .lol, .hiddenUserID, .hiddenGigLocation, .hiddenArtistName, .hiddenGigDate, .hiddenReviewID, .infinite-scrolling .pagination, #hiddenFolloweesIDs,
-#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID, .hiddenActivityType, .mainInfinite-scrolling, #hiddenReviewRating, .msgGigReviews {
+#deletePlaylistID, .hiddenReviewerID, .hiddenCommentID, .hiddenActivityType, .mainInfinite-scrolling, #hiddenReviewRating, .msgGigReviews, .hidden {
   display: none;
 }
 
@@ -1702,7 +1706,7 @@ tr {
   vertical-align: top;
 }
 
-.bigPlaylistPic {
+.bigPlaylistPic, #bigPlaylistShare {
   margin-right: 15px;
 }
 
@@ -1714,7 +1718,7 @@ tr {
   margin-left: 15px;
 }
 
-.bigPlaylistInfo {
+.bigPlaylistInfo, #bigPlaylistShare {
   display: inline-block;
 }
 
@@ -2149,7 +2153,7 @@ tr {
   margin-top: 0px;
 }
 
-.feedCsImgFollow {
+.feedCsImgFollow, #bigPlaylistShare {
   height: 40px;
 }
 
@@ -2362,7 +2366,7 @@ z-index: 1050;
   vertical-align: middle;
 }
 
-.playlistImg, .latestImg, .inboxSong {
+.latestImg, .inboxSong {
   width: 120px;
   cursor: pointer;
 }

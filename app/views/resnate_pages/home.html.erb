@@ -249,6 +249,7 @@
 
 </div>
 
+<div id="hiddenBigPlaylistLis"></div>
 
 
 </div>
@@ -421,7 +422,7 @@ $('#currentTime').html(toHHMMSS(time));
               player.seekTo(0);
               player.pauseVideo()
                 if($('#stopID').html() == videoID){
-                  var thisVideo = $('.bigPlaylistTracks').find('li img[src="https://img.youtube.com/vi/'+videoID+'/default.jpg"]');
+                  var thisVideo = $('#hiddenBigPlaylistLis').find('li img[src="https://img.youtube.com/vi/'+videoID+'/default.jpg"]');
                   nextVideo = $(thisVideo).parent().next().find('.playlistYT');
                   nextVideo.click();
                 }
@@ -1472,6 +1473,7 @@ $(document).on('click', '.playlistInfo, #latestPlaylist, .userPlaylist, .feedPla
 
   $.get(playlistURL, function(result){
     $('#box2').html(result);
+    $('#hiddenBigPlaylistLis').html(result);
     });
     $('.modal').modal('hide');
     $('#container').animate({
@@ -1657,13 +1659,13 @@ $('#navButtons').on('click', '.glyphicon-play', function(){
     });
 
 $('#navButtons').on('click', '.glyphicon-fast-forward', function(){
-    var thisVideo2 = $('.bigPlaylistTracks').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/default.jpg"]');
+    var thisVideo2 = $('#hiddenBigPlaylistLis').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/default.jpg"]');
     var nextVideo2 = $(thisVideo2).parent().next().find('.playlistYT');
     nextVideo2.click();
   });
 
     $('#navButtons').on('click', '.glyphicon-fast-backward', function(){
-    var thisVideo2 = $('.bigPlaylistTracks').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/default.jpg"]');
+    var thisVideo2 = $('#hiddenBigPlaylistLis').find('li img[src="https://img.youtube.com/vi/'+$('#infoID').val()+'/default.jpg"]');
     var nextVideo2 = $(thisVideo2).parent().prev().find('.playlistYT');
     nextVideo2.click();
   });
