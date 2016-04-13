@@ -809,7 +809,7 @@ function friendsLikeArtist(){
     $('.dropdown-menu').html('');
     $.getJSON("../<%= current_user.id %>/userPlaylists.json",function(data){
 
-      $('.dropdown-menu').append('<li><a id="createBigNewPlaylist">New Playlist</a></li>')
+      $('.dropdown-menu').append('<li id="createBigNewPlaylist">New Playlist</li>')
 
         $(data).each(function(i,result){
         $('.dropdown-menu').append('<li><a href="'+result.id+'">'+result.name+'</a></li>')
