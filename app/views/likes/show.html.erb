@@ -1,9 +1,20 @@
-<% @likes.each do |likedSong| %>
-		<li class="playlistSong playlistSongLi">
+<div class="bigPlaylistHeader">
 
+	<img class="bigPlaylistPic" src="https://img.youtube.com/vi/<%= @firstLike %>/hqdefault.jpg"></img>
+
+	<div class="bigPlaylistInfo">
+		<h1 class="bigPlaylistName"><%= @user.first_name %>'s Likes</h1>
+	</div>
+
+</div>
+
+<div class="bigPlaylistTracks">
+	<% @likes.each do |likedSong| %>
+		<li class="playlistSong playlistSongLi">
 			<img class="playlistYT playlistSong" src="https://img.youtube.com/vi/<%= Song.find(likedSong.likeable_id).content %>/default.jpg"></img>
 			<p class="playlistSongP">
 				<%= Song.find(likedSong.likeable_id).name %>
 			</p>
 		</li>
-<% end %>
+	<% end %>
+</div>

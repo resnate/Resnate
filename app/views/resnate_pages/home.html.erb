@@ -1408,39 +1408,6 @@ $(dr).sortable(sortable_opts);
   });
 });
 
-$('#Playlist').on('click', '.sideLiked', function(e){
-  if(e.target.className.indexOf('playlistSong') != -1){
-    return;
-  }
-
-
-      var likesURL = '/' + $(this).find('.hiddenPlaylistID').html() + '/likes';
-      var likestID = $(this).find('.hiddenPlaylistID').html();
-
-        $.get(likesURL, function(result){
-          $('#Playlist').find('#dropdownLike' + likestID).html(result);
-          $('#dropdownLikeDiv' + likestID).toggle();
-        });
-      
-});
-
-$('#Playlist').on('click', '.dropdownPlaylist li, .dropdownLike li', function(e){
-  if ($(this).hasClass('noclick')) {
-        $(this).removeClass('noclick');
-    }
-
-    else if(e.target.className.indexOf('glyphicon-remove') != -1){
-      return;
-    }
-
-    else {
-        videoID = $(this).find('img').attr("src").slice(27,38);
-        
-        <%= render "layouts/videoClick" %>
-        $('.dropdownPlaylist li, .dropdownLike li').off('click');
-    }
-      
-    });
 
 $(document).on({
    mouseenter: function(){

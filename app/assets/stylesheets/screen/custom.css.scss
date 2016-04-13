@@ -210,7 +210,8 @@ textarea {
 }
 
 #hiddenBigPlaylistLis {
-  top: 200%;
+  top: 300%;
+  position: absolute;
 }
 
 #search_query {
@@ -1430,7 +1431,7 @@ tr {
 
 #userButton, .hiddenID, #getPlaylist, #getUpdatePlaylist, #result2, #result3, .hiddenURL, .jamID, .jamTitle,
 .hiddenPlaylistID, .hiddenYTName, .sharePlaylistID, #shareSubmit, #messageURL,
-#infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrboxentID, #stopID, .btn-default, .invisCount,
+#infoIDstuff, .thumbID, #likeOrNot, .likeTrue, #shareCurrentID, #stopID, .btn-default, .invisCount,
 #hiddenSongkickID, #hiddenGigsIDs, .hiddenGigID, #hiddenPastGigsIDs, #pastSongkickGigID, .reviewGigID, #pastGigIDsSubmit, #new_gig, .lol, .hiddenUserID, .hiddenGigLocation, .hiddenArtistName, .hiddenGigDate, .hiddenReviewID, .infinite-scrolling .pagination, #hiddenFolloweesIDs,
 #deletePlaylistID, .hiddenReviewerID, .hiddenCommentID, .hiddenActivityType, .mainInfinite-scrolling, #hiddenReviewRating, .msgGigReviews, .hidden {
   display: none;
