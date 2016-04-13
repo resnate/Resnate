@@ -1289,7 +1289,9 @@ $('.dropdown-menu').toggle();
 
 $(document).on('click', '#createBigNewPlaylist', function(e){
   e.preventDefault();
-  $.get('/newPlaylist', function(result){
+  name = $('#infoTitle').html();
+  content = $('#infoID').val();
+  $.get('/newPlaylist/' + content + '/' + name, function(result){
           $('#box2').html(result);
         });
         $('#container').animate({
