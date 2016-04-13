@@ -1291,7 +1291,7 @@ $(document).on('click', '#createBigNewPlaylist', function(e){
   e.preventDefault();
   name = $('#infoTitle').html();
   content = $('#infoID').val();
-  $.get('/newPlaylist/' + content + '/' + name, function(result){
+  $.get('/playlists/newPlaylist/' + content + '/' + name, function(result){
           $('#box2').html(result);
         });
         $('#container').animate({

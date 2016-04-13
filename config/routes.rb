@@ -35,7 +35,7 @@ Resnate::Application.routes.draw do
   get "/users/:id/badges" => "users#badges"
 
   get "/:id/playlistFollowers" => "playlists#playlistFollowers"
-  get "/newPlaylist/:content/:name" => "playlists#newPlaylist"
+  get "/playlists/newPlaylist/:content/:name" => "playlists#newPlaylist"
   post "/:id/:content/form" => "playlists#form"
   get "/:id/userPlaylists" => "users#userPlaylists"
 
