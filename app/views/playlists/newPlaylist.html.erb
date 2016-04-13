@@ -69,7 +69,7 @@
     }
 
     if(descriptionText.length > 0 && nameText.length > 0) {
-      $.post('/playlists', { playlist: { name: nameText, description : descriptionText, content: playlistContent } } ).done(function( data ) {
+      $.post('/playlists', { playlist: { name: nameText, description : descriptionText, content: JSON.stringify(playlistContent) } } ).done(function( data ) {
           $.get('/playlists/' + data, function(playlist){
             $('#box2').html(playlist);
           });
