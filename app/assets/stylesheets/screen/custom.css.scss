@@ -585,6 +585,10 @@ textarea {
   #createBigNewPlaylist {
     padding: 3px 20px;
     clear: both;
+    &:hover {
+      color: #E50049;
+      cursor: pointer;
+    }
   }
 
 .dropdown-menu {
