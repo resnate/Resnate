@@ -49,13 +49,11 @@
 
   $(".bigSavePlaylist").click(function(event){
     var playlistContent = [];
-      $(this).parents('.bigPlaylistTracks').children('li').not($(this).parent()).each(function(){
-        name = $(this).find('p').text().trim();
-        value = $(this).find('img').attr('src').slice(27,-12);
+        name = $('.bigPlaylistTracks li p').text().trim();
+        value = $('.bigPlaylistTracks li img').attr('src').slice(27,-12);
         var playlistObject = {};
         playlistObject[name] = value;
         playlistContent.push(playlistObject);
-      });
     var descriptionText = ""
     var nameText = ""
     if($('.descriptP').length > 0) {
